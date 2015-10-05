@@ -1,13 +1,15 @@
 c:\users\matias\documents\visual studio 2012\Projects\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csprojResolveAssemblyReference.cache
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Form1.resources
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.pdb
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ciudad.Form1.resources
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Login.Login.resources
-D:\Archivos\Installers\SQL TP GDD 2c 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.MainMenu.resources
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.pdb
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csprojResolveAssemblyReference.cache
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Rol.RolForm.resources
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Inicio.resources
+C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Login.Login.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Login
+namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Login : Form
+    public partial class Baja : Form
     {
-        public Login()
+        public Baja()
         {
             InitializeComponent();
         }
