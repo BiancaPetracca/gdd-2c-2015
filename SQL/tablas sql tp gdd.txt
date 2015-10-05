@@ -1,0 +1,80 @@
+CREATE TABLE CIUDAD
+(
+	ciu_id int primary key,
+	ciu_nombre nvarchar(50),
+)
+
+CREATE TABLE SERVICIO
+(
+	serv_id_servicio int primary key,
+	serv_nombre nvarchar(50),
+	serv_porcentaje_adicional int,		
+)
+
+CREATE TABLE RUTA_AEREA
+(
+	rut_codigo int primary key,
+	rut_origen nvarchar(50),
+	rut_destino nvarchar(50),
+	rut_tipo_servicio int foreign key
+	references SERVICIO(serv_id_servicio),
+	rut_precio_base money,
+	rut_precio_base_x_kg money,
+)
+
+CREATE TABLE ROL
+(
+	rol_id int primary key,
+	rol_nombre nvarchar(255)
+)
+
+CREATE TABLE USUARIO
+(
+	usu_dni decimal(8,0) primary key,
+	usu_nombre nvarchar(255) not null,
+	usu_fecha_nac datetime not null,
+	usu_apellido nvarchar(255) not null,
+	usu_direccion nvarchar(255) not null,
+	usu_telefono numeric(18,0) not null,
+	usu_mail nvarchar(255),
+	usu_rol int foreign key references ROL(rol_id),
+)
+
+CREATE TABLE AERONAVE
+(
+	aero_matricula nvarchar(255) primary key,
+	aero_numero_de_aeronave int not null,
+	aero_modelo nvarchar(255) not null,
+	aero_fabricante nvarchar(255) not null,
+	id_servicio int not null foreign key
+	references SERVICIO (serv_id_servicio),
+	aero_fecha_de_alta datetime not null,
+	aero_baja_fuera_de_servicio datetime,
+	aero_fecha_reinicio_servicio datetime,
+	aero_fecha_baja_definitiva datetime,
+	aero_cantidad_butacas_pasillo int not null,
+	aero_cantidad_butacas_ventanilla int not null,
+	aero_kgs_disponibles_encomiendas int not null,
+
+)
+
+CREATE TABLE VIAJE
+(
+	via_codigo int primary key,
+	via_fecha_salida datetime not null,
+	via_fecha_llegada datetime not null,
+	via_fecha_llegada_estimada datetime not null,
+	via_avion nvarchar(255) foreign key
+	references AERONAVE(Aero_matricula),
+
+)
+
+CREATE TABLE COMPRA
+(
+	com_id int primary key,
+	com_viaje int foreign key 
+	references VIAJE (via_codigo),
+	com_usuario_que_pago decimal(8,0) foreign key 
+	references USUARIO (usu_dni),
+)
+
