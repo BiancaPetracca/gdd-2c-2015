@@ -200,7 +200,7 @@
             // 
             // button_Limpiar
             // 
-            this.button_Limpiar.Location = new System.Drawing.Point(666, 426);
+            this.button_Limpiar.Location = new System.Drawing.Point(633, 426);
             this.button_Limpiar.Name = "button_Limpiar";
             this.button_Limpiar.Size = new System.Drawing.Size(75, 23);
             this.button_Limpiar.TabIndex = 5;
@@ -209,7 +209,7 @@
             // 
             // button_Guardar
             // 
-            this.button_Guardar.Location = new System.Drawing.Point(585, 426);
+            this.button_Guardar.Location = new System.Drawing.Point(543, 426);
             this.button_Guardar.Name = "button_Guardar";
             this.button_Guardar.Size = new System.Drawing.Size(75, 23);
             this.button_Guardar.TabIndex = 4;
@@ -218,7 +218,7 @@
             // 
             // button_Cerrar
             // 
-            this.button_Cerrar.Location = new System.Drawing.Point(747, 426);
+            this.button_Cerrar.Location = new System.Drawing.Point(726, 426);
             this.button_Cerrar.Name = "button_Cerrar";
             this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
             this.button_Cerrar.TabIndex = 6;
