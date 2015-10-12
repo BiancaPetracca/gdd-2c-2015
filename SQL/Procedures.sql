@@ -87,7 +87,6 @@ EXEC AWANTA.get_username'NicoBananaa';
 
 
 /*ABM CIUDAD*/
-/*NO EXISTE UN MODIFY PORQUE LAS CIUDADES NO CAMBIAN*/
 
 CREATE PROCEDURE AWANTA.get_all_cities
 AS 
@@ -111,7 +110,7 @@ AS
 BEGIN
 	SELECT *
 	FROM AWANTA.CIUDAD
-	WHERE ciu_nombre = @nombre_ciudad
+	WHERE ciu_nombre LIKE @nombre_ciudad
 END
 GO
 
@@ -121,6 +120,8 @@ BEGIN
 	INSERT INTO AWANTA.CIUDAD(AWANTA.CIUDAD.ciu_nombre) VALUES(@nombre_ciudad)
 END
 GO
+
+/*TODO DAR DE BAJA UNA CIUDAD*/
 
 /*ABM RUTA AEREA*/
 
@@ -147,7 +148,7 @@ BEGIN
 	SELECT rut_codigo, rut_destino, rut_origen, rut_tipo_servicio, rut_precio_base, rut_precio_base_x_kg
 	FROM AWANTA.RUTA_AEREA, AWANTA.CIUDAD
 	WHERE rut_destino = ciu_id AND
-	ciu_nombre = @destino
+	ciu_nombre LIKE @destino
 END
 GO
 
@@ -157,7 +158,7 @@ BEGIN
 	SELECT rut_codigo, rut_destino, rut_origen, rut_tipo_servicio, rut_precio_base, rut_precio_base_x_kg
 	FROM AWANTA.RUTA_AEREA, AWANTA.CIUDAD
 	WHERE rut_destino = ciu_id AND
-	ciu_nombre = @origen
+	ciu_nombre LIKE @origen
 END
 GO
 
@@ -167,7 +168,7 @@ BEGIN
 	SELECT rut_codigo, rut_destino, rut_origen, rut_tipo_servicio, rut_precio_base, rut_precio_base_x_kg
 	FROM AWANTA.RUTA_AEREA, AWANTA.SERVICIO
 	WHERE rut_tipo_servicio = serv_id_servicio AND
-	serv_nombre = @servicio
+	serv_nombre LIKE @servicio
 END
 GO
 
@@ -196,16 +197,33 @@ BEGIN
 	VALUES(
 	(SELECT c.ciu_id
 	FROM AWANTA.CIUDAD c
-	WHERE c.ciu_nombre = @ciudad_origen), 
+	WHERE c.ciu_nombre LIKE @ciudad_origen), 
 	(SELECT c.ciu_id
 	FROM AWANTA.CIUDAD c
-	WHERE c.ciu_nombre = @ciudad_destino), 
+	WHERE c.ciu_nombre LIKE @ciudad_destino), 
 	(SELECT s.serv_id_servicio
 	FROM AWANTA.SERVICIO s
-	WHERE s.serv_nombre = @servicio), 
+	WHERE s.serv_nombre LIKE @servicio), 
 	@precio_por_pasajero, @precio_por_pasajero)
 END
 GO
 
+CREATE PROCEDURE AWANTA.bajar_ruta (@codigo numeric(18))
+AS
+BEGIN
+	/*TODO CANCELAR TODOS LOS PASAJES QUE TENGAN LA RUTA*/
+	DELETE FROM AWANTA.RUTA_AEREA
+	WHERE rut_codigo = @codigo
+END
+GO
 
 
+/*ABM AERONAVE*/
+
+CREATE PROCEDURE AWANTA.get_all_aeronaves
+AS
+BEGIN
+	SELECT *
+	FROM AWANTA.AERONAVE
+END
+GO
