@@ -30,10 +30,11 @@
         {
             this.groupBox_SeleccionarRol = new System.Windows.Forms.GroupBox();
             this.dataGridView_SeleccionRol = new System.Windows.Forms.DataGridView();
+            this.button_Cerrar = new System.Windows.Forms.Button();
+            this.agregar = new System.Windows.Forms.Button();
             this.Indice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.button_Cerrar = new System.Windows.Forms.Button();
             this.groupBox_SeleccionarRol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_SeleccionRol)).BeginInit();
             this.SuspendLayout();
@@ -43,10 +44,11 @@
             this.groupBox_SeleccionarRol.Controls.Add(this.dataGridView_SeleccionRol);
             this.groupBox_SeleccionarRol.Location = new System.Drawing.Point(21, 12);
             this.groupBox_SeleccionarRol.Name = "groupBox_SeleccionarRol";
-            this.groupBox_SeleccionarRol.Size = new System.Drawing.Size(801, 408);
+            this.groupBox_SeleccionarRol.Size = new System.Drawing.Size(659, 399);
             this.groupBox_SeleccionarRol.TabIndex = 21;
             this.groupBox_SeleccionarRol.TabStop = false;
-            this.groupBox_SeleccionarRol.Text = "Seleccionar Rol";
+            this.groupBox_SeleccionarRol.Text = "Roles";
+            this.groupBox_SeleccionarRol.Enter += new System.EventHandler(this.groupBox_SeleccionarRol_Enter);
             // 
             // dataGridView_SeleccionRol
             // 
@@ -61,10 +63,28 @@
             this.Indice,
             this.Rol,
             this.Modificar});
-            this.dataGridView_SeleccionRol.Location = new System.Drawing.Point(169, 53);
+            this.dataGridView_SeleccionRol.Location = new System.Drawing.Point(21, 154);
             this.dataGridView_SeleccionRol.Name = "dataGridView_SeleccionRol";
-            this.dataGridView_SeleccionRol.Size = new System.Drawing.Size(472, 302);
+            this.dataGridView_SeleccionRol.Size = new System.Drawing.Size(620, 214);
             this.dataGridView_SeleccionRol.TabIndex = 0;
+            this.dataGridView_SeleccionRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_SeleccionRol_CellContentClick);
+            // 
+            // button_Cerrar
+            // 
+            this.button_Cerrar.Location = new System.Drawing.Point(605, 429);
+            this.button_Cerrar.Name = "button_Cerrar";
+            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.button_Cerrar.TabIndex = 1;
+            this.button_Cerrar.Text = "Cerrar";
+            this.button_Cerrar.UseVisualStyleBackColor = true;
+            // 
+            // agregar
+            // 
+            this.agregar.Location = new System.Drawing.Point(503, 429);
+            this.agregar.Name = "agregar";
+            this.agregar.Size = new System.Drawing.Size(75, 23);
+            this.agregar.TabIndex = 22;
+            this.agregar.Text = "Agregar";
             // 
             // Indice
             // 
@@ -80,28 +100,22 @@
             // 
             // Modificar
             // 
+            this.Modificar.FillWeight = 30F;
+            this.Modificar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Modificar.HeaderText = "Modificar";
             this.Modificar.Name = "Modificar";
             this.Modificar.Text = "Seleccionar";
             this.Modificar.UseColumnTextForButtonValue = true;
-            // 
-            // button_Cerrar
-            // 
-            this.button_Cerrar.Location = new System.Drawing.Point(747, 426);
-            this.button_Cerrar.Name = "button_Cerrar";
-            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
-            this.button_Cerrar.TabIndex = 1;
-            this.button_Cerrar.Text = "Cerrar";
-            this.button_Cerrar.UseVisualStyleBackColor = true;
             // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(692, 451);
+            this.ClientSize = new System.Drawing.Size(721, 474);
             this.Controls.Add(this.button_Cerrar);
             this.Controls.Add(this.groupBox_SeleccionarRol);
+            this.Controls.Add(this.agregar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -120,9 +134,11 @@
         private System.Windows.Forms.GroupBox groupBox_SeleccionarRol;
         private System.Windows.Forms.DataGridView dataGridView_SeleccionRol;
         private System.Windows.Forms.Button button_Cerrar;
+        private System.Windows.Forms.Button agregar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Indice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rol;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+
     }
 
     }

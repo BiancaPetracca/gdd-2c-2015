@@ -39,8 +39,22 @@ namespace AerolineaFrba
 
         private void rolABM_Click(object sender, EventArgs e)
         {
-            Abm_Rol.RolForm a = new Abm_Rol.RolForm();
+            Abm_Rol.Listado a = new Abm_Rol.Listado();
+            a.MdiParent = this;
+            a.Dock = DockStyle.Fill;
+            a.WindowState = FormWindowState.Maximized;
             a.Show();
+
+        }
+
+        private void aeronaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Abm_Aeronave.Aeronave aeronave = new Abm_Aeronave.Aeronave();
+            aeronave.MdiParent = this;
+            aeronave.Dock = DockStyle.Fill;
+            aeronave.WindowState = FormWindowState.Maximized;
+            aeronave.Show();
+
         }
 
     }

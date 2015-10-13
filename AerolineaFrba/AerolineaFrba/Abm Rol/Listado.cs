@@ -16,5 +16,15 @@ namespace AerolineaFrba.Abm_Rol
         {
             InitializeComponent();
         }
+
+        private void dataGridView_SeleccionRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void groupBox_SeleccionarRol_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

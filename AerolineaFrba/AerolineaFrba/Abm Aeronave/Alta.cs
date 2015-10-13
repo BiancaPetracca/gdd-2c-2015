@@ -16,5 +16,31 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             InitializeComponent();
         }
+
+        private void fabricante_TextChanged(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void Alta_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void aceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void lugar_butacas_Click(object sender, EventArgs e)
+        {
+            Abm_Aeronave.Butacas butacas = new Butacas();
+            butacas.Show();
+        }
     }
 }

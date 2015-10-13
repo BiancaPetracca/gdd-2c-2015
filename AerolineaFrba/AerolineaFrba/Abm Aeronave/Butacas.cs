@@ -8,18 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Rol
+namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Alta : Form
+    public partial class Butacas : Form
     {
-        public Alta()
+        public Butacas()
         {
             InitializeComponent();
         }
 
-        private void dataGridView_ListaFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void cancelar_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
+
+        private void aceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
     }
 }
