@@ -40,13 +40,12 @@
             this.ciudadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasajeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.encomiendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devolucionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarMillasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listadoEstadistico = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDeLlegadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesion = new System.Windows.Forms.ToolStripMenuItem();
             this.salir = new System.Windows.Forms.ToolStripMenuItem();
-            this.registroDeLlegadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verListadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +59,6 @@
             this.aeronaveToolStripMenuItem,
             this.ciudadToolStripMenuItem,
             this.operacionToolStripMenuItem,
-            this.listadoEstadistico,
             this.registroDeLlegadaToolStripMenuItem,
             this.cerrarSesion,
             this.salir});
@@ -138,9 +136,9 @@
             // 
             this.operacionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pasajeToolStripMenuItem,
-            this.encomiendaToolStripMenuItem,
             this.devolucionToolStripMenuItem,
-            this.consultarMillasToolStripMenuItem});
+            this.consultarMillasToolStripMenuItem,
+            this.verListadoEstadísticoToolStripMenuItem});
             this.operacionToolStripMenuItem.Name = "operacionToolStripMenuItem";
             this.operacionToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
             this.operacionToolStripMenuItem.Text = "Operaciones";
@@ -149,32 +147,28 @@
             // pasajeToolStripMenuItem
             // 
             this.pasajeToolStripMenuItem.Name = "pasajeToolStripMenuItem";
-            this.pasajeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.pasajeToolStripMenuItem.Text = "Pasaje";
-            // 
-            // encomiendaToolStripMenuItem
-            // 
-            this.encomiendaToolStripMenuItem.Name = "encomiendaToolStripMenuItem";
-            this.encomiendaToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.encomiendaToolStripMenuItem.Text = "Encomienda";
+            this.pasajeToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.pasajeToolStripMenuItem.Text = "Comprar Pasaje/Encomienda";
+            this.pasajeToolStripMenuItem.Click += new System.EventHandler(this.pasajeToolStripMenuItem_Click);
             // 
             // devolucionToolStripMenuItem
             // 
             this.devolucionToolStripMenuItem.Name = "devolucionToolStripMenuItem";
-            this.devolucionToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.devolucionToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.devolucionToolStripMenuItem.Text = "Devolucion";
             // 
             // consultarMillasToolStripMenuItem
             // 
             this.consultarMillasToolStripMenuItem.Name = "consultarMillasToolStripMenuItem";
-            this.consultarMillasToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.consultarMillasToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.consultarMillasToolStripMenuItem.Text = "Consultar millas";
             // 
-            // listadoEstadistico
+            // registroDeLlegadaToolStripMenuItem
             // 
-            this.listadoEstadistico.Name = "listadoEstadistico";
-            this.listadoEstadistico.Size = new System.Drawing.Size(116, 20);
-            this.listadoEstadistico.Text = "Listado estadístico";
+            this.registroDeLlegadaToolStripMenuItem.Name = "registroDeLlegadaToolStripMenuItem";
+            this.registroDeLlegadaToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
+            this.registroDeLlegadaToolStripMenuItem.Text = "Registro de llegada";
+            this.registroDeLlegadaToolStripMenuItem.Click += new System.EventHandler(this.registroDeLlegadaToolStripMenuItem_Click);
             // 
             // cerrarSesion
             // 
@@ -188,12 +182,11 @@
             this.salir.Size = new System.Drawing.Size(41, 20);
             this.salir.Text = "Salir";
             // 
-            // registroDeLlegadaToolStripMenuItem
+            // verListadoEstadísticoToolStripMenuItem
             // 
-            this.registroDeLlegadaToolStripMenuItem.Name = "registroDeLlegadaToolStripMenuItem";
-            this.registroDeLlegadaToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
-            this.registroDeLlegadaToolStripMenuItem.Text = "Registro de llegada";
-            this.registroDeLlegadaToolStripMenuItem.Click += new System.EventHandler(this.registroDeLlegadaToolStripMenuItem_Click);
+            this.verListadoEstadísticoToolStripMenuItem.Name = "verListadoEstadísticoToolStripMenuItem";
+            this.verListadoEstadísticoToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.verListadoEstadísticoToolStripMenuItem.Text = "Ver listado estadístico";
             // 
             // Inicio
             // 
@@ -223,19 +216,18 @@
         private System.Windows.Forms.ToolStripMenuItem bajaCliente;
         private System.Windows.Forms.ToolStripMenuItem modificacionCliente;
         private System.Windows.Forms.ToolStripMenuItem operacionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem listadoEstadistico;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesion;
         private System.Windows.Forms.ToolStripMenuItem salir;
         private System.Windows.Forms.ToolStripMenuItem aeronaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ciudadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasajeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem encomiendaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rutaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devolucionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultarMillasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroDeLlegadaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verListadoEstadísticoToolStripMenuItem;
 
 
     }

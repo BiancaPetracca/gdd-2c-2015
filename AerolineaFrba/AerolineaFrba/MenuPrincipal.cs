@@ -90,5 +90,14 @@ namespace AerolineaFrba
             registroLlegada.Show();
         }
 
+        private void pasajeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Compra.Compra comprar = new Compra.Compra();
+            comprar.MdiParent = this;
+            comprar.Dock = DockStyle.Fill;
+            comprar.WindowState = FormWindowState.Maximized;
+            comprar.Show();
+        }
+
     }
 }

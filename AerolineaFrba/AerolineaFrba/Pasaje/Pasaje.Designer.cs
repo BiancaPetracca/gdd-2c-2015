@@ -1,6 +1,6 @@
-﻿namespace AerolineaFrba.Compra
+﻿namespace AerolineaFrba.Pasaje
 {
-    partial class Form1
+    partial class Pasaje
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Pasaje
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(394, 411);
+            this.Name = "Pasaje";
+            this.Text = "Pasaje";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
