@@ -162,6 +162,7 @@ CREATE TABLE AWANTA.RUTA_AEREA
 	references AWANTA.SERVICIO(serv_id_servicio),
 	rut_precio_base money not null,
 	rut_precio_base_x_kg money not null,
+	rut_habilitada char not null,
 )
 
 CREATE TABLE AWANTA.ROL
@@ -394,11 +395,34 @@ INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Prime
 INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Ejecutivo',AWANTA.porcentajeDadoUnServicio('Ejecutivo'));
 GO
 /*------MIGRACION DE LA TABLA RUTA_AEREA------*/
-													/*error de tipos en rut_tipo_servicio*/
-INSERT INTO AWANTA.RUTA_AEREA(rut_origen, rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg)
-	SELECT DISTINCT Ruta_Ciudad_Origen,Ruta_Ciudad_Destino,AWANTA.buscarIdServicio(Tipo_Servicio) as rut_tipo_servicio ,Ruta_Precio_BasePasaje,Ruta_Precio_BaseKG
-	FROM gd_esquema.Maestra
+
+CREATE FUNCTION AWANTA.buscarIdServicio(@Tipo_Servicio NVARCHAR(255))
+RETURNS NUMERIC(18)
+AS
+	BEGIN
+		DECLARE @numeroServicio NUMERIC(18)
+			SET @numeroServicio = (SELECT serv_id_servicio FROM AWANTA.SERVICIO WHERE @Tipo_Servicio = serv_nombre)
+		RETURN @numeroServicio
+	END 
 GO
+
+/*TESTEADO*/
+CREATE FUNCTION AWANTA.obtenerIdCiudad(@nombreCiudad NVARCHAR(255))
+RETURNS NUMERIC(18)
+AS
+	BEGIN
+		DECLARE @idCiudad NUMERIC(18)   
+			SET @idCiudad = (SELECT ciu_id FROM AWANTA.CIUDAD WHERE ciu_nombre LIKE '%' + @nombreCiudad)
+		RETURN @idCiudad
+	END
+GO
+
+/*TESTEADO*/												
+INSERT INTO AWANTA.RUTA_AEREA(rut_origen, rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg,rut_habilitada)
+SELECT DISTINCT AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio),Ruta_Precio_BasePasaje,Ruta_Precio_BaseKG,'H'
+FROM gd_esquema.Maestra
+GO
+
 
 /*------MIGRACION DE LA TABLA ROL------*/
 /*TESTEADO*/
@@ -511,25 +535,14 @@ GO
 
 /*------MIGRACION DE LA TABLA AERONAVE------*/
 
-/*TODO FIJARSE QUE NO HAY QUE ELIMINAR REPETIDOS DE LA TABLA MAESTRA*/
-
-CREATE FUNCTION AWANTA.buscarIdServicio(@Tipo_Servicio NVARCHAR(255))
-RETURNS NUMERIC(18)
-AS
-	BEGIN
-		DECLARE @numeroServicio NUMERIC(18)
-			SET @numeroServicio = (SELECT serv_id_servicio FROM AWANTA.SERVICIO WHERE @Tipo_Servicio = serv_nombre)
-		RETURN @numeroServicio
-	END 
-GO
-
 /*OBTENCION DE CANTIDAD DE BUTACAS DE LA AERONAVE*/
-CREATE FUNCTION AWANTA.obtenerButacasDeAeronave(@matricula NVARCHAR(255))
+CREATE FUNCTION AWANTA.obtenerButacasDeAeronave(@matricula NVARCHAR(255),@tipoButaca NVARCHAR(255))
 RETURNS INT
 AS
 	BEGIN
 		DECLARE @cantidadButacas INT
-		SET @cantidadButacas = (SELECT COUNT(DISTINCT Butaca_Nro) FROM gd_esquema.Maestra WHERE Aeronave_Matricula = @matricula)
+		SET @cantidadButacas = (SELECT COUNT(DISTINCT Butaca_Nro) FROM gd_esquema.Maestra WHERE Aeronave_Matricula = @matricula
+									AND Butaca_Tipo = @tipoButaca)
 		RETURN @cantidadButacas
 	END
 GO
@@ -542,24 +555,40 @@ FROM gd_esquema.Maestra
 GO
 
 	/*------MIGRACION DE LA CANTIDAD DE BUTACAS------*/
-	/*falta resolver el update aca*/
-	UPDATE AWANTA.AERONAVE 
-		SELECT COUNT(DISTINCT Butaca_Nro) FROM gd_esquema.Maestra gd
-		WHERE gd.Aeronave_Matricula = aero_matricula AND gd.Butaca_Tipo LIKE '%Pasillo'
-	GO
+	/*TESTEADO*/
+	DECLARE miCursor CURSOR FOR SELECT aero_matricula FROM AWANTA.AERONAVE
+	OPEN miCursor
+	DECLARE @matricula NVARCHAR(255)
+	DECLARE @cantButacasPasillo INT
+	DECLARE @cantButacasVentanilla INT
 
-		INSERT INTO AWANTA.AERONAVE(aero_cantidad_butacas_pasillo,aero_cantidad_butacas_ventanilla)
-		SELECT COUNT(DISTINCT Butaca_nro) FROM gd_esquema.Maestra gd
-		WHERE gd.Aeronave_Matricula = aero_matricula AND gd.Butaca_Tipo LIKE '%Ventanilla'
-	GO
+	FETCH FROM miCursor INTO @matricula
+
+	WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SET @cantButacasPasillo = (AWANTA.obtenerButacasDeAeronave(@matricula,'Pasillo'))
+			SET @cantButacasVentanilla = (AWANTA.obtenerButacasDeAeronave(@matricula,'Ventanilla'))
+			UPDATE AWANTA.AERONAVE  
+			SET aero_cantidad_butacas_pasillo = @cantButacasPasillo
+			WHERE aero_matricula = @matricula;
+			UPDATE AWANTA.AERONAVE  
+			SET aero_cantidad_butacas_ventanilla = @cantButacasVentanilla
+			WHERE aero_matricula = @matricula;
+
+			FETCH FROM miCursor INTO @matricula
+		END
+	CLOSE miCursor
+	DEALLOCATE miCursor
+GO			
 
 /*------MIGRACION DE LA TABLA VIAJE------*/
-DELETE FROM AWANTA.VIAJE
- 
-INSERT INTO AWANTA.VIAJE(via_fecha_salida,via_fecha_llegada,via_fecha_llegada_estimada,via_avion)
-SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,
-			(SELECT aero_numero_de_aeronave FROM AWANTA.AERONAVE WHERE aero_matricula = Aeronave_Matricula)
+/*TESTEADO*/
+INSERT INTO AWANTA.VIAJE(via_fecha_salida,via_fecha_llegada,via_fecha_llegada_estimada,via_avion,via_ruta_aerea)
+SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,Aeronave_Matricula,
+			(SELECT TOP 1 rut_codigo FROM AWANTA.RUTA_AEREA 
+			 WHERE AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino) = rut_destino AND 
+			 AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen) = rut_origen)
 FROM gd_esquema.Maestra
+GO
 
-/*------MIGRACION DE LA TABLA VIAJE------*/
 
