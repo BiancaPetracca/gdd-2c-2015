@@ -8,23 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Rol
+namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Listado : Form
+    public partial class Ruta : Form
     {
-        public Listado()
+        public Ruta()
         {
             InitializeComponent();
         }
 
-        private void dataGridView_SeleccionRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void groupBox_SeleccionarRol_Enter(object sender, EventArgs e)
-        {
-
+            this.Close();
         }
     }
 }

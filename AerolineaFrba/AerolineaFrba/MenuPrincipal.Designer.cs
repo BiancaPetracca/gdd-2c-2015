@@ -34,21 +34,10 @@
             this.altaCliente = new System.Windows.Forms.ToolStripMenuItem();
             this.bajaCliente = new System.Windows.Forms.ToolStripMenuItem();
             this.modificacionCliente = new System.Windows.Forms.ToolStripMenuItem();
-            this.cuentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altaCuenta = new System.Windows.Forms.ToolStripMenuItem();
-            this.bajaCuenta = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificacionCuenta = new System.Windows.Forms.ToolStripMenuItem();
             this.generarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rutaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altaToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.bToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bajaToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificacionToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.aeronaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ciudadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.bajaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificacionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.operacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasajeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encomiendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +46,7 @@
             this.listadoEstadistico = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesion = new System.Windows.Forms.ToolStripMenuItem();
             this.salir = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDeLlegadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,13 +55,13 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rolToolStripMenuItem,
             this.clienteToolStripMenuItem,
-            this.cuentaToolStripMenuItem,
             this.generarToolStripMenuItem,
             this.rutaToolStripMenuItem,
             this.aeronaveToolStripMenuItem,
             this.ciudadToolStripMenuItem,
             this.operacionToolStripMenuItem,
             this.listadoEstadistico,
+            this.registroDeLlegadaToolStripMenuItem,
             this.cerrarSesion,
             this.salir});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -116,76 +106,19 @@
             this.modificacionCliente.Size = new System.Drawing.Size(144, 22);
             this.modificacionCliente.Text = "Modificación";
             // 
-            // cuentaToolStripMenuItem
-            // 
-            this.cuentaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaCuenta,
-            this.bajaCuenta,
-            this.modificacionCuenta});
-            this.cuentaToolStripMenuItem.Name = "cuentaToolStripMenuItem";
-            this.cuentaToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.cuentaToolStripMenuItem.Text = "Cuenta";
-            this.cuentaToolStripMenuItem.Click += new System.EventHandler(this.cuentaToolStripMenuItem_Click);
-            // 
-            // altaCuenta
-            // 
-            this.altaCuenta.Name = "altaCuenta";
-            this.altaCuenta.Size = new System.Drawing.Size(144, 22);
-            this.altaCuenta.Text = "Alta";
-            // 
-            // bajaCuenta
-            // 
-            this.bajaCuenta.Name = "bajaCuenta";
-            this.bajaCuenta.Size = new System.Drawing.Size(144, 22);
-            this.bajaCuenta.Text = "Baja";
-            // 
-            // modificacionCuenta
-            // 
-            this.modificacionCuenta.Name = "modificacionCuenta";
-            this.modificacionCuenta.Size = new System.Drawing.Size(144, 22);
-            this.modificacionCuenta.Text = "Modificación";
-            // 
             // generarToolStripMenuItem
             // 
             this.generarToolStripMenuItem.Name = "generarToolStripMenuItem";
             this.generarToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.generarToolStripMenuItem.Text = "Generar viaje";
+            this.generarToolStripMenuItem.Click += new System.EventHandler(this.generarToolStripMenuItem_Click);
             // 
             // rutaToolStripMenuItem
             // 
-            this.rutaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaToolStripMenuItem2,
-            this.bajaToolStripMenuItem2,
-            this.modificacionToolStripMenuItem2});
             this.rutaToolStripMenuItem.Name = "rutaToolStripMenuItem";
             this.rutaToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.rutaToolStripMenuItem.Text = "Ruta";
-            // 
-            // altaToolStripMenuItem2
-            // 
-            this.altaToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bToolStripMenuItem});
-            this.altaToolStripMenuItem2.Name = "altaToolStripMenuItem2";
-            this.altaToolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
-            this.altaToolStripMenuItem2.Text = "Alta";
-            // 
-            // bToolStripMenuItem
-            // 
-            this.bToolStripMenuItem.Name = "bToolStripMenuItem";
-            this.bToolStripMenuItem.Size = new System.Drawing.Size(81, 22);
-            this.bToolStripMenuItem.Text = "B";
-            // 
-            // bajaToolStripMenuItem2
-            // 
-            this.bajaToolStripMenuItem2.Name = "bajaToolStripMenuItem2";
-            this.bajaToolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
-            this.bajaToolStripMenuItem2.Text = "Baja";
-            // 
-            // modificacionToolStripMenuItem2
-            // 
-            this.modificacionToolStripMenuItem2.Name = "modificacionToolStripMenuItem2";
-            this.modificacionToolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
-            this.modificacionToolStripMenuItem2.Text = "Modificacion";
+            this.rutaToolStripMenuItem.Click += new System.EventHandler(this.rutaToolStripMenuItem_Click);
             // 
             // aeronaveToolStripMenuItem
             // 
@@ -196,31 +129,10 @@
             // 
             // ciudadToolStripMenuItem
             // 
-            this.ciudadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaToolStripMenuItem1,
-            this.bajaToolStripMenuItem1,
-            this.modificacionToolStripMenuItem1});
             this.ciudadToolStripMenuItem.Name = "ciudadToolStripMenuItem";
             this.ciudadToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.ciudadToolStripMenuItem.Text = "Ciudad";
-            // 
-            // altaToolStripMenuItem1
-            // 
-            this.altaToolStripMenuItem1.Name = "altaToolStripMenuItem1";
-            this.altaToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
-            this.altaToolStripMenuItem1.Text = "Alta";
-            // 
-            // bajaToolStripMenuItem1
-            // 
-            this.bajaToolStripMenuItem1.Name = "bajaToolStripMenuItem1";
-            this.bajaToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
-            this.bajaToolStripMenuItem1.Text = "Baja";
-            // 
-            // modificacionToolStripMenuItem1
-            // 
-            this.modificacionToolStripMenuItem1.Name = "modificacionToolStripMenuItem1";
-            this.modificacionToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
-            this.modificacionToolStripMenuItem1.Text = "Modificacion";
+            this.ciudadToolStripMenuItem.Click += new System.EventHandler(this.ciudadToolStripMenuItem_Click);
             // 
             // operacionToolStripMenuItem
             // 
@@ -276,6 +188,13 @@
             this.salir.Size = new System.Drawing.Size(41, 20);
             this.salir.Text = "Salir";
             // 
+            // registroDeLlegadaToolStripMenuItem
+            // 
+            this.registroDeLlegadaToolStripMenuItem.Name = "registroDeLlegadaToolStripMenuItem";
+            this.registroDeLlegadaToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
+            this.registroDeLlegadaToolStripMenuItem.Text = "Registro de llegada";
+            this.registroDeLlegadaToolStripMenuItem.Click += new System.EventHandler(this.registroDeLlegadaToolStripMenuItem_Click);
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,30 +222,20 @@
         private System.Windows.Forms.ToolStripMenuItem altaCliente;
         private System.Windows.Forms.ToolStripMenuItem bajaCliente;
         private System.Windows.Forms.ToolStripMenuItem modificacionCliente;
-        private System.Windows.Forms.ToolStripMenuItem cuentaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem altaCuenta;
-        private System.Windows.Forms.ToolStripMenuItem bajaCuenta;
-        private System.Windows.Forms.ToolStripMenuItem modificacionCuenta;
         private System.Windows.Forms.ToolStripMenuItem operacionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listadoEstadistico;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesion;
         private System.Windows.Forms.ToolStripMenuItem salir;
         private System.Windows.Forms.ToolStripMenuItem aeronaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ciudadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem altaToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem bajaToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem modificacionToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pasajeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem encomiendaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rutaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem altaToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem bToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bajaToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem modificacionToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem devolucionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultarMillasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rolToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroDeLlegadaToolStripMenuItem;
 
 
     }

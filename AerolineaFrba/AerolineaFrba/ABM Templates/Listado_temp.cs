@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.ABM_Templates
 {
-    public partial class Listado : Form
+    public partial class Listado_temp : Form
     {
-        public Listado()
+        public Listado_temp()
         {
             InitializeComponent();
         }
