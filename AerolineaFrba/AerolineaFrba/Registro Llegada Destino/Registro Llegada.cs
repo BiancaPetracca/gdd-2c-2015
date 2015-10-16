@@ -8,13 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Ciudad
+namespace AerolineaFrba.Registro_Llegada_Destino
 {
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void agregar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

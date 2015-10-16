@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Generacion_Viaje
+namespace AerolineaFrba.Pasaje
 {
-    public partial class Form1 : Form
+    public partial class Pasaje : Form
     {
-        public Form1()
+        public Pasaje()
         {
             InitializeComponent();
         }

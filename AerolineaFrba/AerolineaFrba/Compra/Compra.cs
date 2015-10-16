@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class Form1 : Form
+    public partial class Compra : Form
     {
-        public Form1()
+        public Compra()
         {
             InitializeComponent();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros();
+            this.Close();
+            elegirPasajeros.Show();
         }
     }
 }

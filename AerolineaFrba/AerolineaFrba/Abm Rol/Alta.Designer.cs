@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.paner_Alta = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -38,14 +39,14 @@
             this.button_Agregar = new System.Windows.Forms.Button();
             this.label_Funcionalidad = new System.Windows.Forms.Label();
             this.dataGridView_ListaFuncionalidades = new System.Windows.Forms.DataGridView();
+            this.FUN_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label_Nombre = new System.Windows.Forms.Label();
             this.textBox_Nombre = new System.Windows.Forms.TextBox();
             this.button_Limpiar = new System.Windows.Forms.Button();
             this.button_Guardar = new System.Windows.Forms.Button();
             this.button_Cerrar = new System.Windows.Forms.Button();
-            this.FUN_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.paner_Alta.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ListaFuncionalidades)).BeginInit();
@@ -63,17 +64,18 @@
             this.paner_Alta.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.paner_Alta.Location = new System.Drawing.Point(12, 12);
             this.paner_Alta.Name = "paner_Alta";
-            this.paner_Alta.Size = new System.Drawing.Size(810, 406);
+            this.paner_Alta.Size = new System.Drawing.Size(974, 408);
             this.paner_Alta.TabIndex = 18;
             this.paner_Alta.TabStop = false;
             this.paner_Alta.Text = "Datos del Rol";
+            this.paner_Alta.Enter += new System.EventHandler(this.paner_Alta_Enter);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(55, 124);
+            this.label1.Location = new System.Drawing.Point(49, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 11;
@@ -82,7 +84,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(105, 123);
+            this.checkBox1.Location = new System.Drawing.Point(99, 56);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(73, 17);
             this.checkBox1.TabIndex = 10;
@@ -95,9 +97,9 @@
             this.groupBox1.Controls.Add(this.button_Agregar);
             this.groupBox1.Controls.Add(this.label_Funcionalidad);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox1.Location = new System.Drawing.Point(16, 166);
+            this.groupBox1.Location = new System.Drawing.Point(415, 19);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(377, 155);
+            this.groupBox1.Size = new System.Drawing.Size(453, 60);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Agregar Funcionalidad";
@@ -106,7 +108,7 @@
             // 
             this.comboBox_Funcionalidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Funcionalidad.FormattingEnabled = true;
-            this.comboBox_Funcionalidad.Location = new System.Drawing.Point(112, 67);
+            this.comboBox_Funcionalidad.Location = new System.Drawing.Point(97, 28);
             this.comboBox_Funcionalidad.Name = "comboBox_Funcionalidad";
             this.comboBox_Funcionalidad.Size = new System.Drawing.Size(232, 21);
             this.comboBox_Funcionalidad.TabIndex = 1;
@@ -114,19 +116,20 @@
             // button_Agregar
             // 
             this.button_Agregar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button_Agregar.Location = new System.Drawing.Point(296, 126);
+            this.button_Agregar.Location = new System.Drawing.Point(362, 28);
             this.button_Agregar.Name = "button_Agregar";
             this.button_Agregar.Size = new System.Drawing.Size(75, 23);
             this.button_Agregar.TabIndex = 2;
             this.button_Agregar.Text = "Agregar";
             this.button_Agregar.UseVisualStyleBackColor = true;
+            this.button_Agregar.Click += new System.EventHandler(this.button_Agregar_Click);
             // 
             // label_Funcionalidad
             // 
             this.label_Funcionalidad.AutoSize = true;
             this.label_Funcionalidad.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label_Funcionalidad.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label_Funcionalidad.Location = new System.Drawing.Point(33, 70);
+            this.label_Funcionalidad.Location = new System.Drawing.Point(18, 31);
             this.label_Funcionalidad.Name = "label_Funcionalidad";
             this.label_Funcionalidad.Size = new System.Drawing.Size(73, 13);
             this.label_Funcionalidad.TabIndex = 4;
@@ -140,71 +143,23 @@
             this.dataGridView_ListaFuncionalidades.AllowUserToResizeRows = false;
             this.dataGridView_ListaFuncionalidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_ListaFuncionalidades.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-        //    this.dataGridView_ListaFuncionalidades.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView_ListaFuncionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_ListaFuncionalidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FUN_ID,
             this.Funcionalidad,
             this.Eliminar});
-           // this.dataGridView_ListaFuncionalidades.GridColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridView_ListaFuncionalidades.Location = new System.Drawing.Point(411, 19);
+            this.dataGridView_ListaFuncionalidades.Location = new System.Drawing.Point(52, 85);
             this.dataGridView_ListaFuncionalidades.Name = "dataGridView_ListaFuncionalidades";
             this.dataGridView_ListaFuncionalidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView_ListaFuncionalidades.Size = new System.Drawing.Size(378, 373);
+            this.dataGridView_ListaFuncionalidades.Size = new System.Drawing.Size(893, 301);
             this.dataGridView_ListaFuncionalidades.TabIndex = 3;
             this.dataGridView_ListaFuncionalidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_ListaFuncionalidades_CellContentClick);
-            // 
-            // label_Nombre
-            // 
-            this.label_Nombre.AutoSize = true;
-            this.label_Nombre.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label_Nombre.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label_Nombre.Location = new System.Drawing.Point(55, 89);
-            this.label_Nombre.Name = "label_Nombre";
-            this.label_Nombre.Size = new System.Drawing.Size(44, 13);
-            this.label_Nombre.TabIndex = 1;
-            this.label_Nombre.Text = "Nombre";
-            // 
-            // textBox_Nombre
-            // 
-            this.textBox_Nombre.Location = new System.Drawing.Point(105, 86);
-            this.textBox_Nombre.MaxLength = 15;
-            this.textBox_Nombre.Name = "textBox_Nombre";
-            this.textBox_Nombre.Size = new System.Drawing.Size(232, 20);
-            this.textBox_Nombre.TabIndex = 0;
-            // 
-            // button_Limpiar
-            // 
-            this.button_Limpiar.Location = new System.Drawing.Point(633, 426);
-            this.button_Limpiar.Name = "button_Limpiar";
-            this.button_Limpiar.Size = new System.Drawing.Size(75, 23);
-            this.button_Limpiar.TabIndex = 5;
-            this.button_Limpiar.Text = "Limpiar";
-            this.button_Limpiar.UseVisualStyleBackColor = true;
-            // 
-            // button_Guardar
-            // 
-            this.button_Guardar.Location = new System.Drawing.Point(543, 426);
-            this.button_Guardar.Name = "button_Guardar";
-            this.button_Guardar.Size = new System.Drawing.Size(75, 23);
-            this.button_Guardar.TabIndex = 4;
-            this.button_Guardar.Text = "Guardar";
-            this.button_Guardar.UseVisualStyleBackColor = true;
-            // 
-            // button_Cerrar
-            // 
-            this.button_Cerrar.Location = new System.Drawing.Point(726, 426);
-            this.button_Cerrar.Name = "button_Cerrar";
-            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
-            this.button_Cerrar.TabIndex = 6;
-            this.button_Cerrar.Text = "Cerrar";
-            this.button_Cerrar.UseVisualStyleBackColor = true;
             // 
             // FUN_ID
             // 
             this.FUN_ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.FUN_ID.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
+            this.FUN_ID.DefaultCellStyle = dataGridViewCellStyle19;
             this.FUN_ID.HeaderText = "Índice";
             this.FUN_ID.Name = "FUN_ID";
             this.FUN_ID.ReadOnly = true;
@@ -213,30 +168,82 @@
             // Funcionalidad
             // 
             this.Funcionalidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.Funcionalidad.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
+            this.Funcionalidad.DefaultCellStyle = dataGridViewCellStyle20;
             this.Funcionalidad.HeaderText = "Funcionalidad";
             this.Funcionalidad.Name = "Funcionalidad";
             this.Funcionalidad.ReadOnly = true;
             // 
             // Eliminar
             // 
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.Plum;
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.Pink;
+            this.Eliminar.DefaultCellStyle = dataGridViewCellStyle21;
             this.Eliminar.FillWeight = 30F;
+            this.Eliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Eliminar.HeaderText = "Eliminar";
             this.Eliminar.Name = "Eliminar";
             this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Eliminar.Text = "Eliminar Fila";
             this.Eliminar.UseColumnTextForButtonValue = true;
-            this.Eliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Eliminar.DefaultCellStyle.ForeColor = System.Drawing.Color.Pink;
-            this.Eliminar.DefaultCellStyle.BackColor = System.Drawing.Color.Plum;
-            
+            // 
+            // label_Nombre
+            // 
+            this.label_Nombre.AutoSize = true;
+            this.label_Nombre.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label_Nombre.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label_Nombre.Location = new System.Drawing.Point(49, 30);
+            this.label_Nombre.Name = "label_Nombre";
+            this.label_Nombre.Size = new System.Drawing.Size(44, 13);
+            this.label_Nombre.TabIndex = 1;
+            this.label_Nombre.Text = "Nombre";
+            // 
+            // textBox_Nombre
+            // 
+            this.textBox_Nombre.Location = new System.Drawing.Point(99, 27);
+            this.textBox_Nombre.MaxLength = 15;
+            this.textBox_Nombre.Name = "textBox_Nombre";
+            this.textBox_Nombre.Size = new System.Drawing.Size(232, 20);
+            this.textBox_Nombre.TabIndex = 0;
+            this.textBox_Nombre.TextChanged += new System.EventHandler(this.textBox_Nombre_TextChanged);
+            // 
+            // button_Limpiar
+            // 
+            this.button_Limpiar.Location = new System.Drawing.Point(819, 426);
+            this.button_Limpiar.Name = "button_Limpiar";
+            this.button_Limpiar.Size = new System.Drawing.Size(75, 23);
+            this.button_Limpiar.TabIndex = 5;
+            this.button_Limpiar.Text = "Limpiar";
+            this.button_Limpiar.UseVisualStyleBackColor = true;
+            this.button_Limpiar.Click += new System.EventHandler(this.button_Limpiar_Click);
+            // 
+            // button_Guardar
+            // 
+            this.button_Guardar.Location = new System.Drawing.Point(726, 426);
+            this.button_Guardar.Name = "button_Guardar";
+            this.button_Guardar.Size = new System.Drawing.Size(75, 23);
+            this.button_Guardar.TabIndex = 4;
+            this.button_Guardar.Text = "Guardar";
+            this.button_Guardar.UseVisualStyleBackColor = true;
+            this.button_Guardar.Click += new System.EventHandler(this.button_Guardar_Click);
+            // 
+            // button_Cerrar
+            // 
+            this.button_Cerrar.Location = new System.Drawing.Point(911, 426);
+            this.button_Cerrar.Name = "button_Cerrar";
+            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.button_Cerrar.TabIndex = 6;
+            this.button_Cerrar.Text = "Cerrar";
+            this.button_Cerrar.UseVisualStyleBackColor = true;
+            this.button_Cerrar.Click += new System.EventHandler(this.button_Cerrar_Click);
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(834, 461);
+            this.ClientSize = new System.Drawing.Size(998, 461);
             this.Controls.Add(this.button_Limpiar);
             this.Controls.Add(this.button_Guardar);
             this.Controls.Add(this.button_Cerrar);

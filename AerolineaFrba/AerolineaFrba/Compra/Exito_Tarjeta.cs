@@ -8,23 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Rol
+namespace AerolineaFrba.Compra
 {
-    public partial class Listado : Form
+    public partial class Exito_Tarjeta : Form
     {
-        public Listado()
+        public Exito_Tarjeta()
         {
             InitializeComponent();
         }
 
-        private void dataGridView_SeleccionRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void groupBox_SeleccionarRol_Enter(object sender, EventArgs e)
-        {
-
+            this.Close();
         }
     }
 }

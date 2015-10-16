@@ -47,7 +47,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void borrar_Click(object sender, EventArgs e)
         {
-           
+            Abm_Aeronave.Baja baja = new Baja();
+            baja.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

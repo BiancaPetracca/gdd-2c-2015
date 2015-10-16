@@ -16,5 +16,32 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             InitializeComponent();
         }
+
+        private void Baja_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void aceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e) // para la fecha de reinicio
+        {
+            System.Windows.Forms.MonthCalendar calendar = new MonthCalendar();
+            calendar.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)  // para la fecha de baja
+        {
+            System.Windows.Forms.MonthCalendar calendar = new MonthCalendar();
+            calendar.Show();
+        }
     }
 }
