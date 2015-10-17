@@ -22,25 +22,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
-        private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Abm_Aeronave.Butacas butaca = new Butacas();
-            butaca.Show();
-        }
-
         private void agregar_Click(object sender, EventArgs e)
         {
             Abm_Aeronave.Alta alta = new Alta();
             alta.Show();
         }
-
-        private void modificar_Click(object sender, EventArgs e)
-        {
-            Abm_Aeronave.Modificacion modificacion = new Modificacion();
-            modificacion.Show();
-        }
-
-       
+      
 
         private void borrar_Click(object sender, EventArgs e)
         {
@@ -51,6 +38,23 @@ namespace AerolineaFrba.Abm_Aeronave
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buscadorExacto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Modificar_Click_1(object sender, EventArgs e)
+        {
+            Abm_Aeronave.Modificacion modificacion = new Modificacion();
+            modificacion.Show();
+        }
+
+        private void verButacas_Click(object sender, EventArgs e)
+        {
+            Butacas butacas = new Butacas();
+            butacas.Show();
         }
     }
 }

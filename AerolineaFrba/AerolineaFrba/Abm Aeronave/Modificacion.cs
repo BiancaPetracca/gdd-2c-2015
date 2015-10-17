@@ -29,6 +29,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void aceptar_Click(object sender, EventArgs e)
         {
+            try {
+                validarCampos();
+            }
+                catch (Exception excepcion){
+                    MessageBox.Show(excepcion.Message);
+                }
             this.Close();
         }
 
@@ -37,5 +43,26 @@ namespace AerolineaFrba.Abm_Aeronave
             Abm_Aeronave.Butacas butaca = new Butacas();
             butaca.Show();
         }
+
+
+       private void validarCampos()
+        {
+
+            var nombreInvalido = "";
+            var fabricanteInvalido = "";
+
+            if (nombre.Text == String.Empty)
+            {
+                nombreInvalido = "Inserte un nombre \n";
+            }
+            if (fabricante.Text == String.Empty)
+            {
+                fabricanteInvalido = "Inserte un fabricante";
+            }
+
+                throw new Exception(nombreInvalido + fabricanteInvalido);
+            }
+
+        }
     }
-}
+

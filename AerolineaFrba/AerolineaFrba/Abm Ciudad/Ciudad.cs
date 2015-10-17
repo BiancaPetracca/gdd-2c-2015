@@ -19,7 +19,8 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void agregar_Click(object sender, EventArgs e)
         {
-
+            Alta alta = new Alta();
+            alta.Show();
         }
 
         private void borrar_Click(object sender, EventArgs e)

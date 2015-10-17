@@ -16,5 +16,25 @@ namespace AerolineaFrba.Abm_Ciudad
         {
             InitializeComponent();
         }
+
+        private void agregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ciudad.Text == String.Empty)
+                {
+                   throw new Exception("Por favor, inserte un nombre");
+                }
+            }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
+        }
+
+        private void Cerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

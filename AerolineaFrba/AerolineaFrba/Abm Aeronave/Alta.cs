@@ -19,7 +19,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void fabricante_TextChanged(object sender, EventArgs e)
         {
-         
+
         }
 
         private void Alta_Load(object sender, EventArgs e)
@@ -38,9 +38,9 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 this.validarCampos();
             }
-            catch(Exception ex)
+            catch (Exception excepcion)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(excepcion.Message);
             }
             this.Close();
         }
@@ -53,17 +53,22 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void validarCampos()
         {
-            var valido = true;
 
-            foreach (var control in this.Controls.OfType<TextBox>())
+            var nombreInvalido = "";
+            var fabricanteInvalido = "";
+
+            if (nombre.Text == String.Empty)
             {
-                if (control.Text == String.Empty) valido = false;
+                nombreInvalido = "Inserte un nombre \n";
+            }
+            if (fabricante.Text == String.Empty)
+            {
+                fabricanteInvalido = "Inserte un fabricante";
             }
 
-            if (!valido){
-            throw new MissingFieldException("Campos vacíos");
+                throw new Exception(nombreInvalido + fabricanteInvalido);
             }
 
         }
     }
-}
+

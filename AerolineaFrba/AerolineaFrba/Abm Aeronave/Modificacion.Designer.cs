@@ -119,9 +119,19 @@
             // cantidad
             // 
             this.cantidad.Location = new System.Drawing.Point(134, 114);
+            this.cantidad.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             this.cantidad.Name = "cantidad";
             this.cantidad.Size = new System.Drawing.Size(47, 20);
             this.cantidad.TabIndex = 13;
+            this.cantidad.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             // 
             // aceptar
             // 
@@ -144,9 +154,24 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(134, 161);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
             this.numericUpDown1.TabIndex = 14;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // Modificacion
             // 
