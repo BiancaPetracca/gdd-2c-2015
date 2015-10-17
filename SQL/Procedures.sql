@@ -87,6 +87,7 @@ EXEC AWANTA.get_username'NicoBananaa';
 
 
 /*ABM CIUDAD*/
+/*NO ES NECESARIO, PERO SI ANDA, GENIAL*/
 
 CREATE PROCEDURE AWANTA.get_all_cities
 AS 
@@ -121,7 +122,6 @@ BEGIN
 END
 GO
 
-/*TODO DAR DE BAJA UNA CIUDAD*/
 
 /*ABM RUTA AEREA*/
 
@@ -218,12 +218,12 @@ END
 GO
 
 
-/*ABM AERONAVE*/
+/*ALTA VIAJE*/
 
-CREATE PROCEDURE AWANTA.get_all_aeronaves
+CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date)
 AS
 BEGIN
-	SELECT *
-	FROM AWANTA.AERONAVE
+	INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida)
+	VALUES(@avion, @llegada_estimada, @salida)
 END
 GO
