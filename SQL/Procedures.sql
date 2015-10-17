@@ -220,10 +220,15 @@ GO
 
 /*ALTA VIAJE*/
 
-CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date)
+CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date, @ciudad_origen nvarchar(255), @ciudad_destino nvarchar(255), @servicio nvarchar(255))
 AS
 BEGIN
-	INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida)
-	VALUES(@avion, @llegada_estimada, @salida)
+	INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
+	VALUES(@avion, @llegada_estimada, @salida,
+	(SELECT rut_codigo
+	FROM AWANTA.RUTA_AEREA
+	WHERE rut_destino = @ciudad_destino AND
+	rut_origen = @ciudad_origen AND
+	rut_tipo_servicio = (SELECT serv_id_servicio FROM AWANTA.SERVICIO WHERE serv_nombre = @servicio)))
 END
 GO
