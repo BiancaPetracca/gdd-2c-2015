@@ -67,6 +67,7 @@
             this.motivoBaja.Name = "motivoBaja";
             this.motivoBaja.Size = new System.Drawing.Size(157, 30);
             this.motivoBaja.TabIndex = 0;
+            this.motivoBaja.SelectedIndexChanged += new System.EventHandler(this.motivoBaja_SelectedIndexChanged);
             // 
             // label
             // 

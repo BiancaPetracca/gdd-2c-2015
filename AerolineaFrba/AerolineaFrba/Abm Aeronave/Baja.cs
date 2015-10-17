@@ -29,6 +29,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void aceptar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                validarCampos();
+            }
+            catch (Exception excepcion){
+                MessageBox.Show(excepcion.Message);
+            }
             this.Close();
         }
 
@@ -42,6 +49,20 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             System.Windows.Forms.MonthCalendar calendar = new MonthCalendar();
             calendar.Show();
+        }
+
+        private void validarCampos()
+        {
+            if (this.motivoBaja.CheckedItems.Count != 1)
+            {
+                throw new Exception("Por favor indique un motivo");
+            }
+       
+        }
+
+        private void motivoBaja_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
