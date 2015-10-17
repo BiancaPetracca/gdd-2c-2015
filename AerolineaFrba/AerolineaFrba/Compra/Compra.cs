@@ -19,8 +19,12 @@ namespace AerolineaFrba.Compra
 
         private void button3_Click(object sender, EventArgs e)
         {
+          
             Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros();
+            elegirPasajeros.MdiParent = this.MdiParent;
             this.Close();
+            elegirPasajeros.Dock = DockStyle.Fill;
+            elegirPasajeros.WindowState = FormWindowState.Maximized;
             elegirPasajeros.Show();
         }
     }

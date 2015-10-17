@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Canje_Millas
+namespace AerolineaFrba.Listado_Estadistico
 {
-    public partial class Exito_Efectivo : Form
+    public partial class Form1 : Form
     {
-        public Exito_Efectivo()
+        public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

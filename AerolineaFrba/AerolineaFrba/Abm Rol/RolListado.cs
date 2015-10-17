@@ -20,6 +20,10 @@ namespace AerolineaFrba.Abm_Rol
         private void agregar_Click(object sender, EventArgs e)
         {
             Abm_Rol.Alta alta = new Alta();
+            alta.MdiParent = this.MdiParent;
+            this.Close();
+            alta.Dock = DockStyle.Fill;
+            alta.WindowState = FormWindowState.Maximized;
             alta.Show();
         }
 

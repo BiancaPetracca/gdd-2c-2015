@@ -8,23 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Compra
+namespace AerolineaFrba.Devolucion
 {
-    public partial class Elegir_Pasajeros : Form
+    public partial class Devolver : Form
     {
-        public Elegir_Pasajeros()
+        public Devolver()
         {
             InitializeComponent();
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            Efectuar_Compra efectuar = new Efectuar_Compra();
-            efectuar.MdiParent = this.MdiParent;
-            efectuar.Dock = DockStyle.Fill;
-            efectuar.WindowState = FormWindowState.Maximized;
             this.Close();
-            efectuar.Show();
         }
     }
 }

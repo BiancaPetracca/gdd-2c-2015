@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Pasaje
+namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Pasaje : Form
+    public partial class Alta : Form
     {
-        public Pasaje()
+        public Alta()
         {
             InitializeComponent();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

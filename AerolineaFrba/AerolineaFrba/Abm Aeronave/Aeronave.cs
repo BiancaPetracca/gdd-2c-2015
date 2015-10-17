@@ -40,10 +40,7 @@ namespace AerolineaFrba.Abm_Aeronave
             modificacion.Show();
         }
 
-        private void Aeronave_Load(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void borrar_Click(object sender, EventArgs e)
         {

@@ -52,7 +52,7 @@ namespace AerolineaFrba
             Abm_Aeronave.Aeronave aeronave = new Abm_Aeronave.Aeronave();
             aeronave.MdiParent = this;
             aeronave.Dock = DockStyle.Fill;
-            aeronave.WindowState = FormWindowState.Maximized;
+        //    aeronave.WindowState = FormWindowState.Normal;
             aeronave.Show();
 
         }
@@ -97,6 +97,47 @@ namespace AerolineaFrba
             comprar.Dock = DockStyle.Fill;
             comprar.WindowState = FormWindowState.Maximized;
             comprar.Show();
+        }
+
+        private void devolucionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Devolucion.Devolver devolucion = new Devolucion.Devolver();
+            devolucion.MdiParent = this;
+            devolucion.Dock = DockStyle.Fill;
+            devolucion.WindowState = FormWindowState.Maximized;
+            devolucion.Show();
+        }
+
+        private void canjearMillasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Canje_Millas.Form1 canjear = new Canje_Millas.Form1();
+           canjear.MdiParent = this;
+            canjear.Dock = DockStyle.Fill;
+            canjear.WindowState = FormWindowState.Maximized;
+            canjear.Show();
+        }
+
+        private void consultarMillasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Consulta_Millas.Form1 consultar = new Consulta_Millas.Form1();
+            consultar.MdiParent = this;
+            consultar.Dock = DockStyle.Fill;
+            consultar.WindowState = FormWindowState.Maximized;
+            consultar.Show();
+        }
+
+        private void verListadoEstadísticoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Listado_Estadistico.Form1 listado = new Listado_Estadistico.Form1();
+            listado.MdiParent = this;
+            listado.Dock = DockStyle.Fill;
+            listado.WindowState = FormWindowState.Maximized;
+            listado.Show();
+        }
+
+        private void salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

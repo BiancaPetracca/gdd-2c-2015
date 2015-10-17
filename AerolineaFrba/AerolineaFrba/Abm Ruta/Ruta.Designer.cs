@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.filtros = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.filtro2 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
@@ -70,6 +70,15 @@
             this.groupBox.TabIndex = 5;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Rutas";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(826, 388);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Cerrar";
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // filtros
             // 
@@ -183,6 +192,7 @@
             this.agregar.Size = new System.Drawing.Size(75, 23);
             this.agregar.TabIndex = 2;
             this.agregar.Text = "Agregar";
+            this.agregar.Click += new System.EventHandler(this.agregar_Click);
             // 
             // modificar
             // 
@@ -191,6 +201,7 @@
             this.modificar.Size = new System.Drawing.Size(75, 23);
             this.modificar.TabIndex = 3;
             this.modificar.Text = "Modificar";
+            this.modificar.Click += new System.EventHandler(this.modificar_Click);
             // 
             // lista
             // 
@@ -244,15 +255,6 @@
             // 
             this.Column6.HeaderText = "Precio Base por Pasaje";
             this.Column6.Name = "Column6";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(826, 388);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Cerrar";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Ruta
             // 

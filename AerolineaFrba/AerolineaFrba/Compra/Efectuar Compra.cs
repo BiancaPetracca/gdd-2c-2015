@@ -19,11 +19,30 @@ namespace AerolineaFrba.Compra
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Exito_Tarjeta exitoTarjeta = new Exito_Tarjeta();
-            exitoTarjeta.MdiParent = this;
-            exitoTarjeta.Dock = DockStyle.Fill;
-            exitoTarjeta.WindowState = FormWindowState.Maximized;
-            exitoTarjeta.Show();
+            if (comboBox1.ValueMember == "Efectivo")
+            {
+                Exito_Efectivo exitoEfectivo = new Exito_Efectivo();
+                exitoEfectivo.MdiParent = this.MdiParent;
+                exitoEfectivo.Dock = DockStyle.Fill;
+                exitoEfectivo.WindowState = FormWindowState.Maximized;
+                this.Close();
+                exitoEfectivo.Show();
+            }
+            else
+            {
+
+                Exito_Tarjeta exitoTarjeta = new Exito_Tarjeta();
+                exitoTarjeta.MdiParent = this.MdiParent;
+                exitoTarjeta.Dock = DockStyle.Fill;
+                exitoTarjeta.WindowState = FormWindowState.Maximized;
+                this.Close();
+                exitoTarjeta.Show();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

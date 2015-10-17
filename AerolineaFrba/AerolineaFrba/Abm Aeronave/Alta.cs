@@ -34,6 +34,14 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void aceptar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.validarCampos();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             this.Close();
         }
 
@@ -41,6 +49,21 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             Abm_Aeronave.Butacas butacas = new Butacas();
             butacas.Show();
+        }
+
+        private void validarCampos()
+        {
+            var valido = true;
+
+            foreach (var control in this.Controls.OfType<TextBox>())
+            {
+                if (control.Text == String.Empty) valido = false;
+            }
+
+            if (!valido){
+            throw new MissingFieldException("Campos vacíos");
+            }
+
         }
     }
 }

@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.agregar = new System.Windows.Forms.Button();
             this.borrar = new System.Windows.Forms.Button();
             this.modificar = new System.Windows.Forms.Button();
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.filtros = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.filtro2 = new System.Windows.Forms.Label();
@@ -54,11 +56,15 @@
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scroll_ = new System.Windows.Forms.ScrollableControl();
-            this.button1 = new System.Windows.Forms.Button();
+            this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
+            this.maestraBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.maestraTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.MaestraTableAdapter();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
             this.lista.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maestraBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // agregar
@@ -99,11 +105,20 @@
             this.groupBox.Controls.Add(this.lista);
             this.groupBox.Location = new System.Drawing.Point(12, 12);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(964, 438);
+            this.groupBox.Size = new System.Drawing.Size(976, 436);
             this.groupBox.TabIndex = 4;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Aeronaves";
             this.groupBox.Enter += new System.EventHandler(this.groupBox_Enter);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(871, 394);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Cerrar";
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // filtros
             // 
@@ -159,6 +174,7 @@
             // buscadorExacto
             // 
             this.buscadorExacto.Location = new System.Drawing.Point(163, 28);
+            this.buscadorExacto.MaxLength = 255;
             this.buscadorExacto.Name = "buscadorExacto";
             this.buscadorExacto.Size = new System.Drawing.Size(161, 20);
             this.buscadorExacto.TabIndex = 1;
@@ -278,14 +294,19 @@
             this.scroll_.Size = new System.Drawing.Size(0, 0);
             this.scroll_.TabIndex = 2;
             // 
-            // button1
+            // gD2C2015DataSet
             // 
-            this.button1.Location = new System.Drawing.Point(871, 394);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Cerrar";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.gD2C2015DataSet.DataSetName = "GD2C2015DataSet";
+            this.gD2C2015DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // maestraBindingSource
+            // 
+            this.maestraBindingSource.DataMember = "Maestra";
+            this.maestraBindingSource.DataSource = this.gD2C2015DataSet;
+            // 
+            // maestraTableAdapter
+            // 
+            this.maestraTableAdapter.ClearBeforeFill = true;
             // 
             // Aeronave
             // 
@@ -293,17 +314,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(988, 462);
+            this.ClientSize = new System.Drawing.Size(1000, 500);
             this.Controls.Add(this.groupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Aeronave";
             this.Text = "Aeronave";
-            this.Load += new System.EventHandler(this.Aeronave_Load);
+      
             this.groupBox.ResumeLayout(false);
             this.filtros.ResumeLayout(false);
             this.filtros.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).EndInit();
             this.lista.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maestraBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,6 +367,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.Button button1;
+        private GD2C2015DataSet gD2C2015DataSet;
+        private System.Windows.Forms.BindingSource maestraBindingSource;
+        private GD2C2015DataSetTableAdapters.MaestraTableAdapter maestraTableAdapter;
 
     }
 }
