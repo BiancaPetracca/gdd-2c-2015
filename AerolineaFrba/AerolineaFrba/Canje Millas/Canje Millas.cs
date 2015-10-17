@@ -22,9 +22,46 @@ namespace AerolineaFrba.Canje_Millas
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void RealizarCanje_Click(object sender, EventArgs e)
+        {
+            try { validarCampos(); }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
+
+        }
+
+        private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void validarCampos()
+        {
+
+            var cantidad = "";
+            var dni = "";
+            var invalido = false;
+
+            foreach (DataGridViewRow row in ProductosCanjear.Rows)
+            {
+                if (row == null)
+                {
+                    cantidad = "Inserte una cantidad";
+                    invalido = true;
+                }
+            }
+            if (DNI.Text == String.Empty)
+            {
+                dni = "Inserte un DNI";
+                invalido = true;
+            }
+            if (invalido)
+            throw new Exception(dni + cantidad);
+
+
+
         }
     }
 }
