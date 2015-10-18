@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Alta : Validaciones
+    public partial class Alta : TemplateForm
     {
         public Alta()
         {
@@ -25,23 +25,10 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            try { validarCampos(); }
-            catch (Exception excepcion)
-            {
-                show(excepcion);
-            }
+            validateAll(validate(this.Codigo) + validate(this.Servicio) +
+                    validate(this.Origen) +
+                    validate(this.Destino) + validate(this.PrecioPasaje) + validate(this.PrecioKG));
         }
 
-        private void validarCampos()
-        {
-            var invalidos = validate(this.Codigo) + validate(this.Servicio) +
-            validate(this.Origen) +
-            validate(this.Destino) + validate(this.PrecioPasaje) + validate(this.PrecioKG);
-
-            if(invalidos != String.Empty){
-                throw new Exception("Faltan los campos: \n" + invalidos);
-            }
-            
-        }
     }
 }

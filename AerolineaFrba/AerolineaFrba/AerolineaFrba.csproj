@@ -122,6 +122,7 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generics\Helper.cs" />
     <Compile Include="Generics\TemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>

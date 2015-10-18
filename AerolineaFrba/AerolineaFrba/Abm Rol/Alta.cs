@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Rol
 {
-    public partial class Alta : Form
+    public partial class Alta : TemplateForm
     {
         public Alta()
         {
@@ -49,7 +49,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void button_Agregar_Click(object sender, EventArgs e)
         {
-
+            validateAll(validate(textBox_Nombre) + validate(comboBox_Funcionalidad));
         }
     }
 }
