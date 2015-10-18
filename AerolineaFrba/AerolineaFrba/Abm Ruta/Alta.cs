@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Alta : Form
+    public partial class Alta : Validaciones
     {
         public Alta()
         {
@@ -27,33 +28,30 @@ namespace AerolineaFrba.Abm_Ruta
             try { validarCampos(); }
             catch (Exception excepcion)
             {
-                MessageBox.Show(excepcion.Message);
+                show(excepcion);
             }
         }
 
         private void validarCampos()
         {
-            var codigo = "";
-                var servicio = "";
-                    var ciudad = "";
-                            var precio= "";
+                var invalidos = validate(this.Codigo) + validate(this.Servicio) +
+                validate(this.Origen) +
+                validate(this.Destino);
 
-           if (this.Codigo.Text == String.Empty){
-                        codigo = "Inserte un código \n";
-                }
-            if (this.Servicio.CheckedItems.Count == 0){
-                servicio = "Elija un servicio \n";
+            if(invalidos != String.Empty){
+                throw new Exception(invalidos);
             }
-            if (this.Origen.SelectedIndex == -1 || this.Destino.SelectedIndex == -1)
+    
+      
+           /* if (this.Origen.SelectedIndex == -1 || this.Destino.SelectedIndex == -1)
             {
                 ciudad = "Elija una ciudad \n";
             }
             if (this.PrecioPasaje.Value == 0 || this.PrecioKG.Value == 0) {
                 precio = "Asigne un precio \n";
             }
-
-            throw new Exception(codigo + servicio + ciudad + precio);
-         
+           */
+            
         }
     }
 }

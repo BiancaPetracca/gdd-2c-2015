@@ -39,9 +39,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.Servicio = new System.Windows.Forms.CheckedListBox();
             this.PrecioKG = new System.Windows.Forms.NumericUpDown();
             this.PrecioPasaje = new System.Windows.Forms.NumericUpDown();
+            this.Servicio = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioKG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioPasaje)).BeginInit();
             this.SuspendLayout();
@@ -143,18 +143,6 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Precio base por pasaje";
             // 
-            // Servicio
-            // 
-            this.Servicio.FormattingEnabled = true;
-            this.Servicio.Items.AddRange(new object[] {
-            "Turista",
-            "Ejecutivo",
-            "Primera Clase"});
-            this.Servicio.Location = new System.Drawing.Point(165, 83);
-            this.Servicio.Name = "Servicio";
-            this.Servicio.Size = new System.Drawing.Size(93, 49);
-            this.Servicio.TabIndex = 14;
-            // 
             // PrecioKG
             // 
             this.PrecioKG.DecimalPlaces = 2;
@@ -171,14 +159,26 @@
             this.PrecioPasaje.Size = new System.Drawing.Size(120, 20);
             this.PrecioPasaje.TabIndex = 16;
             // 
+            // Servicio
+            // 
+            this.Servicio.FormattingEnabled = true;
+            this.Servicio.Items.AddRange(new object[] {
+            "Turista",
+            "Ejecutivo",
+            "Primera clase"});
+            this.Servicio.Location = new System.Drawing.Point(164, 100);
+            this.Servicio.Name = "Servicio";
+            this.Servicio.Size = new System.Drawing.Size(121, 21);
+            this.Servicio.TabIndex = 17;
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 403);
+            this.Controls.Add(this.Servicio);
             this.Controls.Add(this.PrecioPasaje);
             this.Controls.Add(this.PrecioKG);
-            this.Controls.Add(this.Servicio);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -212,9 +212,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckedListBox Servicio;
         private System.Windows.Forms.NumericUpDown PrecioKG;
         private System.Windows.Forms.NumericUpDown PrecioPasaje;
+        private System.Windows.Forms.ComboBox Servicio;
        
     }
 }
