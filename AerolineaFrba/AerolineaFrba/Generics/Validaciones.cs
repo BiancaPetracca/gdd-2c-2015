@@ -64,7 +64,13 @@ namespace AerolineaFrba
         }
 
 
-
+        public String validate(NumericUpDown numeric) {
+            var num = "";
+            if (numeric.Value == 0) {
+                num = numeric.Name + "\n"; 
+            }
+            return num;
+        }
 
 
         public void show(Exception e)

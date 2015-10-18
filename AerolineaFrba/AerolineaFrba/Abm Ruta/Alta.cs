@@ -34,23 +34,13 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void validarCampos()
         {
-                var invalidos = validate(this.Codigo) + validate(this.Servicio) +
-                validate(this.Origen) +
-                validate(this.Destino);
+            var invalidos = validate(this.Codigo) + validate(this.Servicio) +
+            validate(this.Origen) +
+            validate(this.Destino) + validate(this.PrecioPasaje) + validate(this.PrecioKG);
 
             if(invalidos != String.Empty){
-                throw new Exception(invalidos);
+                throw new Exception("Faltan los campos: \n" + invalidos);
             }
-    
-      
-           /* if (this.Origen.SelectedIndex == -1 || this.Destino.SelectedIndex == -1)
-            {
-                ciudad = "Elija una ciudad \n";
-            }
-            if (this.PrecioPasaje.Value == 0 || this.PrecioKG.Value == 0) {
-                precio = "Asigne un precio \n";
-            }
-           */
             
         }
     }
