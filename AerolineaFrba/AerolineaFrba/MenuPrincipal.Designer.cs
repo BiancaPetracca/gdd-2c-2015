@@ -111,7 +111,6 @@
             this.operacionToolStripMenuItem.Name = "operacionToolStripMenuItem";
             this.operacionToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
             this.operacionToolStripMenuItem.Text = "Operaciones";
-            this.operacionToolStripMenuItem.Click += new System.EventHandler(this.operacionToolStripMenuItem_Click);
             // 
             // pasajeToolStripMenuItem
             // 
