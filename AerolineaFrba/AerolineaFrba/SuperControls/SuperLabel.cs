@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperButton : Button, ISuperControls
+    public partial class SuperLabel : Label, ISuperControls
     {
-        public SuperButton()
+        public SuperLabel()
         {
             InitializeComponent();
         }
@@ -22,7 +22,8 @@ namespace AerolineaFrba.SuperControls
             base.OnPaint(pe);
         }
 
-        public Boolean valid() { return true; }
-
+        public Boolean valid() {
+            return true;
+        }
     }
 }
