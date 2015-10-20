@@ -208,6 +208,23 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION AWANTA.get_codigo_ruta(@origen nvarchar(255), @destino nvarchar(255), @servicio nvarchar(255))
+RETURNS NUMERIC(18)
+AS
+BEGIN
+	DECLARE @codigo numeric(18)
+	SET @codigo = (SELECT TOP 1 rut_codigo
+	FROM AWANTA.RUTA_AEREA, AWANTA.CIUDAD, AWANTA.SERVICIO
+	WHERE (rut_origen = ciu_id AND
+	ciu_nombre = @origen) AND
+	(rut_destino = ciu_id AND
+	ciu_nombre = @destino) AND
+	rut_tipo_servicio = serv_id_servicio AND
+	serv_nombre = @servicio)
+	RETURN @codigo
+END
+GO
+
 CREATE PROCEDURE AWANTA.bajar_ruta (@codigo numeric(18))
 AS
 BEGIN
@@ -224,11 +241,68 @@ CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada dat
 AS
 BEGIN
 	INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
-	VALUES(@avion, @llegada_estimada, @salida,
-	(SELECT rut_codigo
+	VALUES(@avion/*TODO ESTO CON LA FUNCION DE LA MATRICULA*/, @llegada_estimada, @salida,
+	AWANTA.get_codigo_ruta(@ciudad_origen, @ciudad_destino, @servicio))
+END
+GO
+
+/*LLEGADA A DESTINO*/
+
+CREATE PROCEDURE AWANTA.llegada_a_destino(@avion nvarchar(255), @ciudad_origen nvarchar(255), @servicio nvarchar(255), @ciudad_destino nvarchar(255), @llegada date)
+AS
+BEGIN
+	UPDATE AWANTA.VIAJE 
+	SET via_fecha_llegada = @llegada
+	WHERE via_avion = @avion /*TODO ESTO CON LA FUNCION DE LA MATRICULA*/ AND
+	via_ruta_aerea = (SELECT rut_codigo 
 	FROM AWANTA.RUTA_AEREA
-	WHERE rut_destino = @ciudad_destino AND
-	rut_origen = @ciudad_origen AND
-	rut_tipo_servicio = (SELECT serv_id_servicio FROM AWANTA.SERVICIO WHERE serv_nombre = @servicio)))
+	WHERE rut_origen = AWANTA.get_codigo_ruta(@ciudad_origen, @ciudad_destino, @servicio))
+END
+GO
+
+/*VENTA DE UN PASAJE*/
+
+CREATE PROCEDURE AWANTA.vender_pasaje (@terminal nvarchar(255), @tipo_doc nvarchar(255), @numero_doc numeric(18), @salida date, @origen nvarchar(255), @destino nvarchar(255),
+	@tipo nvarchar(255), @piso int)
+AS
+BEGIN
+	INSERT INTO AWANTA.COMPRA(compra_cliente, compra_terminal, compra_viaje)
+	VALUES((SELECT cli_codigo
+	FROM AWANTA.CLIENTE 
+	WHERE cli_tipo_doc = @tipo_doc AND cli_nro_doc = @numero_doc), 
+	(SELECT termina_id FROM AWANTA.TERMINAL 
+	WHERE terminal_tipo = @terminal), 
+	(SELECT via_codigo 
+	FROM AWANTA.VIAJE, AWANTA.RUTA_AEREA 
+	WHERE via_fecha_salida = @salida AND
+	via_ruta_aerea = rut_codigo AND
+	rut_origen = @origen AND
+	rut_destino = @destino))
+
+	DECLARE @compra_pasaje numeric(18)
+	SET @compra_pasaje = (SELECT compra_id
+	FROM AWANTA.COMPRA, AWANTA.CLIENTE, AWANTA.VIAJE, AWANTA.RUTA_AEREA
+	WHERE compra_cliente = cli_codigo AND 
+	cli_tipo_doc = @tipo_doc AND
+	cli_nro_doc = @numero_doc AND
+	compra_viaje = via_codigo AND
+	via_fecha_salida = @salida AND
+	via_ruta_aerea = rut_codigo AND
+	rut_origen = @origen AND
+	rut_destino = @destino)
+	
+	DECLARE @butaca_pasaje numeric(18)
+	SET @butaca_pasaje = (SELECT but_id 
+	FROM AWANTA.BUTACA
+	WHERE but_estado LIKE '%L%' AND
+	but_tipo = @tipo AND
+	but_piso = @piso)
+
+	UPDATE AWANTA.BUTACA
+	SET but_estado = 'R'
+	WHERE but_id = @butaca_pasaje
+
+	INSERT INTO AWANTA.PASAJE(pas_compra, pas_butaca)
+	VALUES(@compra_pasaje, @butaca_pasaje)
 END
 GO
