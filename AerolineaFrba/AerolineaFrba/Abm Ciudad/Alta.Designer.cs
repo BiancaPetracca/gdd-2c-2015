@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Ciudad
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Abm_Ciudad
 {
     partial class Alta
     {
@@ -28,9 +29,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ciudad = new System.Windows.Forms.TextBox();
-            this.agregar = new System.Windows.Forms.Button();
-            this.Cerrar = new System.Windows.Forms.Button();
+            this.ciudad = new SuperTextBox();
+            this.agregar = new SuperButton();
+            this.Cerrar = new SuperButton();
             this.SuspendLayout();
             // 
             // ciudad
@@ -77,8 +78,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox ciudad;
-        private System.Windows.Forms.Button agregar;
-        private System.Windows.Forms.Button Cerrar;
+        private SuperTextBox ciudad;
+        private SuperButton agregar;
+        private SuperButton Cerrar;
     }
 }

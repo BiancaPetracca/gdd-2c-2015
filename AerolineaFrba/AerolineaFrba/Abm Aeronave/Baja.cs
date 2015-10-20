@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Baja : Form
+    public partial class Baja : TemplateForm
     {
         public Baja()
         {
@@ -29,40 +29,18 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                validarCampos();
-            }
-            catch (Exception excepcion){
-                MessageBox.Show(excepcion.Message);
-            }
-            this.Close();
+            validateAll(this.Controls);
         }
 
         private void button2_Click(object sender, EventArgs e) // para la fecha de reinicio
         {
-            System.Windows.Forms.MonthCalendar calendar = new MonthCalendar();
-            calendar.Show();
+            Show(new MonthCalendar());
         }
 
         private void button1_Click(object sender, EventArgs e)  // para la fecha de baja
         {
-            System.Windows.Forms.MonthCalendar calendar = new MonthCalendar();
-            calendar.Show();
+            Show(new MonthCalendar());
         }
 
-        private void validarCampos()
-        {
-            if (this.motivoBaja.CheckedItems.Count != 1)
-            {
-                throw new Exception("Por favor indique un motivo");
-            }
-       
-        }
-
-        private void motivoBaja_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

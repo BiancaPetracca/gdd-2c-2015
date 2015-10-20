@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Aeronave
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Abm_Aeronave
 {
     partial class Alta
     {
@@ -28,22 +29,76 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nombre = new System.Windows.Forms.TextBox();
-            this.fabricante = new System.Windows.Forms.TextBox();
-            this.lugar_butacas = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.disponible = new System.Windows.Forms.CheckBox();
-            this.cantidad = new System.Windows.Forms.NumericUpDown();
-            this.aceptar = new System.Windows.Forms.Button();
-            this.cancelar = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.cantidad)).BeginInit();
+            this.numericUpDown1 = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.label6 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label4 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.nombre = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.fabricante = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.lugar_butacas = new AerolineaFrba.SuperControls.SuperButton();
+            this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
+            this.cantidad = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.disponible = new AerolineaFrba.SuperControls.SuperCheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cantidad)).BeginInit();
             this.SuspendLayout();
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(134, 161);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDown1.TabIndex = 14;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(28, 206);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 23);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Disponible";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(28, 163);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 23);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Vida Útil";
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(28, 117);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 23);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Butacas";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(28, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 23);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Fabricante";
             // 
             // nombre
             // 
@@ -51,6 +106,7 @@
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(112, 20);
             this.nombre.TabIndex = 0;
+            this.nombre.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nombre_MouseDown);
             // 
             // fabricante
             // 
@@ -77,44 +133,23 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Nombre";
             // 
-            // label2
+            // Aceptar
             // 
-            this.label2.Location = new System.Drawing.Point(28, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 23);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Fabricante";
+            this.Aceptar.Location = new System.Drawing.Point(273, 252);
+            this.Aceptar.Name = "Aceptar";
+            this.Aceptar.Size = new System.Drawing.Size(75, 23);
+            this.Aceptar.TabIndex = 11;
+            this.Aceptar.Text = "Aceptar";
+            this.Aceptar.Click += new System.EventHandler(this.Aceptar_Click);
             // 
-            // label3
+            // Cancelar
             // 
-            this.label3.Location = new System.Drawing.Point(28, 117);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 23);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Butacas";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(28, 163);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 23);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Vida Útil";
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(28, 206);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 23);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Disponible";
-            // 
-            // disponible
-            // 
-            this.disponible.Location = new System.Drawing.Point(134, 201);
-            this.disponible.Name = "disponible";
-            this.disponible.Size = new System.Drawing.Size(104, 24);
-            this.disponible.TabIndex = 15;
+            this.Cancelar.Location = new System.Drawing.Point(159, 252);
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.Size = new System.Drawing.Size(75, 23);
+            this.Cancelar.TabIndex = 12;
+            this.Cancelar.Text = "Cancelar";
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
             // cantidad
             // 
@@ -133,45 +168,12 @@
             0,
             0});
             // 
-            // aceptar
+            // disponible
             // 
-            this.aceptar.Location = new System.Drawing.Point(273, 252);
-            this.aceptar.Name = "aceptar";
-            this.aceptar.Size = new System.Drawing.Size(75, 23);
-            this.aceptar.TabIndex = 11;
-            this.aceptar.Text = "Aceptar";
-            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
-            // 
-            // cancelar
-            // 
-            this.cancelar.Location = new System.Drawing.Point(159, 252);
-            this.cancelar.Name = "cancelar";
-            this.cancelar.Size = new System.Drawing.Size(75, 23);
-            this.cancelar.TabIndex = 12;
-            this.cancelar.Text = "Cancelar";
-            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(134, 161);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown1.TabIndex = 14;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.disponible.Location = new System.Drawing.Point(134, 201);
+            this.disponible.Name = "disponible";
+            this.disponible.Size = new System.Drawing.Size(104, 24);
+            this.disponible.TabIndex = 15;
             // 
             // Alta
             // 
@@ -187,15 +189,14 @@
             this.Controls.Add(this.fabricante);
             this.Controls.Add(this.lugar_butacas);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.aceptar);
-            this.Controls.Add(this.cancelar);
+            this.Controls.Add(this.Aceptar);
+            this.Controls.Add(this.Cancelar);
             this.Controls.Add(this.cantidad);
             this.Controls.Add(this.disponible);
             this.Name = "Alta";
-            this.Text = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.cantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,18 +204,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox nombre;
-        private System.Windows.Forms.TextBox fabricante;
-        private System.Windows.Forms.Button lugar_butacas;
-        private System.Windows.Forms.CheckBox disponible;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button aceptar;
-        private System.Windows.Forms.Button cancelar;
-        private System.Windows.Forms.NumericUpDown cantidad;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private SuperTextBox nombre;
+        private SuperTextBox fabricante;
+        private SuperButton lugar_butacas;
+        private SuperCheckBox disponible;
+        private SuperLabel label1;
+        private SuperLabel label2;
+        private SuperLabel label3;
+        private SuperLabel label4;
+        private SuperLabel label6;
+        private SuperButton Aceptar;
+        private SuperButton Cancelar;
+        private SuperNumericUpDown cantidad;
+        private SuperNumericUpDown numericUpDown1;
     }
 }

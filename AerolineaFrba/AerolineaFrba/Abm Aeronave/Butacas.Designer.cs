@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Aeronave
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Abm_Aeronave
 {
     partial class Butacas
     {
@@ -29,16 +30,15 @@
         private void InitializeComponent()
         {
             this.grid = new System.Windows.Forms.DataGridView();
-            this.aceptar = new System.Windows.Forms.Button();
-            this.cancelar = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Guardar = new AerolineaFrba.SuperControls.SuperButton();
+            this.cancelar = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             this.SuspendLayout();
             // 
             // grid
             // 
-            this.grid.AllowUserToAddRows = false;
             this.grid.AllowUserToDeleteRows = false;
             this.grid.AllowUserToResizeColumns = false;
             this.grid.AllowUserToResizeRows = false;
@@ -49,24 +49,6 @@
             this.grid.Name = "grid";
             this.grid.Size = new System.Drawing.Size(243, 409);
             this.grid.TabIndex = 0;
-            // 
-            // aceptar
-            // 
-            this.aceptar.Location = new System.Drawing.Point(180, 438);
-            this.aceptar.Name = "aceptar";
-            this.aceptar.Size = new System.Drawing.Size(75, 23);
-            this.aceptar.TabIndex = 1;
-            this.aceptar.Text = "Aceptar";
-            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
-            // 
-            // cancelar
-            // 
-            this.cancelar.Location = new System.Drawing.Point(94, 438);
-            this.cancelar.Name = "cancelar";
-            this.cancelar.Size = new System.Drawing.Size(75, 23);
-            this.cancelar.TabIndex = 2;
-            this.cancelar.Text = "Cancelar";
-            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
             // 
             // Column1
             // 
@@ -84,13 +66,31 @@
             "Ventanilla"});
             this.Tipo.Name = "Tipo";
             // 
+            // Guardar
+            // 
+            this.Guardar.Location = new System.Drawing.Point(180, 438);
+            this.Guardar.Name = "Guardar";
+            this.Guardar.Size = new System.Drawing.Size(75, 23);
+            this.Guardar.TabIndex = 1;
+            this.Guardar.Text = "Guardar";
+            this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
+            // 
+            // cancelar
+            // 
+            this.cancelar.Location = new System.Drawing.Point(94, 438);
+            this.cancelar.Name = "cancelar";
+            this.cancelar.Size = new System.Drawing.Size(75, 23);
+            this.cancelar.TabIndex = 2;
+            this.cancelar.Text = "Cancelar";
+            this.cancelar.Click += new System.EventHandler(this.Cancelar_Click);
+            // 
             // Butacas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(272, 471);
             this.Controls.Add(this.grid);
-            this.Controls.Add(this.aceptar);
+            this.Controls.Add(this.Guardar);
             this.Controls.Add(this.cancelar);
             this.Name = "Butacas";
             this.Text = "Butacas";
@@ -102,8 +102,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView grid;
-        private System.Windows.Forms.Button aceptar;
-        private System.Windows.Forms.Button cancelar;
+        private SuperButton Guardar;
+        private SuperButton cancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewComboBoxColumn Tipo;
     }

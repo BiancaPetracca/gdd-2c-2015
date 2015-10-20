@@ -162,6 +162,12 @@
     <Compile Include="SuperControls\SuperDateTimePicker.Designer.cs">
       <DependentUpon>SuperDateTimePicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="SuperControls\SuperLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperLabel.Designer.cs">
+      <DependentUpon>SuperLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="SuperControls\SuperNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -348,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SuperControls\SuperDateTimePicker.resx">
       <DependentUpon>SuperDateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperLabel.resx">
+      <DependentUpon>SuperLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuperControls\SuperNumericUpDown.resx">
       <DependentUpon>SuperNumericUpDown.cs</DependentUpon>

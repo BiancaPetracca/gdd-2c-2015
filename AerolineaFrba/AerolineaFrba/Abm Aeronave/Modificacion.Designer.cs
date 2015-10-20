@@ -28,46 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nombre = new System.Windows.Forms.TextBox();
-            this.fabricante = new System.Windows.Forms.TextBox();
-            this.lugar_butacas = new System.Windows.Forms.Button();
+            this.Nombre = new System.Windows.Forms.TextBox();
+            this.Fabricante = new System.Windows.Forms.TextBox();
+            this.ElegirButacas = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.disponible = new System.Windows.Forms.CheckBox();
-            this.cantidad = new System.Windows.Forms.NumericUpDown();
-            this.aceptar = new System.Windows.Forms.Button();
-            this.cancelar = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.cantidad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.Disponible = new System.Windows.Forms.CheckBox();
+            this.Cantidad = new System.Windows.Forms.NumericUpDown();
+            this.Aceptar = new System.Windows.Forms.Button();
+            this.Cancelar = new System.Windows.Forms.Button();
+            this.VidaUtil = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.Cantidad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VidaUtil)).BeginInit();
             this.SuspendLayout();
             // 
-            // nombre
+            // Nombre
             // 
-            this.nombre.Location = new System.Drawing.Point(134, 32);
-            this.nombre.Name = "nombre";
-            this.nombre.Size = new System.Drawing.Size(112, 20);
-            this.nombre.TabIndex = 0;
+            this.Nombre.Location = new System.Drawing.Point(134, 32);
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Size = new System.Drawing.Size(112, 20);
+            this.Nombre.TabIndex = 0;
             // 
-            // fabricante
+            // Fabricante
             // 
-            this.fabricante.Location = new System.Drawing.Point(134, 75);
-            this.fabricante.Name = "fabricante";
-            this.fabricante.Size = new System.Drawing.Size(112, 20);
-            this.fabricante.TabIndex = 1;
-            this.fabricante.TextChanged += new System.EventHandler(this.fabricante_TextChanged);
+            this.Fabricante.Location = new System.Drawing.Point(134, 75);
+            this.Fabricante.Name = "Fabricante";
+            this.Fabricante.Size = new System.Drawing.Size(112, 20);
+            this.Fabricante.TabIndex = 1;
+            this.Fabricante.TextChanged += new System.EventHandler(this.fabricante_TextChanged);
             // 
-            // lugar_butacas
+            // ElegirButacas
             // 
-            this.lugar_butacas.Location = new System.Drawing.Point(273, 114);
-            this.lugar_butacas.Name = "lugar_butacas";
-            this.lugar_butacas.Size = new System.Drawing.Size(75, 23);
-            this.lugar_butacas.TabIndex = 3;
-            this.lugar_butacas.Text = "Elegir lugar";
-            this.lugar_butacas.Click += new System.EventHandler(this.lugar_butacas_Click);
+            this.ElegirButacas.Location = new System.Drawing.Point(273, 114);
+            this.ElegirButacas.Name = "ElegirButacas";
+            this.ElegirButacas.Size = new System.Drawing.Size(75, 23);
+            this.ElegirButacas.TabIndex = 3;
+            this.ElegirButacas.Text = "Elegir lugar";
+            this.ElegirButacas.Click += new System.EventHandler(this.lugar_butacas_Click);
             // 
             // label1
             // 
@@ -109,65 +109,65 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Disponible";
             // 
-            // disponible
+            // Disponible
             // 
-            this.disponible.Location = new System.Drawing.Point(134, 201);
-            this.disponible.Name = "disponible";
-            this.disponible.Size = new System.Drawing.Size(104, 24);
-            this.disponible.TabIndex = 15;
+            this.Disponible.Location = new System.Drawing.Point(134, 201);
+            this.Disponible.Name = "Disponible";
+            this.Disponible.Size = new System.Drawing.Size(104, 24);
+            this.Disponible.TabIndex = 15;
             // 
-            // cantidad
+            // Cantidad
             // 
-            this.cantidad.Location = new System.Drawing.Point(134, 114);
-            this.cantidad.Minimum = new decimal(new int[] {
+            this.Cantidad.Location = new System.Drawing.Point(134, 114);
+            this.Cantidad.Minimum = new decimal(new int[] {
             30,
             0,
             0,
             0});
-            this.cantidad.Name = "cantidad";
-            this.cantidad.Size = new System.Drawing.Size(47, 20);
-            this.cantidad.TabIndex = 13;
-            this.cantidad.Value = new decimal(new int[] {
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.Size = new System.Drawing.Size(47, 20);
+            this.Cantidad.TabIndex = 13;
+            this.Cantidad.Value = new decimal(new int[] {
             30,
             0,
             0,
             0});
             // 
-            // aceptar
+            // Aceptar
             // 
-            this.aceptar.Location = new System.Drawing.Point(273, 252);
-            this.aceptar.Name = "aceptar";
-            this.aceptar.Size = new System.Drawing.Size(75, 23);
-            this.aceptar.TabIndex = 11;
-            this.aceptar.Text = "Aceptar";
-            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
+            this.Aceptar.Location = new System.Drawing.Point(273, 252);
+            this.Aceptar.Name = "Aceptar";
+            this.Aceptar.Size = new System.Drawing.Size(75, 23);
+            this.Aceptar.TabIndex = 11;
+            this.Aceptar.Text = "Aceptar";
+            this.Aceptar.Click += new System.EventHandler(this.Aceptar_Click);
             // 
-            // cancelar
+            // Cancelar
             // 
-            this.cancelar.Location = new System.Drawing.Point(159, 252);
-            this.cancelar.Name = "cancelar";
-            this.cancelar.Size = new System.Drawing.Size(75, 23);
-            this.cancelar.TabIndex = 12;
-            this.cancelar.Text = "Cancelar";
-            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
+            this.Cancelar.Location = new System.Drawing.Point(159, 252);
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.Size = new System.Drawing.Size(75, 23);
+            this.Cancelar.TabIndex = 12;
+            this.Cancelar.Text = "Cancelar";
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
-            // numericUpDown1
+            // VidaUtil
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(134, 161);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.VidaUtil.Location = new System.Drawing.Point(134, 161);
+            this.VidaUtil.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.VidaUtil.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown1.TabIndex = 14;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.VidaUtil.Name = "VidaUtil";
+            this.VidaUtil.Size = new System.Drawing.Size(47, 20);
+            this.VidaUtil.TabIndex = 14;
+            this.VidaUtil.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -178,23 +178,23 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(369, 307);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.VidaUtil);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.nombre);
-            this.Controls.Add(this.fabricante);
-            this.Controls.Add(this.lugar_butacas);
+            this.Controls.Add(this.Nombre);
+            this.Controls.Add(this.Fabricante);
+            this.Controls.Add(this.ElegirButacas);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.aceptar);
-            this.Controls.Add(this.cancelar);
-            this.Controls.Add(this.cantidad);
-            this.Controls.Add(this.disponible);
+            this.Controls.Add(this.Aceptar);
+            this.Controls.Add(this.Cancelar);
+            this.Controls.Add(this.Cantidad);
+            this.Controls.Add(this.Disponible);
             this.Name = "Modificacion";
             this.Text = "Modificacion";
-            ((System.ComponentModel.ISupportInitialize)(this.cantidad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Cantidad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VidaUtil)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,18 +202,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox nombre;
-        private System.Windows.Forms.TextBox fabricante;
-        private System.Windows.Forms.Button lugar_butacas;
-        private System.Windows.Forms.CheckBox disponible;
+        private System.Windows.Forms.TextBox Nombre;
+        private System.Windows.Forms.TextBox Fabricante;
+        private System.Windows.Forms.Button ElegirButacas;
+        private System.Windows.Forms.CheckBox Disponible;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button aceptar;
-        private System.Windows.Forms.Button cancelar;
-        private System.Windows.Forms.NumericUpDown cantidad;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button Aceptar;
+        private System.Windows.Forms.Button Cancelar;
+        private System.Windows.Forms.NumericUpDown Cantidad;
+        private System.Windows.Forms.NumericUpDown VidaUtil;
     }
 }
