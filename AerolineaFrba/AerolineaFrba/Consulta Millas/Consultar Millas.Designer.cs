@@ -108,10 +108,10 @@
             this.dataGridView1.Size = new System.Drawing.Size(828, 183);
             this.dataGridView1.TabIndex = 0;
             // 
-            // button1
+            // Cerrar
             // 
             this.button1.Location = new System.Drawing.Point(801, 444);
-            this.button1.Name = "button1";
+            this.button1.Name = "Cerrar";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Cerrar";

@@ -17,21 +17,41 @@ namespace AerolineaFrba.Abm_Ruta
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void agregar_Click(object sender, EventArgs e)
+        private void Agregar_Click(object sender, EventArgs e)
         {
             Alta alta = new Alta();
             alta.Show();
         }
 
-        private void modificar_Click(object sender, EventArgs e)
+        private void Modificar_Click(object sender, EventArgs e)
         {
             Modificacion modificacion = new Modificacion();
             modificacion.Show();
+
+        }
+
+        private void Borrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Limpiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Buscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Seleccionar_Click(object sender, EventArgs e)
+        {
 
         }
 

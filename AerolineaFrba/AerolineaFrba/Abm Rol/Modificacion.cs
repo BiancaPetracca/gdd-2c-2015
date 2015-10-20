@@ -10,41 +10,48 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Rol
 {
-    public partial class Modificacion : Form
+    public partial class Modificacion : TemplateForm
     {
         public Modificacion()
         {
             InitializeComponent();
         }
 
-        private void Modificacion_Load(object sender, EventArgs e)
+        private void Guardar_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button_Guardar_Click(object sender, EventArgs e)
+        private void Limpiar_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button_Limpiar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button_Cerrar_Click(object sender, EventArgs e)
+        private void Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void button_Agregar_Click(object sender, EventArgs e)
+        private void AgregarFunc_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void textBox_Nombre_TextChanged(object sender, EventArgs e)
+        private void dataGridView_ListaFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+        private void Nombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Nombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            allowAlphaOnly(e);
+        }
+
     }
 }

@@ -180,10 +180,10 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Elegir viaje";
             // 
-            // button1
+            // Cerrar
             // 
             this.button1.Location = new System.Drawing.Point(613, 111);
-            this.button1.Name = "button1";
+            this.button1.Name = "Cerrar";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
             this.button1.Text = "Ok";

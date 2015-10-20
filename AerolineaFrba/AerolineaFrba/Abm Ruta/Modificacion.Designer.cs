@@ -127,7 +127,7 @@
             this.Origen.Name = "Origen";
             this.Origen.Size = new System.Drawing.Size(121, 21);
             this.Origen.TabIndex = 18;
-            this.Origen.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+       
             // 
             // Codigo
             // 

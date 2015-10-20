@@ -49,7 +49,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void button_Agregar_Click(object sender, EventArgs e)
         {
-            validateAll(validate(textBox_Nombre) + validate(comboBox_Funcionalidad));
+            validateAll(this.Controls);
         }
     }
 }

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox_SeleccionarRol = new System.Windows.Forms.GroupBox();
+            this.button_Cerrar = new System.Windows.Forms.Button();
             this.dataGridView_SeleccionRol = new System.Windows.Forms.DataGridView();
+            this.agregar = new System.Windows.Forms.Button();
             this.Indice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.button_Cerrar = new System.Windows.Forms.Button();
-            this.agregar = new System.Windows.Forms.Button();
             this.groupBox_SeleccionarRol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_SeleccionRol)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +50,16 @@
             this.groupBox_SeleccionarRol.TabIndex = 21;
             this.groupBox_SeleccionarRol.TabStop = false;
             this.groupBox_SeleccionarRol.Text = "Roles";
+            // 
+            // button_Cerrar
+            // 
+            this.button_Cerrar.Location = new System.Drawing.Point(843, 380);
+            this.button_Cerrar.Name = "button_Cerrar";
+            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.button_Cerrar.TabIndex = 1;
+            this.button_Cerrar.Text = "Cerrar";
+            this.button_Cerrar.UseVisualStyleBackColor = true;
+            this.button_Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
             // dataGridView_SeleccionRol
             // 
@@ -70,6 +80,15 @@
             this.dataGridView_SeleccionRol.TabIndex = 0;
             this.dataGridView_SeleccionRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_SeleccionRol_CellContentClick);
             // 
+            // agregar
+            // 
+            this.agregar.Location = new System.Drawing.Point(741, 380);
+            this.agregar.Name = "agregar";
+            this.agregar.Size = new System.Drawing.Size(75, 23);
+            this.agregar.TabIndex = 22;
+            this.agregar.Text = "Agregar";
+            this.agregar.Click += new System.EventHandler(this.Agregar_Click);
+            // 
             // Indice
             // 
             this.Indice.HeaderText = "Índice";
@@ -84,31 +103,15 @@
             // 
             // Modificar
             // 
+            this.Modificar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Modificar.FillWeight = 30F;
             this.Modificar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Modificar.HeaderText = "Modificar";
             this.Modificar.Name = "Modificar";
-            this.Modificar.Text = "Seleccionar";
+            this.Modificar.ReadOnly = true;
+            this.Modificar.Text = "Modificar";
             this.Modificar.UseColumnTextForButtonValue = true;
-            // 
-            // button_Cerrar
-            // 
-            this.button_Cerrar.Location = new System.Drawing.Point(843, 380);
-            this.button_Cerrar.Name = "button_Cerrar";
-            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
-            this.button_Cerrar.TabIndex = 1;
-            this.button_Cerrar.Text = "Cerrar";
-            this.button_Cerrar.UseVisualStyleBackColor = true;
-            this.button_Cerrar.Click += new System.EventHandler(this.button_Cerrar_Click);
-            // 
-            // agregar
-            // 
-            this.agregar.Location = new System.Drawing.Point(741, 380);
-            this.agregar.Name = "agregar";
-            this.agregar.Size = new System.Drawing.Size(75, 23);
-            this.agregar.TabIndex = 22;
-            this.agregar.Text = "Agregar";
-            this.agregar.Click += new System.EventHandler(this.agregar_Click);
+            this.Modificar.Width = 181;
             // 
             // RolListado
             // 

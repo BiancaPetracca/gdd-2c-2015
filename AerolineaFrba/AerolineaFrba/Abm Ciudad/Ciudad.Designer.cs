@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Cerrar = new System.Windows.Forms.Button();
             this.filtros = new System.Windows.Forms.GroupBox();
             this.filtro2 = new System.Windows.Forms.Label();
             this.buscador = new System.Windows.Forms.TextBox();
@@ -50,7 +50,7 @@
             // 
             // groupBox
             // 
-            this.groupBox.Controls.Add(this.button1);
+            this.groupBox.Controls.Add(this.Cerrar);
             this.groupBox.Controls.Add(this.filtros);
             this.groupBox.Controls.Add(this.borrar);
             this.groupBox.Controls.Add(this.agregar);
@@ -62,14 +62,15 @@
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Ciudades";
             // 
-            // button1
+            // Cerrar
             // 
-            this.button1.Location = new System.Drawing.Point(794, 391);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Cerrar";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Cerrar.Location = new System.Drawing.Point(794, 391);
+            this.Cerrar.Name = "Cerrar";
+            this.Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.Cerrar.TabIndex = 6;
+            this.Cerrar.Text = "Cerrar";
+            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
+
             // 
             // filtros
             // 
@@ -139,7 +140,7 @@
             this.borrar.Size = new System.Drawing.Size(75, 23);
             this.borrar.TabIndex = 1;
             this.borrar.Text = "Borrar";
-            this.borrar.Click += new System.EventHandler(this.borrar_Click);
+            this.borrar.Click += new System.EventHandler(this.Borrar_Click);
             // 
             // agregar
             // 
@@ -148,7 +149,7 @@
             this.agregar.Size = new System.Drawing.Size(75, 23);
             this.agregar.TabIndex = 2;
             this.agregar.Text = "Agregar";
-            this.agregar.Click += new System.EventHandler(this.agregar_Click);
+            this.agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // lista
             // 
@@ -163,7 +164,6 @@
             this.lista.Name = "lista";
             this.lista.Size = new System.Drawing.Size(853, 208);
             this.lista.TabIndex = 5;
-            this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
             // Column2
             // 
@@ -212,7 +212,7 @@
         private System.Windows.Forms.Button borrar;
         private System.Windows.Forms.Button agregar;
         private System.Windows.Forms.DataGridView lista;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Cerrar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewButtonColumn Column1;

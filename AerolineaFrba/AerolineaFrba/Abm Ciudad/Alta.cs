@@ -10,26 +10,16 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Ciudad
 {
-    public partial class Alta : Form
+    public partial class Alta : TemplateForm
     {
         public Alta()
         {
             InitializeComponent();
         }
 
-        private void agregar_Click(object sender, EventArgs e)
+        private void Agregar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (ciudad.Text == String.Empty)
-                {
-                   throw new Exception("Por favor, inserte un nombre");
-                }
-            }
-            catch (Exception excepcion)
-            {
-                MessageBox.Show(excepcion.Message);
-            }
+            validateAll(this.Controls);
         }
 
         private void Cerrar_Click(object sender, EventArgs e)

@@ -43,6 +43,7 @@
             this.registroDeLlegadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesion = new System.Windows.Forms.ToolStripMenuItem();
             this.salir = new System.Windows.Forms.ToolStripMenuItem();
+            this.pruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,8 @@
             this.operacionToolStripMenuItem,
             this.registroDeLlegadaToolStripMenuItem,
             this.cerrarSesion,
-            this.salir});
+            this.salir,
+            this.pruebaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1014, 24);
@@ -167,6 +169,13 @@
             this.salir.Text = "Salir";
             this.salir.Click += new System.EventHandler(this.salir_Click);
             // 
+            // pruebaToolStripMenuItem
+            // 
+            this.pruebaToolStripMenuItem.Name = "pruebaToolStripMenuItem";
+            this.pruebaToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.pruebaToolStripMenuItem.Text = "prueba";
+            this.pruebaToolStripMenuItem.Click += new System.EventHandler(this.pruebaToolStripMenuItem_Click);
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,6 +213,7 @@
         private System.Windows.Forms.ToolStripMenuItem registroDeLlegadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verListadoEstadísticoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem canjearMillasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pruebaToolStripMenuItem;
 
 
     }

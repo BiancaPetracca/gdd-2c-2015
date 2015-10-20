@@ -81,6 +81,11 @@ namespace AerolineaFrba
             this.Close();
         }
 
+        private void pruebaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openIntoParent(new AerolineaFrba.SuperControls.pruebasupers(), this);
+        }
+
        
 
     }

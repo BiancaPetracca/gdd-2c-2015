@@ -47,7 +47,7 @@
             this.agregar.Size = new System.Drawing.Size(75, 23);
             this.agregar.TabIndex = 1;
             this.agregar.Text = "Agregar";
-            this.agregar.Click += new System.EventHandler(this.agregar_Click);
+            this.agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // Cerrar
             // 

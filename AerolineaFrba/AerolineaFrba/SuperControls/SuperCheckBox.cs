@@ -8,25 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Ruta
+namespace AerolineaFrba.SuperControls
 {
-    public partial class Modificacion : TemplateForm
+    public partial class SuperCheckBox : CheckBox, ISuperControls
     {
-        public Modificacion()
+        public SuperCheckBox()
         {
             InitializeComponent();
         }
 
-        private void Modificar_Click(object sender, EventArgs e)
+        protected override void OnPaint(PaintEventArgs pe)
         {
-            validateAll(this.Controls); 
+            base.OnPaint(pe);
         }
 
-        private void Cerrar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-  
+        public Boolean valid() { return true; }
     }
 }

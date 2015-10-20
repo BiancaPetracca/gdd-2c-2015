@@ -8,24 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-namespace AerolineaFrba.Abm_Ruta
+namespace AerolineaFrba.SuperControls
 {
-    public partial class Alta : TemplateForm
+    public partial class pruebasupers : TemplateForm
     {
-        public Alta()
+        public pruebasupers()
         {
             InitializeComponent();
         }
 
-        private void Cerrar_Click(object sender, EventArgs e)
+        private void pruebasupers_Load(object sender, EventArgs e)
         {
-            this.Close();
+
         }
 
-        private void Agregar_Click(object sender, EventArgs e)
+
+
+        private void button1_Click(object sender, EventArgs e)
         {
-            validateAll(this.Controls); 
+            validateAll(this.groupBox1.Controls);
         }
 
     }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 
 namespace AerolineaFrba
 {
@@ -18,5 +20,18 @@ namespace AerolineaFrba
             form.WindowState = FormWindowState.Maximized;
             form.Show();
         }
+
+       public void openInNewWindow(Form form){
+           form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+           form.Show();
+       }
+
+
+    /*   public void cleanAll(List<ISuperControl> controls) { 
+       foreach (ISuperControl control in controls) {
+           hola(control);
+       } 
+       }*/
+
     }
 }

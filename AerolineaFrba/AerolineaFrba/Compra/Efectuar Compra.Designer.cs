@@ -234,10 +234,10 @@
             this.Mail.HeaderText = "Mail";
             this.Mail.Name = "Mail";
             // 
-            // button1
+            // Cerrar
             // 
             this.button1.Location = new System.Drawing.Point(633, 365);
-            this.button1.Name = "button1";
+            this.button1.Name = "Cerrar";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Confirmar";

@@ -153,10 +153,10 @@
             this.DiasFueraServicio.HeaderText = "Días fuera de servicio";
             this.DiasFueraServicio.Name = "DiasFueraServicio";
             // 
-            // button1
+            // Cerrar
             // 
             this.button1.Location = new System.Drawing.Point(788, 398);
-            this.button1.Name = "button1";
+            this.button1.Name = "Cerrar";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "Cerrar";
