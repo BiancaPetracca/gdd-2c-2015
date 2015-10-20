@@ -27,11 +27,6 @@ namespace AerolineaFrba
        }
 
 
-    /*   public void cleanAll(List<ISuperControl> controls) { 
-       foreach (ISuperControl control in controls) {
-           hola(control);
-       } 
-       }*/
 
     }
 }

@@ -40,18 +40,23 @@ namespace AerolineaFrba
 
         public void validar(Control.ControlCollection controls)
         {
+            List<ISuperControls> sc = new List<ISuperControls>();
+            foreach (Control ctr in controls) {
+                sc.Add((ISuperControls)ctr);
+            }
+
             bool val = false;
-            var msg = "";
-            foreach (ISuperControls control in controls)
+          var msg = "";
+            foreach (ISuperControls control in sc)
             {
                 val = control.valid();
-                msg += validate(control);
+               msg += validate(control);
             }
-            if (msg != String.Empty)
+        if (msg != String.Empty) 
             {
                 throw new Exception("Complete los campos vacios: \n" + msg);
 
-            }
+            } 
         }
 
 
