@@ -24,6 +24,11 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Cerrar_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void Servicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
 

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Canje_Millas
 {
-    public partial class Form1 : Form
+    public partial class Canje_Millas : TemplateForm
     {
-        public Form1()
+        public Canje_Millas()
         {
             InitializeComponent();
         }
@@ -24,12 +24,14 @@ namespace AerolineaFrba.Canje_Millas
 
         private void RealizarCanje_Click(object sender, EventArgs e)
         {
-            try { validarCampos(); }
-            catch (Exception excepcion)
-            {
+            validateAll(this.DatosCanjeador.Controls);
+
+            try { if (this.ProductosCanjear.Rows.Count == 0) { throw new Exception("Elija algún producto para canjear"); } }
+            catch (Exception excepcion) {
                 MessageBox.Show(excepcion.Message);
             }
-
+            
+         
         }
 
         private void Cancelar_Click(object sender, EventArgs e)
@@ -37,31 +39,11 @@ namespace AerolineaFrba.Canje_Millas
             this.Close();
         }
 
-        private void validarCampos()
+
+        private void Agregar_Click(object sender, EventArgs e)
         {
-
-            var cantidad = "";
-            var dni = "";
-            var invalido = false;
-
-            foreach (DataGridViewRow row in ProductosCanjear.Rows)
-            {
-                if (row == null)
-                {
-                    cantidad = "Inserte una cantidad";
-                    invalido = true;
-                }
-            }
-            if (DNI.Text == String.Empty)
-            {
-                dni = "Inserte un DNI";
-                invalido = true;
-            }
-            if (invalido)
-            throw new Exception(dni + cantidad);
-
-
-
+            validateAll(this.AgregarProductos.Controls);
         }
+
     }
 }

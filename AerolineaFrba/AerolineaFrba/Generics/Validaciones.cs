@@ -27,6 +27,30 @@ namespace AerolineaFrba
         }
 
 
+        public Boolean anyEmptyCells(DataGridView dg, String columnName, String msg)
+        {
+            Boolean val = false;
+            string cell;
+
+            try
+            {
+                foreach (DataGridViewRow rw in dg.Rows)
+                {
+                    cell = rw.Cells[dg.Columns[columnName].Index].Value as string;
+                    if (string.IsNullOrEmpty(cell))
+                    {
+                        val = true;
+                        throw new Exception(msg);
+                    }
+                }
+            }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
+            return val;
+        }
+
 
         // try catchea una excepcion proviniente de campos vacios
         public void validateAll(Control.ControlCollection controls)

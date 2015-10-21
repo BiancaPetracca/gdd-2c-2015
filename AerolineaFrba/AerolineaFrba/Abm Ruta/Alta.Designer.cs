@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Ruta
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Abm_Ruta
 {
     partial class Alta
     {
@@ -28,20 +29,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Agregar = new System.Windows.Forms.Button();
-            this.Cerrar = new System.Windows.Forms.Button();
-            this.Codigo = new System.Windows.Forms.TextBox();
-            this.Origen = new System.Windows.Forms.ComboBox();
-            this.Destino = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.PrecioKG = new System.Windows.Forms.NumericUpDown();
-            this.PrecioPasaje = new System.Windows.Forms.NumericUpDown();
-            this.Servicio = new System.Windows.Forms.ComboBox();
+            this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Codigo = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.Origen = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.Destino = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label4 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label5 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label6 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.PrecioKG = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.PrecioPasaje = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.Servicio = new AerolineaFrba.SuperControls.SuperCheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioKG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioPasaje)).BeginInit();
             this.SuspendLayout();
@@ -165,11 +166,11 @@
             this.Servicio.Items.AddRange(new object[] {
             "Turista",
             "Ejecutivo",
-            "Primera clase"});
-            this.Servicio.Location = new System.Drawing.Point(164, 100);
+            "Primera Clase"});
+            this.Servicio.Location = new System.Drawing.Point(165, 83);
             this.Servicio.Name = "Servicio";
-            this.Servicio.Size = new System.Drawing.Size(121, 21);
-            this.Servicio.TabIndex = 17;
+            this.Servicio.Size = new System.Drawing.Size(93, 49);
+            this.Servicio.TabIndex = 29;
             // 
             // Alta
             // 
@@ -201,20 +202,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Button Agregar;
-        private System.Windows.Forms.Button Cerrar;
-        private System.Windows.Forms.TextBox Codigo;
-        private System.Windows.Forms.ComboBox Origen;
-        private System.Windows.Forms.ComboBox Destino;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown PrecioKG;
-        private System.Windows.Forms.NumericUpDown PrecioPasaje;
-        private System.Windows.Forms.ComboBox Servicio;
+        private SuperButton Agregar;
+        private SuperButton Cerrar;
+        private SuperTextBox Codigo;
+        private SuperComboBox Origen;
+        private SuperComboBox Destino;
+        private SuperLabel label1;
+        private SuperLabel label2;
+        private SuperLabel label3;
+        private SuperLabel label4;
+        private SuperLabel label5;
+        private SuperLabel label6;
+        private SuperNumericUpDown PrecioKG;
+        private SuperNumericUpDown PrecioPasaje;
+        private SuperCheckedListBox Servicio;
        
     }
 }

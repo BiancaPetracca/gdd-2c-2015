@@ -14,7 +14,7 @@ namespace AerolineaFrba
        // Método genérico para abrir un form dentro del form padre (ej: en el menú principal)
         public void openIntoParent(Form form, Form parentForm)
         {
-            if (ActiveMdiChild != null) { ActiveMdiChild.Close(); }
+            if (parentForm.ActiveMdiChild != null) { parentForm.ActiveMdiChild.Close(); }
             form.MdiParent = parentForm;
             form.Dock = DockStyle.Fill;
             form.WindowState = FormWindowState.Maximized;

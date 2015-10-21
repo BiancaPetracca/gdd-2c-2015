@@ -63,7 +63,7 @@ namespace AerolineaFrba
 
         private void canjearMillasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           openIntoParent(new Canje_Millas.Form1(), this);
+           openIntoParent(new Canje_Millas.Canje_Millas(), this);
         }
 
         private void consultarMillasToolStripMenuItem_Click(object sender, EventArgs e)
