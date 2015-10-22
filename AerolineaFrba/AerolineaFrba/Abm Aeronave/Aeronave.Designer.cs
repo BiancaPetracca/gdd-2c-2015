@@ -145,6 +145,7 @@
             // 
             // HabilitadasFiltro
             // 
+            this.HabilitadasFiltro.AccessibleDescription = "Habilitado o no ";
             this.HabilitadasFiltro.AutoSize = true;
             this.HabilitadasFiltro.Location = new System.Drawing.Point(380, 72);
             this.HabilitadasFiltro.Name = "HabilitadasFiltro";
@@ -171,6 +172,7 @@
             // 
             // MatriculaFiltro
             // 
+            this.MatriculaFiltro.AccessibleDescription = "Matrícula";
             this.MatriculaFiltro.Location = new System.Drawing.Point(163, 70);
             this.MatriculaFiltro.Name = "MatriculaFiltro";
             this.MatriculaFiltro.Size = new System.Drawing.Size(161, 20);
@@ -179,6 +181,7 @@
             // 
             // FabricanteFiltro
             // 
+            this.FabricanteFiltro.AccessibleDescription = "Fabricante";
             this.FabricanteFiltro.Location = new System.Drawing.Point(163, 28);
             this.FabricanteFiltro.MaxLength = 255;
             this.FabricanteFiltro.Name = "FabricanteFiltro";
@@ -188,6 +191,7 @@
             // 
             // ServicioFiltro
             // 
+            this.ServicioFiltro.AccessibleDescription = "Tipo de servicio";
             this.ServicioFiltro.Location = new System.Drawing.Point(456, 27);
             this.ServicioFiltro.Name = "ServicioFiltro";
             this.ServicioFiltro.Size = new System.Drawing.Size(219, 21);

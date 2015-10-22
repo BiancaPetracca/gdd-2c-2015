@@ -34,7 +34,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Aceptar_Click(object sender, EventArgs e)
         {
-validateAll(this.Controls);
+            validateNotNullForAll(this.Controls);
         }
     }
     }

@@ -30,13 +30,6 @@
         {
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.Cerrar = new System.Windows.Forms.Button();
-            this.filtros = new System.Windows.Forms.GroupBox();
-            this.filtro2 = new System.Windows.Forms.Label();
-            this.buscador = new System.Windows.Forms.TextBox();
-            this.buscadorExacto = new System.Windows.Forms.TextBox();
-            this.limpiar = new System.Windows.Forms.Button();
-            this.buscar = new System.Windows.Forms.Button();
-            this.filtro1 = new System.Windows.Forms.Label();
             this.borrar = new System.Windows.Forms.Button();
             this.agregar = new System.Windows.Forms.Button();
             this.lista = new System.Windows.Forms.DataGridView();
@@ -44,14 +37,12 @@
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox.SuspendLayout();
-            this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox
             // 
             this.groupBox.Controls.Add(this.Cerrar);
-            this.groupBox.Controls.Add(this.filtros);
             this.groupBox.Controls.Add(this.borrar);
             this.groupBox.Controls.Add(this.agregar);
             this.groupBox.Controls.Add(this.lista);
@@ -70,68 +61,6 @@
             this.Cerrar.TabIndex = 6;
             this.Cerrar.Text = "Cerrar";
             this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
-
-            // 
-            // filtros
-            // 
-            this.filtros.Controls.Add(this.filtro2);
-            this.filtros.Controls.Add(this.buscador);
-            this.filtros.Controls.Add(this.buscadorExacto);
-            this.filtros.Controls.Add(this.limpiar);
-            this.filtros.Controls.Add(this.buscar);
-            this.filtros.Controls.Add(this.filtro1);
-            this.filtros.Location = new System.Drawing.Point(16, 19);
-            this.filtros.Name = "filtros";
-            this.filtros.Size = new System.Drawing.Size(853, 128);
-            this.filtros.TabIndex = 5;
-            this.filtros.TabStop = false;
-            this.filtros.Text = "Filtros";
-            // 
-            // filtro2
-            // 
-            this.filtro2.Location = new System.Drawing.Point(6, 37);
-            this.filtro2.Name = "filtro2";
-            this.filtro2.Size = new System.Drawing.Size(100, 23);
-            this.filtro2.TabIndex = 11;
-            this.filtro2.Text = "Nombre exacto";
-            // 
-            // buscador
-            // 
-            this.buscador.Location = new System.Drawing.Point(510, 31);
-            this.buscador.Name = "buscador";
-            this.buscador.Size = new System.Drawing.Size(161, 20);
-            this.buscador.TabIndex = 0;
-            // 
-            // buscadorExacto
-            // 
-            this.buscadorExacto.Location = new System.Drawing.Point(112, 34);
-            this.buscadorExacto.Name = "buscadorExacto";
-            this.buscadorExacto.Size = new System.Drawing.Size(161, 20);
-            this.buscadorExacto.TabIndex = 1;
-            // 
-            // limpiar
-            // 
-            this.limpiar.Location = new System.Drawing.Point(625, 80);
-            this.limpiar.Name = "limpiar";
-            this.limpiar.Size = new System.Drawing.Size(75, 23);
-            this.limpiar.TabIndex = 6;
-            this.limpiar.Text = "Limpiar";
-            // 
-            // buscar
-            // 
-            this.buscar.Location = new System.Drawing.Point(746, 80);
-            this.buscar.Name = "buscar";
-            this.buscar.Size = new System.Drawing.Size(75, 23);
-            this.buscar.TabIndex = 7;
-            this.buscar.Text = "Buscar";
-            // 
-            // filtro1
-            // 
-            this.filtro1.Location = new System.Drawing.Point(404, 34);
-            this.filtro1.Name = "filtro1";
-            this.filtro1.Size = new System.Drawing.Size(100, 23);
-            this.filtro1.TabIndex = 10;
-            this.filtro1.Text = "Por clave";
             // 
             // borrar
             // 
@@ -164,6 +93,7 @@
             this.lista.Name = "lista";
             this.lista.Size = new System.Drawing.Size(853, 208);
             this.lista.TabIndex = 5;
+            this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
             // Column2
             // 
@@ -192,8 +122,6 @@
             this.Name = "Ciudad";
             this.Text = "Ciudades";
             this.groupBox.ResumeLayout(false);
-            this.filtros.ResumeLayout(false);
-            this.filtros.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).EndInit();
             this.ResumeLayout(false);
 
@@ -202,13 +130,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.GroupBox filtros;
-        private System.Windows.Forms.Label filtro2;
-        private System.Windows.Forms.TextBox buscador;
-        private System.Windows.Forms.TextBox buscadorExacto;
-        private System.Windows.Forms.Button limpiar;
-        private System.Windows.Forms.Button buscar;
-        private System.Windows.Forms.Label filtro1;
         private System.Windows.Forms.Button borrar;
         private System.Windows.Forms.Button agregar;
         private System.Windows.Forms.DataGridView lista;

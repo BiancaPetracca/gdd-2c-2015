@@ -24,12 +24,14 @@ namespace AerolineaFrba.Canje_Millas
 
         private void RealizarCanje_Click(object sender, EventArgs e)
         {
-            validateAll(this.DatosCanjeador.Controls);
+            validateNotNullForAll(this.DatosCanjeador.Controls);
 
             try { if (this.ProductosCanjear.Rows.Count == 0) { throw new Exception("Elija algún producto para canjear"); } }
             catch (Exception excepcion) {
                 MessageBox.Show(excepcion.Message);
             }
+
+            // LLAMAR AL PROCEDURE QUE GUARDE TODO LO QUE ESTA EN LA GRID 
             
          
         }
@@ -42,7 +44,8 @@ namespace AerolineaFrba.Canje_Millas
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            validateAll(this.AgregarProductos.Controls);
+            if (validateNotNullForAll(this.AgregarProductos.Controls))
+            this.ProductosCanjear.Rows.Add(this.NombreProducto.SelectedValue, this.CantidadProducto.Value);
         }
 
     }

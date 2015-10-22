@@ -19,7 +19,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Alta(), this);
+            openIntoParent(new Alta(), this.MdiParent);
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
@@ -29,7 +29,11 @@ namespace AerolineaFrba.Abm_Rol
 
         private void dataGridView_SeleccionRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            new Modificacion().Show();
+            if (e.ColumnIndex == this.ListadoRoles.Columns["Modificar"].Index)
+            {
+                openIntoParent(new Modificacion(), this.MdiParent);
+            }
+           
         }
     }
 }

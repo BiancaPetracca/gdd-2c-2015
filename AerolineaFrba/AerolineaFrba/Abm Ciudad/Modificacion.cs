@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Registro_de_Usuario
+namespace AerolineaFrba.Abm_Ciudad
 {
-    public partial class Form1 : Form
+    public partial class Modificacion : Form
     {
-        public Form1()
+        public Modificacion()
         {
             InitializeComponent();
+        }
+
+        private void Modificacion_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

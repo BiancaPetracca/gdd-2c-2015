@@ -34,9 +34,11 @@
             this.Limpiar = new System.Windows.Forms.Button();
             this.Guardar = new System.Windows.Forms.Button();
             this.Cerrar = new System.Windows.Forms.Button();
-            this.paner_Alta = new System.Windows.Forms.GroupBox();
+            this.DatosDelRol = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Habilitado = new System.Windows.Forms.CheckBox();
+            this.label_Nombre = new System.Windows.Forms.Label();
+            this.Nombre = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Funcionalidades = new System.Windows.Forms.ComboBox();
             this.AgregarFunc = new System.Windows.Forms.Button();
@@ -45,9 +47,7 @@
             this.FUN_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label_Nombre = new System.Windows.Forms.Label();
-            this.Nombre = new System.Windows.Forms.TextBox();
-            this.paner_Alta.SuspendLayout();
+            this.DatosDelRol.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ListaFuncionalidades)).BeginInit();
             this.SuspendLayout();
@@ -82,29 +82,28 @@
             this.Cerrar.UseVisualStyleBackColor = true;
             this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
-            // paner_Alta
+            // DatosDelRol
             // 
-            this.paner_Alta.Controls.Add(this.label1);
-            this.paner_Alta.Controls.Add(this.Habilitado);
-            this.paner_Alta.Controls.Add(this.groupBox1);
-            this.paner_Alta.Controls.Add(this.dataGridView_ListaFuncionalidades);
-            this.paner_Alta.Controls.Add(this.label_Nombre);
-            this.paner_Alta.Controls.Add(this.Nombre);
-            this.paner_Alta.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.paner_Alta.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.paner_Alta.Location = new System.Drawing.Point(25, 26);
-            this.paner_Alta.Name = "paner_Alta";
-            this.paner_Alta.Size = new System.Drawing.Size(889, 399);
-            this.paner_Alta.TabIndex = 19;
-            this.paner_Alta.TabStop = false;
-            this.paner_Alta.Text = "Datos del Rol";
+            this.DatosDelRol.Controls.Add(this.label1);
+            this.DatosDelRol.Controls.Add(this.Habilitado);
+            this.DatosDelRol.Controls.Add(this.label_Nombre);
+            this.DatosDelRol.Controls.Add(this.Nombre);
+            this.DatosDelRol.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.DatosDelRol.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.DatosDelRol.Location = new System.Drawing.Point(25, 26);
+            this.DatosDelRol.Name = "DatosDelRol";
+            this.DatosDelRol.Size = new System.Drawing.Size(419, 60);
+            this.DatosDelRol.TabIndex = 19;
+            this.DatosDelRol.TabStop = false;
+            this.DatosDelRol.Text = "Datos del Rol";
+            this.DatosDelRol.Enter += new System.EventHandler(this.DatosDelRol_Enter);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(49, 57);
+            this.label1.Location = new System.Drawing.Point(284, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 11;
@@ -115,12 +114,34 @@
             this.Habilitado.AutoSize = true;
             this.Habilitado.Checked = true;
             this.Habilitado.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Habilitado.Location = new System.Drawing.Point(99, 56);
+            this.Habilitado.Location = new System.Drawing.Point(330, 27);
             this.Habilitado.Name = "Habilitado";
             this.Habilitado.Size = new System.Drawing.Size(73, 17);
             this.Habilitado.TabIndex = 10;
             this.Habilitado.Text = "Habilitado";
             this.Habilitado.UseVisualStyleBackColor = true;
+            // 
+            // label_Nombre
+            // 
+            this.label_Nombre.AutoSize = true;
+            this.label_Nombre.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label_Nombre.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label_Nombre.Location = new System.Drawing.Point(6, 28);
+            this.label_Nombre.Name = "label_Nombre";
+            this.label_Nombre.Size = new System.Drawing.Size(44, 13);
+            this.label_Nombre.TabIndex = 1;
+            this.label_Nombre.Text = "Nombre";
+            // 
+            // Nombre
+            // 
+            this.Nombre.AccessibleDescription = "Nombre del rol";
+            this.Nombre.Location = new System.Drawing.Point(56, 25);
+            this.Nombre.MaxLength = 15;
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Size = new System.Drawing.Size(218, 20);
+            this.Nombre.TabIndex = 0;
+            this.Nombre.TextChanged += new System.EventHandler(this.Nombre_TextChanged);
+            this.Nombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Nombre_KeyPress);
             // 
             // groupBox1
             // 
@@ -128,7 +149,7 @@
             this.groupBox1.Controls.Add(this.AgregarFunc);
             this.groupBox1.Controls.Add(this.label_Funcionalidad);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox1.Location = new System.Drawing.Point(415, 19);
+            this.groupBox1.Location = new System.Drawing.Point(461, 26);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(453, 60);
             this.groupBox1.TabIndex = 9;
@@ -137,6 +158,7 @@
             // 
             // Funcionalidades
             // 
+            this.Funcionalidades.AccessibleDescription = "Funcionalidad";
             this.Funcionalidades.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Funcionalidades.FormattingEnabled = true;
             this.Funcionalidades.Location = new System.Drawing.Point(97, 28);
@@ -160,7 +182,7 @@
             this.label_Funcionalidad.AutoSize = true;
             this.label_Funcionalidad.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label_Funcionalidad.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label_Funcionalidad.Location = new System.Drawing.Point(18, 31);
+            this.label_Funcionalidad.Location = new System.Drawing.Point(18, 28);
             this.label_Funcionalidad.Name = "label_Funcionalidad";
             this.label_Funcionalidad.Size = new System.Drawing.Size(73, 13);
             this.label_Funcionalidad.TabIndex = 4;
@@ -168,6 +190,7 @@
             // 
             // dataGridView_ListaFuncionalidades
             // 
+            this.dataGridView_ListaFuncionalidades.AccessibleDescription = "Lista de funcionalidades del rol";
             this.dataGridView_ListaFuncionalidades.AllowUserToAddRows = false;
             this.dataGridView_ListaFuncionalidades.AllowUserToDeleteRows = false;
             this.dataGridView_ListaFuncionalidades.AllowUserToResizeColumns = false;
@@ -179,10 +202,10 @@
             this.FUN_ID,
             this.Funcionalidad,
             this.Eliminar});
-            this.dataGridView_ListaFuncionalidades.Location = new System.Drawing.Point(52, 85);
+            this.dataGridView_ListaFuncionalidades.Location = new System.Drawing.Point(25, 101);
             this.dataGridView_ListaFuncionalidades.Name = "dataGridView_ListaFuncionalidades";
             this.dataGridView_ListaFuncionalidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView_ListaFuncionalidades.Size = new System.Drawing.Size(816, 301);
+            this.dataGridView_ListaFuncionalidades.Size = new System.Drawing.Size(889, 301);
             this.dataGridView_ListaFuncionalidades.TabIndex = 3;
             this.dataGridView_ListaFuncionalidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_ListaFuncionalidades_CellContentClick);
             // 
@@ -219,36 +242,17 @@
             this.Eliminar.Text = "Eliminar Fila";
             this.Eliminar.UseColumnTextForButtonValue = true;
             // 
-            // label_Nombre
-            // 
-            this.label_Nombre.AutoSize = true;
-            this.label_Nombre.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label_Nombre.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label_Nombre.Location = new System.Drawing.Point(49, 30);
-            this.label_Nombre.Name = "label_Nombre";
-            this.label_Nombre.Size = new System.Drawing.Size(44, 13);
-            this.label_Nombre.TabIndex = 1;
-            this.label_Nombre.Text = "Nombre";
-            // 
-            // Nombre
-            // 
-            this.Nombre.Location = new System.Drawing.Point(99, 27);
-            this.Nombre.MaxLength = 15;
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Size = new System.Drawing.Size(232, 20);
-            this.Nombre.TabIndex = 0;
-            this.Nombre.TextChanged += new System.EventHandler(this.Nombre_TextChanged);
-            this.Nombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Nombre_KeyPress);
-            // 
             // Modificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(940, 470);
-            this.Controls.Add(this.paner_Alta);
+            this.Controls.Add(this.DatosDelRol);
             this.Controls.Add(this.Limpiar);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Guardar);
+            this.Controls.Add(this.dataGridView_ListaFuncionalidades);
             this.Controls.Add(this.Cerrar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -257,8 +261,8 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modificacion";
-            this.paner_Alta.ResumeLayout(false);
-            this.paner_Alta.PerformLayout();
+            this.DatosDelRol.ResumeLayout(false);
+            this.DatosDelRol.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ListaFuncionalidades)).EndInit();
@@ -271,7 +275,7 @@
         private System.Windows.Forms.Button Limpiar;
         private System.Windows.Forms.Button Guardar;
         private System.Windows.Forms.Button Cerrar;
-        private System.Windows.Forms.GroupBox paner_Alta;
+        private System.Windows.Forms.GroupBox DatosDelRol;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox Habilitado;
         private System.Windows.Forms.GroupBox groupBox1;

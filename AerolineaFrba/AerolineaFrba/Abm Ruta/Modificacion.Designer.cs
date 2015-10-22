@@ -49,6 +49,7 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             // Servicio
             // 
+            this.Servicio.AccessibleDescription = "Servicio(s) que ofrece";
             this.Servicio.FormattingEnabled = true;
             this.Servicio.Items.AddRange(new object[] {
             "Turista",
@@ -72,6 +73,7 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             // Codigo
             // 
+            this.Codigo.AccessibleDescription = "Código de la ruta";
             this.Codigo.Location = new System.Drawing.Point(173, 43);
             this.Codigo.Name = "Codigo";
             this.Codigo.Size = new System.Drawing.Size(100, 20);
@@ -79,6 +81,7 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             // Origen
             // 
+            this.Origen.AccessibleDescription = "Ciudad origen";
             this.Origen.FormattingEnabled = true;
             this.Origen.Location = new System.Drawing.Point(173, 154);
             this.Origen.Name = "Origen";
@@ -87,6 +90,7 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             // Destino
             // 
+            this.Destino.AccessibleDescription = "Ciudad destino";
             this.Destino.FormattingEnabled = true;
             this.Destino.Location = new System.Drawing.Point(173, 200);
             this.Destino.Name = "Destino";
@@ -149,6 +153,7 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             // PrecioKG
             // 
+            this.PrecioKG.AccessibleDescription = "Precio base por Kg. en encomiendas";
             this.PrecioKG.DecimalPlaces = 2;
             this.PrecioKG.Location = new System.Drawing.Point(173, 257);
             this.PrecioKG.Name = "PrecioKG";
@@ -157,6 +162,7 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             // PrecioPasaje
             // 
+            this.PrecioPasaje.AccessibleDescription = "Precio base por pasaje";
             this.PrecioPasaje.DecimalPlaces = 2;
             this.PrecioPasaje.Location = new System.Drawing.Point(173, 294);
             this.PrecioPasaje.Name = "PrecioPasaje";

@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Login
 {
-    public partial class Login : Form
+    public partial class Login : TemplateForm
     {
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void button_IniciarSesion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Cerrar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

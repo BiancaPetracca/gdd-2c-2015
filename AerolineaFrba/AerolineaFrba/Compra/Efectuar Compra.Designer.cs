@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Compra
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Compra
 {
     partial class Efectuar_Compra
     {
@@ -28,32 +29,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new SuperGroupBox();
+            this.groupBox2 = new SuperGroupBox();
+            this.label7 = new SuperLabel();
+            this.Cuotas = new SuperNumericUpDown();
+            this.label6 = new SuperLabel();
+            this.CodigoSeguridad = new SuperTextBox();
+            this.label5 = new SuperLabel();
+            this.NumeroTarjeta = new SuperTextBox();
+            this.label4 = new SuperLabel();
+            this.FechaExpiracion = new SuperDateTimePicker();
+            this.label3 = new SuperLabel();
+            this.TipoTarjeta = new SuperComboBox();
+            this.button2 = new SuperButton();
+            this.label2 = new SuperLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dirección = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new SuperButton();
+            this.label1 = new SuperLabel();
+            this.MedioPago = new SuperComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Cuotas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.MedioPago);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(872, 422);
@@ -76,15 +77,15 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.Cuotas);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.CodigoSeguridad);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.NumeroTarjeta);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.dateTimePicker1);
+            this.groupBox2.Controls.Add(this.FechaExpiracion);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.comboBox2);
+            this.groupBox2.Controls.Add(this.TipoTarjeta);
             this.groupBox2.Location = new System.Drawing.Point(43, 172);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(774, 173);
@@ -101,12 +102,13 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "Cuotas";
             // 
-            // numericUpDown1
+            // Cuotas
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(699, 124);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(41, 20);
-            this.numericUpDown1.TabIndex = 8;
+            this.Cuotas.AccessibleDescription = "Cuotas en las que desee pagarlo";
+            this.Cuotas.Location = new System.Drawing.Point(699, 124);
+            this.Cuotas.Name = "Cuotas";
+            this.Cuotas.Size = new System.Drawing.Size(41, 20);
+            this.Cuotas.TabIndex = 8;
             // 
             // label6
             // 
@@ -117,12 +119,13 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "Código de seguridad";
             // 
-            // textBox2
+            // CodigoSeguridad
             // 
-            this.textBox2.Location = new System.Drawing.Point(509, 43);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(86, 20);
-            this.textBox2.TabIndex = 6;
+            this.CodigoSeguridad.AccessibleDescription = "Ingresar código de seguridad de la tarjeta";
+            this.CodigoSeguridad.Location = new System.Drawing.Point(509, 43);
+            this.CodigoSeguridad.Name = "CodigoSeguridad";
+            this.CodigoSeguridad.Size = new System.Drawing.Size(86, 20);
+            this.CodigoSeguridad.TabIndex = 6;
             // 
             // label5
             // 
@@ -133,12 +136,13 @@
             this.label5.TabIndex = 5;
             this.label5.Text = "Número de tarjeta";
             // 
-            // textBox1
+            // NumeroTarjeta
             // 
-            this.textBox1.Location = new System.Drawing.Point(143, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(181, 20);
-            this.textBox1.TabIndex = 4;
+            this.NumeroTarjeta.AccessibleDescription = "Ingresar el número de la tarjeta";
+            this.NumeroTarjeta.Location = new System.Drawing.Point(143, 46);
+            this.NumeroTarjeta.Name = "NumeroTarjeta";
+            this.NumeroTarjeta.Size = new System.Drawing.Size(181, 20);
+            this.NumeroTarjeta.TabIndex = 4;
             // 
             // label4
             // 
@@ -149,14 +153,15 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Fecha de expiración";
             // 
-            // dateTimePicker1
+            // FechaExpiracion
             // 
-            this.dateTimePicker1.CustomFormat = "mm/yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(509, 124);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(86, 20);
-            this.dateTimePicker1.TabIndex = 2;
+            this.FechaExpiracion.AccessibleDescription = "Fecha de expiración";
+            this.FechaExpiracion.CustomFormat = "mm/yyyy";
+            this.FechaExpiracion.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.FechaExpiracion.Location = new System.Drawing.Point(509, 124);
+            this.FechaExpiracion.Name = "FechaExpiracion";
+            this.FechaExpiracion.Size = new System.Drawing.Size(86, 20);
+            this.FechaExpiracion.TabIndex = 2;
             // 
             // label3
             // 
@@ -167,13 +172,14 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Tipo";
             // 
-            // comboBox2
+            // TipoTarjeta
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(143, 122);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(181, 21);
-            this.comboBox2.TabIndex = 0;
+            this.TipoTarjeta.AccessibleDescription = "Tipo de la tarjeta";
+            this.TipoTarjeta.FormattingEnabled = true;
+            this.TipoTarjeta.Location = new System.Drawing.Point(143, 122);
+            this.TipoTarjeta.Name = "TipoTarjeta";
+            this.TipoTarjeta.Size = new System.Drawing.Size(181, 21);
+            this.TipoTarjeta.TabIndex = 0;
             // 
             // button2
             // 
@@ -234,10 +240,10 @@
             this.Mail.HeaderText = "Mail";
             this.Mail.Name = "Mail";
             // 
-            // Cerrar
+            // button1
             // 
             this.button1.Location = new System.Drawing.Point(633, 365);
-            this.button1.Name = "Cerrar";
+            this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Confirmar";
@@ -253,17 +259,18 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Medio de pago";
             // 
-            // comboBox1
+            // MedioPago
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.MedioPago.AccessibleDescription = "Elegir un medio de pago";
+            this.MedioPago.FormattingEnabled = true;
+            this.MedioPago.Items.AddRange(new object[] {
             "Tarjeta de crédito",
             "Efectivo"});
-            this.comboBox1.Location = new System.Drawing.Point(163, 53);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.MedioPago.Location = new System.Drawing.Point(163, 53);
+            this.MedioPago.Name = "MedioPago";
+            this.MedioPago.Size = new System.Drawing.Size(121, 21);
+            this.MedioPago.TabIndex = 0;
+            this.MedioPago.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Efectuar_Compra
             // 
@@ -278,7 +285,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Cuotas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -286,28 +293,28 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private SuperGroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label2;
+        private SuperButton button1;
+        private SuperLabel label1;
+        private SuperComboBox MedioPago;
+        private SuperGroupBox groupBox2;
+        private SuperLabel label6;
+        private SuperTextBox CodigoSeguridad;
+        private SuperLabel label5;
+        private SuperTextBox NumeroTarjeta;
+        private SuperLabel label4;
+        private SuperDateTimePicker FechaExpiracion;
+        private SuperLabel label3;
+        private SuperComboBox TipoTarjeta;
+        private SuperButton button2;
+        private SuperLabel label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dirección;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private SuperLabel label7;
+        private SuperNumericUpDown Cuotas;
     }
 }

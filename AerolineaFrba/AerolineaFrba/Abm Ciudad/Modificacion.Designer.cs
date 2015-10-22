@@ -1,7 +1,6 @@
-﻿using AerolineaFrba.SuperControls;
-namespace AerolineaFrba.Abm_Ciudad
+﻿namespace AerolineaFrba.Abm_Ciudad
 {
-    partial class Alta
+    partial class Modificacion
     {
         /// <summary>
         /// Required designer variable.
@@ -29,49 +28,48 @@ namespace AerolineaFrba.Abm_Ciudad
         /// </summary>
         private void InitializeComponent()
         {
-            this.ciudad = new AerolineaFrba.SuperControls.SuperTextBox();
-            this.agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.ciudad = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.Ok = new AerolineaFrba.SuperControls.SuperButton();
             this.SuspendLayout();
-            // 
-            // ciudad
-            // 
-            this.ciudad.AccessibleDescription = "Ingresar una nueva ciudad";
-            this.ciudad.Location = new System.Drawing.Point(12, 29);
-            this.ciudad.Name = "ciudad";
-            this.ciudad.Size = new System.Drawing.Size(207, 20);
-            this.ciudad.TabIndex = 0;
-            // 
-            // agregar
-            // 
-            this.agregar.Location = new System.Drawing.Point(238, 27);
-            this.agregar.Name = "agregar";
-            this.agregar.Size = new System.Drawing.Size(75, 23);
-            this.agregar.TabIndex = 1;
-            this.agregar.Text = "Agregar";
-            this.agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(328, 27);
+            this.Cerrar.Location = new System.Drawing.Point(328, 10);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
-            this.Cerrar.TabIndex = 2;
+            this.Cerrar.TabIndex = 5;
             this.Cerrar.Text = "Cerrar";
             this.Cerrar.UseVisualStyleBackColor = true;
-            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
-            // Alta
+            // ciudad
+            // 
+            this.ciudad.AccessibleDescription = "Ingrese un nuevo nombre ";
+            this.ciudad.Location = new System.Drawing.Point(12, 12);
+            this.ciudad.Name = "ciudad";
+            this.ciudad.Size = new System.Drawing.Size(207, 20);
+            this.ciudad.TabIndex = 3;
+            // 
+            // Ok
+            // 
+            this.Ok.Location = new System.Drawing.Point(238, 10);
+            this.Ok.Name = "Ok";
+            this.Ok.Size = new System.Drawing.Size(75, 23);
+            this.Ok.TabIndex = 4;
+            this.Ok.Text = "Ok";
+            // 
+            // Modificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 80);
+            this.ClientSize = new System.Drawing.Size(417, 47);
             this.Controls.Add(this.Cerrar);
             this.Controls.Add(this.ciudad);
-            this.Controls.Add(this.agregar);
+            this.Controls.Add(this.Ok);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Alta";
-            this.Text = "Nueva ciudad";
+            this.Name = "Modificacion";
+            this.Text = "Modificar ciudad";
+            this.Load += new System.EventHandler(this.Modificacion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -79,8 +77,8 @@ namespace AerolineaFrba.Abm_Ciudad
 
         #endregion
 
-        private SuperTextBox ciudad;
-        private SuperButton agregar;
-        private SuperButton Cerrar;
+        private SuperControls.SuperButton Cerrar;
+        private SuperControls.SuperTextBox ciudad;
+        private SuperControls.SuperButton Ok;
     }
 }

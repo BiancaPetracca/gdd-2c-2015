@@ -10,24 +10,22 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class pruebasupers : TemplateForm
+    public partial class SuperGroupBox : GroupBox, ISuperControls
     {
-        public pruebasupers()
+        public SuperGroupBox()
         {
             InitializeComponent();
         }
 
-        private void pruebasupers_Load(object sender, EventArgs e)
+        protected override void OnPaint(PaintEventArgs pe)
         {
-
+            base.OnPaint(pe);
         }
 
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            validateNotNullForAll(this.groupBox1.Controls);
+        public Boolean valid() {
+            
+           return this.Controls.AsParallel().Cast<ISuperControls>().All(cont => cont.valid());
+        
         }
-
     }
 }

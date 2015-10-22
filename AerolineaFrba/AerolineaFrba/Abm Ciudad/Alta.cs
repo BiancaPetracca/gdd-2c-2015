@@ -19,7 +19,7 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            validateAll(this.Controls);
+            validateNotNullForAll(this.Controls);
         }
 
         private void Cerrar_Click(object sender, EventArgs e)

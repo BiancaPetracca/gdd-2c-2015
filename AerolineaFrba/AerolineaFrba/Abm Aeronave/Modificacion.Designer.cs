@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Aeronave
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Abm_Aeronave
 {
     partial class Modificacion
     {
@@ -28,25 +29,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Nombre = new System.Windows.Forms.TextBox();
-            this.Fabricante = new System.Windows.Forms.TextBox();
-            this.ElegirButacas = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.Disponible = new System.Windows.Forms.CheckBox();
-            this.Cantidad = new System.Windows.Forms.NumericUpDown();
-            this.Aceptar = new System.Windows.Forms.Button();
-            this.Cancelar = new System.Windows.Forms.Button();
-            this.VidaUtil = new System.Windows.Forms.NumericUpDown();
+            this.Nombre = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.Fabricante = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.ElegirButacas = new AerolineaFrba.SuperControls.SuperButton();
+            this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label4 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label6 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.Disponible = new AerolineaFrba.SuperControls.SuperCheckBox();
+            this.Cantidad = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
+            this.VidaUtil = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.Cantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VidaUtil)).BeginInit();
             this.SuspendLayout();
             // 
             // Nombre
             // 
+            this.Nombre.AccessibleDescription = "Elegir un nombre para la aeronave";
             this.Nombre.Location = new System.Drawing.Point(134, 32);
             this.Nombre.Name = "Nombre";
             this.Nombre.Size = new System.Drawing.Size(112, 20);
@@ -54,6 +56,7 @@
             // 
             // Fabricante
             // 
+            this.Fabricante.AccessibleDescription = "Elegir un fabricante";
             this.Fabricante.Location = new System.Drawing.Point(134, 75);
             this.Fabricante.Name = "Fabricante";
             this.Fabricante.Size = new System.Drawing.Size(112, 20);
@@ -111,13 +114,15 @@
             // 
             // Disponible
             // 
+            this.Disponible.AccessibleDescription = "Habilitación ";
             this.Disponible.Location = new System.Drawing.Point(134, 201);
             this.Disponible.Name = "Disponible";
-            this.Disponible.Size = new System.Drawing.Size(104, 24);
+            this.Disponible.Size = new System.Drawing.Size(19, 24);
             this.Disponible.TabIndex = 15;
             // 
             // Cantidad
             // 
+            this.Cantidad.AccessibleDescription = "Cantidad de butacas";
             this.Cantidad.Location = new System.Drawing.Point(134, 114);
             this.Cantidad.Minimum = new decimal(new int[] {
             30,
@@ -153,6 +158,7 @@
             // 
             // VidaUtil
             // 
+            this.VidaUtil.AccessibleDescription = "Vida útil";
             this.VidaUtil.Location = new System.Drawing.Point(134, 161);
             this.VidaUtil.Maximum = new decimal(new int[] {
             10,
@@ -202,18 +208,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox Nombre;
-        private System.Windows.Forms.TextBox Fabricante;
-        private System.Windows.Forms.Button ElegirButacas;
-        private System.Windows.Forms.CheckBox Disponible;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button Aceptar;
-        private System.Windows.Forms.Button Cancelar;
-        private System.Windows.Forms.NumericUpDown Cantidad;
-        private System.Windows.Forms.NumericUpDown VidaUtil;
+        private SuperTextBox Nombre;
+        private SuperTextBox Fabricante;
+        private SuperButton ElegirButacas;
+        private SuperCheckBox Disponible;
+        private SuperLabel label1;
+        private SuperLabel label2;
+        private SuperLabel label3;
+        private SuperLabel label4;
+        private SuperLabel label6;
+        private SuperButton Aceptar;
+        private SuperButton Cancelar;
+        private SuperNumericUpDown Cantidad;
+        private SuperNumericUpDown VidaUtil;
     }
 }

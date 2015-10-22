@@ -12,8 +12,6 @@ namespace AerolineaFrba
     public class Validaciones : Form
     {
  
-// ESTOS VALIDATE QUIERO QUE SEAN POLIMORFICOS PARA CONTROLS ASI NOS AHORRAMOS HACER validate(asdasd) + PARA TODO
-
 
         /******** VALIDACIONES PARA CAMPOS NO NULOS ********/
         public String validate(ISuperControls control)
@@ -21,7 +19,7 @@ namespace AerolineaFrba
             var controlName = "";
             if (! control.valid())
             {
-                controlName = ((Control)control).Name + "\n";
+                controlName = ((Control)control).AccessibleDescription + "\n";
             }
             return controlName;
         }
@@ -53,34 +51,44 @@ namespace AerolineaFrba
 
 
         // try catchea una excepcion proviniente de campos vacios
-        public void validateAll(Control.ControlCollection controls)
+        public Boolean validateNotNullForAll(Control.ControlCollection controls)
         {
-            try { validar(controls); }
+            var isValid = false;
+            try { isValid = validar(controls); }
             catch (Exception excepcion)
             {
                 MessageBox.Show(excepcion.Message);
             }
+            return isValid;
         }
 
-        public void validar(Control.ControlCollection controls)
+        public Boolean validar(Control.ControlCollection controls)
         {
-            List<ISuperControls> sc = new List<ISuperControls>();
-            foreach (Control ctr in controls) {
-                sc.Add((ISuperControls)ctr);
-            }
 
             bool val = false;
           var msg = "";
-            foreach (ISuperControls control in sc)
+            foreach (Control control in controls)
             {
-                val = control.valid();
-               msg += validate(control);
+                val = ((ISuperControls)control).valid();
+               msg += validate((ISuperControls)control);
             }
         if (msg != String.Empty) 
             {
                 throw new Exception("Complete los campos vacios: \n" + msg);
 
-            } 
+            }
+        return val;
+        }
+
+        public Boolean noRows(DataGridView dg, String msg)
+        {
+            bool val = false;
+            try { if (dg.Rows.Count == 0) { val = true;  throw new Exception(msg); } }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
+            return val;
         }
 
 

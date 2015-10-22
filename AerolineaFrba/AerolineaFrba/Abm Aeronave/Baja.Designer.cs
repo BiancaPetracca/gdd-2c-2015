@@ -57,6 +57,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // fechaReinicio
             // 
+            this.fechaReinicio.AccessibleDescription = "Elegir una fecha de reinicio";
             this.fechaReinicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.fechaReinicio.Location = new System.Drawing.Point(177, 113);
             this.fechaReinicio.Name = "fechaReinicio";
@@ -65,6 +66,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // motivoBaja
             // 
+            this.motivoBaja.AccessibleDescription = "Elegir un motivo de baja";
             this.motivoBaja.BackColor = System.Drawing.SystemColors.Control;
             this.motivoBaja.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.motivoBaja.Items.AddRange(new object[] {
@@ -103,6 +105,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // fechaBaja
             // 
+            this.fechaBaja.AccessibleDescription = "Elegir una fecha de baja";
             this.fechaBaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.fechaBaja.Location = new System.Drawing.Point(34, 113);
             this.fechaBaja.Name = "fechaBaja";

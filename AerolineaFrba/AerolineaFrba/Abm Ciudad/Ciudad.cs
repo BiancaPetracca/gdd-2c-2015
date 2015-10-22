@@ -32,6 +32,14 @@ namespace AerolineaFrba.Abm_Ciudad
             this.Close();
         }
 
+        private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == this.lista.Columns["Modificar"].Index)
+            {
+                openIntoParent(new Modificacion(), this.MdiParent);
+            }
+        }
+
 
     }
 }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Ruta : Form
+    public partial class Ruta : TemplateForm
     {
         public Ruta()
         {
@@ -24,18 +24,9 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            new Alta().Show();
+            openInNewWindow(new Alta());
         }
 
-        private void Modificar_Click(object sender, EventArgs e){
-        new Modificacion().Show();
-
-        }
-
-        private void Borrar_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Limpiar_Click(object sender, EventArgs e)
         {
@@ -52,6 +43,20 @@ namespace AerolineaFrba.Abm_Ruta
 
         }
 
+        private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == this.lista.Columns["Modificar"].Index)
+            {
+                openIntoParent(new Modificacion(), this.MdiParent);
+            }
 
+            if (e.ColumnIndex == this.lista.Columns["Eliminar"].Index)
+            {
+                // LLAMAR AL PROCEDURE QUE LA BORRE 
+                this.lista.Rows.RemoveAt(e.RowIndex);
+            }
+
+
+        }
     }
 }

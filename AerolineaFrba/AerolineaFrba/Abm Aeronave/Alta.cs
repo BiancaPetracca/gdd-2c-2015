@@ -42,7 +42,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         public void Aceptar_Click(object sender, EventArgs e)
         {
-            validateAll(this.Controls);
+            validateNotNullForAll(this.Controls);
         }
 
         private void nombre_MouseDown(object sender, MouseEventArgs e)

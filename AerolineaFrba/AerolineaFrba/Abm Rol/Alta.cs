@@ -29,7 +29,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void button_Guardar_Click(object sender, EventArgs e)
         {
-
+            validateNotNullForAll(this.DatosDelRol.Controls);
         }
 
         private void button_Limpiar_Click(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void button_Agregar_Click(object sender, EventArgs e)
         {
-            validateAll(this.Controls);
+            validateNotNullForAll(this.Controls);
         }
     }
 }

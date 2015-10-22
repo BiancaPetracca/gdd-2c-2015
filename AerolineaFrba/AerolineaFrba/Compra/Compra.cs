@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AerolineaFrba.SuperControls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,28 +20,39 @@ namespace AerolineaFrba.Compra
 
         private void Siguiente_Click(object sender, EventArgs e)
         {
-            validateAll(this.ComprarPasaje.Controls);
-          try{  if (!this.Kgs.valid() && !this.CantPasaje.valid()) { 
-            throw new Exception("Debe elegir kgs para mandar o cantidad de pasaje");
-            }}
-            catch(Exception exc){
-            MessageBox.Show(exc.Message);
+            if (!noRows(this.Pasaje, "No hay ningún pasaje definido"))
+            {
+                openIntoParent(new Elegir_Pasajeros(), this.MdiParent);
             }
-            openIntoParent(new Elegir_Pasajeros(), this.MdiParent);
         }
 
         private void ViajeOk_Click(object sender, EventArgs e)
         {
-
+            validateNotNullForAll(this.ElegirViaje.Controls);
         }
 
         private void OpcionesOk_Click(object sender, EventArgs e)
         {
+            validate(this.Servicio);
 
+            if (visibleFieldNotNull(this.Kgs) || visibleFieldNotNull(this.CantPasaje)) { }
+           
         }
 
         private void Cancelar_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void Compra_Load(object sender, EventArgs e)
+        {
+            CheckForIllegalCrossThreadCalls = false;
+        }
+
+        private Boolean visibleFieldNotNull(SuperNumericUpDown control)
+        {
+            return control.Visible && control.Value != 0;
+
 
         }
     }

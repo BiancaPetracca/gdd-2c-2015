@@ -1,6 +1,6 @@
 ﻿namespace AerolineaFrba.Consulta_Millas
 {
-    partial class Form1
+    partial class Consultar_Millas
     {
         /// <summary>
         /// Required designer variable.
@@ -31,23 +31,23 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MillasCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
+            this.AcumulacionMillas = new System.Windows.Forms.DataGridView();
             this.NumeroCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Millas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MillasCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cerrar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AcumulacionMillas)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -73,6 +73,9 @@
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Fecha,
@@ -84,9 +87,29 @@
             this.dataGridView2.Size = new System.Drawing.Size(828, 145);
             this.dataGridView2.TabIndex = 0;
             // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            // 
+            // Producto
+            // 
+            this.Producto.HeaderText = "Producto canjeado";
+            this.Producto.Name = "Producto";
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            // 
+            // MillasCosto
+            // 
+            this.MillasCosto.HeaderText = "Millas que costó";
+            this.MillasCosto.Name = "MillasCosto";
+            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Controls.Add(this.AcumulacionMillas);
             this.groupBox2.Location = new System.Drawing.Point(7, 20);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(851, 209);
@@ -94,35 +117,27 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Detalles de la acumulación";
             // 
-            // dataGridView1
+            // AcumulacionMillas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AcumulacionMillas.AllowUserToAddRows = false;
+            this.AcumulacionMillas.AllowUserToDeleteRows = false;
+            this.AcumulacionMillas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.AcumulacionMillas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AcumulacionMillas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NumeroCompra,
             this.Tipo,
             this.Destino,
             this.Origen,
             this.Millas});
-            this.dataGridView1.Location = new System.Drawing.Point(7, 20);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(828, 183);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // Cerrar
-            // 
-            this.button1.Location = new System.Drawing.Point(801, 444);
-            this.button1.Name = "Cerrar";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Cerrar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.AcumulacionMillas.Location = new System.Drawing.Point(7, 20);
+            this.AcumulacionMillas.Name = "AcumulacionMillas";
+            this.AcumulacionMillas.Size = new System.Drawing.Size(828, 183);
+            this.AcumulacionMillas.TabIndex = 0;
             // 
             // NumeroCompra
             // 
             this.NumeroCompra.HeaderText = "Número de compra";
             this.NumeroCompra.Name = "NumeroCompra";
-            this.NumeroCompra.Width = 200;
             // 
             // Tipo
             // 
@@ -144,43 +159,32 @@
             this.Millas.HeaderText = "Millas";
             this.Millas.Name = "Millas";
             // 
-            // Fecha
+            // Cerrar
             // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
+            this.Cerrar.Location = new System.Drawing.Point(801, 444);
+            this.Cerrar.Name = "Cerrar";
+            this.Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.Cerrar.TabIndex = 1;
+            this.Cerrar.Text = "Cerrar";
+            this.Cerrar.UseVisualStyleBackColor = true;
+            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
-            // Producto
-            // 
-            this.Producto.HeaderText = "Producto canjeado";
-            this.Producto.Name = "Producto";
-            this.Producto.Width = 200;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            // 
-            // MillasCosto
-            // 
-            this.MillasCosto.HeaderText = "Millas que costó";
-            this.MillasCosto.Name = "MillasCosto";
-            this.MillasCosto.Width = 200;
-            // 
-            // Form1
+            // Consultar_Millas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(887, 479);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Cerrar);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Consultar_Millas";
+            this.Text = "Consultar millas";
+            this.Load += new System.EventHandler(this.Consultar_Millas_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AcumulacionMillas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -190,9 +194,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Cerrar;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView AcumulacionMillas;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;

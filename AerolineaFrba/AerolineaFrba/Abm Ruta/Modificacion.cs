@@ -19,7 +19,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            validateAll(this.Controls); 
+            validateNotNullForAll(this.Controls); 
         }
 
         private void Cerrar_Click(object sender, EventArgs e)

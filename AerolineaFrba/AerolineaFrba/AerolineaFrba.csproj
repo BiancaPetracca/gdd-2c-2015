@@ -86,6 +86,12 @@
     <Compile Include="Abm Ciudad\Ciudad.Designer.cs">
       <DependentUpon>Ciudad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Ciudad\Modificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ciudad\Modificacion.Designer.cs">
+      <DependentUpon>Modificacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rol\Alta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,7 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generics\Extensions.cs" />
     <Compile Include="Generics\TemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +168,12 @@
     </Compile>
     <Compile Include="SuperControls\SuperDateTimePicker.Designer.cs">
       <DependentUpon>SuperDateTimePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperGroupBox.Designer.cs">
+      <DependentUpon>SuperGroupBox.cs</DependentUpon>
     </Compile>
     <Compile Include="SuperControls\SuperLabel.cs">
       <SubType>Component</SubType>
@@ -283,11 +296,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registro de Usuario\Form1.cs">
+    <Compile Include="Registro de Usuario\RegistroUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro de Usuario\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro de Usuario\RegistroUsuario.Designer.cs">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Llegada Destino\Registro Llegada.cs">
       <SubType>Form</SubType>
@@ -319,6 +332,9 @@
     <EmbeddedResource Include="Abm Ciudad\Ciudad.resx">
       <DependentUpon>Ciudad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ciudad\Modificacion.resx">
+      <DependentUpon>Modificacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
@@ -337,6 +353,9 @@
     <EmbeddedResource Include="Abm Ruta\Ruta.resx">
       <DependentUpon>Ruta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registro de Usuario\RegistroUsuario.resx">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SuperControls\pruebasupers.resx">
       <DependentUpon>pruebasupers.cs</DependentUpon>
     </EmbeddedResource>
@@ -354,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SuperControls\SuperDateTimePicker.resx">
       <DependentUpon>SuperDateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperGroupBox.resx">
+      <DependentUpon>SuperGroupBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuperControls\SuperLabel.resx">
       <DependentUpon>SuperLabel.cs</DependentUpon>

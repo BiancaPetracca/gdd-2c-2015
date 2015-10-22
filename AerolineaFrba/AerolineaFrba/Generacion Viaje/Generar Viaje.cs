@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Generacion_Viaje
 {
-    public partial class Form1 : Form
+    public partial class Generar_Viaje : TemplateForm
     {
-        public Form1()
+        public Generar_Viaje()
         {
             InitializeComponent();
         }

@@ -25,7 +25,8 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            validateAll(this.Controls); 
+            validateNotNullForAll(this.Controls); 
+            
         }
 
     }

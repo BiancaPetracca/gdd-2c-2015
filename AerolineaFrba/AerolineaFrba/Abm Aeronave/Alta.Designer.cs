@@ -29,7 +29,7 @@ namespace AerolineaFrba.Abm_Aeronave
         /// </summary>
         private void InitializeComponent()
         {
-            this.numericUpDown1 = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.VidaUtil = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.label6 = new AerolineaFrba.SuperControls.SuperLabel();
             this.label4 = new AerolineaFrba.SuperControls.SuperLabel();
             this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
@@ -42,27 +42,28 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
             this.cantidad = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.disponible = new AerolineaFrba.SuperControls.SuperCheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VidaUtil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cantidad)).BeginInit();
             this.SuspendLayout();
             // 
-            // numericUpDown1
+            // VidaUtil
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(134, 161);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.VidaUtil.AccessibleDescription = "Vida útil";
+            this.VidaUtil.Location = new System.Drawing.Point(134, 161);
+            this.VidaUtil.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.VidaUtil.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown1.TabIndex = 14;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.VidaUtil.Name = "VidaUtil";
+            this.VidaUtil.Size = new System.Drawing.Size(47, 20);
+            this.VidaUtil.TabIndex = 14;
+            this.VidaUtil.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -102,6 +103,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // nombre
             // 
+            this.nombre.AccessibleDescription = "Nombre de la aeronave";
             this.nombre.Location = new System.Drawing.Point(134, 32);
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(112, 20);
@@ -110,6 +112,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // fabricante
             // 
+            this.fabricante.AccessibleDescription = "Fabricante ";
             this.fabricante.Location = new System.Drawing.Point(134, 75);
             this.fabricante.Name = "fabricante";
             this.fabricante.Size = new System.Drawing.Size(112, 20);
@@ -153,6 +156,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // cantidad
             // 
+            this.cantidad.AccessibleDescription = "Cantidad de butacas";
             this.cantidad.Location = new System.Drawing.Point(134, 114);
             this.cantidad.Minimum = new decimal(new int[] {
             30,
@@ -170,6 +174,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // disponible
             // 
+            this.disponible.AccessibleDescription = "Especificar habilitación ";
             this.disponible.Location = new System.Drawing.Point(134, 201);
             this.disponible.Name = "disponible";
             this.disponible.Size = new System.Drawing.Size(104, 24);
@@ -180,7 +185,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(369, 307);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.VidaUtil);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -195,7 +200,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Controls.Add(this.disponible);
             this.Name = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VidaUtil)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -216,6 +221,6 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperButton Aceptar;
         private SuperButton Cancelar;
         private SuperNumericUpDown cantidad;
-        private SuperNumericUpDown numericUpDown1;
+        private SuperNumericUpDown VidaUtil;
     }
 }

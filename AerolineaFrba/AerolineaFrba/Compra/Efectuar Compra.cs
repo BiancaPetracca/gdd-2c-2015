@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class Efectuar_Compra : Form
+    public partial class Efectuar_Compra : TemplateForm
     {
         public Efectuar_Compra()
         {
@@ -19,7 +19,7 @@ namespace AerolineaFrba.Compra
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.ValueMember == "Efectivo")
+            if (MedioPago.ValueMember == "Efectivo")
             {
                 Exito_Efectivo exitoEfectivo = new Exito_Efectivo();
                 exitoEfectivo.MdiParent = this.MdiParent;

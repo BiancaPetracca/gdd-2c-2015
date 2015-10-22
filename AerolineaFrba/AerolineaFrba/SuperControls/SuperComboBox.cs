@@ -22,6 +22,9 @@ namespace AerolineaFrba.SuperControls
             base.OnPaint(pe);
         }
 
-        public Boolean valid() { return this.SelectedIndex != -1; }
+        public Boolean valid()
+        { 
+            return (this.SelectedIndex != -1);
+        }
     }
 }

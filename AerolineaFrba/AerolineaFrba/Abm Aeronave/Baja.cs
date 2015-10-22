@@ -29,7 +29,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            validateAll(this.Controls);
+            validateNotNullForAll(this.Controls);
         }
 
         private void button2_Click(object sender, EventArgs e) // para la fecha de reinicio

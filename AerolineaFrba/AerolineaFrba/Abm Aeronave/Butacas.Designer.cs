@@ -49,6 +49,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.grid.Name = "grid";
             this.grid.Size = new System.Drawing.Size(243, 409);
             this.grid.TabIndex = 0;
+            this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellContentClick);
             // 
             // Column1
             // 

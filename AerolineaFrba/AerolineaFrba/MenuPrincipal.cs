@@ -43,12 +43,12 @@ namespace AerolineaFrba
 
         private void generarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Generacion_Viaje.Form1(), this);
+            openIntoParent(new Generacion_Viaje.Generar_Viaje(), this);
         }
 
         private void registroDeLlegadaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new Registro_Llegada_Destino.Form1().Show();
+            new Registro_Llegada_Destino.RegistroLlegadaAeronave().Show();
         }
 
         private void pasajeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace AerolineaFrba
 
         private void consultarMillasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           openIntoParent(new Consulta_Millas.Form1(), this);
+           openIntoParent(new Consulta_Millas.Consultar_Millas(), this);
         }
 
         private void verListadoEstadísticoToolStripMenuItem_Click(object sender, EventArgs e)
