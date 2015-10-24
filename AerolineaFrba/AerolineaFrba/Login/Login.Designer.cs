@@ -35,11 +35,10 @@
             this.label_Contrasenia = new System.Windows.Forms.Label();
             this.label_Usuario = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.NumeroIntentos = new AerolineaFrba.SuperControls.SuperLabel();
+            this.Bienvenida = new AerolineaFrba.SuperControls.SuperLabel();
             this.comboBox_Roles = new System.Windows.Forms.ComboBox();
             this.label_Rol = new System.Windows.Forms.Label();
-            this.button_OlvidoContrasenia = new System.Windows.Forms.Button();
-            this.Bienvenida = new AerolineaFrba.SuperControls.SuperLabel();
-            this.NumeroIntentos = new AerolineaFrba.SuperControls.SuperLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,7 +104,6 @@
             this.groupBox1.Controls.Add(this.Bienvenida);
             this.groupBox1.Controls.Add(this.comboBox_Roles);
             this.groupBox1.Controls.Add(this.label_Rol);
-            this.groupBox1.Controls.Add(this.button_OlvidoContrasenia);
             this.groupBox1.Controls.Add(this.textBox_password);
             this.groupBox1.Controls.Add(this.label_Usuario);
             this.groupBox1.Controls.Add(this.label_Contrasenia);
@@ -115,6 +113,26 @@
             this.groupBox1.Size = new System.Drawing.Size(581, 288);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
+            // 
+            // NumeroIntentos
+            // 
+            this.NumeroIntentos.AccessibleDescription = "Intentos restantes";
+            this.NumeroIntentos.AutoSize = true;
+            this.NumeroIntentos.Location = new System.Drawing.Point(139, 226);
+            this.NumeroIntentos.Name = "NumeroIntentos";
+            this.NumeroIntentos.Size = new System.Drawing.Size(94, 13);
+            this.NumeroIntentos.TabIndex = 15;
+            this.NumeroIntentos.Text = "Intentos restantes:";
+            // 
+            // Bienvenida
+            // 
+            this.Bienvenida.AutoSize = true;
+            this.Bienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.Bienvenida.Location = new System.Drawing.Point(116, 42);
+            this.Bienvenida.Name = "Bienvenida";
+            this.Bienvenida.Size = new System.Drawing.Size(336, 25);
+            this.Bienvenida.TabIndex = 14;
+            this.Bienvenida.Text = "¡Bienvenido al sistema de aerolíneas!";
             // 
             // comboBox_Roles
             // 
@@ -134,42 +152,6 @@
             this.label_Rol.Size = new System.Drawing.Size(23, 13);
             this.label_Rol.TabIndex = 13;
             this.label_Rol.Text = "Rol";
-            // 
-            // button_OlvidoContrasenia
-            // 
-            this.button_OlvidoContrasenia.AccessibleDescription = "Contraseña olvidada";
-            this.button_OlvidoContrasenia.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.button_OlvidoContrasenia.FlatAppearance.BorderSize = 0;
-            this.button_OlvidoContrasenia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_OlvidoContrasenia.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_OlvidoContrasenia.ForeColor = System.Drawing.Color.DarkRed;
-            this.button_OlvidoContrasenia.Location = new System.Drawing.Point(310, 222);
-            this.button_OlvidoContrasenia.Name = "button_OlvidoContrasenia";
-            this.button_OlvidoContrasenia.Size = new System.Drawing.Size(115, 23);
-            this.button_OlvidoContrasenia.TabIndex = 5;
-            this.button_OlvidoContrasenia.Text = "Olvidé mi contraseña";
-            this.button_OlvidoContrasenia.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.button_OlvidoContrasenia.UseVisualStyleBackColor = true;
-            // 
-            // Bienvenida
-            // 
-            this.Bienvenida.AutoSize = true;
-            this.Bienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.Bienvenida.Location = new System.Drawing.Point(116, 42);
-            this.Bienvenida.Name = "Bienvenida";
-            this.Bienvenida.Size = new System.Drawing.Size(336, 25);
-            this.Bienvenida.TabIndex = 14;
-            this.Bienvenida.Text = "¡Bienvenido al sistema de aerolíneas!";
-            // 
-            // NumeroIntentos
-            // 
-            this.NumeroIntentos.AccessibleDescription = "Intentos restantes";
-            this.NumeroIntentos.AutoSize = true;
-            this.NumeroIntentos.Location = new System.Drawing.Point(139, 226);
-            this.NumeroIntentos.Name = "NumeroIntentos";
-            this.NumeroIntentos.Size = new System.Drawing.Size(94, 13);
-            this.NumeroIntentos.TabIndex = 15;
-            this.NumeroIntentos.Text = "Intentos restantes:";
             // 
             // Login
             // 
@@ -200,7 +182,6 @@
         private System.Windows.Forms.Label label_Contrasenia;
         private System.Windows.Forms.Label label_Usuario;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button_OlvidoContrasenia;
         private System.Windows.Forms.Label label_Rol;
         private System.Windows.Forms.ComboBox comboBox_Roles;
         private SuperControls.SuperLabel Bienvenida;

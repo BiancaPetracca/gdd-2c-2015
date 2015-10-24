@@ -31,10 +31,10 @@
             this.groupBox_SeleccionarRol = new System.Windows.Forms.GroupBox();
             this.button_Cerrar = new System.Windows.Forms.Button();
             this.ListadoRoles = new System.Windows.Forms.DataGridView();
-            this.agregar = new System.Windows.Forms.Button();
             this.Indice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.agregar = new System.Windows.Forms.Button();
             this.groupBox_SeleccionarRol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListadoRoles)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +53,7 @@
             // 
             // button_Cerrar
             // 
-            this.button_Cerrar.Location = new System.Drawing.Point(843, 380);
+            this.button_Cerrar.Location = new System.Drawing.Point(648, 381);
             this.button_Cerrar.Name = "button_Cerrar";
             this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
             this.button_Cerrar.TabIndex = 1;
@@ -74,20 +74,11 @@
             this.Indice,
             this.Rol,
             this.Modificar});
-            this.ListadoRoles.Location = new System.Drawing.Point(91, 53);
+            this.ListadoRoles.Location = new System.Drawing.Point(150, 48);
             this.ListadoRoles.Name = "ListadoRoles";
-            this.ListadoRoles.Size = new System.Drawing.Size(827, 307);
+            this.ListadoRoles.Size = new System.Drawing.Size(571, 306);
             this.ListadoRoles.TabIndex = 0;
             this.ListadoRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_SeleccionRol_CellContentClick);
-            // 
-            // agregar
-            // 
-            this.agregar.Location = new System.Drawing.Point(741, 380);
-            this.agregar.Name = "agregar";
-            this.agregar.Size = new System.Drawing.Size(75, 23);
-            this.agregar.TabIndex = 22;
-            this.agregar.Text = "Agregar";
-            this.agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // Indice
             // 
@@ -113,6 +104,15 @@
             this.Modificar.ToolTipText = "Modificar";
             this.Modificar.UseColumnTextForButtonValue = true;
             this.Modificar.Width = 181;
+            // 
+            // agregar
+            // 
+            this.agregar.Location = new System.Drawing.Point(546, 381);
+            this.agregar.Name = "agregar";
+            this.agregar.Size = new System.Drawing.Size(75, 23);
+            this.agregar.TabIndex = 22;
+            this.agregar.Text = "Agregar";
+            this.agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // RolListado
             // 
