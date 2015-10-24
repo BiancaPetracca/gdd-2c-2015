@@ -122,6 +122,8 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAO\DAOLogin.cs" />
+    <Compile Include="DAO\SqlConnector.cs" />
     <Compile Include="Generics\Helper.cs" />
     <Compile Include="Generics\TemplateForm.cs">
       <SubType>Form</SubType>
@@ -367,9 +369,7 @@
   <ItemGroup>
     <Content Include="Decisiones Diseño.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

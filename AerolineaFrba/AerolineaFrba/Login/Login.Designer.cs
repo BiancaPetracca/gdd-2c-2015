@@ -51,6 +51,7 @@
             this.button_IniciarSesion.TabIndex = 3;
             this.button_IniciarSesion.Text = "Iniciar sesion";
             this.button_IniciarSesion.UseVisualStyleBackColor = true;
+            this.button_IniciarSesion.Click += new System.EventHandler(this.button_IniciarSesion_Click);
             // 
             // button_Cerrar
             // 
@@ -61,6 +62,7 @@
             this.button_Cerrar.TabIndex = 4;
             this.button_Cerrar.Text = "Cerrar";
             this.button_Cerrar.UseVisualStyleBackColor = true;
+            this.button_Cerrar.Click += new System.EventHandler(this.button_Cerrar_Click);
             // 
             // textBox_password
             // 
