@@ -128,20 +128,10 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="DAO\DAOLogin.cs" />
     <Compile Include="DAO\SqlConnector.cs" />
-    <Compile Include="Generics\Helper.cs" />
-=======
     <Compile Include="Generics\Extensions.cs" />
-<<<<<<< HEAD
     <Compile Include="Generics\Validations.cs" />
-=======
->>>>>>> 025fe63fc88b1ff707edefe982d582d993b45265
-    <Compile Include="Generics\TemplateForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
->>>>>>> 708635775619e3c3151da99673bf876acfcf0cf8
     <Compile Include="SuperControls\ISuperControls.cs" />
     <Compile Include="SuperControls\SuperButton.cs">
       <SubType>Component</SubType>

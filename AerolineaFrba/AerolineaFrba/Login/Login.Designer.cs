@@ -28,62 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button_IniciarSesion = new System.Windows.Forms.Button();
-            this.button_Cerrar = new System.Windows.Forms.Button();
-            this.textBox_password = new System.Windows.Forms.TextBox();
-            this.textBox_Username = new System.Windows.Forms.TextBox();
-            this.label_Contrasenia = new System.Windows.Forms.Label();
-            this.label_Usuario = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.NumeroIntentos = new AerolineaFrba.SuperControls.SuperLabel();
+            this.IniciarSesion = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Contraseña = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.Usuario = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.label_Contrasenia = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label_Usuario = new AerolineaFrba.SuperControls.SuperLabel();
+            this.IntentosRestantes = new AerolineaFrba.SuperControls.SuperLabel();
             this.Bienvenida = new AerolineaFrba.SuperControls.SuperLabel();
-            this.comboBox_Roles = new System.Windows.Forms.ComboBox();
-            this.label_Rol = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.Rol = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.label_Rol = new AerolineaFrba.SuperControls.SuperLabel();
             this.SuspendLayout();
             // 
-            // button_IniciarSesion
+            // IniciarSesion
             // 
-            this.button_IniciarSesion.Location = new System.Drawing.Point(584, 386);
-            this.button_IniciarSesion.Name = "button_IniciarSesion";
-            this.button_IniciarSesion.Size = new System.Drawing.Size(79, 27);
-            this.button_IniciarSesion.TabIndex = 3;
-            this.button_IniciarSesion.Text = "Iniciar sesión";
-            this.button_IniciarSesion.UseVisualStyleBackColor = true;
-            this.button_IniciarSesion.Click += new System.EventHandler(this.button_IniciarSesion_Click);
+            this.IniciarSesion.Location = new System.Drawing.Point(185, 292);
+            this.IniciarSesion.Name = "IniciarSesion";
+            this.IniciarSesion.Size = new System.Drawing.Size(79, 27);
+            this.IniciarSesion.TabIndex = 3;
+            this.IniciarSesion.Text = "Iniciar sesión";
+            this.IniciarSesion.UseVisualStyleBackColor = true;
+            this.IniciarSesion.Click += new System.EventHandler(this.IniciarSesion_Click);
             // 
-            // button_Cerrar
+            // Cerrar
             // 
-            this.button_Cerrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button_Cerrar.Location = new System.Drawing.Point(669, 386);
-            this.button_Cerrar.Name = "button_Cerrar";
-            this.button_Cerrar.Size = new System.Drawing.Size(86, 27);
-            this.button_Cerrar.TabIndex = 4;
-            this.button_Cerrar.Text = "Cerrar";
-            this.button_Cerrar.UseVisualStyleBackColor = true;
-            this.button_Cerrar.Click += new System.EventHandler(this.button_Cerrar_Click);
+            this.Cerrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cerrar.Location = new System.Drawing.Point(270, 292);
+            this.Cerrar.Name = "Cerrar";
+            this.Cerrar.Size = new System.Drawing.Size(86, 27);
+            this.Cerrar.TabIndex = 4;
+            this.Cerrar.Text = "Cerrar";
+            this.Cerrar.UseVisualStyleBackColor = true;
+            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
-            // textBox_password
+            // Contraseña
             // 
-            this.textBox_password.AccessibleDescription = "Contraseña ";
-            this.textBox_password.Location = new System.Drawing.Point(223, 145);
-            this.textBox_password.Name = "textBox_password";
-            this.textBox_password.PasswordChar = '*';
-            this.textBox_password.Size = new System.Drawing.Size(202, 20);
-            this.textBox_password.TabIndex = 1;
+            this.Contraseña.AccessibleDescription = "Contraseña ";
+            this.Contraseña.Location = new System.Drawing.Point(154, 147);
+            this.Contraseña.Name = "Contraseña";
+            this.Contraseña.PasswordChar = '*';
+            this.Contraseña.Size = new System.Drawing.Size(202, 20);
+            this.Contraseña.TabIndex = 1;
             // 
-            // textBox_Username
+            // Usuario
             // 
-            this.textBox_Username.AccessibleDescription = "Nombre de usuario";
-            this.textBox_Username.Location = new System.Drawing.Point(223, 110);
-            this.textBox_Username.Name = "textBox_Username";
-            this.textBox_Username.Size = new System.Drawing.Size(202, 20);
-            this.textBox_Username.TabIndex = 0;
+            this.Usuario.AccessibleDescription = "Nombre de usuario";
+            this.Usuario.Location = new System.Drawing.Point(154, 112);
+            this.Usuario.Name = "Usuario";
+            this.Usuario.Size = new System.Drawing.Size(202, 20);
+            this.Usuario.TabIndex = 0;
             // 
             // label_Contrasenia
             // 
             this.label_Contrasenia.AutoSize = true;
-            this.label_Contrasenia.Location = new System.Drawing.Point(139, 148);
+            this.label_Contrasenia.Location = new System.Drawing.Point(70, 150);
             this.label_Contrasenia.Name = "label_Contrasenia";
             this.label_Contrasenia.Size = new System.Drawing.Size(61, 13);
             this.label_Contrasenia.TabIndex = 7;
@@ -92,62 +90,46 @@
             // label_Usuario
             // 
             this.label_Usuario.AutoSize = true;
-            this.label_Usuario.Location = new System.Drawing.Point(139, 113);
+            this.label_Usuario.Location = new System.Drawing.Point(70, 115);
             this.label_Usuario.Name = "label_Usuario";
             this.label_Usuario.Size = new System.Drawing.Size(43, 13);
             this.label_Usuario.TabIndex = 6;
             this.label_Usuario.Text = "Usuario";
             // 
-            // groupBox1
+            // IntentosRestantes
             // 
-            this.groupBox1.Controls.Add(this.NumeroIntentos);
-            this.groupBox1.Controls.Add(this.Bienvenida);
-            this.groupBox1.Controls.Add(this.comboBox_Roles);
-            this.groupBox1.Controls.Add(this.label_Rol);
-            this.groupBox1.Controls.Add(this.textBox_password);
-            this.groupBox1.Controls.Add(this.label_Usuario);
-            this.groupBox1.Controls.Add(this.label_Contrasenia);
-            this.groupBox1.Controls.Add(this.textBox_Username);
-            this.groupBox1.Location = new System.Drawing.Point(174, 69);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(581, 288);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            // 
-            // NumeroIntentos
-            // 
-            this.NumeroIntentos.AccessibleDescription = "Intentos restantes";
-            this.NumeroIntentos.AutoSize = true;
-            this.NumeroIntentos.Location = new System.Drawing.Point(139, 226);
-            this.NumeroIntentos.Name = "NumeroIntentos";
-            this.NumeroIntentos.Size = new System.Drawing.Size(94, 13);
-            this.NumeroIntentos.TabIndex = 15;
-            this.NumeroIntentos.Text = "Intentos restantes:";
+            this.IntentosRestantes.AccessibleDescription = "Intentos restantes";
+            this.IntentosRestantes.AutoSize = true;
+            this.IntentosRestantes.Location = new System.Drawing.Point(70, 228);
+            this.IntentosRestantes.Name = "IntentosRestantes";
+            this.IntentosRestantes.Size = new System.Drawing.Size(94, 13);
+            this.IntentosRestantes.TabIndex = 15;
+            this.IntentosRestantes.Text = "Intentos restantes:";
             // 
             // Bienvenida
             // 
             this.Bienvenida.AutoSize = true;
             this.Bienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.Bienvenida.Location = new System.Drawing.Point(116, 42);
+            this.Bienvenida.Location = new System.Drawing.Point(47, 44);
             this.Bienvenida.Name = "Bienvenida";
             this.Bienvenida.Size = new System.Drawing.Size(336, 25);
             this.Bienvenida.TabIndex = 14;
             this.Bienvenida.Text = "¡Bienvenido al sistema de aerolíneas!";
             // 
-            // comboBox_Roles
+            // Rol
             // 
-            this.comboBox_Roles.AccessibleDescription = "Rol ";
-            this.comboBox_Roles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_Roles.FormattingEnabled = true;
-            this.comboBox_Roles.Location = new System.Drawing.Point(223, 179);
-            this.comboBox_Roles.Name = "comboBox_Roles";
-            this.comboBox_Roles.Size = new System.Drawing.Size(202, 21);
-            this.comboBox_Roles.TabIndex = 2;
+            this.Rol.AccessibleDescription = "Rol ";
+            this.Rol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Rol.FormattingEnabled = true;
+            this.Rol.Location = new System.Drawing.Point(154, 181);
+            this.Rol.Name = "Rol";
+            this.Rol.Size = new System.Drawing.Size(202, 21);
+            this.Rol.TabIndex = 2;
             // 
             // label_Rol
             // 
             this.label_Rol.AutoSize = true;
-            this.label_Rol.Location = new System.Drawing.Point(139, 182);
+            this.label_Rol.Location = new System.Drawing.Point(70, 184);
             this.label_Rol.Name = "label_Rol";
             this.label_Rol.Size = new System.Drawing.Size(23, 13);
             this.label_Rol.TabIndex = 13;
@@ -158,33 +140,38 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(834, 487);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button_IniciarSesion);
-            this.Controls.Add(this.button_Cerrar);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.ClientSize = new System.Drawing.Size(414, 366);
+            this.Controls.Add(this.IntentosRestantes);
+            this.Controls.Add(this.Bienvenida);
+            this.Controls.Add(this.Rol);
+            this.Controls.Add(this.IniciarSesion);
+            this.Controls.Add(this.label_Rol);
+            this.Controls.Add(this.Cerrar);
+            this.Controls.Add(this.Contraseña);
+            this.Controls.Add(this.Usuario);
+            this.Controls.Add(this.label_Usuario);
+            this.Controls.Add(this.label_Contrasenia);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Login";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ingrese al sistema";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+      
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button_IniciarSesion;
-        private System.Windows.Forms.Button button_Cerrar;
-        private System.Windows.Forms.TextBox textBox_password;
-        private System.Windows.Forms.TextBox textBox_Username;
-        private System.Windows.Forms.Label label_Contrasenia;
-        private System.Windows.Forms.Label label_Usuario;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label_Rol;
-        private System.Windows.Forms.ComboBox comboBox_Roles;
-        private SuperControls.SuperLabel Bienvenida;
-        private SuperControls.SuperLabel NumeroIntentos;
+        private AerolineaFrba.SuperControls.SuperButton IniciarSesion;
+        private AerolineaFrba.SuperControls.SuperButton Cerrar;
+        private AerolineaFrba.SuperControls.SuperTextBox Contraseña;
+        private AerolineaFrba.SuperControls.SuperTextBox Usuario;
+        private AerolineaFrba.SuperControls.SuperLabel label_Contrasenia;
+        private AerolineaFrba.SuperControls.SuperLabel label_Usuario;
+        private AerolineaFrba.SuperControls.SuperLabel label_Rol;
+        private AerolineaFrba.SuperControls.SuperComboBox Rol;
+        private AerolineaFrba.SuperControls.SuperLabel Bienvenida;
+        private AerolineaFrba.SuperControls.SuperLabel IntentosRestantes;
     }
 }
