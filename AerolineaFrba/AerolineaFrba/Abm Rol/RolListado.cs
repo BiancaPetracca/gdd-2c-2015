@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Abm_Rol
 {
-    public partial class RolListado : TemplateForm
+    public partial class RolListado : Form
     {
         public RolListado()
         {
@@ -19,7 +20,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Alta(), this.MdiParent);
+           this.openInNewWindow(new Alta());
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
@@ -31,7 +32,7 @@ namespace AerolineaFrba.Abm_Rol
         {
             if (e.ColumnIndex == this.ListadoRoles.Columns["Modificar"].Index)
             {
-                openIntoParent(new Modificacion(), this.MdiParent);
+               this.openInNewWindow(new Modificacion());
             }
            
         }

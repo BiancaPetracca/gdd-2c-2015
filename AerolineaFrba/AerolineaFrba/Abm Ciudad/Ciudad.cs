@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Abm_Ciudad
 {
-    public partial class Ciudad : TemplateForm
+    public partial class Ciudad : Form
     {
         public Ciudad()
         {
@@ -19,7 +20,7 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            openInNewWindow(new Alta());
+           this.openInNewWindow(new Alta());
         }
 
         private void Borrar_Click(object sender, EventArgs e)
@@ -36,7 +37,7 @@ namespace AerolineaFrba.Abm_Ciudad
         {
             if (e.ColumnIndex == this.lista.Columns["Modificar"].Index)
             {
-                openIntoParent(new Modificacion(), this.MdiParent);
+                this.openIntoParent(new Modificacion(), this.MdiParent);
             }
         }
 

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Canje_Millas
 {
-    public partial class Canje_Millas : TemplateForm
+    public partial class Canje_Millas : Form
     {
         public Canje_Millas()
         {
@@ -24,7 +25,7 @@ namespace AerolineaFrba.Canje_Millas
 
         private void RealizarCanje_Click(object sender, EventArgs e)
         {
-            validateNotNullForAll(this.DatosCanjeador.Controls);
+            this.validateNotNullForAll(this.DatosCanjeador.Controls);
 
             try { if (this.ProductosCanjear.Rows.Count == 0) { throw new Exception("Elija algún producto para canjear"); } }
             catch (Exception excepcion) {
@@ -44,7 +45,7 @@ namespace AerolineaFrba.Canje_Millas
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (validateNotNullForAll(this.AgregarProductos.Controls))
+            if (this.validateNotNullForAll(this.AgregarProductos.Controls))
             this.ProductosCanjear.Rows.Add(this.NombreProducto.SelectedValue, this.CantidadProducto.Value);
         }
 

@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class Compra : TemplateForm
+    public partial class Compra : Form
     {
         public Compra()
         {
@@ -20,20 +21,20 @@ namespace AerolineaFrba.Compra
 
         private void Siguiente_Click(object sender, EventArgs e)
         {
-            if (!noRows(this.Pasaje, "No hay ningún pasaje definido"))
+            if (! this.Pasaje.noRows("No hay ningún pasaje definido"))
             {
-                openIntoParent(new Elegir_Pasajeros(), this.MdiParent);
+                this.openIntoParent(new Elegir_Pasajeros(), this.MdiParent);
             }
         }
 
         private void ViajeOk_Click(object sender, EventArgs e)
         {
-            validateNotNullForAll(this.ElegirViaje.Controls);
+            this.validateNotNullForAll(this.ElegirViaje.Controls);
         }
 
         private void OpcionesOk_Click(object sender, EventArgs e)
         {
-            validate(this.Servicio);
+            this.Servicio.validate();
 
             if (visibleFieldNotNull(this.Kgs) || visibleFieldNotNull(this.CantPasaje)) { }
            

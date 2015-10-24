@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Listado_Estadistico
 {
-    public partial class Form1 : Form
+    public partial class Listado_Estadisticas : Form
     {
-        public Form1()
+        public Listado_Estadisticas()
         {
             InitializeComponent();
         }

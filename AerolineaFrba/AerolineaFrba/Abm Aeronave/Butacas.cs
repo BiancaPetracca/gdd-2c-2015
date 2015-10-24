@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Butacas : TemplateForm
+    public partial class Butacas : Form
     {
         public Butacas()
         {

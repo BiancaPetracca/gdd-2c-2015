@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Devolucion
 {
-    public partial class Devolver : TemplateForm
+    public partial class Devolver : Form
     {
         public Devolver()
         {
@@ -20,7 +21,7 @@ namespace AerolineaFrba.Devolucion
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (validateNotNullForAll(this.CompraDevolver.Controls))
+            if (this.validateNotNullForAll(this.CompraDevolver.Controls))
             this.Devoluciones.Rows.Add(this.Fecha.Value, this.PNR.Text, this.Codigo.Text, this.MotivoDevolucion.Text);
         }
 

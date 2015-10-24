@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
+using AerolineaFrba.SuperControls;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Aeronave : TemplateForm
+    public partial class Aeronave : Form
     {
         public Aeronave()
         {
@@ -18,16 +20,16 @@ namespace AerolineaFrba.Abm_Aeronave
         }
 
 
-
         private void Agregar_Click(object sender, EventArgs e)
         {
-            openInNewWindow(new Alta());
+            this.openInNewWindow(new Alta());
         }
       
 
         private void Borrar_Click(object sender, EventArgs e)
         {
-            openInNewWindow(new Baja());
+            this.openInNewWindow(new Abm_Aeronave.Alta());
+
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
@@ -49,17 +51,18 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void MatriculaFiltro_KeyPress(object sender, KeyPressEventArgs e)
         {
-            allowNumericOnly(e);
+           this.allowNumericOnly(e);
         }
 
         private void FabricanteFiltro_KeyPress(object sender, KeyPressEventArgs e)
         {
-            allowAlphaOnly(e);
+            this.allowAlphaOnly(e);
         }
 
         private void limpiar_Click(object sender, EventArgs e)
         {
 
         }
+
     }
 }

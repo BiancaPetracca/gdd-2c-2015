@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Alta : TemplateForm
+    public partial class Alta : Form
     {
         public Alta()
         {
@@ -25,7 +26,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            validateNotNullForAll(this.Controls); 
+            this.validateNotNullForAll(this.Controls); 
             
         }
 

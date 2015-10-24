@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Alta : TemplateForm
+    public partial class Alta : Form
     {
         public Alta()
         {
@@ -42,7 +43,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         public void Aceptar_Click(object sender, EventArgs e)
         {
-            validateNotNullForAll(this.Controls);
+            this.validateNotNullForAll(this.Controls);
         }
 
         private void nombre_MouseDown(object sender, MouseEventArgs e)

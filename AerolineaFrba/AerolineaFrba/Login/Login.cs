@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Login
 {
-    public partial class Login : TemplateForm
+    public partial class Login : Form
     {
         public Login()
         {

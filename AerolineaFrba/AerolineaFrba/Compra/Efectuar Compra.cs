@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class Efectuar_Compra : TemplateForm
+    public partial class Efectuar_Compra : Form
     {
         public Efectuar_Compra()
         {

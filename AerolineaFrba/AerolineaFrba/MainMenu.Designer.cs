@@ -1,6 +1,6 @@
 ﻿namespace AerolineaFrba
 {
-    partial class Inicio
+    partial class MainMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -174,9 +174,9 @@
             this.pruebaToolStripMenuItem.Name = "pruebaToolStripMenuItem";
             this.pruebaToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.pruebaToolStripMenuItem.Text = "prueba";
-            this.pruebaToolStripMenuItem.Click += new System.EventHandler(this.pruebaToolStripMenuItem_Click);
+          
             // 
-            // Inicio
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -186,7 +186,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Inicio";
+            this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Aerolinea";
             this.menuStrip1.ResumeLayout(false);

@@ -7,73 +7,73 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AerolineaFrba.ABM_Templates;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba
 {
-    public partial class Inicio : TemplateForm
+    public partial class MainMenu : Form
     {
-        public Inicio()
+        public MainMenu()
         {
             InitializeComponent();
         }
 
         private void rolABM_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Abm_Rol.RolListado(), this);
+           this.openIntoParent(new Abm_Rol.RolListado(), this);
 
         }
 
         private void aeronaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Abm_Aeronave.Aeronave(), this);
+           this.openIntoParent(new Abm_Aeronave.Aeronave(), this);
        
 
         }
 
         private void ciudadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Abm_Ciudad.Ciudad(), this);
+           this.openIntoParent(new Abm_Ciudad.Ciudad(), this);
         }
 
         private void rutaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Abm_Ruta.Ruta(), this);
+            this.openIntoParent(new Abm_Ruta.Ruta(), this);
         }
 
         private void generarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Generacion_Viaje.Generar_Viaje(), this);
+           this.openIntoParent(new Generacion_Viaje.Generar_Viaje(), this);
         }
 
         private void registroDeLlegadaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new Registro_Llegada_Destino.RegistroLlegadaAeronave().Show();
+            this.openInNewWindow(new Registro_Llegada_Destino.RegistroLlegadaAeronave());
         }
 
         private void pasajeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Compra.Compra(), this);
+            this.openIntoParent(new Compra.Compra(), this);
         }
 
         private void devolucionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openIntoParent(new Devolucion.Devolver(), this);
+            this.openIntoParent(new Devolucion.Devolver(), this);
         }
 
         private void canjearMillasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           openIntoParent(new Canje_Millas.Canje_Millas(), this);
+           this.openIntoParent(new Canje_Millas.Canje_Millas(), this);
         }
 
         private void consultarMillasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           openIntoParent(new Consulta_Millas.Consultar_Millas(), this);
+           this.openIntoParent(new Consulta_Millas.Consultar_Millas(), this);
         }
 
         private void verListadoEstadísticoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           openIntoParent(new Listado_Estadistico.Form1(), this);
+           this.openIntoParent(new Listado_Estadistico.Listado_Estadisticas(), this);
         }
 
         private void salir_Click(object sender, EventArgs e)
@@ -81,10 +81,7 @@ namespace AerolineaFrba
             this.Close();
         }
 
-        private void pruebaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openIntoParent(new AerolineaFrba.SuperControls.pruebasupers(), this);
-        }
+
 
        
 

@@ -1,7 +1,7 @@
 ﻿using AerolineaFrba.SuperControls;
 namespace AerolineaFrba.Abm_Aeronave
 {
-    partial class Alta
+    partial class Alta 
     {
         /// <summary>
         /// Required designer variable.

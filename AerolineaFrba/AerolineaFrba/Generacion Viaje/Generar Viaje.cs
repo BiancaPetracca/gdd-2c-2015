@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Generacion_Viaje
 {
-    public partial class Generar_Viaje : TemplateForm
+    public partial class Generar_Viaje : Form
     {
         public Generar_Viaje()
         {

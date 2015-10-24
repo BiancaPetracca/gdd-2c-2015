@@ -1,6 +1,6 @@
 ﻿namespace AerolineaFrba.Listado_Estadistico
 {
-    partial class Form1
+    partial class Listado_Estadisticas
     {
         /// <summary>
         /// Required designer variable.
@@ -165,7 +165,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // Listado_Estadisticas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -176,7 +176,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Semestre);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "Listado_Estadisticas";
             this.Text = "Listado Estadístico";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Top5)).EndInit();

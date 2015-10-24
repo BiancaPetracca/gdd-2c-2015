@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class Elegir_Pasajeros : TemplateForm
+    public partial class Elegir_Pasajeros : Form
     {
         public Elegir_Pasajeros()
         {
@@ -19,9 +20,9 @@ namespace AerolineaFrba.Compra
 
         private void Siguiente_Click(object sender, EventArgs e)
         {
-            if (!anyEmptyCells(this.DatosPasajes, "NumeroButaca", "Seleccione una butaca"))
+            if (!this.DatosPasajes.anyEmptyCells("NumeroButaca", "Seleccione una butaca"))
             {
-                openIntoParent(new Efectuar_Compra(), this.MdiParent);
+                this.openIntoParent(new Efectuar_Compra(), this.MdiParent);
             }
             
         }
@@ -30,14 +31,14 @@ namespace AerolineaFrba.Compra
         {
             if (e.ColumnIndex == this.DatosPasajes.Columns["SeleccionarButaca"].Index)
             {
-                openInNewWindow(new Abm_Aeronave.Butacas());
+                this.openInNewWindow(new Abm_Aeronave.Butacas());
             }
         }
 
         // no funciona con el click en la celda, ni puta idea 
         private void SeleccionarButaca_Click(object sender, System.EventArgs e)
         {
-            openInNewWindow(new Abm_Aeronave.Butacas());
+           this.openInNewWindow(new Abm_Aeronave.Butacas());
         }
 
         private void Cancelar_Click(object sender, EventArgs e)

@@ -17,7 +17,20 @@ namespace AerolineaFrba.Abm_Rol
             InitializeComponent();
         }
 
-        private void superLabel1_Click(object sender, EventArgs e)
+
+        private void Agregar_Click(object sender, EventArgs e)
+        {
+            if (FuncionalidadSeleccion.SelectedIndex != -1) {
+                FuncionalidadesRol.Rows.Add(FuncionalidadSeleccion.SelectedItem);
+            }
+        }
+
+        private void Cerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void FuncionalidadesRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

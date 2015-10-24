@@ -245,6 +245,7 @@
             this.lista.ReadOnly = true;
             this.lista.Size = new System.Drawing.Size(930, 221);
             this.lista.TabIndex = 5;
+   
             // 
             // Column7
             // 

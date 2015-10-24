@@ -31,12 +31,12 @@
             this.Estado = new AerolineaFrba.SuperControls.SuperCheckBox();
             this.Nombre = new AerolineaFrba.SuperControls.SuperTextBox();
             this.FuncionalidadesRol = new System.Windows.Forms.DataGridView();
-            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.superButton1 = new AerolineaFrba.SuperControls.SuperButton();
-            this.superButton2 = new AerolineaFrba.SuperControls.SuperButton();
             this.Funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
             this.FuncionalidadSeleccion = new AerolineaFrba.SuperControls.SuperComboBox();
             this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
@@ -73,43 +73,7 @@
             this.FuncionalidadesRol.Name = "FuncionalidadesRol";
             this.FuncionalidadesRol.Size = new System.Drawing.Size(390, 276);
             this.FuncionalidadesRol.TabIndex = 2;
-            // 
-            // superLabel1
-            // 
-            this.superLabel1.AutoSize = true;
-            this.superLabel1.Location = new System.Drawing.Point(47, 33);
-            this.superLabel1.Name = "superLabel1";
-            this.superLabel1.Size = new System.Drawing.Size(44, 13);
-            this.superLabel1.TabIndex = 3;
-            this.superLabel1.Text = "Nombre";
-            this.superLabel1.Click += new System.EventHandler(this.superLabel1_Click);
-            // 
-            // superLabel2
-            // 
-            this.superLabel2.AutoSize = true;
-            this.superLabel2.Location = new System.Drawing.Point(47, 65);
-            this.superLabel2.Name = "superLabel2";
-            this.superLabel2.Size = new System.Drawing.Size(40, 13);
-            this.superLabel2.TabIndex = 4;
-            this.superLabel2.Text = "Estado";
-            // 
-            // superButton1
-            // 
-            this.superButton1.Location = new System.Drawing.Point(273, 452);
-            this.superButton1.Name = "superButton1";
-            this.superButton1.Size = new System.Drawing.Size(75, 23);
-            this.superButton1.TabIndex = 6;
-            this.superButton1.Text = "Aceptar";
-            this.superButton1.UseVisualStyleBackColor = true;
-            // 
-            // superButton2
-            // 
-            this.superButton2.Location = new System.Drawing.Point(365, 452);
-            this.superButton2.Name = "superButton2";
-            this.superButton2.Size = new System.Drawing.Size(75, 23);
-            this.superButton2.TabIndex = 7;
-            this.superButton2.Text = "Cerrar";
-            this.superButton2.UseVisualStyleBackColor = true;
+            this.FuncionalidadesRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FuncionalidadesRol_CellContentClick);
             // 
             // Funcionalidades
             // 
@@ -120,6 +84,43 @@
             // 
             this.Eliminar.HeaderText = "Eliminar";
             this.Eliminar.Name = "Eliminar";
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(47, 33);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(44, 13);
+            this.superLabel1.TabIndex = 3;
+            this.superLabel1.Text = "Nombre";
+            // 
+            // superLabel2
+            // 
+            this.superLabel2.AutoSize = true;
+            this.superLabel2.Location = new System.Drawing.Point(47, 65);
+            this.superLabel2.Name = "superLabel2";
+            this.superLabel2.Size = new System.Drawing.Size(40, 13);
+            this.superLabel2.TabIndex = 4;
+            this.superLabel2.Text = "Estado";
+            // 
+            // Aceptar
+            // 
+            this.Aceptar.Location = new System.Drawing.Point(273, 452);
+            this.Aceptar.Name = "Aceptar";
+            this.Aceptar.Size = new System.Drawing.Size(75, 23);
+            this.Aceptar.TabIndex = 6;
+            this.Aceptar.Text = "Aceptar";
+            this.Aceptar.UseVisualStyleBackColor = true;
+            // 
+            // Cerrar
+            // 
+            this.Cerrar.Location = new System.Drawing.Point(365, 452);
+            this.Cerrar.Name = "Cerrar";
+            this.Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.Cerrar.TabIndex = 7;
+            this.Cerrar.Text = "Cerrar";
+            this.Cerrar.UseVisualStyleBackColor = true;
+            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
             // FuncionalidadSeleccion
             // 
@@ -146,6 +147,7 @@
             this.Agregar.TabIndex = 10;
             this.Agregar.Text = "Agregar";
             this.Agregar.UseVisualStyleBackColor = true;
+            this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // Modificacion
             // 
@@ -155,8 +157,8 @@
             this.Controls.Add(this.Agregar);
             this.Controls.Add(this.superLabel3);
             this.Controls.Add(this.FuncionalidadSeleccion);
-            this.Controls.Add(this.superButton2);
-            this.Controls.Add(this.superButton1);
+            this.Controls.Add(this.Cerrar);
+            this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.superLabel2);
             this.Controls.Add(this.superLabel1);
             this.Controls.Add(this.FuncionalidadesRol);
@@ -179,8 +181,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Funcionalidades;
         private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
         private SuperControls.SuperLabel superLabel2;
-        private SuperControls.SuperButton superButton1;
-        private SuperControls.SuperButton superButton2;
+        private SuperControls.SuperButton Aceptar;
+        private SuperControls.SuperButton Cerrar;
         private SuperControls.SuperComboBox FuncionalidadSeleccion;
         private SuperControls.SuperLabel superLabel3;
         private SuperControls.SuperButton Agregar;

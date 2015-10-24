@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Consulta_Millas
 {
-    public partial class Consultar_Millas : TemplateForm
+    public partial class Consultar_Millas : Form
     {
         public Consultar_Millas()
         {

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Baja : TemplateForm
+    public partial class Baja : Form
     {
         public Baja()
         {
@@ -29,7 +30,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            validateNotNullForAll(this.Controls);
+            this.validateNotNullForAll(this.Controls);
         }
 
         private void button2_Click(object sender, EventArgs e) // para la fecha de reinicio

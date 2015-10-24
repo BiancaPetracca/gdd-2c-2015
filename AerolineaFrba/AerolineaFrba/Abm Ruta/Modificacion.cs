@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Modificacion : TemplateForm
+    public partial class Modificacion : Form
     {
         public Modificacion()
         {
@@ -19,7 +20,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            validateNotNullForAll(this.Controls); 
+            this.validateNotNullForAll(this.Controls); 
         }
 
         private void Cerrar_Click(object sender, EventArgs e)

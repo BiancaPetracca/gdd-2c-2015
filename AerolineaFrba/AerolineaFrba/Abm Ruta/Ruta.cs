@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class Ruta : TemplateForm
+    public partial class Ruta : Form
     {
         public Ruta()
         {
@@ -24,7 +25,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            openInNewWindow(new Alta());
+            this.openInNewWindow(new Alta());
         }
 
 
@@ -47,7 +48,7 @@ namespace AerolineaFrba.Abm_Ruta
         {
             if (e.ColumnIndex == this.lista.Columns["Modificar"].Index)
             {
-                openIntoParent(new Modificacion(), this.MdiParent);
+                this.openIntoParent(new Modificacion(), this.MdiParent);
             }
 
             if (e.ColumnIndex == this.lista.Columns["Eliminar"].Index)

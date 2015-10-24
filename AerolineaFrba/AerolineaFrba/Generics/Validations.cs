@@ -1,23 +1,20 @@
-﻿using AerolineaFrba.SuperControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.SuperControls;
 
-
-namespace AerolineaFrba
+namespace AerolineaFrba.Generics
 {
-    public class Validaciones : Form
+    public static class Validations
     {
- 
-
         /******** VALIDACIONES PARA CAMPOS NO NULOS ********/
-        public String validate(ISuperControls control)
+        public static String validate(this ISuperControls control)
         {
             var controlName = "";
-            if (! control.valid())
+            if (!control.valid())
             {
                 controlName = ((Control)control).AccessibleDescription + "\n";
             }
@@ -25,7 +22,7 @@ namespace AerolineaFrba
         }
 
 
-        public Boolean anyEmptyCells(DataGridView dg, String columnName, String msg)
+        public static Boolean anyEmptyCells(this DataGridView dg, String columnName, String msg)
         {
             Boolean val = false;
             string cell;
@@ -51,10 +48,10 @@ namespace AerolineaFrba
 
 
         // try catchea una excepcion proviniente de campos vacios
-        public Boolean validateNotNullForAll(Control.ControlCollection controls)
+        public static Boolean validateNotNullForAll(this Form aForm, Control.ControlCollection controls)
         {
             var isValid = false;
-            try { isValid = validar(controls); }
+            try { isValid = aForm.validar(controls); }
             catch (Exception excepcion)
             {
                 MessageBox.Show(excepcion.Message);
@@ -62,28 +59,28 @@ namespace AerolineaFrba
             return isValid;
         }
 
-        public Boolean validar(Control.ControlCollection controls)
+        public static Boolean validar(this Form aForm, Control.ControlCollection controls)
         {
 
             bool val = false;
-          var msg = "";
+            var msg = "";
             foreach (Control control in controls)
             {
                 val = ((ISuperControls)control).valid();
-               msg += validate((ISuperControls)control);
+                msg += validate((ISuperControls)control);
             }
-        if (msg != String.Empty) 
+            if (msg != String.Empty)
             {
                 throw new Exception("Complete los campos vacios: \n" + msg);
 
             }
-        return val;
+            return val;
         }
 
-        public Boolean noRows(DataGridView dg, String msg)
+        public static Boolean noRows(this DataGridView dg, String msg)
         {
             bool val = false;
-            try { if (dg.Rows.Count == 0) { val = true;  throw new Exception(msg); } }
+            try { if (dg.Rows.Count == 0) { val = true; throw new Exception(msg); } }
             catch (Exception excepcion)
             {
                 MessageBox.Show(excepcion.Message);
@@ -96,20 +93,20 @@ namespace AerolineaFrba
 
 
         /* no permiten que el usuario pueda ingresar caracteres que no van directamente, me ahorro la validacion */
-        public void allowNumericOnly(KeyPressEventArgs e) {
+        public static void allowNumericOnly(this Form aForm, KeyPressEventArgs e)
+        {
             e.Handled = !(char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
 
-        public void allowAlphaOnly(KeyPressEventArgs e) {
+        public static void allowAlphaOnly(this Form aForm, KeyPressEventArgs e)
+        {
             e.Handled = !(char.IsLetter(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
 
-        public void allowAlphanumericOnly(KeyPressEventArgs e) {
+        public static void allowAlphanumericOnly(this Form aForm, KeyPressEventArgs e)
+        {
             e.Handled = !(char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
-
-
-
 
 
 

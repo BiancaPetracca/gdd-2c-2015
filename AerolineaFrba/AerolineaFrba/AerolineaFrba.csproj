@@ -129,16 +129,8 @@
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
     <Compile Include="Generics\Extensions.cs" />
-    <Compile Include="Generics\TemplateForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Generics\Validations.cs" />
     <Compile Include="SuperControls\ISuperControls.cs" />
-    <Compile Include="SuperControls\pruebasupers.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SuperControls\pruebasupers.Designer.cs">
-      <DependentUpon>pruebasupers.cs</DependentUpon>
-    </Compile>
     <Compile Include="SuperControls\SuperButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -270,11 +262,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="MenuPrincipal.cs">
+    <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuPrincipal.Designer.cs">
-      <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Generacion Viaje\Generar Viaje.cs">
       <SubType>Form</SubType>
@@ -307,9 +299,6 @@
     </Compile>
     <Compile Include="Registro Llegada Destino\Registro Llegada.Designer.cs">
       <DependentUpon>Registro Llegada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generics\Validaciones.cs">
-      <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="Abm Aeronave\Aeronave.resx">
       <DependentUpon>Aeronave.cs</DependentUpon>
@@ -355,9 +344,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\RegistroUsuario.resx">
       <DependentUpon>RegistroUsuario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SuperControls\pruebasupers.resx">
-      <DependentUpon>pruebasupers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuperControls\SuperButton.resx">
       <DependentUpon>SuperButton.cs</DependentUpon>
@@ -425,8 +411,8 @@
     <EmbeddedResource Include="Listado Estadistico\Listado Estadisticas.resx">
       <DependentUpon>Listado Estadisticas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuPrincipal.resx">
-      <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

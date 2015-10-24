@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Modificacion : TemplateForm
+    public partial class Modificacion : Form
     {
         public Modificacion()
         {
@@ -34,7 +35,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Aceptar_Click(object sender, EventArgs e)
         {
-            validateNotNullForAll(this.Controls);
+            this.validateNotNullForAll(this.Controls);
         }
     }
     }
