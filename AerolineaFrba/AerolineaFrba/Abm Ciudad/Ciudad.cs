@@ -10,32 +10,36 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Ciudad
 {
-    public partial class Ciudad : Form
+    public partial class Ciudad : TemplateForm
     {
         public Ciudad()
         {
             InitializeComponent();
         }
 
-        private void agregar_Click(object sender, EventArgs e)
+        private void Agregar_Click(object sender, EventArgs e)
         {
-            Alta alta = new Alta();
-            alta.Show();
+            openInNewWindow(new Alta());
         }
 
-        private void borrar_Click(object sender, EventArgs e)
+        private void Borrar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Cerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.ColumnIndex == this.lista.Columns["Modificar"].Index)
+            {
+                openIntoParent(new Modificacion(), this.MdiParent);
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
     }
 }

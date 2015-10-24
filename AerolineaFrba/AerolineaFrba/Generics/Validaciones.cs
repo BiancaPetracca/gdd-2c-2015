@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AerolineaFrba.SuperControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,101 +11,107 @@ namespace AerolineaFrba
 {
     public class Validaciones : Form
     {
-        /* public void mostrarExcepcion()
-         {
+ 
 
-           //  try { validarTodosCampos(); }
-             catch (Exception excepcion)
-             {
-                 MessageBox.Show(excepcion.Message);
-             }
-
-
-         }*/
-
-
-        // encapsula un metodo que toma como parametro un string y devuelve void
-        public delegate void Del(string message);
-
-        // crear el metodo para el delegado
-        public static void DelegateMethod(string message)
+        /******** VALIDACIONES PARA CAMPOS NO NULOS ********/
+        public String validate(ISuperControls control)
         {
-            MessageBox.Show(message);
-
-        }
-
-// ESTOS VALIDATE QUIERO QUE SEAN POLIMORFICOS PARA CONTROLS ASI NOS AHORRAMOS HACER validate(asdasd) + PARA TODO
-
-        public String validate(ComboBox comboBox)
-        {
-            var combo = "";
-            if (comboBox.SelectedIndex == -1)
+            var controlName = "";
+            if (! control.valid())
             {
-                combo = comboBox.Name + "\n";
+                controlName = ((Control)control).AccessibleDescription + "\n";
             }
-            return combo;
+            return controlName;
         }
 
-        public String validate(TextBox textBox)
+
+        public Boolean anyEmptyCells(DataGridView dg, String columnName, String msg)
         {
-            var text = "";
-            if (textBox.Text == String.Empty)
+            Boolean val = false;
+            string cell;
+
+            try
             {
-                text = textBox.Name + "\n";
+                foreach (DataGridViewRow rw in dg.Rows)
+                {
+                    cell = rw.Cells[dg.Columns[columnName].Index].Value as string;
+                    if (string.IsNullOrEmpty(cell))
+                    {
+                        val = true;
+                        throw new Exception(msg);
+                    }
+                }
             }
-            return text;
-        }
-
-        public String validate(CheckedListBox listaChecks)
-        {
-            var checks = "";
-            if (listaChecks.CheckedItems.Count == 0)
+            catch (Exception excepcion)
             {
-                checks = listaChecks.Name + "\n";
+                MessageBox.Show(excepcion.Message);
             }
-            return checks;
-
-        }
-
-
-        public String validate(NumericUpDown numeric)
-        {
-            var num = "";
-            if (numeric.Value == 0)
-            {
-                num = numeric.Name + "\n";
-            }
-            return num;
-        }
-
-
-        public void show(Exception e)
-        {
-            MessageBox.Show(e.Message);
-        }
-
-
-        // tira una excepcion si alguno de los campos está vacío
-        public void validateEmptyFields(String msg)
-        {
-            if (msg == String.Empty)
-            {
-                throw new Exception("Faltan campos: \n" + msg);
-            }
+            return val;
         }
 
 
         // try catchea una excepcion proviniente de campos vacios
-        public void validateAll(String msg)
+        public Boolean validateNotNullForAll(Control.ControlCollection controls)
         {
-
-            try { validateEmptyFields(msg); }
+            var isValid = false;
+            try { isValid = validar(controls); }
             catch (Exception excepcion)
             {
-                show(excepcion);
+                MessageBox.Show(excepcion.Message);
             }
-
-
+            return isValid;
         }
+
+        public Boolean validar(Control.ControlCollection controls)
+        {
+
+            bool val = false;
+          var msg = "";
+            foreach (Control control in controls)
+            {
+                val = ((ISuperControls)control).valid();
+               msg += validate((ISuperControls)control);
+            }
+        if (msg != String.Empty) 
+            {
+                throw new Exception("Complete los campos vacios: \n" + msg);
+
+            }
+        return val;
+        }
+
+        public Boolean noRows(DataGridView dg, String msg)
+        {
+            bool val = false;
+            try { if (dg.Rows.Count == 0) { val = true;  throw new Exception(msg); } }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
+            return val;
+        }
+
+
+        /******** VALIDACIONES PARA EL TIPO DE LOS CARACTERES ********/
+
+
+        /* no permiten que el usuario pueda ingresar caracteres que no van directamente, me ahorro la validacion */
+        public void allowNumericOnly(KeyPressEventArgs e) {
+            e.Handled = !(char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
+        }
+
+        public void allowAlphaOnly(KeyPressEventArgs e) {
+            e.Handled = !(char.IsLetter(e.KeyChar) || e.KeyChar == (char)Keys.Back);
+        }
+
+        public void allowAlphanumericOnly(KeyPressEventArgs e) {
+            e.Handled = !(char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
+        }
+
+
+
+
+
+
     }
 }

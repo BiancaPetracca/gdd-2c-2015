@@ -10,23 +10,44 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Butacas : Form
+    public partial class Butacas : TemplateForm
     {
         public Butacas()
         {
             InitializeComponent();
         }
 
-        private void cancelar_Click(object sender, EventArgs e)
+        private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void aceptar_Click(object sender, EventArgs e)
+        private void Guardar_Click(object sender, EventArgs e)
         {
-            this.Close();
+
+            try { validate(); }
+            catch(Exception exception){
+            MessageBox.Show(exception.Message);
+            }
+          
         }
 
+        private void validate() {
+            foreach (DataGridViewRow rw in this.grid.Rows)
+            {
+                if (rw.Cells["Tipo"].Value == null)
+                {
+                    throw new Exception("Debe elegir al menos un tipo de butaca");
+
+                }
+
+            }
+        }
+
+        private void grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
 
     }
 }

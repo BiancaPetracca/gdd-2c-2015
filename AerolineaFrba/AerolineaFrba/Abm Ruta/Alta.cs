@@ -25,9 +25,8 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            validateAll(validate(this.Codigo) + validate(this.Servicio) +
-                    validate(this.Origen) +
-                    validate(this.Destino) + validate(this.PrecioPasaje) + validate(this.PrecioKG));
+            validateNotNullForAll(this.Controls); 
+            
         }
 
     }

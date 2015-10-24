@@ -1,6 +1,7 @@
-﻿namespace AerolineaFrba.Generacion_Viaje
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Generacion_Viaje
 {
-    partial class Form1
+    partial class Generar_Viaje
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +29,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.viaje = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.fechaSalida = new System.Windows.Forms.DateTimePicker();
-            this.fechaLlegada = new System.Windows.Forms.DateTimePicker();
-            this.fechaLlegadaEstimada = new System.Windows.Forms.DateTimePicker();
-            this.fechaSalidaLabel = new System.Windows.Forms.Label();
-            this.combobox1 = new System.Windows.Forms.ComboBox();
-            this.aceptar = new System.Windows.Forms.Button();
-            this.cerrar = new System.Windows.Forms.Button();
+            this.viaje = new SuperGroupBox();
+            this.RutaAerea = new SuperComboBox();
+            this.label4 = new SuperLabel();
+            this.label3 = new SuperLabel();
+            this.label2 = new SuperLabel();
+            this.label1 = new SuperLabel();
+            this.fechaSalida = new SuperDateTimePicker();
+            this.fechaLlegada = new SuperDateTimePicker();
+            this.fechaLlegadaEstimada = new SuperDateTimePicker();
+            this.fechaSalidaLabel = new SuperLabel();
+            this.NombreAeronave = new SuperComboBox();
+            this.aceptar = new SuperButton();
+            this.cerrar = new SuperButton();
             this.viaje.SuspendLayout();
             this.SuspendLayout();
             // 
             // viaje
             // 
-            this.viaje.Controls.Add(this.comboBox2);
+            this.viaje.Controls.Add(this.RutaAerea);
             this.viaje.Controls.Add(this.label4);
             this.viaje.Controls.Add(this.label3);
             this.viaje.Controls.Add(this.label2);
@@ -55,7 +56,7 @@
             this.viaje.Controls.Add(this.fechaLlegada);
             this.viaje.Controls.Add(this.fechaLlegadaEstimada);
             this.viaje.Controls.Add(this.fechaSalidaLabel);
-            this.viaje.Controls.Add(this.combobox1);
+            this.viaje.Controls.Add(this.NombreAeronave);
             this.viaje.Location = new System.Drawing.Point(12, 12);
             this.viaje.Name = "viaje";
             this.viaje.Size = new System.Drawing.Size(857, 349);
@@ -63,12 +64,13 @@
             this.viaje.TabStop = false;
             this.viaje.Text = "Generar Viaje";
             // 
-            // comboBox2
+            // RutaAerea
             // 
-            this.comboBox2.Location = new System.Drawing.Point(229, 258);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(162, 21);
-            this.comboBox2.TabIndex = 9;
+            this.RutaAerea.AccessibleDescription = "Código de la ruta aérea";
+            this.RutaAerea.Location = new System.Drawing.Point(229, 258);
+            this.RutaAerea.Name = "RutaAerea";
+            this.RutaAerea.Size = new System.Drawing.Size(162, 21);
+            this.RutaAerea.TabIndex = 9;
             // 
             // label4
             // 
@@ -105,6 +107,7 @@
             // 
             // fechaSalida
             // 
+            this.fechaSalida.AccessibleDescription = "Fecha de salida";
             this.fechaSalida.CustomFormat = "dd/mm/yyyy hh:mm:ss";
             this.fechaSalida.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaSalida.Location = new System.Drawing.Point(229, 46);
@@ -114,6 +117,7 @@
             // 
             // fechaLlegada
             // 
+            this.fechaLlegada.AccessibleDescription = "Fecha de llegada";
             this.fechaLlegada.CustomFormat = "dd/mm/yyyy hh:mm:ss";
             this.fechaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaLlegada.Location = new System.Drawing.Point(229, 104);
@@ -124,6 +128,7 @@
             // 
             // fechaLlegadaEstimada
             // 
+            this.fechaLlegadaEstimada.AccessibleDescription = "Fecha de llegada estimada";
             this.fechaLlegadaEstimada.CustomFormat = "dd/mm/yyyy hh:mm:ss";
             this.fechaLlegadaEstimada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaLlegadaEstimada.Location = new System.Drawing.Point(229, 168);
@@ -140,12 +145,13 @@
             this.fechaSalidaLabel.TabIndex = 3;
             this.fechaSalidaLabel.Text = "Fecha de salida";
             // 
-            // combobox1
+            // NombreAeronave
             // 
-            this.combobox1.Location = new System.Drawing.Point(229, 216);
-            this.combobox1.Name = "combobox1";
-            this.combobox1.Size = new System.Drawing.Size(162, 21);
-            this.combobox1.TabIndex = 8;
+            this.NombreAeronave.AccessibleDescription = "Nombre de la aeronave";
+            this.NombreAeronave.Location = new System.Drawing.Point(229, 216);
+            this.NombreAeronave.Name = "NombreAeronave";
+            this.NombreAeronave.Size = new System.Drawing.Size(162, 21);
+            this.NombreAeronave.TabIndex = 8;
             // 
             // aceptar
             // 
@@ -165,7 +171,7 @@
             this.cerrar.Text = "Cerrar";
             this.cerrar.Click += new System.EventHandler(this.cerrar_Click);
             // 
-            // Form1
+            // Generar_Viaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -175,7 +181,7 @@
             this.Controls.Add(this.aceptar);
             this.Controls.Add(this.cerrar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "Generar_Viaje";
             this.Text = "Generar Viaje";
             this.viaje.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -184,19 +190,19 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox viaje;
-        private System.Windows.Forms.DateTimePicker fechaSalida;
-        private System.Windows.Forms.DateTimePicker fechaLlegada;
-        private System.Windows.Forms.DateTimePicker fechaLlegadaEstimada;
-        private System.Windows.Forms.Label fechaSalidaLabel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox combobox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Button aceptar;
-        private System.Windows.Forms.Button cerrar;
+        private SuperGroupBox viaje;
+        private SuperDateTimePicker fechaSalida;
+        private SuperDateTimePicker fechaLlegada;
+        private SuperDateTimePicker fechaLlegadaEstimada;
+        private SuperLabel fechaSalidaLabel;
+        private SuperLabel label2;
+        private SuperLabel label1;
+        private SuperLabel label3;
+        private SuperLabel label4;
+        private SuperComboBox NombreAeronave;
+        private SuperComboBox RutaAerea;
+        private SuperButton aceptar;
+        private SuperButton cerrar;
 
     }
 }

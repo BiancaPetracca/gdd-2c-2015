@@ -61,6 +61,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(848, 292);
             this.dataGridView2.TabIndex = 0;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // Column1
             // 
@@ -113,10 +114,10 @@
             this.Column11.HeaderText = "Kgs. Encomienda";
             this.Column11.Name = "Column11";
             // 
-            // button1
+            // Cerrar
             // 
             this.button1.Location = new System.Drawing.Point(797, 355);
-            this.button1.Name = "button1";
+            this.button1.Name = "Cerrar";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Ok";

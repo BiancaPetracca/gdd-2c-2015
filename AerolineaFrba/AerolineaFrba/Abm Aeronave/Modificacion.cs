@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Modificacion : Form
+    public partial class Modificacion : TemplateForm
     {
         public Modificacion()
         {
@@ -22,47 +22,20 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
-        private void cancelar_Click(object sender, EventArgs e)
+        private void Cancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void aceptar_Click(object sender, EventArgs e)
-        {
-            try {
-                validarCampos();
-            }
-                catch (Exception excepcion){
-                    MessageBox.Show(excepcion.Message);
-                }
             this.Close();
         }
 
         private void lugar_butacas_Click(object sender, EventArgs e)
         {
-            Abm_Aeronave.Butacas butaca = new Butacas();
-            butaca.Show();
+            new Butacas().Show();
         }
 
-
-       private void validarCampos()
+        private void Aceptar_Click(object sender, EventArgs e)
         {
-
-            var nombreInvalido = "";
-            var fabricanteInvalido = "";
-
-            if (nombre.Text == String.Empty)
-            {
-                nombreInvalido = "Inserte un nombre \n";
-            }
-            if (fabricante.Text == String.Empty)
-            {
-                fabricanteInvalido = "Inserte un fabricante";
-            }
-
-                throw new Exception(nombreInvalido + fabricanteInvalido);
-            }
-
+            validateNotNullForAll(this.Controls);
         }
+    }
     }
 

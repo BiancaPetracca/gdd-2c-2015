@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Compra
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Compra
 {
     partial class Elegir_Pasajeros
     {
@@ -28,109 +29,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DatosPasajes = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.Siguiente = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaNacimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SeleccionarButaca = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.NumeroButaca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoButaca = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.KgsEncomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.DatosPasajes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // DatosPasajes
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7,
-            this.Column8,
-            this.Column9,
-            this.Column10,
-            this.Column11});
-            this.dataGridView1.Location = new System.Drawing.Point(19, 30);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(843, 322);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Nombre";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Apellido";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "DNI";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Dirección";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Teléfono";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Mail";
-            this.Column6.Name = "Column6";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Fecha de Nacimiento";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Seleccionar Butaca";
-            this.Column8.Name = "Column8";
-            this.Column8.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "N°";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Tipo";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "Kgs. Encomienda";
-            this.Column11.Name = "Column11";
+            this.DatosPasajes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DatosPasajes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Nombre,
+            this.Apellido,
+            this.DNI,
+            this.Direccion,
+            this.Telefono,
+            this.Mail,
+            this.FechaNacimiento,
+            this.SeleccionarButaca,
+            this.NumeroButaca,
+            this.TipoButaca,
+            this.KgsEncomienda});
+            this.DatosPasajes.Location = new System.Drawing.Point(19, 30);
+            this.DatosPasajes.Name = "DatosPasajes";
+            this.DatosPasajes.Size = new System.Drawing.Size(843, 322);
+            this.DatosPasajes.TabIndex = 0;
+            this.DatosPasajes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatosPasajes_CellContentClick);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.DatosPasajes);
             this.groupBox1.Location = new System.Drawing.Point(12, 22);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(882, 383);
@@ -138,58 +79,125 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Elegir Pasajeros / Datos Encomienda";
             // 
-            // button1
+            // Siguiente
             // 
-            this.button1.Location = new System.Drawing.Point(787, 411);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Siguiente";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Siguiente.Location = new System.Drawing.Point(787, 411);
+            this.Siguiente.Name = "Siguiente";
+            this.Siguiente.Size = new System.Drawing.Size(75, 23);
+            this.Siguiente.TabIndex = 2;
+            this.Siguiente.Text = "Siguiente";
+            this.Siguiente.UseVisualStyleBackColor = true;
+            this.Siguiente.Click += new System.EventHandler(this.Siguiente_Click);
             // 
-            // button2
+            // Cancelar
             // 
-            this.button2.Location = new System.Drawing.Point(677, 411);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Cancelar.Location = new System.Drawing.Point(677, 411);
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.Size = new System.Drawing.Size(75, 23);
+            this.Cancelar.TabIndex = 3;
+            this.Cancelar.Text = "Cancelar";
+            this.Cancelar.UseVisualStyleBackColor = true;
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            // 
+            // Apellido
+            // 
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            // 
+            // DNI
+            // 
+            this.DNI.HeaderText = "DNI";
+            this.DNI.Name = "DNI";
+            // 
+            // Direccion
+            // 
+            this.Direccion.HeaderText = "Dirección";
+            this.Direccion.Name = "Direccion";
+            // 
+            // Telefono
+            // 
+            this.Telefono.HeaderText = "Teléfono";
+            this.Telefono.Name = "Telefono";
+            // 
+            // Mail
+            // 
+            this.Mail.HeaderText = "Mail";
+            this.Mail.Name = "Mail";
+            // 
+            // FechaNacimiento
+            // 
+            this.FechaNacimiento.HeaderText = "Fecha de Nacimiento";
+            this.FechaNacimiento.Name = "FechaNacimiento";
+            // 
+            // SeleccionarButaca
+            // 
+            this.SeleccionarButaca.HeaderText = "Seleccionar Butaca";
+            this.SeleccionarButaca.Name = "SeleccionarButaca";
+            this.SeleccionarButaca.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SeleccionarButaca.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.SeleccionarButaca.ToolTipText = "SeleccionarButaca";
+            this.SeleccionarButaca.UseColumnTextForButtonValue = true;
+            // 
+            // NumeroButaca
+            // 
+            this.NumeroButaca.HeaderText = "Numero de Butaca";
+            this.NumeroButaca.Name = "NumeroButaca";
+            this.NumeroButaca.ReadOnly = true;
+            // 
+            // TipoButaca
+            // 
+            this.TipoButaca.HeaderText = "Tipo";
+            this.TipoButaca.Name = "TipoButaca";
+            this.TipoButaca.ReadOnly = true;
+            this.TipoButaca.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TipoButaca.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // KgsEncomienda
+            // 
+            this.KgsEncomienda.HeaderText = "Kgs. Encomienda";
+            this.KgsEncomienda.Name = "KgsEncomienda";
             // 
             // Elegir_Pasajeros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 455);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Cancelar);
+            this.Controls.Add(this.Siguiente);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Elegir_Pasajeros";
             this.Text = "Elegir Pasajeros";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Click += new System.EventHandler(this.SeleccionarButaca_Click);
+            ((System.ComponentModel.ISupportInitialize)(this.DatosPasajes)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
+
+
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DatosPasajes;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewButtonColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private SuperButton Siguiente;
+        private SuperButton Cancelar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaNacimiento;
+        private System.Windows.Forms.DataGridViewButtonColumn SeleccionarButaca;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroButaca;
+        private System.Windows.Forms.DataGridViewComboBoxColumn TipoButaca;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KgsEncomienda;
     }
 }

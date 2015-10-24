@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Ciudad
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Abm_Ciudad
 {
     partial class Alta
     {
@@ -28,13 +29,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ciudad = new System.Windows.Forms.TextBox();
-            this.agregar = new System.Windows.Forms.Button();
-            this.Cerrar = new System.Windows.Forms.Button();
+            this.ciudad = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.agregar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
             this.SuspendLayout();
             // 
             // ciudad
             // 
+            this.ciudad.AccessibleDescription = "Ingresar una nueva ciudad";
             this.ciudad.Location = new System.Drawing.Point(12, 29);
             this.ciudad.Name = "ciudad";
             this.ciudad.Size = new System.Drawing.Size(207, 20);
@@ -47,7 +49,7 @@
             this.agregar.Size = new System.Drawing.Size(75, 23);
             this.agregar.TabIndex = 1;
             this.agregar.Text = "Agregar";
-            this.agregar.Click += new System.EventHandler(this.agregar_Click);
+            this.agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // Cerrar
             // 
@@ -77,8 +79,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox ciudad;
-        private System.Windows.Forms.Button agregar;
-        private System.Windows.Forms.Button Cerrar;
+        private SuperTextBox ciudad;
+        private SuperButton agregar;
+        private SuperButton Cerrar;
     }
 }

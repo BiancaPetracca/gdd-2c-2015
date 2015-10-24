@@ -11,7 +11,7 @@ using AerolineaFrba.DAO;
 
 namespace AerolineaFrba.Login
 {
-    public partial class Login : Form
+    public partial class Login : TemplateForm
     {
         private String username;
         private String password;
@@ -66,6 +66,16 @@ namespace AerolineaFrba.Login
         private void button_Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button_IniciarSesion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Cerrar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

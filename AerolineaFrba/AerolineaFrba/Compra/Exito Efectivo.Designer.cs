@@ -89,10 +89,10 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // Cerrar
             // 
             this.button1.Location = new System.Drawing.Point(278, 234);
-            this.button1.Name = "button1";
+            this.button1.Name = "Cerrar";
             this.button1.Size = new System.Drawing.Size(40, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "Ok";

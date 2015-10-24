@@ -10,51 +10,56 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class Aeronave : Form
+    public partial class Aeronave : TemplateForm
     {
         public Aeronave()
         {
             InitializeComponent();
         }
 
-        private void groupBox_Enter(object sender, EventArgs e)
-        {
 
-        }
 
-        private void agregar_Click(object sender, EventArgs e)
+        private void Agregar_Click(object sender, EventArgs e)
         {
-            Abm_Aeronave.Alta alta = new Alta();
-            alta.Show();
+            openInNewWindow(new Alta());
         }
       
 
-        private void borrar_Click(object sender, EventArgs e)
+        private void Borrar_Click(object sender, EventArgs e)
         {
-            Abm_Aeronave.Baja baja = new Baja();
-            baja.Show();
+            openInNewWindow(new Baja());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buscadorExacto_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Modificar_Click_1(object sender, EventArgs e)
+        private void Modificar_Click(object sender, EventArgs e)
         {
             Abm_Aeronave.Modificacion modificacion = new Modificacion();
             modificacion.Show();
         }
 
-        private void verButacas_Click(object sender, EventArgs e)
+        private void VerButacas_Click(object sender, EventArgs e)
         {
             Butacas butacas = new Butacas();
             butacas.Show();
+        }
+
+        private void MatriculaFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            allowNumericOnly(e);
+        }
+
+        private void FabricanteFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            allowAlphaOnly(e);
+        }
+
+        private void limpiar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

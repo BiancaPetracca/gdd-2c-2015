@@ -86,6 +86,12 @@
     <Compile Include="Abm Ciudad\Ciudad.Designer.cs">
       <DependentUpon>Ciudad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Ciudad\Modificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ciudad\Modificacion.Designer.cs">
+      <DependentUpon>Modificacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rol\Alta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,11 +128,76 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="DAO\DAOLogin.cs" />
     <Compile Include="DAO\SqlConnector.cs" />
     <Compile Include="Generics\Helper.cs" />
+=======
+    <Compile Include="Generics\Extensions.cs" />
+>>>>>>> 025fe63fc88b1ff707edefe982d582d993b45265
     <Compile Include="Generics\TemplateForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SuperControls\ISuperControls.cs" />
+    <Compile Include="SuperControls\pruebasupers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SuperControls\pruebasupers.Designer.cs">
+      <DependentUpon>pruebasupers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperButton.Designer.cs">
+      <DependentUpon>SuperButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperCheckBox.Designer.cs">
+      <DependentUpon>SuperCheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperCheckedListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperCheckedListBox.Designer.cs">
+      <DependentUpon>SuperCheckedListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperComboBox.Designer.cs">
+      <DependentUpon>SuperComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperDateTimePicker.Designer.cs">
+      <DependentUpon>SuperDateTimePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperGroupBox.Designer.cs">
+      <DependentUpon>SuperGroupBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperLabel.Designer.cs">
+      <DependentUpon>SuperLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperNumericUpDown.Designer.cs">
+      <DependentUpon>SuperNumericUpDown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuperControls\SuperTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SuperControls\SuperTextBox.Designer.cs">
+      <DependentUpon>SuperTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Templates\Alta.cs">
       <SubType>Form</SubType>
@@ -231,11 +302,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registro de Usuario\Form1.cs">
+    <Compile Include="Registro de Usuario\RegistroUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro de Usuario\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro de Usuario\RegistroUsuario.Designer.cs">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Llegada Destino\Registro Llegada.cs">
       <SubType>Form</SubType>
@@ -267,6 +338,9 @@
     <EmbeddedResource Include="Abm Ciudad\Ciudad.resx">
       <DependentUpon>Ciudad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ciudad\Modificacion.resx">
+      <DependentUpon>Modificacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
@@ -284,6 +358,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\Ruta.resx">
       <DependentUpon>Ruta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro de Usuario\RegistroUsuario.resx">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\pruebasupers.resx">
+      <DependentUpon>pruebasupers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperButton.resx">
+      <DependentUpon>SuperButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperCheckBox.resx">
+      <DependentUpon>SuperCheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperCheckedListBox.resx">
+      <DependentUpon>SuperCheckedListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperComboBox.resx">
+      <DependentUpon>SuperComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperDateTimePicker.resx">
+      <DependentUpon>SuperDateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperGroupBox.resx">
+      <DependentUpon>SuperGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperLabel.resx">
+      <DependentUpon>SuperLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperNumericUpDown.resx">
+      <DependentUpon>SuperNumericUpDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuperControls\SuperTextBox.resx">
+      <DependentUpon>SuperTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Templates\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>

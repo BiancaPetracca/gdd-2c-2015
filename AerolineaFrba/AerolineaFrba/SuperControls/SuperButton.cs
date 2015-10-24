@@ -8,13 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Registro_de_Usuario
+namespace AerolineaFrba.SuperControls
 {
-    public partial class Form1 : Form
+    public partial class SuperButton : Button, ISuperControls
     {
-        public Form1()
+        public SuperButton()
         {
             InitializeComponent();
         }
+
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            base.OnPaint(pe);
+        }
+
+        public Boolean valid() { return true; }
+
     }
 }

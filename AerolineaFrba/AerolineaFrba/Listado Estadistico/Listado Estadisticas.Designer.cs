@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Semestre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.TipoListado = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Top5 = new System.Windows.Forms.DataGridView();
             this.Destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Aeronave = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,7 +44,7 @@
             this.DiasFueraServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Top5)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -56,12 +56,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Seleccione semestre:";
             // 
-            // textBox1
+            // Semestre
             // 
-            this.textBox1.Location = new System.Drawing.Point(162, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.Semestre.AccessibleDescription = "Semestre";
+            this.Semestre.Location = new System.Drawing.Point(162, 32);
+            this.Semestre.Name = "Semestre";
+            this.Semestre.Size = new System.Drawing.Size(100, 20);
+            this.Semestre.TabIndex = 1;
             // 
             // label2
             // 
@@ -72,23 +73,24 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Elija tipo de listado: ";
             // 
-            // comboBox1
+            // TipoListado
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.TipoListado.AccessibleName = "Tipo de listado";
+            this.TipoListado.FormattingEnabled = true;
+            this.TipoListado.Items.AddRange(new object[] {
             "Destinos con más pasajes comprados",
             "Destinos con aeronaves más vacías",
             "Clientes con más puntos acumulados a la fecha",
             "Destinos con más pasajes cancelados",
             "Aeronaves con mayor cantidad de días fuera de servicio"});
-            this.comboBox1.Location = new System.Drawing.Point(497, 31);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(239, 21);
-            this.comboBox1.TabIndex = 3;
+            this.TipoListado.Location = new System.Drawing.Point(497, 31);
+            this.TipoListado.Name = "TipoListado";
+            this.TipoListado.Size = new System.Drawing.Size(239, 21);
+            this.TipoListado.TabIndex = 3;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.Top5);
             this.groupBox1.Location = new System.Drawing.Point(12, 101);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(863, 276);
@@ -96,10 +98,10 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TOP 5";
             // 
-            // dataGridView1
+            // Top5
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Top5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Top5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Destino,
             this.Cliente,
             this.Aeronave,
@@ -108,10 +110,10 @@
             this.PasajesCancelados,
             this.PuntosAcumulados,
             this.DiasFueraServicio});
-            this.dataGridView1.Location = new System.Drawing.Point(6, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(845, 251);
-            this.dataGridView1.TabIndex = 0;
+            this.Top5.Location = new System.Drawing.Point(6, 19);
+            this.Top5.Name = "Top5";
+            this.Top5.Size = new System.Drawing.Size(845, 251);
+            this.Top5.TabIndex = 0;
             // 
             // Destino
             // 
@@ -170,14 +172,14 @@
             this.ClientSize = new System.Drawing.Size(902, 442);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.TipoListado);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Semestre);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Listado Estadístico";
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Top5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,11 +188,11 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Semestre;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox TipoListado;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView Top5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Destino;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Aeronave;
