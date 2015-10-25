@@ -13,8 +13,5 @@ namespace AerolineaFrba.SuperControls
     public interface ISuperControls 
     {
          Boolean valid();
-
-        
-
     }
 }

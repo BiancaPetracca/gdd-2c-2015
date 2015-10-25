@@ -15,7 +15,7 @@ namespace AerolineaFrba.Login
 {
     public partial class Login : Form
     {
-        private String username;
+        private String username = "";
         private String password;
         private int intentosLogin;
       
@@ -29,27 +29,34 @@ namespace AerolineaFrba.Login
 
         private void IniciarSesion_Click(object sender, EventArgs e)
         {
-            if (intentosLogin == 3)
+            if (username != Usuario.Text) {
+                username = Usuario.Text;
+                // ASIGNARLE LOS INTENTOS AL USUARIO 
+                intentosLogin = 0;
+            }
+
+                if (intentosLogin >= 3)
             {
                 // TODO INHABILITAR AL USUARIO 
                 MessageBox.Show("Usuario inhabilitado");
             }
-
-
-            if (!this.validateNotNullForAll(this.Controls))
-            {
-                username = Usuario.Text;
-                password = Contraseña.Text;
-            }
-            if (usuarioValido())
-            {
-                intentosLogin = 0;
-                Application.Run(new MainMenu());
-            }
             else
             {
-                intentosLogin++;
-                MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - intentosLogin));
+                if (!this.validateNotNullForAll(this.Controls))
+                {
+                    username = Usuario.Text;
+                    password = Contraseña.Text;
+                }
+                if (usuarioValido())
+                {
+                    intentosLogin = 0;
+                    Application.Run(new MainMenu());
+                }
+                else
+                {
+                    intentosLogin++;
+                    MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - intentosLogin));
+                }
             }
         }
 

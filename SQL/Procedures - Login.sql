@@ -6,7 +6,8 @@
 2. cantidad de intentos de un username 
 3. dado un username obtener su password
 4. setear usuario invalido*/
-
+USE GD2C2015
+GO
 
 CREATE PROCEDURE [AWANTA].set_intentos_login(@nombre_usuario NVARCHAR(255),@intentos INT) 
 AS
@@ -75,6 +76,12 @@ BEGIN
 END
 END
 GO
+
+CREATE PROCEDURE AWANTA.inhabilitar_usuario(@username NVARCHAR(255))
+AS
+
+GO
+
 
 /* TESTS DE LOS PROCEDURES
 INSERT INTO [AWANTA].USUARIO (usu_username, usu_password, usu_estado, usu_fecha_alta)
