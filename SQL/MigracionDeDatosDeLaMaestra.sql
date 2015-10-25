@@ -255,6 +255,7 @@ CREATE TABLE AWANTA.AERONAVE
 	aero_cantidad_butacas_pasillo int ,
 	aero_cantidad_butacas_ventanilla int,
 	aero_kgs_disponibles_encomiendas int not null,
+	aero_estado bit not null,
 
 )
 
@@ -551,7 +552,7 @@ GO
 /*TESTEADO*/
 INSERT INTO AWANTA.AERONAVE(aero_matricula,aero_modelo,aero_fabricante,id_servicio,aero_fecha_de_alta,aero_kgs_disponibles_encomiendas)
 SELECT DISTINCT Aeronave_Matricula,Aeronave_Modelo,Aeronave_Fabricante,AWANTA.buscarIdServicio(Tipo_Servicio),
-				(SELECT CONVERT(date,SYSDATETIME())),Aeronave_KG_Disponibles
+				(SELECT CONVERT(date,SYSDATETIME())),Aeronave_KG_Disponibles,1
 FROM gd_esquema.Maestra
 GO
 

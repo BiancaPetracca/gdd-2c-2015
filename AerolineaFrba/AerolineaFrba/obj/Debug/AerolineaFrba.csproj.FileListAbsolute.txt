@@ -13,6 +13,59 @@ C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
+<<<<<<< HEAD
+<<<<<<< HEAD
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.pdb
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Aeronave.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Alta.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Baja.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Butacas.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Modificacion.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ciudad.Alta.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ciudad.Ciudad.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Rol.Alta.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Rol.Modificacion.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Rol.RolListado.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ruta.Alta.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ruta.Modificacion.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ruta.Ruta.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.ABM_Templates.Alta.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.ABM_Templates.Listado_temp.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Compra.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Detalle_Compra.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Efectuar_Compra.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Elegir_Pasajeros.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Exito_Efectivo.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Exito_Tarjeta.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Devolucion.Devolver.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Login.Login.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ciudad.Modificacion.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_de_Usuario.RegistroUsuario.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperButton.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperCheckBox.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperCheckedListBox.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperComboBox.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperDateTimePicker.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperGroupBox.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperLabel.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperNumericUpDown.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperTextBox.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Canje_Millas.Canje_Millas.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Consulta_Millas.Consultar_Millas.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Generacion_Viaje.Generar_Viaje.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Listado_Estadistico.Listado_Estadisticas.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.MainMenu.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_Llegada_Destino.RegistroLlegadaAeronave.resources
+C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csprojResolveAssemblyReference.cache
+=======
+=======
+>>>>>>> 3f133a2b0b24b412d8be44459883fddff8c064db
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
@@ -61,3 +114,7 @@ D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\Aerol
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_Llegada_Destino.RegistroLlegadaAeronave.resources
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
+<<<<<<< HEAD
+>>>>>>> 3f133a2b0b24b412d8be44459883fddff8c064db
+=======
+>>>>>>> 3f133a2b0b24b412d8be44459883fddff8c064db

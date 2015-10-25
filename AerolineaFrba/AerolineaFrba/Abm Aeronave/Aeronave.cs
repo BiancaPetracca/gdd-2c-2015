@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
 using AerolineaFrba.SuperControls;
+using AerolineaFrba.DAO;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
@@ -62,6 +63,16 @@ namespace AerolineaFrba.Abm_Aeronave
         private void limpiar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void FabricanteFiltro_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DAO.DAOAeronave.listarAeronaves();   
         }
 
     }
