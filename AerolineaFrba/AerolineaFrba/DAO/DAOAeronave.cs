@@ -9,7 +9,7 @@ using System.Data;
 
 namespace AerolineaFrba.DAO
 {
-    class DAOAeronave 
+    public static class DAOAeronave 
     {
 
         public static List<Aeronave> listarAeronaves()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AerolineaFrba.DAO
 {
-    class Aeronave
+    public class Aeronave
     {
         public  Aeronave aeronave { get; set; }
         public string matricula { get; set; }
