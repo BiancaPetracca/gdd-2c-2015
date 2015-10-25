@@ -187,6 +187,7 @@
             this.FabricanteFiltro.Name = "FabricanteFiltro";
             this.FabricanteFiltro.Size = new System.Drawing.Size(161, 20);
             this.FabricanteFiltro.TabIndex = 1;
+            this.FabricanteFiltro.TextChanged += new System.EventHandler(this.FabricanteFiltro_TextChanged);
             this.FabricanteFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FabricanteFiltro_KeyPress);
             // 
             // ServicioFiltro
@@ -245,7 +246,7 @@
             this.lista.ReadOnly = true;
             this.lista.Size = new System.Drawing.Size(930, 221);
             this.lista.TabIndex = 5;
-   
+            this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
             // Column7
             // 
