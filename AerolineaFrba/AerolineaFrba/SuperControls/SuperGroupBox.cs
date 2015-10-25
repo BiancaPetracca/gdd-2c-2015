@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperGroupBox : GroupBox, ISuperControls
+    public partial class SuperGroupBox : GroupBox, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperGroupBox()
         {

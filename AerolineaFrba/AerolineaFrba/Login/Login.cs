@@ -18,19 +18,21 @@ namespace AerolineaFrba.Login
         private String username;
         private String password;
         private int intentosLogin;
-        private DAOLogin dao;
+      
 
         public Login()
         {
             InitializeComponent();
-            dao = new DAOLogin();
+            intentosLogin = 0;
+            
         }
 
         private void IniciarSesion_Click(object sender, EventArgs e)
         {
-            if (intentosLogin > 3)
+            if (intentosLogin == 3)
             {
-                MessageBox.Show(this,"Logueo incorrecto reiteradas veces, espere");
+                // TODO INHABILITAR AL USUARIO 
+                MessageBox.Show("Usuario inhabilitado");
             }
 
 
@@ -47,18 +49,23 @@ namespace AerolineaFrba.Login
             else
             {
                 intentosLogin++;
-                MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar");
+                MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - intentosLogin));
             }
         }
 
         private bool usuarioValido()
         {
-            return dao.validarUsername("validar_usuario", username,password);
+            return this.validarUsername("validar_usuario", username,password);
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            intentosLogin = 0;
         }
 
     }

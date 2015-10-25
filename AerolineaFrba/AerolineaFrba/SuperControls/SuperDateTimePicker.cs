@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperDateTimePicker : DateTimePicker, ISuperControls
+    public partial class SuperDateTimePicker : DateTimePicker, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperDateTimePicker()
         {

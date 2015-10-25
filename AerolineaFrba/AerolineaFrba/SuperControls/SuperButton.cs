@@ -11,7 +11,7 @@ using AerolineaFrba.SuperControls;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperButton : Button, ISuperControls
+    public partial class SuperButton : Button, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperButton()
         {

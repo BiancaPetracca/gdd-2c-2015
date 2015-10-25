@@ -102,9 +102,9 @@
             this.IntentosRestantes.AutoSize = true;
             this.IntentosRestantes.Location = new System.Drawing.Point(70, 228);
             this.IntentosRestantes.Name = "IntentosRestantes";
-            this.IntentosRestantes.Size = new System.Drawing.Size(94, 13);
+            this.IntentosRestantes.Size = new System.Drawing.Size(97, 13);
             this.IntentosRestantes.TabIndex = 15;
-            this.IntentosRestantes.Text = "Intentos restantes:";
+            this.IntentosRestantes.Text = "Intentos restantes: ";
             // 
             // Bienvenida
             // 
@@ -121,6 +121,9 @@
             this.Rol.AccessibleDescription = "Rol ";
             this.Rol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Rol.FormattingEnabled = true;
+            this.Rol.Items.AddRange(new object[] {
+            "Administrativo",
+            "Cliente"});
             this.Rol.Location = new System.Drawing.Point(154, 181);
             this.Rol.Name = "Rol";
             this.Rol.Size = new System.Drawing.Size(202, 21);
@@ -155,7 +158,7 @@
             this.Name = "Login";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-      
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

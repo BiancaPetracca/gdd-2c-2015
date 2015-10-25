@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperCheckedListBox : CheckedListBox, ISuperControls
+    public partial class SuperCheckedListBox : CheckedListBox, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperCheckedListBox()
         {

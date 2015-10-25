@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperLabel : Label, ISuperControls
+    public partial class SuperLabel : Label, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperLabel()
         {

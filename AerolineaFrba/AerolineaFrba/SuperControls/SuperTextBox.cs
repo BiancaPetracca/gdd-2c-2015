@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperTextBox : TextBox, ISuperControls
+    public partial class SuperTextBox : TextBox, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperTextBox()
         {

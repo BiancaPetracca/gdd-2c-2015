@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperNumericUpDown : NumericUpDown, ISuperControls
+    public partial class SuperNumericUpDown : NumericUpDown, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperNumericUpDown()
         {

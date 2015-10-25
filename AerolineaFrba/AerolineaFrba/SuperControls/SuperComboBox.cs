@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
-    public partial class SuperComboBox : ComboBox, ISuperControls
+    public partial class SuperComboBox : ComboBox, AerolineaFrba.SuperControls.ISuperControls
     {
         public SuperComboBox()
         {

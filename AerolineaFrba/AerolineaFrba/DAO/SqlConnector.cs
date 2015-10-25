@@ -10,12 +10,11 @@ using System.Text.RegularExpressions;
 
 namespace AerolineaFrba.DAO
 {
-    public class SqlConnector
+    public static class SqlConnector
     {
-        private static SqlConnection connection;
-        private static SqlCommand command;
 
-        private string infoConexion()
+
+        private static string infoConexion()
         {
             return @"Data Source=localhost;Initial Catalog=GD2C2015; User Id=gd; Password=gd2015";
         }
@@ -25,8 +24,8 @@ namespace AerolineaFrba.DAO
         {
             try
             {
-                SqlConnector conexion = new SqlConnector();
-                String info = conexion.infoConexion();
+                
+                String info = infoConexion();
                 conn.ConnectionString = info;
                 command.Connection = conn;
                 conn.Open();
@@ -38,7 +37,7 @@ namespace AerolineaFrba.DAO
         }
         
         
-        public static DataTable retrieveDataTable(string procedure, params object[] parametros)
+        public static DataTable retrieveDataTable(this Form aForm, string procedure, params object[] parametros)
         {
             List<string> argumentos = generarParametros(procedure);
             return _retrieveDataTable(procedure, argumentos, parametros);
