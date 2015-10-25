@@ -213,6 +213,17 @@ AS
 		RETURN(-1)
 	END
 GO
+
+CREATE FUNCTION AWANTA.obtenerCodigoAeronave(@matricula nvarchar(255))
+RETURNS NUMERIC(18)
+AS
+BEGIN
+	DECLARE @codigo numeric(18)
+	SET @codigo = (SELECT aero_numero_de_aeronave FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula)
+	RETURN @codigo
+END
+GO
+
 /*------ABM DE RUTA AEREA------*/
 
 CREATE PROCEDURE AWANTA.get_all_rutas(@codigo numeric(18), @destino nvarchar(255), @origen nvarchar(255), @precio_base money, @precio_base_kg money, @servicio nvarchar(255))
@@ -286,8 +297,8 @@ CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada dat
 AS
 BEGIN
 	INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
-	VALUES(AWANTA., @llegada_estimada, @salida,
-	AWANTA.get_codigo_ruta(@ciudad_origen, @ciudad_destino, @avion))
+	VALUES(AWANTA.obtenerCodigoAeronave(@avion), @llegada_estimada, @salida,
+	AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, @avion))
 END
 GO
 
@@ -298,10 +309,10 @@ AS
 BEGIN
 	UPDATE AWANTA.VIAJE 
 	SET via_fecha_llegada = @llegada
-	WHERE via_avion = @avion /*TODO ESTO CON LA FUNCION DE LA MATRICULA*/ AND
+	WHERE via_avion = AWANTA.obtenerCodigoAeronave(@avion) AND
 	via_ruta_aerea = (SELECT rut_codigo 
 	FROM AWANTA.RUTA_AEREA
-	WHERE rut_origen = AWANTA.get_codigo_ruta(@ciudad_origen, @ciudad_destino, @servicio))
+	WHERE rut_origen = AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, @servicio))
 END
 GO
 
