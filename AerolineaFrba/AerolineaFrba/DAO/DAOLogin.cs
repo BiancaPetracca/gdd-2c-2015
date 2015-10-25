@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.DAO
 {
-    public static class DAOLogin
+    public static class DAORuta
     {   
  
         public static bool validarUsername(this Form aForm, String procedure, String username,String password)
