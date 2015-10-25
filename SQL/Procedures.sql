@@ -2,11 +2,6 @@
 
 /*LOGIN*/
 
-/*1.dado un nombre encontrar el username
-2. cantidad de intentos de un username 
-3. dado un username obtener su password
-4. setear usuario invalido*/
-
 
 CREATE PROCEDURE [AWANTA].set_intentos_login(@nombre_usuario NVARCHAR(255),@intentos INT) 
 AS
@@ -106,19 +101,18 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION AWANTA.get_codigo_ruta(@origen nvarchar(255), @destino nvarchar(255), @avion nvarchar(255))
+CREATE FUNCTION AWANTA.obtenerCodigoRuta(@origen nvarchar(255), @destino nvarchar(255), @servicio nvarchar(255))
 RETURNS NUMERIC(18)
 AS
 BEGIN
 	DECLARE @codigo numeric(18)
 	SET @codigo = (SELECT TOP 1 rut_codigo
-	FROM AWANTA.RUTA_AEREA, AWANTA.CIUDAD, AWANTA.SERVICIO, AWANTA.AERONAVE
+	FROM AWANTA.RUTA_AEREA, AWANTA.CIUDAD
 	WHERE (rut_origen = ciu_id AND
 	ciu_nombre = @origen) AND
 	(rut_destino = ciu_id AND
 	ciu_nombre = @destino) AND
-	rut_tipo_servicio = serv_id_servicio AND
-	serv_id_servicio = aer
+	rut_tipo_servicio = AWANTA.buscarIdServicio(@servicio))
 	RETURN @codigo
 END
 GO
