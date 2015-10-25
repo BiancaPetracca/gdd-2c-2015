@@ -14,6 +14,7 @@ C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\b
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
 <<<<<<< HEAD
+<<<<<<< HEAD
 C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
 C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
 C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
@@ -63,6 +64,8 @@ C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\Aero
 C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_Llegada_Destino.RegistroLlegadaAeronave.resources
 C:\Users\Nico\Desktop\UTN\RepoGestion\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csprojResolveAssemblyReference.cache
 =======
+=======
+>>>>>>> 3f133a2b0b24b412d8be44459883fddff8c064db
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
@@ -111,4 +114,7 @@ D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\Aerol
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_Llegada_Destino.RegistroLlegadaAeronave.resources
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
+<<<<<<< HEAD
+>>>>>>> 3f133a2b0b24b412d8be44459883fddff8c064db
+=======
 >>>>>>> 3f133a2b0b24b412d8be44459883fddff8c064db
