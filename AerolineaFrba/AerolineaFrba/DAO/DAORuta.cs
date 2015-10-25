@@ -10,7 +10,7 @@ namespace AerolineaFrba.DAO
 {
     public static class DAORuta
     {
-        internal static List<string> getAllCiudad(string p)
+        public static List<string> getAllCiudad(string p)
         {
             throw new NotImplementedException();
         }
