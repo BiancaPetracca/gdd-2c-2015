@@ -70,6 +70,16 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION AWANTA.obtenerNombreCiudad(@id_ciudad numeric(18))
+RETURNS nvarchar(255)
+AS
+BEGIN
+	DECLARE @nombre nvarchar(255)
+	SET @nombre = (SELECT TOP 1 ciu_nombre FROM AWANTA.CIUDAD WHERE ciu_id = @id_ciudad)
+	RETURN @nombre
+END
+GO
+
 /*------ABM DE AERONAVES------*/
 
 CREATE PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18), @modelo nvarchar(255), @matricula nvarchar(255), @butacas_pasillo numeric(18), 
@@ -252,8 +262,8 @@ GO
 CREATE PROCEDURE AWANTA.get_all_rutas(@codigo numeric(18), @destino nvarchar(255), @origen nvarchar(255), @precio_base money, @precio_base_kg money, @servicio nvarchar(255))
 AS 
 BEGIN
-	SELECT *
-	FROM AWANTA.RUTA_AEREA
+	SELECT rut_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), rut_precio_base, rut_precio_base_x_kg, serv_nombre
+	FROM AWANTA.RUTA_AEREA, AWANTA.SERVICIO
 	WHERE (rut_habilitada = 'H') AND
 	(@codigo IS NULL OR rut_codigo=@codigo) AND
 	(@destino IS NULL OR rut_destino=AWANTA.obtenerIdCiudad(@destino)) AND
