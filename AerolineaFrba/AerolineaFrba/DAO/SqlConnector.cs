@@ -46,7 +46,7 @@ namespace AerolineaFrba.DAO
 
         private static DataTable _retrieveDataTable(string procedure,List<string> argumentos,object[] parametros)
         {
- 	         SqlConnection connection = new SqlConnection();
+ 	        SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
             SqlDataReader dataReader;
             DataTable dataTable = new DataTable();

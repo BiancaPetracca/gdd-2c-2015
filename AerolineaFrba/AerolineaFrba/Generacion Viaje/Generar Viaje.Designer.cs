@@ -29,31 +29,31 @@ namespace AerolineaFrba.Generacion_Viaje
         /// </summary>
         private void InitializeComponent()
         {
-            this.viaje = new SuperGroupBox();
-            this.RutaAerea = new SuperComboBox();
-            this.label4 = new SuperLabel();
-            this.label3 = new SuperLabel();
-            this.label2 = new SuperLabel();
-            this.label1 = new SuperLabel();
-            this.fechaSalida = new SuperDateTimePicker();
-            this.fechaLlegada = new SuperDateTimePicker();
-            this.fechaLlegadaEstimada = new SuperDateTimePicker();
-            this.fechaSalidaLabel = new SuperLabel();
-            this.NombreAeronave = new SuperComboBox();
-            this.aceptar = new SuperButton();
-            this.cerrar = new SuperButton();
+            this.viaje = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.Origen = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.label4 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.fechaSalida = new AerolineaFrba.SuperControls.SuperDateTimePicker();
+            this.fechaLlegadaEstimada = new AerolineaFrba.SuperControls.SuperDateTimePicker();
+            this.fechaSalidaLabel = new AerolineaFrba.SuperControls.SuperLabel();
+            this.NombreAeronave = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.aceptar = new AerolineaFrba.SuperControls.SuperButton();
+            this.cerrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Destino = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.viaje.SuspendLayout();
             this.SuspendLayout();
             // 
             // viaje
             // 
-            this.viaje.Controls.Add(this.RutaAerea);
+            this.viaje.Controls.Add(this.Destino);
+            this.viaje.Controls.Add(this.superLabel1);
+            this.viaje.Controls.Add(this.Origen);
             this.viaje.Controls.Add(this.label4);
             this.viaje.Controls.Add(this.label3);
             this.viaje.Controls.Add(this.label2);
-            this.viaje.Controls.Add(this.label1);
             this.viaje.Controls.Add(this.fechaSalida);
-            this.viaje.Controls.Add(this.fechaLlegada);
             this.viaje.Controls.Add(this.fechaLlegadaEstimada);
             this.viaje.Controls.Add(this.fechaSalidaLabel);
             this.viaje.Controls.Add(this.NombreAeronave);
@@ -64,25 +64,27 @@ namespace AerolineaFrba.Generacion_Viaje
             this.viaje.TabStop = false;
             this.viaje.Text = "Generar Viaje";
             // 
-            // RutaAerea
+            // Origen
             // 
-            this.RutaAerea.AccessibleDescription = "Código de la ruta aérea";
-            this.RutaAerea.Location = new System.Drawing.Point(229, 258);
-            this.RutaAerea.Name = "RutaAerea";
-            this.RutaAerea.Size = new System.Drawing.Size(162, 21);
-            this.RutaAerea.TabIndex = 9;
+            this.Origen.AccessibleDescription = "Nombre de ciudad";
+            this.Origen.Location = new System.Drawing.Point(229, 238);
+            this.Origen.Name = "Origen";
+            this.Origen.Size = new System.Drawing.Size(162, 21);
+            this.Origen.TabIndex = 9;
+            this.Origen.SelectedIndexChanged += new System.EventHandler(this.Origen_SelectedIndexChanged);
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(52, 261);
+            this.label4.Location = new System.Drawing.Point(52, 241);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(143, 20);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Ruta Aérea";
+            this.label4.Text = "Origen";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(52, 219);
+            this.label3.Location = new System.Drawing.Point(52, 167);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 20);
             this.label3.TabIndex = 6;
@@ -91,19 +93,11 @@ namespace AerolineaFrba.Generacion_Viaje
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(52, 168);
+            this.label2.Location = new System.Drawing.Point(52, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(143, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "Fecha de llegada estimada";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(52, 104);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 20);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Fecha de llegada";
             // 
             // fechaSalida
             // 
@@ -115,23 +109,12 @@ namespace AerolineaFrba.Generacion_Viaje
             this.fechaSalida.Size = new System.Drawing.Size(162, 20);
             this.fechaSalida.TabIndex = 0;
             // 
-            // fechaLlegada
-            // 
-            this.fechaLlegada.AccessibleDescription = "Fecha de llegada";
-            this.fechaLlegada.CustomFormat = "dd/mm/yyyy hh:mm:ss";
-            this.fechaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.fechaLlegada.Location = new System.Drawing.Point(229, 104);
-            this.fechaLlegada.Name = "fechaLlegada";
-            this.fechaLlegada.Size = new System.Drawing.Size(162, 20);
-            this.fechaLlegada.TabIndex = 1;
-            this.fechaLlegada.ValueChanged += new System.EventHandler(this.fechaLlegada_ValueChanged);
-            // 
             // fechaLlegadaEstimada
             // 
             this.fechaLlegadaEstimada.AccessibleDescription = "Fecha de llegada estimada";
             this.fechaLlegadaEstimada.CustomFormat = "dd/mm/yyyy hh:mm:ss";
             this.fechaLlegadaEstimada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.fechaLlegadaEstimada.Location = new System.Drawing.Point(229, 168);
+            this.fechaLlegadaEstimada.Location = new System.Drawing.Point(229, 97);
             this.fechaLlegadaEstimada.Name = "fechaLlegadaEstimada";
             this.fechaLlegadaEstimada.Size = new System.Drawing.Size(162, 20);
             this.fechaLlegadaEstimada.TabIndex = 2;
@@ -148,7 +131,7 @@ namespace AerolineaFrba.Generacion_Viaje
             // NombreAeronave
             // 
             this.NombreAeronave.AccessibleDescription = "Nombre de la aeronave";
-            this.NombreAeronave.Location = new System.Drawing.Point(229, 216);
+            this.NombreAeronave.Location = new System.Drawing.Point(229, 166);
             this.NombreAeronave.Name = "NombreAeronave";
             this.NombreAeronave.Size = new System.Drawing.Size(162, 21);
             this.NombreAeronave.TabIndex = 8;
@@ -171,6 +154,23 @@ namespace AerolineaFrba.Generacion_Viaje
             this.cerrar.Text = "Cerrar";
             this.cerrar.Click += new System.EventHandler(this.cerrar_Click);
             // 
+            // Destino
+            // 
+            this.Destino.AccessibleDescription = "Nombre de ciudad";
+            this.Destino.Location = new System.Drawing.Point(229, 287);
+            this.Destino.Name = "Destino";
+            this.Destino.Size = new System.Drawing.Size(162, 21);
+            this.Destino.TabIndex = 11;
+            this.Destino.SelectedIndexChanged += new System.EventHandler(this.Destino_SelectedIndexChanged);
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.Location = new System.Drawing.Point(52, 290);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(143, 20);
+            this.superLabel1.TabIndex = 10;
+            this.superLabel1.Text = "Destino";
+            // 
             // Generar_Viaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,17 +192,17 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private SuperGroupBox viaje;
         private SuperDateTimePicker fechaSalida;
-        private SuperDateTimePicker fechaLlegada;
         private SuperDateTimePicker fechaLlegadaEstimada;
         private SuperLabel fechaSalidaLabel;
         private SuperLabel label2;
-        private SuperLabel label1;
         private SuperLabel label3;
         private SuperLabel label4;
         private SuperComboBox NombreAeronave;
-        private SuperComboBox RutaAerea;
+        private SuperComboBox Origen;
         private SuperButton aceptar;
         private SuperButton cerrar;
+        private SuperComboBox Destino;
+        private SuperLabel superLabel1;
 
     }
 }
