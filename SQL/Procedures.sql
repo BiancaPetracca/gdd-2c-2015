@@ -383,12 +383,12 @@ BEGIN
 	DECLARE @butaca_pasaje numeric(18)
 	SET @butaca_pasaje = (SELECT but_id 
 	FROM AWANTA.BUTACA
-	WHERE but_estado LIKE '%L%' AND
+	WHERE but_estado = 0 AND
 	but_tipo = @tipo AND
 	but_piso = @piso)
 
 	UPDATE AWANTA.BUTACA
-	SET but_estado = '%R%'
+	SET but_estado = 1
 	WHERE but_id = @butaca_pasaje
 
 	INSERT INTO AWANTA.PASAJE(pas_compra, pas_butaca)
