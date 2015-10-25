@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
-using AerolineaFrba.DAO
+using AerolineaFrba.DAO;
 
 namespace AerolineaFrba.Generacion_Viaje
 {
