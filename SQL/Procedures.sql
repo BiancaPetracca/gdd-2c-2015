@@ -77,8 +77,8 @@ CREATE PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18), @modelo nvarchar(
 @fecha_alta_temporal date, @fecha_baja_definitiva date)
 AS 
 BEGIN
-	SELECT aero_modelo, aero_matricula, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas, 
-		aero_fabricante, aero_fecha_de_alta, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio, aero_fecha_baja_definitiva, serv_nombre
+	SELECT aero_matricula, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas, 
+	aero_fabricante, aero_fecha_de_alta, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio, aero_fecha_baja_definitiva, serv_nombre, aero_estado
 	FROM AWANTA.AERONAVE, AWANTA.SERVICIO
 	WHERE (@modelo IS NULL OR aero_modelo=@modelo) AND
 	(@matricula IS NULL OR aero_matricula=@matricula) AND
@@ -91,7 +91,6 @@ BEGIN
 	(@fecha_alta_temporal IS NULL OR aero_fecha_reinicio_servicio=@fecha_alta_temporal) AND
 	(@fecha_baja_definitiva IS NULL OR aero_fecha_baja_definitiva=@fecha_baja_definitiva) AND
 	(@numero IS NULL OR aero_numero_de_aeronave=@numero) AND
-	(aero_estado = 1) AND
 	id_servicio = serv_id_servicio
 END
 GO
