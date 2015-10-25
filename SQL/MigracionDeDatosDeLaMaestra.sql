@@ -232,6 +232,14 @@ CREATE TABLE AWANTA.CANJE
 	can_fecha datetime not null,
 )
 
+CREATE TABLE AWANTA.BUTACA
+(
+	but_id numeric(18) identity primary key,
+	but_piso int not null,
+	but_tipo nvarchar(255) not null,
+	but_estado bit not null, 
+)
+
 CREATE TABLE AWANTA.AERONAVE
 (
 	aero_numero_de_aeronave numeric(18) identity primary key,
@@ -259,15 +267,8 @@ CREATE TABLE AWANTA.VIAJE
 	via_avion nvarchar(255) foreign key
 	references AWANTA.AERONAVE(aero_matricula),
 	via_ruta_aerea numeric(18) foreign key
-	references AWANTA.RUTA_AEREA(rut_codigo)
-)
-
-CREATE TABLE AWANTA.BUTACA
-(
-	but_id numeric(18) identity primary key,
-	but_piso int not null,
-	but_tipo nvarchar(255) not null,
-	but_estado char not null, 
+	references AWANTA.RUTA_AEREA(rut_codigo),
+	via_cancelado char,
 )
 
 CREATE TABLE AWANTA.TIPO_DE_PAGO
@@ -590,5 +591,4 @@ SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,Aeronave_Matricula,
 			 AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen) = rut_origen)
 FROM gd_esquema.Maestra
 GO
-
 
