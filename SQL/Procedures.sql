@@ -72,6 +72,30 @@ GO
 
 /*------ABM DE AERONAVES------*/
 
+CREATE PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18), @modelo nvarchar(255), @matricula nvarchar(255), @butacas_pasillo numeric(18), 
+@butacas_ventanilla numeric(18), @kilos_disponibles numeric(18), @fabricante nvarchar(255), @fecha_alta date, @fecha_baja_temporal date, 
+@fecha_alta_temporal date, @fecha_baja_definitiva date)
+AS 
+BEGIN
+	SELECT aero_modelo, aero_matricula, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas, 
+		aero_fabricante, aero_fecha_de_alta, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio, aero_fecha_baja_definitiva, serv_nombre
+	FROM AWANTA.AERONAVE, AWANTA.SERVICIO
+	WHERE (@modelo IS NULL OR aero_modelo=@modelo) AND
+	(@matricula IS NULL OR aero_matricula=@matricula) AND
+	(@butacas_pasillo IS NULL OR aero_cantidad_butacas_pasillo=@butacas_pasillo) AND
+	(@butacas_ventanilla IS NULL OR aero_cantidad_butacas_ventanilla=@butacas_ventanilla) AND
+	(@kilos_disponibles IS NULL OR aero_kgs_disponibles_encomiendas=@kilos_disponibles) AND
+	(@fabricante IS NULL OR aero_fabricante=@fabricante) AND
+	(@fecha_alta IS NULL OR aero_fecha_de_alta=@fecha_alta) AND
+	(@fecha_baja_temporal IS NULL OR aero_baja_fuera_de_servicio=@fecha_baja_temporal) AND
+	(@fecha_alta_temporal IS NULL OR aero_fecha_reinicio_servicio=@fecha_alta_temporal) AND
+	(@fecha_baja_definitiva IS NULL OR aero_fecha_baja_definitiva=@fecha_baja_definitiva) AND
+	(@numero IS NULL OR aero_numero_de_aeronave=@numero) AND
+	(aero_estado = 1) AND
+	id_servicio = serv_id_servicio
+END
+GO
+
 CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255)
 										,@butacasPasillo INT,@butacasVentanilla INT,@kilosDisponibles INT)
 AS
