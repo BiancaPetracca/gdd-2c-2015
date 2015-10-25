@@ -88,17 +88,38 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE AWANTA.altaRutaAerea(@ciudadOrigen NVARCHAR(255),@ciudadDestino NVARCHAR(255),@tipoServicio NVARCHAR(255)
+											,@rutaPrecioBasePasaje MONEY,@rutaPrecioBaseKilo MONEY)
+AS
+	BEGIN
+		INSERT INTO AWANTA.RUTA_AEREA(rut_origen,rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg)
+		VALUES (AWANTA.obtenerIdCiudad(@ciudadOrigen),AWANTA.obtenerIdCiudad(@ciudadDestino),AWANTA.buscarIdServicio(@tipoServicio),
+					@rutaPrecioBasePasaje,@rutaPrecioBaseKilo)
+	END
+GO
 
-CREATE PROCEDURE AWANTA.set_ruta(@ciudad_origen nvarchar(255), @ciudad_destino nvarchar(255), @servicio nvarchar(255), @precio_por_pasajero money, @precio_por_kilo money)
-AS 
-BEGIN
-	INSERT INTO AWANTA.RUTA_AEREA(rut_origen, rut_destino, rut_tipo_servicio, rut_precio_base, rut_precio_base_x_kg)
-	VALUES(
-	AWANTA.obtenerIdCiudad(@ciudad_origen), 
-	AWANTA.obtenerIdCiudad(@ciudad_destino), 
-	AWANTA.buscarIdServicio(@servicio), 
-	@precio_por_pasajero, @precio_por_kilo)
-END
+CREATE PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@ruta_codigo NUMERIC(18))
+AS		
+	BEGIN
+		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,SYSDATETIME()))
+										AND via_ruta_aerea = @ruta_codigo
+	END
+GO
+
+CREATE PROCEDURE AWANTA.bajaRutaAerea(@ciudadOrigen NVARCHAR(255),@ciudadDestino NVARCHAR(255),@tipoServicio NVARCHAR(255))
+AS
+	BEGIN
+		DECLARE @pkDeLaRuta NUMERIC(18)
+		SET @pkDeLaRuta = (SELECT rut_codigo FROM AWANTA.RUTA_AEREA 
+		WHERE rut_origen = @ciudadOrigen 
+		AND rut_destino = @ciudadDestino 
+		AND rut_tipo_servicio = (SELECT serv_id_servicio FROM AWANTA.SERVICIO WHERE serv_nombre = @tipoServicio))
+		
+		UPDATE AWANTA.RUTA_AEREA
+		SET rut_habilitada = 'D'
+		WHERE rut_codigo = @pkDeLaRuta
+		EXEC AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea @pkDeLaRuta
+	END
 GO
 
 CREATE FUNCTION AWANTA.obtenerCodigoRuta(@origen nvarchar(255), @destino nvarchar(255), @servicio nvarchar(255))
@@ -117,23 +138,13 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE AWANTA.bajar_ruta (@codigo numeric(18))
-AS
-BEGIN
-	/*TODO CANCELAR TODOS LOS PASAJES QUE TENGAN LA RUTA*/
-	DELETE FROM AWANTA.RUTA_AEREA
-	WHERE rut_codigo = @codigo
-END
-GO
-
-
 /*ALTA VIAJE*/
 
 CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date, @ciudad_origen nvarchar(255), @ciudad_destino nvarchar(255))
 AS
 BEGIN
 	INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
-	VALUES(@avion/*TODO ESTO CON LA FUNCION DE LA MATRICULA*/, @llegada_estimada, @salida,
+	VALUES(AWANTA., @llegada_estimada, @salida,
 	AWANTA.get_codigo_ruta(@ciudad_origen, @ciudad_destino, @avion))
 END
 GO
