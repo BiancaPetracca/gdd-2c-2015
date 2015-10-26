@@ -403,7 +403,7 @@ RETURNS NUMERIC(18)
 AS
 	BEGIN
 		DECLARE @numeroServicio NUMERIC(18)
-			SET @numeroServicio = (SELECT serv_id_servicio FROM AWANTA.SERVICIO WHERE @Tipo_Servicio = serv_nombre)
+			SET @numeroServicio = (SELECT  TOP 1 serv_id_servicio FROM AWANTA.SERVICIO WHERE @Tipo_Servicio = serv_nombre)
 		RETURN @numeroServicio
 	END 
 GO
@@ -550,9 +550,9 @@ AS
 GO
 
 /*TESTEADO*/
-INSERT INTO AWANTA.AERONAVE(aero_matricula,aero_modelo,aero_fabricante,id_servicio,aero_fecha_de_alta,aero_kgs_disponibles_encomiendas)
+INSERT INTO AWANTA.AERONAVE(aero_matricula,aero_modelo,aero_fabricante,id_servicio,aero_fecha_de_alta,aero_kgs_disponibles_encomiendas, aero_estado)
 SELECT DISTINCT Aeronave_Matricula,Aeronave_Modelo,Aeronave_Fabricante,AWANTA.buscarIdServicio(Tipo_Servicio),
-				(SELECT CONVERT(date,SYSDATETIME())),Aeronave_KG_Disponibles,1
+				(SELECT CONVERT(date,SYSDATETIME())),Aeronave_KG_Disponibles, 1
 FROM gd_esquema.Maestra
 GO
 
