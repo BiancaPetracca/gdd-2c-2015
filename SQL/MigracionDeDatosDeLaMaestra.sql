@@ -232,6 +232,14 @@ CREATE TABLE AWANTA.CANJE
 	can_fecha datetime not null,
 )
 
+CREATE TABLE AWANTA.BUTACA
+(
+	but_id numeric(18) identity primary key,
+	but_piso int not null,
+	but_tipo nvarchar(255) not null,
+	but_estado bit not null, 
+)
+
 CREATE TABLE AWANTA.AERONAVE
 (
 	aero_numero_de_aeronave numeric(18) identity primary key,
@@ -247,6 +255,7 @@ CREATE TABLE AWANTA.AERONAVE
 	aero_cantidad_butacas_pasillo int ,
 	aero_cantidad_butacas_ventanilla int,
 	aero_kgs_disponibles_encomiendas int not null,
+	aero_estado bit not null,
 
 )
 
@@ -259,15 +268,8 @@ CREATE TABLE AWANTA.VIAJE
 	via_avion nvarchar(255) foreign key
 	references AWANTA.AERONAVE(aero_matricula),
 	via_ruta_aerea numeric(18) foreign key
-	references AWANTA.RUTA_AEREA(rut_codigo)
-)
-
-CREATE TABLE AWANTA.BUTACA
-(
-	but_id numeric(18) identity primary key,
-	but_piso int not null,
-	but_tipo nvarchar(255) not null,
-	but_estado char not null, 
+	references AWANTA.RUTA_AEREA(rut_codigo),
+	via_cancelado char,
 )
 
 CREATE TABLE AWANTA.TIPO_DE_PAGO
@@ -550,7 +552,7 @@ GO
 /*TESTEADO*/
 INSERT INTO AWANTA.AERONAVE(aero_matricula,aero_modelo,aero_fabricante,id_servicio,aero_fecha_de_alta,aero_kgs_disponibles_encomiendas)
 SELECT DISTINCT Aeronave_Matricula,Aeronave_Modelo,Aeronave_Fabricante,AWANTA.buscarIdServicio(Tipo_Servicio),
-				(SELECT CONVERT(date,SYSDATETIME())),Aeronave_KG_Disponibles
+				(SELECT CONVERT(date,SYSDATETIME())),Aeronave_KG_Disponibles,1
 FROM gd_esquema.Maestra
 GO
 
@@ -590,5 +592,4 @@ SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,Aeronave_Matricula,
 			 AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen) = rut_origen)
 FROM gd_esquema.Maestra
 GO
-
 

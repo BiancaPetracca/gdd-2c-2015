@@ -128,7 +128,10 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAO\Aeronave.cs" />
+    <Compile Include="DAO\DAOAeronave.cs" />
     <Compile Include="DAO\DAOLogin.cs" />
+    <Compile Include="DAO\DAORuta.cs" />
     <Compile Include="DAO\SqlConnector.cs" />
     <Compile Include="Generics\Extensions.cs" />
     <Compile Include="Generics\Validations.cs" />

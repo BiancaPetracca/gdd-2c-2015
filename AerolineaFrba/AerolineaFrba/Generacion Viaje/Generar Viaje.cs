@@ -8,14 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
+using AerolineaFrba.DAO;
 
 namespace AerolineaFrba.Generacion_Viaje
 {
     public partial class Generar_Viaje : Form
     {
+        List<String> ciudades;
         public Generar_Viaje()
         {
             InitializeComponent();
+            ciudades = DAORuta.getAllCiudad("get_all_cities");
         }
 
         private void fechaLlegadaEstimada_ValueChanged(object sender, EventArgs e)
@@ -41,6 +44,21 @@ namespace AerolineaFrba.Generacion_Viaje
         private void aceptar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Origen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void Destino_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        
         }
     }
 }
