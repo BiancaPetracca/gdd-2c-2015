@@ -39,12 +39,12 @@ namespace AerolineaFrba.DAO
         
         public static DataTable retrieveDataTable(this DAO.DAOAeronave aero, string procedure, params object[] parametros)
         {
-            List<string> argumentos = generarParametros(procedure);
+            string[] argumentos = generarParametros(procedure);
             return _retrieveDataTable(procedure, argumentos, parametros);
         }
 
 
-        private static DataTable _retrieveDataTable(string procedure,List<string> argumentos,object[] parametros)
+        private static DataTable _retrieveDataTable(string procedure,string[] argumentos,object[] parametros)
         {
  	        SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
@@ -79,13 +79,13 @@ namespace AerolineaFrba.DAO
         }
 
         
-        private static List<string> generarParametros(string procedure)
+        private static string[] generarParametros(string procedure)
         {
             SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
             SqlDataReader dataReader;
             DataTable dataTable = new DataTable();
-            List<string> argumentos = new List<string>();
+
             try
             {
                 conexion(connection, command);
@@ -93,9 +93,13 @@ namespace AerolineaFrba.DAO
                 command.CommandText = "SELECT PARAMETER_NAME FROM information_schema.parameters WHERE SPECIFIC_SCHEMA='AWANTA' AND SPECIFIC_NAME='" + procedure + "'";
                 dataReader = command.ExecuteReader();
                 dataTable.Load(dataReader);
+                string[] argumentos = new string[dataTable.Rows.Count];
+                int i = 0;
                 foreach (DataRow d in dataTable.Rows)
                 {
-                    argumentos.Add(d.ToString());
+                    
+                    argumentos[i] = (d[0].ToString());
+                    i++;
                 }
                 return argumentos;
             }
@@ -116,7 +120,7 @@ namespace AerolineaFrba.DAO
 
         public static void ejecutarProcedure(string procedure, params object[] parametros)
         {
-            List<string> argumentos = generarParametros(procedure);
+            string[] argumentos = generarParametros(procedure);
             ejecutarProcedure(procedure, argumentos, parametros);
         }
 
@@ -129,7 +133,7 @@ namespace AerolineaFrba.DAO
 
         public static bool checkIfExists(string procedure, params object[] parametros)
         {
-            List<string> argumentos = generarParametros(procedure);
+            string[] argumentos = generarParametros(procedure);
             return _verSiExiste(procedure, argumentos, parametros);
         }
        
@@ -142,12 +146,12 @@ namespace AerolineaFrba.DAO
 
         public static int ejecutarProcedureRetornaValor(string procedure, params object[] values)
         {
-            List<string> argumentos = generarParametros(procedure);
+            string[] argumentos = generarParametros(procedure);
             return _executeProcedureWithReturnValue(procedure, argumentos, values);
         }
 
 
-        private static void ejecutarProcedure(string procedure, List<string> args, params object[] values)
+        private static void ejecutarProcedure(string procedure, string[] args, params object[] values)
         {
             SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
@@ -179,7 +183,7 @@ namespace AerolineaFrba.DAO
         }
 
 
-        private static bool _verSiExiste(string procedure, List<string> argumentos, params object[] parametros)
+        private static bool _verSiExiste(string procedure, string[] argumentos, params object[] parametros)
         {
             SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
@@ -213,7 +217,7 @@ namespace AerolineaFrba.DAO
         }
 
 
-        private static int _executeProcedureWithReturnValue(string procedure, List<string> argumentos, params object[] parametros)
+        private static int _executeProcedureWithReturnValue(string procedure, string[] argumentos, params object[] parametros)
         {
             SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
@@ -245,13 +249,13 @@ namespace AerolineaFrba.DAO
                 }
             }
         }
-        
-        private static bool chequearParametros(List<string> argumentos, params object[] parametros)
+
+        private static bool chequearParametros(string[] argumentos, params object[] parametros)
         {
             //todo ver si hay que validar aca o en la clase que llame al metodo....
             if (argumentos != null && parametros != null)
             {
-                if (argumentos.Count != parametros.Length)
+                if (argumentos.Length != parametros.Length)
                 {
                     throw new ApplicationException();
                 }
@@ -260,9 +264,9 @@ namespace AerolineaFrba.DAO
             return false;
         }
 
-        private static void cargarComandosSql(List<string> argumentos, object[] parametros, SqlCommand command)
+        private static void cargarComandosSql(string[] argumentos, object[] parametros, SqlCommand command)
         {
-            for (int i = 0; i < argumentos.Count; i++)
+            for (int i = 0; i < argumentos.Length; i++)
             {
                 command.Parameters.AddWithValue(argumentos[i], parametros[i]);
             }

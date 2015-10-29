@@ -9,13 +9,21 @@ using System.Data;
 
 namespace AerolineaFrba.DAO
 {
-    public static class DAOAeronave 
+    public class DAOAeronave 
     {
 
-        public static List<Aeronave> listarAeronaves()
+        public List<Aeronave> listarAeronaves()
         {
+            Aeronave a = new Aeronave();
+
+            DateTime fecha = new DateTime(29102015);
+
+            
             List<Aeronave> aeronaves = new List<Aeronave>();
-            DataTable dataTable = SqlConnector.retrieveDataTable(null,"get_aeronaves",null);
+            DataTable dataTable = this.retrieveDataTable("get_all_aeronaves", a.numero, "null", "null", a.cantidadButacasPasillo
+                                        , a.cantidadButacasVentanilla, a.kgsEncomiendas, "null", Convert.ToDateTime(a.fechaAlta),
+                                        Convert.ToDateTime(a.fechaBajaTemporal), Convert.ToDateTime(a.fechaReinicio)
+                                        , Convert.ToDateTime(a.fechaBaja));
             foreach (DataRow dataRow in dataTable.Rows)
             {
                 Aeronave aero = convertirAeronave(dataRow);
@@ -42,8 +50,8 @@ namespace AerolineaFrba.DAO
             {
                 aero.estadoAeronave = "Deshabilitada";
             } 
-            aero.fechaBaja = Convert.ToDateTime(dataRow["aero_baja_fuera_de_servicio"]);
-            aero.fechaReinicio = Convert.ToDateTime(dataRow["aero_fecha_reinicio_servicio"]);
+           // aero.fechaBaja = Convert.ToDateTime(dataRow["aero_baja_fuera_de_servicio"]);
+           // aero.fechaReinicio = Convert.ToDateTime(dataRow["aero_fecha_reinicio_servicio"]);
             aero.servicio = dataRow["serv_nombre"].ToString();
 
             return aero;
