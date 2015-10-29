@@ -9,13 +9,13 @@ using System.Data;
 
 namespace AerolineaFrba.DAO
 {
-    public static class DAOAeronave 
+    public static class DAOAeronave
     {
 
         public static List<Aeronave> listarAeronaves()
         {
             List<Aeronave> aeronaves = new List<Aeronave>();
-            DataTable dataTable = SqlConnector.retrieveDataTable(null,"get_aeronaves",null);
+            DataTable dataTable = SqlConnector.retrieveDataTable("get_aeronaves",null);
             foreach (DataRow dataRow in dataTable.Rows)
             {
                 Aeronave aero = convertirAeronave(dataRow);

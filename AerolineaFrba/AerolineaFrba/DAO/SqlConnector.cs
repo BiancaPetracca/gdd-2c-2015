@@ -37,7 +37,7 @@ namespace AerolineaFrba.DAO
         }
         
         
-        public static DataTable retrieveDataTable(this Form aForm, string procedure, params object[] parametros)
+        public static DataTable retrieveDataTable(string procedure, params object[] parametros)
         {
             List<string> argumentos = generarParametros(procedure);
             return _retrieveDataTable(procedure, argumentos, parametros);
@@ -77,6 +77,7 @@ namespace AerolineaFrba.DAO
                 }
             }    
         }
+
 
         
         private static List<string> generarParametros(string procedure)
