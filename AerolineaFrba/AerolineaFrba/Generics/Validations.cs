@@ -89,6 +89,47 @@ namespace AerolineaFrba.Generics
         }
 
 
+        public static Boolean domainValidations(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
+        {
+            var msg = "";
+            Boolean isvalid = true;
+           
+            foreach (var criterium in criteria)
+            {
+                
+               if (!criterium.Item1())
+                {
+                    msg += criterium.Item2 + "\n";
+                }
+            }
+         //  if (criteria.Any(x => !x.Item1()))
+            if(msg != "")
+            {
+                isvalid = false;
+                throw new Exception(msg);
+            }
+            return isvalid;
+
+        }
+
+        public static Boolean validateDomain(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
+        {
+            var isValid = false;
+            try { isValid = aForm.domainValidations(criteria); }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
+            return isValid;
+        }
+
+
+        public static Tuple<Func<Boolean>, String> criteriumMessage(Func<Boolean> criterium, String message)
+        {
+            return Tuple.Create(criterium, message);
+        }
+
+
         /******** VALIDACIONES PARA EL TIPO DE LOS CARACTERES ********/
 
 

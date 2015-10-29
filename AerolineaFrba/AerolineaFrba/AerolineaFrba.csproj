@@ -130,6 +130,8 @@
     </Compile>
     <Compile Include="DAO\Aeronave.cs" />
     <Compile Include="DAO\DAOAeronave.cs" />
+    <Compile Include="DAO\DAOCompra.cs" />
+    <Compile Include="DAO\DAOGenerarViaje.cs" />
     <Compile Include="DAO\DAOLogin.cs" />
     <Compile Include="DAO\DAORuta.cs" />
     <Compile Include="DAO\SqlConnector.cs" />

@@ -34,16 +34,15 @@ namespace AerolineaFrba.DAO
             {
                 throw exception;
             }
-        }
+        }        
         
-        
-        public static DataTable retrieveDataTable(this DAO.DAOAeronave aero, string procedure, params object[] parametros)
+        public static DataTable retrieveDataTable(string procedure, params object[] parametros)
         {
             string[] argumentos = generarParametros(procedure);
             return _retrieveDataTable(procedure, argumentos, parametros);
         }
-
-
+     
+        
         private static DataTable _retrieveDataTable(string procedure,string[] argumentos,object[] parametros)
         {
  	        SqlConnection connection = new SqlConnection();
@@ -77,6 +76,7 @@ namespace AerolineaFrba.DAO
                 }
             }    
         }
+
 
         
         private static string[] generarParametros(string procedure)

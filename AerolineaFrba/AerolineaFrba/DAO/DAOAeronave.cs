@@ -9,21 +9,20 @@ using System.Data;
 
 namespace AerolineaFrba.DAO
 {
-    public class DAOAeronave 
+    public class DAOAeronave
+
     {
 
         public List<Aeronave> listarAeronaves()
-        {
-            Aeronave a = new Aeronave();
-
-            DateTime fecha = new DateTime(29102015);
-
-            
+        {    
             List<Aeronave> aeronaves = new List<Aeronave>();
-            DataTable dataTable = this.retrieveDataTable("get_all_aeronaves", a.numero, "null", "null", a.cantidadButacasPasillo
+
+            /*DataTable dataTable = this.retrieveDataTable("get_all_aeronaves", a.numero, "null", "null", a.cantidadButacasPasillo
                                         , a.cantidadButacasVentanilla, a.kgsEncomiendas, "null", Convert.ToDateTime(a.fechaAlta),
                                         Convert.ToDateTime(a.fechaBajaTemporal), Convert.ToDateTime(a.fechaReinicio)
-                                        , Convert.ToDateTime(a.fechaBaja));
+                                        , Convert.ToDateTime(a.fechaBaja));*/
+
+            DataTable dataTable = SqlConnector.retrieveDataTable("get_aeronaves",null);
             foreach (DataRow dataRow in dataTable.Rows)
             {
                 Aeronave aero = convertirAeronave(dataRow);

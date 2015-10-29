@@ -1,5 +1,4 @@
-/*----------STORED PROCEDURES APLICACION----------*/
-
+/*----------STORED PROCEDURES APLICACION----------*/ 
 /*------LOGIN------*/
 
 CREATE PROCEDURE [AWANTA].set_intentos_login(@nombre_usuario NVARCHAR(255),@intentos INT) 

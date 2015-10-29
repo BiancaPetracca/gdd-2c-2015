@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
@@ -18,7 +19,7 @@ namespace AerolineaFrba.Generacion_Viaje
         public Generar_Viaje()
         {
             InitializeComponent();
-            ciudades = DAORuta.getAllCiudad("get_all_cities");
+          //  ciudades = DAORuta.getAllCiudad("get_all_cities");
         }
 
         private void fechaLlegadaEstimada_ValueChanged(object sender, EventArgs e)
@@ -43,13 +44,21 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (this.validateNotNullForAll(this.viaje.Controls))
+            {
+                this.validateDomain(Validations.criteriumMessage(tardaMenosDe24HsEnLlegar, "La aeronave no puede tardar mas de 24 hs en llegar"));
+            }
+            // GENERAR_VIAJE // 
+            // CONTROLAR SERVICIO DE RUTA CONCUERDE CON SERVICIO DE AERONAVE
+            // AERONAVE DISPONIBLE + NO ASIGNADA A OTRO VIAJE YA
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
 
         }
+
+       
 
         private void Origen_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -60,5 +69,23 @@ namespace AerolineaFrba.Generacion_Viaje
         {
         
         }
+
+       
+
+
+        private Boolean tardaMenosDe24HsEnLlegar() {
+
+            
+          TimeSpan tiempoEnLlegarEstimado = (this.fechaSalida.Value).Subtract(this.fechaLlegadaEstimada.Value);
+
+            return (Math.Abs(tiempoEnLlegarEstimado.TotalHours) <= 24);
+           
+        }
+
+        private void Generar_Viaje_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
