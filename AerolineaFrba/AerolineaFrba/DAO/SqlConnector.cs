@@ -16,7 +16,7 @@ namespace AerolineaFrba.DAO
 
         private static string infoConexion()
         {
-            return @"Data Source=localhost;Initial Catalog=GD2C2015; User Id=gd; Password=gd2015";
+            return @"Data Source=NICO-PC\SQLSERVER2012 ; Initial Catalog=GD2C2015; User Id=gd; Password=gd2015";
         }
 
         /*Abre la conexion con la base*/
@@ -37,7 +37,11 @@ namespace AerolineaFrba.DAO
         }
         
         
+<<<<<<< HEAD
         public static DataTable retrieveDataTable(string procedure, params object[] parametros)
+=======
+        public static DataTable retrieveDataTable(this DAO.DAOAeronave aero, string procedure, params object[] parametros)
+>>>>>>> 5727ed13327299464123ef2a8903cd300d616e2c
         {
             List<string> argumentos = generarParametros(procedure);
             return _retrieveDataTable(procedure, argumentos, parametros);
@@ -64,9 +68,9 @@ namespace AerolineaFrba.DAO
                 dataTable.Load(dataReader);
                 return dataTable;
             }
-            catch
+            catch(SqlException e)
             {
-                return null;
+                throw e;
             }
 
             finally
@@ -91,18 +95,18 @@ namespace AerolineaFrba.DAO
             {
                 conexion(connection, command);
                 command.CommandType = CommandType.Text;
-                command.CommandText = "SELECT PARAMETER_NAME FROM information_schema.parameters WHERE SPECIFIC_SCHEMA='SMALL' AND SPECIFIC_NAME='" + procedure + "'";
+                command.CommandText = "SELECT PARAMETER_NAME FROM information_schema.parameters WHERE SPECIFIC_SCHEMA='AWANTA' AND SPECIFIC_NAME='" + procedure + "'";
                 dataReader = command.ExecuteReader();
                 dataTable.Load(dataReader);
                 foreach (DataRow d in dataTable.Rows)
                 {
-                    argumentos.Add(d[0].ToString());
+                    argumentos.Add(d.ToString());
                 }
                 return argumentos;
             }
-            catch
+            catch(SqlException e)
             {
-                return null;
+                throw e;
             }
 
             finally
