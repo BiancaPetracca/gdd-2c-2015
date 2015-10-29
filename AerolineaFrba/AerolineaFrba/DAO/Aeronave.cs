@@ -11,11 +11,15 @@ namespace AerolineaFrba.DAO
         public string matricula { get; set; }
         public  string fabricante { get; set; }
         public  int cantidadButacas { get; set; }
+        public int cantidadButacasPasillo { get; set; }
+        public int cantidadButacasVentanilla { get; set; }
         public int kgsEncomiendas { get; set; }
         public int vidaUtil { get; set; }
         public string estadoAeronave { get; set; }
         public DateTime fechaBaja { get; set; }
         public DateTime fechaReinicio { get; set; }
+        public DateTime fechaBajaTemporal { get; set; }
+        public DateTime fechaAlta{ get; set; }
         public string servicio { get; set; }
     }
 }
