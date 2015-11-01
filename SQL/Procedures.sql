@@ -399,6 +399,22 @@ GO
 
 /*------ALTA VIAJE------*/
 
+CREATE PROCEDURE AWANTA.get_viajes(@fecha date, @origen nvarchar(255), @destino nvarchar(255))
+AS
+BEGIN
+	SELECT via_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), aero_
+	
+	FROM AWANTA.VIAJE, AWANTA.RUTA_AEREA, AWANTA.AERONAVE
+	WHERE YEAR(via_fecha_salida) = YEAR(@fecha) AND
+	MONTH(via_fecha_salida) = MONTH(@fecha) AND
+	DAY(via_fecha_salida) = DAY(@fecha) AND
+	via_ruta_aerea = rut_codigo AND
+	rut_origen = AWANTA.obtenerIdCiudad(@origen) AND
+	rut_destino = AWANTA.obtenerIdCiudad(@destino) AND
+	via_avion = aero_numero_de_aeronave
+END
+GO
+
 CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date, @ciudad_origen nvarchar(255), 
 										@ciudad_destino nvarchar(255))
 AS
@@ -426,15 +442,14 @@ GO
 
 /*------LLEGADA A DESTINO------*/
 
-CREATE PROCEDURE AWANTA.llegada_a_destino(@avion nvarchar(255), @ciudad_origen nvarchar(255), @servicio nvarchar(255), @ciudad_destino nvarchar(255), @llegada date)
+CREATE PROCEDURE AWANTA.llegada_a_destino(@avion nvarchar(255), @ciudad_origen nvarchar(255), @servicio nvarchar(255), 
+												@ciudad_destino nvarchar(255), @llegada date)
 AS
 BEGIN
 	UPDATE AWANTA.VIAJE 
 	SET via_fecha_llegada = @llegada
 	WHERE via_avion = AWANTA.obtenerCodigoAeronave(@avion) AND
-	via_ruta_aerea = (SELECT rut_codigo 
-	FROM AWANTA.RUTA_AEREA
-	WHERE rut_origen = AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, @servicio))
+	via_ruta_aerea = AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, @servicio)
 END
 GO
 
@@ -497,5 +512,3 @@ BEGIN
 	cli_nro_doc = @dni
 END
 GO
-
-CREATE PROCEDURE agregar_millas (@dni nvarchar(255), )
