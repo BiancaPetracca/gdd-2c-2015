@@ -162,7 +162,7 @@ CREATE TABLE AWANTA.RUTA_AEREA
 	references AWANTA.SERVICIO(serv_id_servicio),
 	rut_precio_base money not null,
 	rut_precio_base_x_kg money not null,
-	rut_habilitada char not null,
+	rut_habilitada bit not null,
 )
 
 CREATE TABLE AWANTA.ROL
@@ -170,7 +170,7 @@ CREATE TABLE AWANTA.ROL
 	rol_id numeric(18) identity primary key,
 	rol_nombre nvarchar(255) not null,
 	rol_funcionalidades nvarchar(255),
-	rol_estado char not null,
+	rol_estado bit not null,
 )
 
 CREATE TABLE AWANTA.FUNCIONALIDAD
@@ -192,9 +192,11 @@ CREATE TABLE AWANTA.USUARIO
 	usu_id numeric(18) identity primary key,
 	usu_username nvarchar(255) unique not null,
 	usu_password nvarchar(255) not null,
-	usu_estado char not null,
+	usu_estado bit not null,
 	usu_fecha_alta datetime not null,
 	usu_intentos_login int not null,
+	usu_rol numeric(18) foreign key
+	references AWANTA.ROL(rol_id)
 )
 
 CREATE TABLE AWANTA.CLIENTE
@@ -269,7 +271,7 @@ CREATE TABLE AWANTA.VIAJE
 	references AWANTA.AERONAVE(aero_matricula),
 	via_ruta_aerea numeric(18) foreign key
 	references AWANTA.RUTA_AEREA(rut_codigo),
-	via_cancelado char,
+	via_cancelado bit,
 )
 
 CREATE TABLE AWANTA.TIPO_DE_PAGO
@@ -479,7 +481,7 @@ INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (11,1)
 	/*----FUNCIONALIDADES DEL CLIENTE----*//*TESTEADO*/
 INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (7,2)
 INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (9,2)
-INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (10,2)/*revisar*/
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (10,2)
 GO
 
 CREATE PROCEDURE [AWANTA].set_funcionalidades_x_rol(@id_rol numeric(18),@id_funcionalidad numeric(18))
