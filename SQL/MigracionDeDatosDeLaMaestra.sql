@@ -329,20 +329,9 @@ CREATE TABLE AWANTA.DEVOLUCION
 	references AWANTA.COMPRA(compra_id),
 )
 
-CREATE TABLE AWANTA.REGISTRO_LLEGADA_DESTINO
-(
-	reg_viaje_avion numeric(18) identity foreign key
-	references AWANTA.VIAJE(via_codigo),
-	reg_fecha_llegada_real datetime,
-	reg_hora_llegada_real time,
-	reg_aeropuerto_salida nvarchar(255),
-	reg_aeropuerto_llegada nvarchar(255),
-
-)
-
 CREATE TABLE AWANTA.MILLAS_ACUMULADAS
 (
-	cliente_id numeric(18) identity foreign key
+	cliente_id numeric(18) primary key foreign key
 	references AWANTA.CLIENTE(cli_codigo),
 	total_millas int not null,
 	fecha_vencimiento datetime not null,

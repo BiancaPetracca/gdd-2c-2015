@@ -512,3 +512,7 @@ BEGIN
 	cli_nro_doc = @dni
 END
 GO
+
+SELECT * FROM AWANTA.CLIENTE
+
+INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, GETDATE())
