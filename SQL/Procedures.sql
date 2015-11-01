@@ -170,8 +170,8 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE AWANTA.altaRutaAerea(@ciudadOrigen NVARCHAR(255),@ciudadDestino NVARCHAR(255),@tipoServicio NVARCHAR(255)
-											,@rutaPrecioBasePasaje MONEY,@rutaPrecioBaseKilo MONEY)
+CREATE PROCEDURE AWANTA.altaRutaAerea(@ciudadOrigen NVARCHAR(255),@ciudadDestino NVARCHAR(255),@tipoServicio NVARCHAR(255), 
+											@rutaPrecioBasePasaje MONEY,@rutaPrecioBaseKilo MONEY)
 AS
 	BEGIN
 		INSERT INTO AWANTA.RUTA_AEREA(rut_origen,rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg)
@@ -180,11 +180,11 @@ AS
 	END
 GO
 
-CREATE PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@ruta_codigo NUMERIC(18))
+CREATE PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@origen nvarchar(255), @destino nvarchar(255), @servicio nvarchar(255))
 AS		
 	BEGIN
 		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,SYSDATETIME()))
-										AND via_ruta_aerea = @ruta_codigo
+										AND via_ruta_aerea = AWANTA.obtenerCodigoRuta(@origen, @destino, @servicio)
 	END
 GO
 
@@ -215,7 +215,7 @@ BEGIN
 	ciu_nombre = @origen) AND
 	(rut_destino = ciu_id AND
 	ciu_nombre = @destino) AND
-	rut_tipo_servicio = AWANTA.buscarIdServicio(@servicio))
+	(@servicio IS NULL OR rut_tipo_servicio = AWANTA.buscarIdServicio(@servicio)))
 	RETURN @codigo
 END
 GO
@@ -245,8 +245,8 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255)
-										,@butacasPasillo INT,@butacasVentanilla INT,@kilosDisponibles INT)
+CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),
+											@butacasPasillo INT,@butacasVentanilla INT,@kilosDisponibles INT)
 AS
 	BEGIN
 		BEGIN TRY
@@ -399,12 +399,28 @@ GO
 
 /*------ALTA VIAJE------*/
 
-CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date, @ciudad_origen nvarchar(255), @ciudad_destino nvarchar(255))
+CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date, @ciudad_origen nvarchar(255), 
+										@ciudad_destino nvarchar(255))
 AS
 BEGIN
-	INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
-	VALUES(AWANTA.obtenerCodigoAeronave(@avion), @llegada_estimada, @salida,
-	AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, @avion))
+	DECLARE @serv_viaje numeric(18), @serv_avion numeric(18)
+	SET @serv_viaje = (SELECT TOP 1 rut_tipo_servicio FROM AWANTA.RUTA_AEREA WHERE rut_codigo = AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, null))
+	SET  @serv_avion = (SELECT TOP 1 id_servicio FROM AWANTA.AERONAVE WHERE aero_matricula = @avion)
+	
+	DECLARE @avion_libre int
+	SET @avion_libre = (SELECT count(1) FROM AWANTA.AERONAVE, AWANTA.VIAJE WHERE aero_matricula = @avion AND aero_numero_de_aeronave = via_avion AND
+							via_fecha_llegada_estimada BETWEEN @salida AND @llegada_estimada)
+
+	IF(@serv_viaje = @serv_avion AND @avion_libre = 0)
+		BEGIN
+			INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
+			VALUES(AWANTA.obtenerCodigoAeronave(@avion), @llegada_estimada, @salida,
+			AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, null))
+		END
+	ELSE
+		BEGIN
+			RETURN NULL
+		END
 END
 GO
 

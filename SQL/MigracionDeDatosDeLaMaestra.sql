@@ -265,7 +265,7 @@ CREATE TABLE AWANTA.VIAJE
 (
 	via_codigo numeric(18) identity primary key,
 	via_fecha_salida datetime not null,
-	via_fecha_llegada datetime not null,
+	via_fecha_llegada datetime,
 	via_fecha_llegada_estimada datetime not null,
 	via_avion nvarchar(255) foreign key
 	references AWANTA.AERONAVE(aero_matricula),
