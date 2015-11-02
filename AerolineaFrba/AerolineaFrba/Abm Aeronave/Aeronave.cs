@@ -75,5 +75,10 @@ namespace AerolineaFrba.Abm_Aeronave
             DAO.DAOAeronave.listarAeronaves();   
         }
 
+        private void Aeronave_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

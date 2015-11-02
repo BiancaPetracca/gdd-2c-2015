@@ -15,7 +15,7 @@ namespace AerolineaFrba.Generacion_Viaje
 {
     public partial class Generar_Viaje : Form
     {
-        List<String> ciudades;
+      
         public Generar_Viaje()
         {
             InitializeComponent();

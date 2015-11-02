@@ -26,5 +26,11 @@ namespace AerolineaFrba.SuperControls
         { 
             return (this.SelectedIndex != -1);
         }
+
+        public void AddAll<T>(List<T> list){ 
+           foreach(T elem in list){
+               this.Items.Add(elem);
+    }
+        }
     }
 }

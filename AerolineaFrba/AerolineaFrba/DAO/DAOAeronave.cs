@@ -10,11 +10,11 @@ using System.Data.SqlTypes;
 
 namespace AerolineaFrba.DAO
 {
-    public class DAOAeronave
+    public static class DAOAeronave
 
     {
 
-        public List<Aeronave> listarAeronaves()
+        public static List<Aeronave> listarAeronaves()
         {
             Aeronave a = new Aeronave();
             List<Aeronave> aeronaves = new List<Aeronave>();
@@ -29,7 +29,7 @@ namespace AerolineaFrba.DAO
                 Aeronave aero = convertirAeronave(dataRow,a);
                 aeronaves.Add(aero);
             }
-
+           
             return aeronaves;
 
         }

@@ -129,6 +129,8 @@
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
     <Compile Include="DAO\Aeronave.cs" />
+    <Compile Include="DAO\Ciudad.cs" />
+    <Compile Include="DAO\Compra.cs" />
     <Compile Include="DAO\DAOAeronave.cs" />
     <Compile Include="DAO\DAOCompra.cs" />
     <Compile Include="DAO\DAOGenerarViaje.cs" />

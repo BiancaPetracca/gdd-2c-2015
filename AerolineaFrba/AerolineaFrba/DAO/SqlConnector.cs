@@ -16,7 +16,7 @@ namespace AerolineaFrba.DAO
 
         private static string infoConexion()
         {
-            return @"Data Source=NICO-PC\SQLSERVER2012 ; Initial Catalog=GD2C2015; User Id=gd; Password=gd2015";
+            return @"Data Source=BIANCA\SQLSERVER2012 ; Initial Catalog=GD2C2015; User Id=gd; Password=gd2015";
         }
 
         /*Abre la conexion con la base*/

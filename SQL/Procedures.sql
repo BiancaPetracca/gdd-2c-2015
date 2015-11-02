@@ -516,3 +516,17 @@ GO
 SELECT * FROM AWANTA.CLIENTE
 
 INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, GETDATE())
+
+GO
+
+
+/* ******** COMPRA ******** */
+
+
+CREATE PROCEDURE AWANTA.get_ciudades
+AS
+BEGIN
+SELECT c.ciu_nombre FROM AWANTA.CIUDAD c
+ORDER BY c.ciu_nombre
+END
+GO

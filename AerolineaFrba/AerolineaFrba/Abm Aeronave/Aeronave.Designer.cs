@@ -320,6 +320,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Aeronave";
             this.Text = "Aeronave";
+            this.Load += new System.EventHandler(this.Aeronave_Load);
             this.groupBox.ResumeLayout(false);
             this.filtros.ResumeLayout(false);
             this.filtros.PerformLayout();
@@ -341,7 +342,7 @@
 
         private System.Windows.Forms.Button limpiar;
         private System.Windows.Forms.Button buscar;
-        private System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1;
+ 
 
         private System.Windows.Forms.Button Agregar;
         private System.Windows.Forms.Button Borrar;
@@ -352,9 +353,7 @@
         private System.Windows.Forms.ScrollableControl scroll_;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Cerrar;
-        private GD2C2015DataSet gD2C2015DataSet;
-        private System.Windows.Forms.BindingSource maestraBindingSource;
-        private GD2C2015DataSetTableAdapters.MaestraTableAdapter maestraTableAdapter;
+
         private System.Windows.Forms.Button VerButacas;
         private System.Windows.Forms.Button Modificar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;

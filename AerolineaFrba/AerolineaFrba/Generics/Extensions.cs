@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.SuperControls;
+using System.Reflection;
 
 namespace AerolineaFrba.Generics
 {
@@ -35,5 +36,22 @@ namespace AerolineaFrba.Generics
             form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             form.Show();
         }
+
+
+        /* metodo que convierte una lista de algun objeto en strings de un campo "fieldToConvert" de ese objeto*/
+        public static List<String> listToStr<T>(List<T> list, String fieldToConvert)
+        {
+            List<String> convertedToStr = new List<String>();
+            foreach (T elem in list)
+            {
+                String val = elem.GetType().GetProperty(fieldToConvert).GetValue(elem, null).ToString();
+                convertedToStr.Add(val);
+            }
+            return convertedToStr;
+        }
+
+            
+        }
+
     }
-}
+
