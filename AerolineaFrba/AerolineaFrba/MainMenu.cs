@@ -18,6 +18,8 @@ namespace AerolineaFrba
             InitializeComponent();
         }
 
+        /********* CADA PESTAÑA DEL MENU HACE LO MISMO, ABRIR ESE FORM EN EL ********/
+
         private void rolABM_Click(object sender, EventArgs e)
         {
            this.openIntoParent(new Abm_Rol.RolListado(), this);
@@ -79,6 +81,13 @@ namespace AerolineaFrba
         private void salir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cerrarSesion_Click(object sender, EventArgs e)
+        {
+            
+            this.openInNewWindow(new Login.Login());
+            this.Hide();
         }
 
 

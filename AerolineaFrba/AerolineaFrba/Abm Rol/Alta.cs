@@ -40,7 +40,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void FuncionalidadesRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            FuncionalidadesRol.whenColumnOpen(e, "Eliminar");
+            
         }
     }
 }

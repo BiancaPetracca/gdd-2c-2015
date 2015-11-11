@@ -40,7 +40,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             this.Close();
         }
-
+        // QUE NO HAYAN CAMPOS NULOS
         public void Aceptar_Click(object sender, EventArgs e)
         {
             this.validateNotNullForAll(this.Controls);

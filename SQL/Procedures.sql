@@ -222,6 +222,15 @@ GO
 
 /*------ABM DE AERONAVES------*/
 
+CREATE PROCEDURE AWANTA.get_aeronaves
+AS
+BEGIN
+SELECT aero_matricula, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas, 
+	aero_fabricante, aero_fecha_de_alta, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio, aero_fecha_baja_definitiva, serv_nombre, aero_estado
+	FROM AWANTA.AERONAVE, AWANTA.SERVICIO WHERE id_servicio = serv_id_servicio
+END
+GO
+
 CREATE PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18), @modelo nvarchar(255), @matricula nvarchar(255), @butacas_pasillo numeric(18), 
 @butacas_ventanilla numeric(18), @kilos_disponibles numeric(18), @fabricante nvarchar(255), @fecha_alta date, @fecha_baja_temporal date, 
 @fecha_alta_temporal date, @fecha_baja_definitiva date)
@@ -455,6 +464,14 @@ GO
 
 /*------VENTA PASAJE------*/
 
+CREATE PROCEDURE AWANTA.get_ciudades
+AS
+BEGIN
+SELECT c.ciu_nombre FROM AWANTA.CIUDAD c
+ORDER BY c.ciu_nombre
+END
+GO
+
 CREATE PROCEDURE AWANTA.vender_pasaje (@terminal nvarchar(255), @tipo_doc nvarchar(255), @numero_doc numeric(18), 
 @salida date, @origen nvarchar(255), @destino nvarchar(255), @tipo nvarchar(255), @piso int)
 AS
@@ -517,16 +534,4 @@ SELECT * FROM AWANTA.CLIENTE
 
 INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, GETDATE())
 
-GO
-
-
-/* ******** COMPRA ******** */
-
-
-CREATE PROCEDURE AWANTA.get_ciudades
-AS
-BEGIN
-SELECT c.ciu_nombre FROM AWANTA.CIUDAD c
-ORDER BY c.ciu_nombre
-END
 GO

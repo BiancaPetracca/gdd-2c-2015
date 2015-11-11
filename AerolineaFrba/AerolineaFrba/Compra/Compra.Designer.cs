@@ -1,4 +1,5 @@
 ﻿using AerolineaFrba.SuperControls;
+using System;
 namespace AerolineaFrba.Compra
 {
     partial class Compra
@@ -31,14 +32,16 @@ namespace AerolineaFrba.Compra
         {
             this.ComprarPasaje = new AerolineaFrba.SuperControls.SuperGroupBox();
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
-            this.Siguiente = new AerolineaFrba.SuperControls.SuperButton();
+            this.IngresarDatos = new AerolineaFrba.SuperControls.SuperButton();
             this.Pasaje = new System.Windows.Forms.DataGridView();
+            this.FechaViajar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CiudadOrigenCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CiudadDestinoCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ServicioCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KgsEncomiendaCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantPasajesCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Opciones = new AerolineaFrba.SuperControls.SuperGroupBox();
             this.OpcionesOk = new AerolineaFrba.SuperControls.SuperButton();
-            this.label4 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.CantPasaje = new AerolineaFrba.SuperControls.SuperNumericUpDown();
-            this.Servicio = new AerolineaFrba.SuperControls.SuperCheckedListBox();
-            this.Pasajes = new AerolineaFrba.SuperControls.SuperLabel();
             this.label5 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Kgs = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.ElegirViaje = new AerolineaFrba.SuperControls.SuperGroupBox();
@@ -49,25 +52,21 @@ namespace AerolineaFrba.Compra
             this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
             this.FechaViaje = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.FechaViajar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CiudadOrigenCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CiudadDestinoCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ServicioCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KgsEncomiendaCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CantPasajesCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pasajes = new AerolineaFrba.SuperControls.SuperLabel();
+            this.CantPasaje = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.ComprarPasaje.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Pasaje)).BeginInit();
             this.Opciones.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CantPasaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kgs)).BeginInit();
             this.ElegirViaje.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CantPasaje)).BeginInit();
             this.SuspendLayout();
             // 
             // ComprarPasaje
             // 
             this.ComprarPasaje.AccessibleDescription = "Comprar pasaje";
             this.ComprarPasaje.Controls.Add(this.Cancelar);
-            this.ComprarPasaje.Controls.Add(this.Siguiente);
+            this.ComprarPasaje.Controls.Add(this.IngresarDatos);
             this.ComprarPasaje.Controls.Add(this.Pasaje);
             this.ComprarPasaje.Controls.Add(this.Opciones);
             this.ComprarPasaje.Controls.Add(this.ElegirViaje);
@@ -80,7 +79,7 @@ namespace AerolineaFrba.Compra
             // 
             // Cancelar
             // 
-            this.Cancelar.Location = new System.Drawing.Point(600, 337);
+            this.Cancelar.Location = new System.Drawing.Point(521, 337);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(75, 23);
             this.Cancelar.TabIndex = 16;
@@ -88,15 +87,15 @@ namespace AerolineaFrba.Compra
             this.Cancelar.UseVisualStyleBackColor = true;
             this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
-            // Siguiente
+            // IngresarDatos
             // 
-            this.Siguiente.Location = new System.Drawing.Point(693, 337);
-            this.Siguiente.Name = "Siguiente";
-            this.Siguiente.Size = new System.Drawing.Size(75, 23);
-            this.Siguiente.TabIndex = 15;
-            this.Siguiente.Text = "Siguiente";
-            this.Siguiente.UseVisualStyleBackColor = true;
-            this.Siguiente.Click += new System.EventHandler(this.Siguiente_Click);
+            this.IngresarDatos.Location = new System.Drawing.Point(646, 337);
+            this.IngresarDatos.Name = "IngresarDatos";
+            this.IngresarDatos.Size = new System.Drawing.Size(122, 23);
+            this.IngresarDatos.TabIndex = 15;
+            this.IngresarDatos.Text = "Ingresar Datos";
+            this.IngresarDatos.UseVisualStyleBackColor = true;
+            this.IngresarDatos.Click += new System.EventHandler(this.Siguiente_Click);
             // 
             // Pasaje
             // 
@@ -117,12 +116,44 @@ namespace AerolineaFrba.Compra
             this.Pasaje.TabIndex = 15;
             this.Pasaje.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Pasaje_CellContentClick);
             // 
+            // FechaViajar
+            // 
+            this.FechaViajar.HeaderText = "Fecha ";
+            this.FechaViajar.Name = "FechaViajar";
+            // 
+            // CiudadOrigenCol
+            // 
+            this.CiudadOrigenCol.HeaderText = "Ciudad origen";
+            this.CiudadOrigenCol.Name = "CiudadOrigenCol";
+            // 
+            // CiudadDestinoCol
+            // 
+            this.CiudadDestinoCol.HeaderText = "Ciudad destino";
+            this.CiudadDestinoCol.Name = "CiudadDestinoCol";
+            // 
+            // ServicioCol
+            // 
+            this.ServicioCol.HeaderText = "Servicio";
+            this.ServicioCol.Name = "ServicioCol";
+            this.ServicioCol.ReadOnly = true;
+            this.ServicioCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // KgsEncomiendaCol
+            // 
+            this.KgsEncomiendaCol.HeaderText = "Kgs. Encomienda";
+            this.KgsEncomiendaCol.Name = "KgsEncomiendaCol";
+            this.KgsEncomiendaCol.ReadOnly = true;
+            // 
+            // CantPasajesCol
+            // 
+            this.CantPasajesCol.HeaderText = "Número de pasajes";
+            this.CantPasajesCol.Name = "CantPasajesCol";
+            this.CantPasajesCol.ReadOnly = true;
+            // 
             // Opciones
             // 
             this.Opciones.Controls.Add(this.OpcionesOk);
-            this.Opciones.Controls.Add(this.label4);
             this.Opciones.Controls.Add(this.CantPasaje);
-            this.Opciones.Controls.Add(this.Servicio);
             this.Opciones.Controls.Add(this.Pasajes);
             this.Opciones.Controls.Add(this.label5);
             this.Opciones.Controls.Add(this.Kgs);
@@ -131,7 +162,7 @@ namespace AerolineaFrba.Compra
             this.Opciones.Size = new System.Drawing.Size(351, 150);
             this.Opciones.TabIndex = 14;
             this.Opciones.TabStop = false;
-            this.Opciones.Text = "Opciones";
+            this.Opciones.Text = "Elegir servicio";
             // 
             // OpcionesOk
             // 
@@ -143,62 +174,23 @@ namespace AerolineaFrba.Compra
             this.OpcionesOk.UseVisualStyleBackColor = true;
             this.OpcionesOk.Click += new System.EventHandler(this.OpcionesOk_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Elegir servicio";
-            // 
-            // CantPasaje
-            // 
-            this.CantPasaje.AccessibleDescription = "Cantidad de pasajes";
-            this.CantPasaje.Location = new System.Drawing.Point(75, 112);
-            this.CantPasaje.Name = "CantPasaje";
-            this.CantPasaje.Size = new System.Drawing.Size(55, 20);
-            this.CantPasaje.TabIndex = 13;
-            // 
-            // Servicio
-            // 
-            this.Servicio.AccessibleDescription = "Servicio(s) que va a elegir";
-            this.Servicio.BackColor = System.Drawing.SystemColors.Control;
-            this.Servicio.CheckOnClick = true;
-            this.Servicio.FormattingEnabled = true;
-            this.Servicio.Items.AddRange(new object[] {
-            "Pasaje",
-            "Encomienda"});
-            this.Servicio.Location = new System.Drawing.Point(104, 19);
-            this.Servicio.Name = "Servicio";
-            this.Servicio.Size = new System.Drawing.Size(89, 34);
-            this.Servicio.TabIndex = 8;
-            // 
-            // Pasajes
-            // 
-            this.Pasajes.AutoSize = true;
-            this.Pasajes.Location = new System.Drawing.Point(17, 112);
-            this.Pasajes.Name = "Pasajes";
-            this.Pasajes.Size = new System.Drawing.Size(44, 13);
-            this.Pasajes.TabIndex = 12;
-            this.Pasajes.Text = "Pasajes";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 69);
+            this.label5.Location = new System.Drawing.Point(45, 33);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(28, 13);
+            this.label5.Size = new System.Drawing.Size(93, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Kgs.";
+            this.label5.Text = "Encomienda (Kgs)";
             // 
             // Kgs
             // 
             this.Kgs.AccessibleDescription = "Peso de la encomienda";
-            this.Kgs.Location = new System.Drawing.Point(75, 66);
+            this.Kgs.Location = new System.Drawing.Point(178, 31);
             this.Kgs.Name = "Kgs";
             this.Kgs.Size = new System.Drawing.Size(55, 20);
             this.Kgs.TabIndex = 10;
+            this.Kgs.ValueChanged += new System.EventHandler(this.Kgs_ValueChanged);
             // 
             // ElegirViaje
             // 
@@ -283,38 +275,22 @@ namespace AerolineaFrba.Compra
             this.label2.TabIndex = 3;
             this.label2.Text = "Ciudad Origen";
             // 
-            // FechaViajar
+            // Pasajes
             // 
-            this.FechaViajar.HeaderText = "Fecha ";
-            this.FechaViajar.Name = "FechaViajar";
+            this.Pasajes.AutoSize = true;
+            this.Pasajes.Location = new System.Drawing.Point(45, 73);
+            this.Pasajes.Name = "Pasajes";
+            this.Pasajes.Size = new System.Drawing.Size(44, 13);
+            this.Pasajes.TabIndex = 12;
+            this.Pasajes.Text = "Pasajes";
             // 
-            // CiudadOrigenCol
+            // CantPasaje
             // 
-            this.CiudadOrigenCol.HeaderText = "Ciudad origen";
-            this.CiudadOrigenCol.Name = "CiudadOrigenCol";
-            // 
-            // CiudadDestinoCol
-            // 
-            this.CiudadDestinoCol.HeaderText = "Ciudad destino";
-            this.CiudadDestinoCol.Name = "CiudadDestinoCol";
-            // 
-            // ServicioCol
-            // 
-            this.ServicioCol.HeaderText = "Servicio";
-            this.ServicioCol.Name = "ServicioCol";
-            this.ServicioCol.ReadOnly = true;
-            this.ServicioCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-           
-            // 
-            // KgsEncomiendaCol
-            // 
-            this.KgsEncomiendaCol.HeaderText = "Kgs. Encomienda";
-            this.KgsEncomiendaCol.Name = "KgsEncomiendaCol";
-            // 
-            // CantPasajesCol
-            // 
-            this.CantPasajesCol.HeaderText = "Número de pasajes";
-            this.CantPasajesCol.Name = "CantPasajesCol";
+            this.CantPasaje.AccessibleDescription = "Cantidad de pasajes";
+            this.CantPasaje.Location = new System.Drawing.Point(178, 68);
+            this.CantPasaje.Name = "CantPasaje";
+            this.CantPasaje.Size = new System.Drawing.Size(55, 20);
+            this.CantPasaje.TabIndex = 13;
             // 
             // Compra
             // 
@@ -330,10 +306,10 @@ namespace AerolineaFrba.Compra
             ((System.ComponentModel.ISupportInitialize)(this.Pasaje)).EndInit();
             this.Opciones.ResumeLayout(false);
             this.Opciones.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CantPasaje)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kgs)).EndInit();
             this.ElegirViaje.ResumeLayout(false);
             this.ElegirViaje.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CantPasaje)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -348,24 +324,25 @@ namespace AerolineaFrba.Compra
         private SuperGroupBox ElegirViaje;
         private SuperNumericUpDown Kgs;
         private SuperLabel label5;
-        private SuperCheckedListBox Servicio;
-        private SuperLabel label4;
-        private SuperButton ViajeOk;
-        private SuperNumericUpDown CantPasaje;
-        private SuperLabel Pasajes;
         private SuperButton Cancelar;
-        private SuperButton Siguiente;
-        private SuperGroupBox Opciones;
+        private SuperButton IngresarDatos;
         private SuperButton OpcionesOk;
         private SuperComboBox CiudadOrigen;
         private SuperComboBox CiudadDestino;
         private System.Windows.Forms.DataGridView Pasaje;
+        private SuperGroupBox Opciones;
+        private SuperButton ViajeOk;
+        private int viaje_elegido = 0;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaViajar;
         private System.Windows.Forms.DataGridViewTextBoxColumn CiudadOrigenCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn CiudadDestinoCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn ServicioCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn KgsEncomiendaCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn CantPasajesCol;
+        private SuperNumericUpDown CantPasaje;
+        private SuperLabel Pasajes;
+        
+    
 
     }
 }

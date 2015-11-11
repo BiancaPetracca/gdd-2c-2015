@@ -20,7 +20,7 @@ namespace AerolineaFrba.Abm_Aeronave
             InitializeComponent();
         }
 
-
+        // AGREGAR Y BORRAR ABRE LOS RESPECTIVOS FORMULARIOS
         private void Agregar_Click(object sender, EventArgs e)
         {
             this.openInNewWindow(new Alta());
@@ -40,16 +40,15 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            Abm_Aeronave.Modificacion modificacion = new Modificacion();
-            modificacion.Show();
+            this.openInNewWindow(new Modificacion());
         }
 
+        // VER BUTACAS
         private void VerButacas_Click(object sender, EventArgs e)
         {
-            Butacas butacas = new Butacas();
-            butacas.Show();
+            this.openInNewWindow(new Butacas());
         }
-
+        // NO PERMITIR QUE INSERTEN CARACTERES QUE NO SE PUEDEN
         private void MatriculaFiltro_KeyPress(object sender, KeyPressEventArgs e)
         {
            this.allowNumericOnly(e);
@@ -69,15 +68,14 @@ namespace AerolineaFrba.Abm_Aeronave
         {
 
         }
-
+  
         private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DAO.DAOAeronave.listarAeronaves();   
+        { 
         }
-
+        // LISTAR LAS AERONAVES
         private void Aeronave_Load(object sender, EventArgs e)
         {
-
+            DAO.DAOAeronave.listarAeronaves(); 
         }
 
     }

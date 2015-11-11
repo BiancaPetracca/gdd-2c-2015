@@ -10,6 +10,8 @@ namespace AerolineaFrba.DAO
 {
     public static class DAOLogin
     {
+
+        // valida que coincida  el usuario con contraseña del mismo
         public static bool validarUsername(this Form aForm, String procedure, String username, String password)
         {
             return SqlConnector.ejecutarProcedureRetornaValor(procedure, username, password) == 1;

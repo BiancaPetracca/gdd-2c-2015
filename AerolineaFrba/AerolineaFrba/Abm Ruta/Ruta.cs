@@ -44,6 +44,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         }
 
+        // abre los forms correspondientes
         private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == this.lista.Columns["Modificar"].Index)

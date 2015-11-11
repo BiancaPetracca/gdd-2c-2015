@@ -41,6 +41,8 @@ namespace AerolineaFrba.Login
                 MessageBox.Show("Usuario inhabilitado");
             }
             else
+
+                    // asigna los intentos que tiene y permite o no correr la app
             {
                 if (!this.validateNotNullForAll(this.Controls))
                 {

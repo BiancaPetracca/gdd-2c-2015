@@ -10,8 +10,13 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.SuperControls
 {
+    
     public interface ISuperControls 
-    {
+    { 
+        // permite ver si lo que tiene un control es valido o no (por valores nulos)
          Boolean valid();
+        // permite limpiar lo que hay en el control 
+         void clean();
+        
     }
 }

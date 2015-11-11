@@ -11,6 +11,7 @@ namespace AerolineaFrba.DAO
     public static class DAOCompra
     {
 
+        // lista todas las ciudades que hay y las agrega 
         public static List<Ciudad> listCiudades()
         {
             List<Ciudad> ciudades = new List<Ciudad>();

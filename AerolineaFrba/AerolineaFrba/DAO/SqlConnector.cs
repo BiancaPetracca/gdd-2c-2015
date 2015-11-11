@@ -36,6 +36,7 @@ namespace AerolineaFrba.DAO
             }
         }        
         
+        // obtiene la data table resultante de ejecutar el procedure 
         public static DataTable retrieveDataTable(string procedure, params object[] parametros)
         {
             string[] argumentos = generarParametros(procedure);

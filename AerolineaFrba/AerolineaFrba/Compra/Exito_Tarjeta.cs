@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba.Compra
 {
@@ -26,15 +27,11 @@ namespace AerolineaFrba.Compra
         {
 
         }
-
+        // muestra el detalle de la compra
         private void button2_Click(object sender, EventArgs e)
         {
-            
-            Detalle_Compra detalle = new Detalle_Compra();
-            detalle.MdiParent = this.MdiParent;
-            detalle.Dock = DockStyle.Fill;
-            detalle.WindowState = FormWindowState.Maximized;
-            detalle.Show();
+
+            this.openIntoParent(new Detalle_Compra(), this);
        
         }
     }

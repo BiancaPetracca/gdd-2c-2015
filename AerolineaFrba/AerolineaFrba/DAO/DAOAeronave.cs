@@ -72,7 +72,7 @@ namespace AerolineaFrba.DAO
             } 
            // aero.fechaBaja = Convert.ToDateTime(dataRow["aero_baja_fuera_de_servicio"]);
            // aero.fechaReinicio = Convert.ToDateTime(dataRow["aero_fecha_reinicio_servicio"]);
-            aero.servicio = Convert.ToInt32(dataRow["id_servicio"]);
+            //aero.servicio = Convert.ToInt32(dataRow["serv_id_servicio"]);
 
             return aero;
         }

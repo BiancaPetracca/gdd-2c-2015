@@ -1,4 +1,5 @@
 ﻿using AerolineaFrba.SuperControls;
+using System;
 namespace AerolineaFrba.Compra
 {
     partial class Elegir_Pasajeros
@@ -30,9 +31,6 @@ namespace AerolineaFrba.Compra
         private void InitializeComponent()
         {
             this.DatosPasajes = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Siguiente = new AerolineaFrba.SuperControls.SuperButton();
-            this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,16 +38,21 @@ namespace AerolineaFrba.Compra
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaNacimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SeleccionarButaca = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.NumeroButaca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroButaca = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TipoButaca = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.KgsEncomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.KgsRestantes = new AerolineaFrba.SuperControls.SuperLabel();
+            this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Siguiente = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.DatosPasajes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DatosPasajes
             // 
+            this.DatosPasajes.AllowUserToAddRows = false;
+            this.DatosPasajes.AllowUserToDeleteRows = false;
             this.DatosPasajes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DatosPasajes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
@@ -59,45 +62,15 @@ namespace AerolineaFrba.Compra
             this.Telefono,
             this.Mail,
             this.FechaNacimiento,
-            this.SeleccionarButaca,
             this.NumeroButaca,
             this.TipoButaca,
             this.KgsEncomienda});
-            this.DatosPasajes.Location = new System.Drawing.Point(19, 30);
+            this.DatosPasajes.Location = new System.Drawing.Point(19, 65);
             this.DatosPasajes.Name = "DatosPasajes";
-            this.DatosPasajes.Size = new System.Drawing.Size(843, 322);
+            this.DatosPasajes.Size = new System.Drawing.Size(845, 287);
             this.DatosPasajes.TabIndex = 0;
             this.DatosPasajes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatosPasajes_CellContentClick);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.DatosPasajes);
-            this.groupBox1.Location = new System.Drawing.Point(12, 22);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(882, 383);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Elegir Pasajeros / Datos Encomienda";
-            // 
-            // Siguiente
-            // 
-            this.Siguiente.Location = new System.Drawing.Point(787, 411);
-            this.Siguiente.Name = "Siguiente";
-            this.Siguiente.Size = new System.Drawing.Size(75, 23);
-            this.Siguiente.TabIndex = 2;
-            this.Siguiente.Text = "Siguiente";
-            this.Siguiente.UseVisualStyleBackColor = true;
-            this.Siguiente.Click += new System.EventHandler(this.Siguiente_Click);
-            // 
-            // Cancelar
-            // 
-            this.Cancelar.Location = new System.Drawing.Point(677, 411);
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.Size = new System.Drawing.Size(75, 23);
-            this.Cancelar.TabIndex = 3;
-            this.Cancelar.Text = "Cancelar";
-            this.Cancelar.UseVisualStyleBackColor = true;
-            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
+            this.DatosPasajes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatosPasajes_CellValueChanged);
             // 
             // Nombre
             // 
@@ -134,20 +107,12 @@ namespace AerolineaFrba.Compra
             this.FechaNacimiento.HeaderText = "Fecha de Nacimiento";
             this.FechaNacimiento.Name = "FechaNacimiento";
             // 
-            // SeleccionarButaca
-            // 
-            this.SeleccionarButaca.HeaderText = "Seleccionar Butaca";
-            this.SeleccionarButaca.Name = "SeleccionarButaca";
-            this.SeleccionarButaca.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SeleccionarButaca.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.SeleccionarButaca.ToolTipText = "SeleccionarButaca";
-            this.SeleccionarButaca.UseColumnTextForButtonValue = true;
-            // 
             // NumeroButaca
             // 
-            this.NumeroButaca.HeaderText = "Numero de Butaca";
+            this.NumeroButaca.HeaderText = "Elegir Butaca";
             this.NumeroButaca.Name = "NumeroButaca";
-            this.NumeroButaca.ReadOnly = true;
+            this.NumeroButaca.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NumeroButaca.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // TipoButaca
             // 
@@ -162,6 +127,46 @@ namespace AerolineaFrba.Compra
             this.KgsEncomienda.HeaderText = "Kgs. Encomienda";
             this.KgsEncomienda.Name = "KgsEncomienda";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.KgsRestantes);
+            this.groupBox1.Controls.Add(this.DatosPasajes);
+            this.groupBox1.Location = new System.Drawing.Point(12, 22);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(882, 383);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Elegir Pasajeros / Datos Encomienda";
+            // 
+            // KgsRestantes
+            // 
+            this.KgsRestantes.AutoSize = true;
+            this.KgsRestantes.Location = new System.Drawing.Point(54, 36);
+            this.KgsRestantes.Name = "KgsRestantes";
+            this.KgsRestantes.Size = new System.Drawing.Size(183, 13);
+            this.KgsRestantes.TabIndex = 1;
+            this.KgsRestantes.Text = "Kilos restantes para la encomienda: 0";
+            // 
+            // Cancelar
+            // 
+            this.Cancelar.Location = new System.Drawing.Point(677, 411);
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.Size = new System.Drawing.Size(75, 23);
+            this.Cancelar.TabIndex = 3;
+            this.Cancelar.Text = "Cancelar";
+            this.Cancelar.UseVisualStyleBackColor = true;
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
+            // 
+            // Siguiente
+            // 
+            this.Siguiente.Location = new System.Drawing.Point(787, 411);
+            this.Siguiente.Name = "Siguiente";
+            this.Siguiente.Size = new System.Drawing.Size(75, 23);
+            this.Siguiente.TabIndex = 2;
+            this.Siguiente.Text = "Siguiente";
+            this.Siguiente.UseVisualStyleBackColor = true;
+            this.Siguiente.Click += new System.EventHandler(this.Siguiente_Click);
+            // 
             // Elegir_Pasajeros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -173,9 +178,11 @@ namespace AerolineaFrba.Compra
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Elegir_Pasajeros";
             this.Text = "Elegir Pasajeros";
+            this.Load += new System.EventHandler(this.Elegir_Pasajeros_Load);
             this.Click += new System.EventHandler(this.SeleccionarButaca_Click);
             ((System.ComponentModel.ISupportInitialize)(this.DatosPasajes)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -195,9 +202,18 @@ namespace AerolineaFrba.Compra
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaNacimiento;
-        private System.Windows.Forms.DataGridViewButtonColumn SeleccionarButaca;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroButaca;
+        private System.Windows.Forms.DataGridViewComboBoxColumn NumeroButaca;
         private System.Windows.Forms.DataGridViewComboBoxColumn TipoButaca;
         private System.Windows.Forms.DataGridViewTextBoxColumn KgsEncomienda;
+        private Decimal maximoButacas;
+        private Decimal maximoEncomiendas;
+        private String destino;
+        private String origen;
+        private DateTime fecha;
+        private Decimal restantes;
+        private SuperLabel KgsRestantes;
+        
+
     }
+
 }

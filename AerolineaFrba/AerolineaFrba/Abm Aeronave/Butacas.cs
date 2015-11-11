@@ -12,6 +12,9 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class Butacas : Form
     {
+
+        // no sabemos si dejar este form o no y hacerlo de forma que solo me indique el tipo de butaca que es 
+        // y yo solo ingreso el numero
         public Butacas()
         {
             InitializeComponent();

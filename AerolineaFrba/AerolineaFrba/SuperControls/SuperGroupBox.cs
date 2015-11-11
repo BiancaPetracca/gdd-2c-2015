@@ -27,5 +27,11 @@ namespace AerolineaFrba.SuperControls
            return this.Controls.AsParallel().Cast<ISuperControls>().All(cont => cont.valid());
         
         }
+
+        public void clean() {
+            foreach (Control ctr in this.Controls) {
+                ((ISuperControls)ctr).clean();
+            }
+        }
     }
 }

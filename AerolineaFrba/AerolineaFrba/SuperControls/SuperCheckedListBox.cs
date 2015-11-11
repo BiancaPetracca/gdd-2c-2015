@@ -23,5 +23,26 @@ namespace AerolineaFrba.SuperControls
         }
 
         public Boolean valid() { return this.CheckedItems.Count != 0; }
+
+        public void clean()
+        {
+            this.ClearSelected();
+        }
+// esto esta horrible lo tengo que arreglar  TODO 
+
+        public void whenCheckedMakeVisible(String checkedItem, params Control[] controls) {
+            bool isChecked = this.SelectedItem.Equals(checkedItem);
+                foreach (var ctr in controls)
+                {
+                    ctr.Visible = isChecked;
+                }
+            }
+        public void whenCheckedMakeVisible(String checkedItem, params DataGridViewColumn[] cols) {
+            bool isChecked = this.SelectedItem.Equals(checkedItem);
+            foreach (DataGridViewColumn dgc in cols)
+            {
+                dgc.Visible = isChecked;
+            }
+        }
+        }
     }
-}

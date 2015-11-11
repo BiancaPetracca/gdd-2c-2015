@@ -21,7 +21,7 @@ namespace AerolineaFrba.Generics
             return controlName;
         }
 
-
+        // saber si hay celdas vacias en una dg
         public static Boolean anyEmptyCells(this DataGridView dg, String columnName, String msg)
         {
             Boolean val = false;
@@ -59,6 +59,7 @@ namespace AerolineaFrba.Generics
             return isValid;
         }
 
+        // validar que los controles no esten vacios
         public static Boolean validar(this Form aForm, Control.ControlCollection controls)
         {
 
@@ -77,6 +78,7 @@ namespace AerolineaFrba.Generics
             return val;
         }
 
+        // metodo para verificar si no hay filas en una data grid
         public static Boolean noRows(this DataGridView dg, String msg)
         {
             bool val = false;
@@ -89,6 +91,7 @@ namespace AerolineaFrba.Generics
         }
 
 
+        // metodo para hacer validaciones de dominio, pasandole funciones(criterios) y un mensaje que debe emitir si no se cumple
         public static Boolean domainValidations(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
         {
             var msg = "";
@@ -112,6 +115,7 @@ namespace AerolineaFrba.Generics
 
         }
 
+        // metodo que catchea todas las excepciones de las validaciones y emite un mensaje con eso
         public static Boolean validateDomain(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
         {
             var isValid = false;
@@ -123,7 +127,7 @@ namespace AerolineaFrba.Generics
             return isValid;
         }
 
-
+        // metodo auxiliar para crear la tupla
         public static Tuple<Func<Boolean>, String> criteriumMessage(Func<Boolean> criterium, String message)
         {
             return Tuple.Create(criterium, message);
@@ -133,7 +137,7 @@ namespace AerolineaFrba.Generics
         /******** VALIDACIONES PARA EL TIPO DE LOS CARACTERES ********/
 
 
-        /* no permiten que el usuario pueda ingresar caracteres que no van directamente, me ahorro la validacion */
+        /* no permiten que el usuario pueda ingresar caracteres que no van directamente */
         public static void allowNumericOnly(this Form aForm, KeyPressEventArgs e)
         {
             e.Handled = !(char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);

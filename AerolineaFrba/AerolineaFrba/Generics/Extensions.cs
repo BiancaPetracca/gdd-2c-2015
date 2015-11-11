@@ -12,16 +12,8 @@ namespace AerolineaFrba.Generics
     public static class Extensions
     {
 
-        public static void whenColumnOpen(this DataGridView dg, DataGridViewCellEventArgs e, String column)
-        {
 
-            if (e.ColumnIndex == dg.Columns[column].Index)
-            {
-                //
-            }
-
-        }
-
+        // abre dentro de la form, la form indicada
         public static void openIntoParent(this Form aForm, Form form, Form parentForm)
         {
             if (parentForm.ActiveMdiChild != null) { parentForm.ActiveMdiChild.Close(); }
@@ -30,7 +22,7 @@ namespace AerolineaFrba.Generics
             form.WindowState = FormWindowState.Maximized;
             form.Show();
         }
-
+        // abre en una nueva ventana la form indicada
         public static void openInNewWindow(this Form aForm, Form form)
         {
             form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -48,6 +40,16 @@ namespace AerolineaFrba.Generics
                 convertedToStr.Add(val);
             }
             return convertedToStr;
+        }
+
+
+        // metodo para limpiar todo lo que tienen los controles o inicializarlos de nuevo 
+        public static void cleanAll(Control.ControlCollection controls) {
+            foreach (Control ctr in controls)
+            {
+                ((ISuperControls)ctr).clean();
+            }
+        
         }
 
             

@@ -159,6 +159,7 @@
             this.cerrarSesion.Name = "cerrarSesion";
             this.cerrarSesion.Size = new System.Drawing.Size(87, 20);
             this.cerrarSesion.Text = "Cerrar sesión";
+            this.cerrarSesion.Click += new System.EventHandler(this.cerrarSesion_Click);
             // 
             // salir
             // 

@@ -25,5 +25,6 @@ namespace AerolineaFrba.SuperControls
         public Boolean valid() {
             return true;
         }
+        public void clean() { }
     }
 }

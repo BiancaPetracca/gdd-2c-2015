@@ -32,5 +32,9 @@ namespace AerolineaFrba.SuperControls
                this.Items.Add(elem);
     }
         }
+
+        public void clean() {
+            this.SelectedIndex = -1;
+        }
     }
 }

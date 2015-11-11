@@ -37,13 +37,9 @@
             this.filtros = new System.Windows.Forms.GroupBox();
             this.HabilitadasFiltro = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.PorFabricante = new System.Windows.Forms.Label();
-            this.MatriculaFiltro = new System.Windows.Forms.TextBox();
-            this.FabricanteFiltro = new System.Windows.Forms.TextBox();
             this.ServicioFiltro = new System.Windows.Forms.ComboBox();
             this.limpiar = new System.Windows.Forms.Button();
             this.buscar = new System.Windows.Forms.Button();
-            this.PorMatricula = new System.Windows.Forms.Label();
             this.lista = new System.Windows.Forms.DataGridView();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -129,16 +125,12 @@
             // 
             this.filtros.Controls.Add(this.HabilitadasFiltro);
             this.filtros.Controls.Add(this.label1);
-            this.filtros.Controls.Add(this.PorFabricante);
-            this.filtros.Controls.Add(this.MatriculaFiltro);
-            this.filtros.Controls.Add(this.FabricanteFiltro);
             this.filtros.Controls.Add(this.ServicioFiltro);
             this.filtros.Controls.Add(this.limpiar);
             this.filtros.Controls.Add(this.buscar);
-            this.filtros.Controls.Add(this.PorMatricula);
             this.filtros.Location = new System.Drawing.Point(16, 19);
             this.filtros.Name = "filtros";
-            this.filtros.Size = new System.Drawing.Size(930, 116);
+            this.filtros.Size = new System.Drawing.Size(930, 76);
             this.filtros.TabIndex = 5;
             this.filtros.TabStop = false;
             this.filtros.Text = "Filtros";
@@ -147,7 +139,7 @@
             // 
             this.HabilitadasFiltro.AccessibleDescription = "Habilitado o no ";
             this.HabilitadasFiltro.AutoSize = true;
-            this.HabilitadasFiltro.Location = new System.Drawing.Point(380, 72);
+            this.HabilitadasFiltro.Location = new System.Drawing.Point(59, 31);
             this.HabilitadasFiltro.Name = "HabilitadasFiltro";
             this.HabilitadasFiltro.Size = new System.Drawing.Size(100, 17);
             this.HabilitadasFiltro.TabIndex = 13;
@@ -156,44 +148,16 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(377, 31);
+            this.label1.Location = new System.Drawing.Point(279, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 23);
             this.label1.TabIndex = 12;
             this.label1.Text = "Servicio";
             // 
-            // PorFabricante
-            // 
-            this.PorFabricante.Location = new System.Drawing.Point(57, 31);
-            this.PorFabricante.Name = "PorFabricante";
-            this.PorFabricante.Size = new System.Drawing.Size(100, 23);
-            this.PorFabricante.TabIndex = 11;
-            this.PorFabricante.Text = "Por fabricante";
-            // 
-            // MatriculaFiltro
-            // 
-            this.MatriculaFiltro.AccessibleDescription = "Matrícula";
-            this.MatriculaFiltro.Location = new System.Drawing.Point(163, 70);
-            this.MatriculaFiltro.Name = "MatriculaFiltro";
-            this.MatriculaFiltro.Size = new System.Drawing.Size(161, 20);
-            this.MatriculaFiltro.TabIndex = 0;
-            this.MatriculaFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MatriculaFiltro_KeyPress);
-            // 
-            // FabricanteFiltro
-            // 
-            this.FabricanteFiltro.AccessibleDescription = "Fabricante";
-            this.FabricanteFiltro.Location = new System.Drawing.Point(163, 28);
-            this.FabricanteFiltro.MaxLength = 255;
-            this.FabricanteFiltro.Name = "FabricanteFiltro";
-            this.FabricanteFiltro.Size = new System.Drawing.Size(161, 20);
-            this.FabricanteFiltro.TabIndex = 1;
-            this.FabricanteFiltro.TextChanged += new System.EventHandler(this.FabricanteFiltro_TextChanged);
-            this.FabricanteFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FabricanteFiltro_KeyPress);
-            // 
             // ServicioFiltro
             // 
             this.ServicioFiltro.AccessibleDescription = "Tipo de servicio";
-            this.ServicioFiltro.Location = new System.Drawing.Point(456, 27);
+            this.ServicioFiltro.Location = new System.Drawing.Point(358, 27);
             this.ServicioFiltro.Name = "ServicioFiltro";
             this.ServicioFiltro.Size = new System.Drawing.Size(219, 21);
             this.ServicioFiltro.TabIndex = 5;
@@ -209,19 +173,11 @@
             // 
             // buscar
             // 
-            this.buscar.Location = new System.Drawing.Point(768, 68);
+            this.buscar.Location = new System.Drawing.Point(662, 31);
             this.buscar.Name = "buscar";
             this.buscar.Size = new System.Drawing.Size(75, 23);
             this.buscar.TabIndex = 7;
             this.buscar.Text = "Buscar";
-            // 
-            // PorMatricula
-            // 
-            this.PorMatricula.Location = new System.Drawing.Point(57, 73);
-            this.PorMatricula.Name = "PorMatricula";
-            this.PorMatricula.Size = new System.Drawing.Size(100, 23);
-            this.PorMatricula.TabIndex = 10;
-            this.PorMatricula.Text = "Por matrícula";
             // 
             // lista
             // 
@@ -241,10 +197,10 @@
             this.Column6,
             this.Servicio});
             this.lista.Controls.Add(this.scroll_);
-            this.lista.Location = new System.Drawing.Point(16, 153);
+            this.lista.Location = new System.Drawing.Point(16, 112);
             this.lista.Name = "lista";
             this.lista.ReadOnly = true;
-            this.lista.Size = new System.Drawing.Size(930, 221);
+            this.lista.Size = new System.Drawing.Size(930, 262);
             this.lista.TabIndex = 5;
             this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
@@ -335,8 +291,6 @@
 
         private System.Windows.Forms.DataGridCell listado;
         private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.TextBox MatriculaFiltro;
-        private System.Windows.Forms.TextBox FabricanteFiltro;
         private System.Windows.Forms.ComboBox ServicioFiltro; 
         private System.Windows.Forms.GroupBox filtros;
 
@@ -348,8 +302,6 @@
         private System.Windows.Forms.Button Borrar;
 
         private System.Windows.Forms.DataGridView lista;
-        private System.Windows.Forms.Label PorMatricula;
-        private System.Windows.Forms.Label PorFabricante;
         private System.Windows.Forms.ScrollableControl scroll_;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Cerrar;

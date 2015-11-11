@@ -22,5 +22,7 @@ namespace AerolineaFrba.SuperControls
             base.OnPaint(pe);
         }
         public Boolean valid() { return 0 != Decimal.Round(Value, 0);  }
+
+        public void clean() { this.Value = 0; }
     }
 }

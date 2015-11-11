@@ -24,6 +24,9 @@ namespace AerolineaFrba.SuperControls
 
         public Boolean valid() { return true; }
 
+        public void clean() { this.checkBox1.Checked = false; }
+
+
 
     }
 }
