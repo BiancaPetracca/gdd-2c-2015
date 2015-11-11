@@ -68,6 +68,7 @@ namespace AerolineaFrba.Compra
         private void Elegir_Pasajeros_Load(object sender, EventArgs e)
         {
             int max = (int)(Decimal.Round(this.maximoButacas, 0));
+            this.DatosPasajes.Rows.Add();
             this.DatosPasajes.Rows.AddCopies(0, max);
             allowed_sum = true;
         }

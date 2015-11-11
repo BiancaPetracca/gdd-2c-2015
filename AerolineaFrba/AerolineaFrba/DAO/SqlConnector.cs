@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Data;
 using System.Text.RegularExpressions;
+using System.Configuration;
+
 
 
 namespace AerolineaFrba.DAO
@@ -13,10 +15,9 @@ namespace AerolineaFrba.DAO
     public static class SqlConnector
     {
 
-
         private static string infoConexion()
         {
-            return @"Data Source=BIANCA\SQLSERVER2012 ; Initial Catalog=GD2C2015; User Id=gd; Password=gd2015";
+            return @"Data Source=localhost\SQLSERVER2012;Initial Catalog=GD2C2015;Persist Security Info=True;User ID=gd;Password=gd2015";
         }
 
         /*Abre la conexion con la base*/
@@ -43,7 +44,7 @@ namespace AerolineaFrba.DAO
             return _retrieveDataTable(procedure, argumentos, parametros);
         }
      
-        
+       
         private static DataTable _retrieveDataTable(string procedure,string[] argumentos,object[] parametros)
         {
  	        SqlConnection connection = new SqlConnection();
@@ -118,7 +119,7 @@ namespace AerolineaFrba.DAO
             }
         }
        
-
+        // ejecuta un procedure
         public static void ejecutarProcedure(string procedure, params object[] parametros)
         {
             string[] argumentos = generarParametros(procedure);
@@ -131,7 +132,7 @@ namespace AerolineaFrba.DAO
             ejecutarProcedure(procedure, null, null);
         }
 
-
+        // ejecuta una consulta a partir de un procedure y devuelve si encontró algo o no
         public static bool checkIfExists(string procedure, params object[] parametros)
         {
             string[] argumentos = generarParametros(procedure);
@@ -144,14 +145,14 @@ namespace AerolineaFrba.DAO
             return _verSiExiste(procedure, null, null);
         }
         
-
+        // ejecuta un procedure y devuelve el valor resultante de ejecutarlo
         public static int ejecutarProcedureRetornaValor(string procedure, params object[] values)
         {
             string[] argumentos = generarParametros(procedure);
             return _executeProcedureWithReturnValue(procedure, argumentos, values);
         }
 
-
+        // ejecuta el procedure dentro de nuestro schema
         private static void ejecutarProcedure(string procedure, string[] args, params object[] values)
         {
             SqlConnection connection = new SqlConnection();
