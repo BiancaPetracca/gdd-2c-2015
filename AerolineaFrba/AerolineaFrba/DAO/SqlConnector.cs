@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Configuration;
+using AerolineaFrba.Properties;
 
 
 
@@ -17,7 +18,8 @@ namespace AerolineaFrba.DAO
 
         private static string infoConexion()
         {
-            return @"Data Source=localhost\SQLSERVER2012;Initial Catalog=GD2C2015;Persist Security Info=True;User ID=gd;Password=gd2015";
+            return Settings.Default.GD2C2015ConnectionString;
+            
         }
 
         /*Abre la conexion con la base*/

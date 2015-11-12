@@ -1,4 +1,5 @@
-﻿using AerolineaFrba.SuperControls;
+﻿using AerolineaFrba.Properties;
+using AerolineaFrba.SuperControls;
 using System;
 namespace AerolineaFrba.Compra
 {
@@ -263,6 +264,7 @@ namespace AerolineaFrba.Compra
             this.FechaViaje.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.FechaViaje.Location = new System.Drawing.Point(106, 33);
             this.FechaViaje.Name = "FechaViaje";
+          
             this.FechaViaje.Size = new System.Drawing.Size(145, 20);
             this.FechaViaje.TabIndex = 0;
             // 
