@@ -8,6 +8,7 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Configuration;
 using AerolineaFrba.Properties;
+using System.Web;
 
 
 
@@ -45,7 +46,57 @@ namespace AerolineaFrba.DAO
             string[] argumentos = generarParametros(procedure);
             return _retrieveDataTable(procedure, argumentos, parametros);
         }
-     
+
+
+
+
+        // METODO QUE OBTIENE LA DATA TABLE RESULTANTE DE EJECUTAR EL STORED PROCEDURE 
+        public static void addAllParams(Dictionary<String, Object> parameters, SqlCommand cmd)
+        {
+            foreach (var param in parameters)
+            {
+                cmd.Parameters.AddWithValue(param.Key, param.Value);
+            }
+        }
+
+
+        public static DataTable retrievingDT(String sp, Dictionary<String, object> parameters) {
+            String procedure = "AWANTA." + sp;
+  
+            using (SqlConnection sqlcon = new SqlConnection(infoConexion()))
+            {
+                using (SqlCommand cmd = new SqlCommand(procedure, sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (parameters != null)
+                    {
+                        addAllParams(parameters, cmd);
+                    }
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        sqlcon.Open();
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        return dt;
+                    }
+
+                }
+            }
+           
+        }
+
+        public static void bindNamesToDataTable(DataTable dt, DataGridView dg) {
+
+            for (var i = 0; i < dg.Columns.Count; i++) {
+                dg.Columns[i].DataPropertyName = dt.Columns[i].ColumnName;
+            }}
+
+        public static void loadWithDataTable(DataTable dt, DataGridView dg){
+
+            dg.DataSource = dt;
+          
+        
+        }
        
         private static DataTable _retrieveDataTable(string procedure,string[] argumentos,object[] parametros)
         {

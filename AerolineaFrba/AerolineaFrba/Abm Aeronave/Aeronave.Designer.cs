@@ -41,16 +41,16 @@
             this.limpiar = new System.Windows.Forms.Button();
             this.buscar = new System.Windows.Forms.Button();
             this.lista = new System.Windows.Forms.DataGridView();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scroll_ = new System.Windows.Forms.ScrollableControl();
+            this.col_matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_fabricante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_butacas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_kgs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_vidautil = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_estado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_fechabaja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_fechareinicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
@@ -157,6 +157,10 @@
             // ServicioFiltro
             // 
             this.ServicioFiltro.AccessibleDescription = "Tipo de servicio";
+            this.ServicioFiltro.Items.AddRange(new object[] {
+            "Ejecutivo",
+            "Turista",
+            "Primera Clase"});
             this.ServicioFiltro.Location = new System.Drawing.Point(358, 27);
             this.ServicioFiltro.Name = "ServicioFiltro";
             this.ServicioFiltro.Size = new System.Drawing.Size(219, 21);
@@ -178,6 +182,7 @@
             this.buscar.Size = new System.Drawing.Size(75, 23);
             this.buscar.TabIndex = 7;
             this.buscar.Text = "Buscar";
+            this.buscar.Click += new System.EventHandler(this.buscar_Click);
             // 
             // lista
             // 
@@ -187,15 +192,15 @@
             this.lista.AllowUserToResizeRows = false;
             this.lista.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.lista.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column7,
-            this.Column2,
-            this.Column3,
-            this.Column8,
-            this.Column4,
-            this.Column5,
-            this.Column9,
-            this.Column6,
-            this.Servicio});
+            this.col_matricula,
+            this.col_fabricante,
+            this.col_butacas,
+            this.col_kgs,
+            this.col_vidautil,
+            this.col_estado,
+            this.col_fechabaja,
+            this.col_fechareinicio,
+            this.col_servicio});
             this.lista.Controls.Add(this.scroll_);
             this.lista.Location = new System.Drawing.Point(16, 112);
             this.lista.Name = "lista";
@@ -204,66 +209,71 @@
             this.lista.TabIndex = 5;
             this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Matrícula";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Fabricante";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Butacas";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Kgs. Encomienda";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Vida Útil";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Estado";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Fecha de baja";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Fecha reinicio";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Servicio
-            // 
-            this.Servicio.HeaderText = "Servicio";
-            this.Servicio.Name = "Servicio";
-            this.Servicio.ReadOnly = true;
-            // 
             // scroll_
             // 
             this.scroll_.Location = new System.Drawing.Point(0, 0);
             this.scroll_.Name = "scroll_";
             this.scroll_.Size = new System.Drawing.Size(0, 0);
             this.scroll_.TabIndex = 2;
+            // 
+            // col_matricula
+            // 
+            this.col_matricula.HeaderText = "Matrícula";
+            this.col_matricula.Name = "col_matricula";
+            this.col_matricula.ReadOnly = true;
+            // 
+            // col_fabricante
+            // 
+            this.col_fabricante.HeaderText = "Fabricante";
+            this.col_fabricante.Name = "col_fabricante";
+            this.col_fabricante.ReadOnly = true;
+            // 
+            // col_butacas
+            // 
+            this.col_butacas.HeaderText = "Butacas";
+            this.col_butacas.Name = "col_butacas";
+            this.col_butacas.ReadOnly = true;
+            // 
+            // col_kgs
+            // 
+            this.col_kgs.HeaderText = "Kgs. Encomienda";
+            this.col_kgs.Name = "col_kgs";
+            this.col_kgs.ReadOnly = true;
+            // 
+            // col_vidautil
+            // 
+            this.col_vidautil.HeaderText = "Vida Útil";
+            this.col_vidautil.Name = "col_vidautil";
+            this.col_vidautil.ReadOnly = true;
+            // 
+            // col_estado
+            // 
+            this.col_estado.DataPropertyName = "aero_estado";
+            this.col_estado.HeaderText = "Habilitada";
+            this.col_estado.Name = "col_estado";
+            this.col_estado.ReadOnly = true;
+            this.col_estado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_estado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // col_fechabaja
+            // 
+            this.col_fechabaja.HeaderText = "Fecha de baja";
+            this.col_fechabaja.Name = "col_fechabaja";
+            this.col_fechabaja.ReadOnly = true;
+            // 
+            // col_fechareinicio
+            // 
+            this.col_fechareinicio.DataPropertyName = "aero_fecha_reinicio_servicio";
+            this.col_fechareinicio.HeaderText = "Fecha reinicio";
+            this.col_fechareinicio.Name = "col_fechareinicio";
+            this.col_fechareinicio.ReadOnly = true;
+            // 
+            // col_servicio
+            // 
+            this.col_servicio.DataPropertyName = "aero_servicio";
+            this.col_servicio.HeaderText = "Servicio";
+            this.col_servicio.Name = "col_servicio";
+            this.col_servicio.ReadOnly = true;
             // 
             // Aeronave
             // 
@@ -308,16 +318,16 @@
 
         private System.Windows.Forms.Button VerButacas;
         private System.Windows.Forms.Button Modificar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Servicio;
         private System.Windows.Forms.CheckBox HabilitadasFiltro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_matricula;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_fabricante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kgs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_vidautil;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn col_estado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_fechabaja;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_fechareinicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;
 
     }
 }

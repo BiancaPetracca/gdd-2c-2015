@@ -75,7 +75,12 @@ namespace AerolineaFrba.Abm_Aeronave
         // LISTAR LAS AERONAVES
         private void Aeronave_Load(object sender, EventArgs e)
         {
-            DAO.DAOAeronave.listarAeronaves(); 
+          DAO.DAOAeronave.listarAeronaves(this.lista); 
+        }
+
+        private void buscar_Click(object sender, EventArgs e)
+        {
+         // DAO.DAOAeronave.filtrarAeronaves(this.HabilitadasFiltro.Checked, this.ServicioFiltro.SelectedItem.ToString);
         }
 
     }

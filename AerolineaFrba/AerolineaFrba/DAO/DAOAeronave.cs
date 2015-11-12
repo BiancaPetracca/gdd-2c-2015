@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Windows.Forms;
 
 
 namespace AerolineaFrba.DAO
@@ -14,23 +15,13 @@ namespace AerolineaFrba.DAO
 
     {
 
-        public static List<Aeronave> listarAeronaves()
+        public static void listarAeronaves(System.Windows.Forms.DataGridView dg)
         {
-            Aeronave a = new Aeronave();
-            List<Aeronave> aeronaves = new List<Aeronave>();
+            DataTable dt = SqlConnector.retrievingDT("get_aeronaves", null);
+            
+            SqlConnector.bindNamesToDataTable(dt, dg);
+            SqlConnector.loadWithDataTable(dt, dg);
 
-            /*DataTable dataTable = SqlConnector.retrieveDataTable("get_all_aeronaves", System.DBNull.Value, System.DBNull.Value, System.DBNull.Value, System.DBNull.Value,
-                 System.DBNull.Value, System.DBNull.Value, System.DBNull.Value, System.DBNull.Value,
-                                        System.DBNull.Value, System.DBNull.Value, System.DBNull.Value);*/
-
-            DataTable dataTable = SqlConnector.retrieveDataTable("get_aeronaves",null);
-            foreach (DataRow dataRow in dataTable.Rows)
-            {
-                Aeronave aero = convertirAeronave(dataRow,a);
-                aeronaves.Add(aero);
-            }
-           
-            return aeronaves;
 
         }
 

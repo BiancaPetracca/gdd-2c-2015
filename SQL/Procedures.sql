@@ -222,11 +222,11 @@ GO
 
 /*------ABM DE AERONAVES------*/
 
-CREATE PROCEDURE AWANTA.get_aeronaves
+ALTER PROCEDURE AWANTA.get_aeronaves
 AS
 BEGIN
-SELECT aero_matricula, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas, 
-	aero_fabricante, aero_fecha_de_alta, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio, aero_fecha_baja_definitiva, serv_nombre, aero_estado
+SELECT aero_matricula, aero_fabricante, aero_cantidad_butacas_pasillo, aero_kgs_disponibles_encomiendas as asd, aero_kgs_disponibles_encomiendas,
+	 aero_estado, aero_fecha_de_alta, aero_fecha_reinicio_servicio, serv_nombre
 	FROM AWANTA.AERONAVE, AWANTA.SERVICIO WHERE id_servicio = serv_id_servicio
 END
 GO

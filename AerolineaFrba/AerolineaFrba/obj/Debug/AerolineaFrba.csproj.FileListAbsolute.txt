@@ -13,7 +13,6 @@ C:\Users\Bianca\Downloads\TP Aerolinea FRBA 1.0 - 2C 2015 (1)\Aplicacion Desktop
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
 C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
-
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
@@ -62,3 +61,48 @@ D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\Aerol
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_Llegada_Destino.RegistroLlegadaAeronave.resources
 D:\Archivos\Installers\SQL-TP-GDD-2c-2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.pdb
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csprojResolveAssemblyReference.cache
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Aeronave.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Alta.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Baja.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Butacas.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Aeronave.Modificacion.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ciudad.Alta.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ciudad.Ciudad.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ciudad.Modificacion.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Rol.Alta.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Rol.Modificacion.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Rol.RolListado.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ruta.Alta.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ruta.Modificacion.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Abm_Ruta.Ruta.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_de_Usuario.RegistroUsuario.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperButton.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperCheckBox.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperCheckedListBox.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperComboBox.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperDateTimePicker.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperGroupBox.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperLabel.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperNumericUpDown.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.SuperControls.SuperTextBox.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.ABM_Templates.Alta.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.ABM_Templates.Listado_temp.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Canje_Millas.Canje_Millas.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Compra.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Detalle_Compra.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Efectuar_Compra.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Elegir_Pasajeros.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Exito_Efectivo.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Compra.Exito_Tarjeta.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Consulta_Millas.Consultar_Millas.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Devolucion.Devolver.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Generacion_Viaje.Generar_Viaje.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Listado_Estadistico.Listado_Estadisticas.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.MainMenu.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Login.Login.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Registro_Llegada_Destino.RegistroLlegadaAeronave.resources
+C:\Users\Bianca\Documents\GitHub\awanta-gdd-2c2015\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
