@@ -547,3 +547,29 @@ SELECT * FROM AWANTA.CLIENTE
 INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, GETDATE())
 
 GO
+
+/*------LISTADOS ESTADISTICOS------*/
+
+CREATE PROCEDURE destinos_con_mas_pasajes_vendidos
+AS
+	BEGIN
+		SELECT TOP 5  C.ciu_nombre
+		FROM AWANTA.CIUDAD C 
+		JOIN AWANTA.RUTA_AEREA R ON C.ciu_id = R.rut_destino 
+		JOIN AWANTA.VIAJE V ON R.rut_codigo = V.via_ruta_aerea
+		JOIN AWANTA.COMPRA COM ON COM.compra_viaje = V.via_codigo
+		JOIN AWANTA.PASAJE P ON P.pas_compra = COM.compra_id
+		GROUP BY C.ciu_nombre
+		ORDER BY COUNT(R.rut_destino) DESC
+	END
+GO
+/*test bobo*/
+SELECT COUNT(1) FROM gd_esquema.Maestra M WHERE Ruta_Ciudad_Destino LIKE '%Nueva York' AND Pasaje_Codigo != 0
+go
+
+CREATE PROCEDURE destinos_con_aeronaves_mas_vacias
+AS
+	BEGIN
+		SELECT 
+	END
+GO
