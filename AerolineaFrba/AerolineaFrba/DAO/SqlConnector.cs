@@ -51,7 +51,7 @@ namespace AerolineaFrba.DAO
 
 
         // METODO QUE OBTIENE LA DATA TABLE RESULTANTE DE EJECUTAR EL STORED PROCEDURE 
-        public static void addAllParams(Dictionary<String, Object> parameters, SqlCommand cmd)
+        private static void addAllParams(Dictionary<String, Object> parameters, SqlCommand cmd)
         {
             foreach (var param in parameters)
             {
@@ -59,18 +59,25 @@ namespace AerolineaFrba.DAO
             }
         }
 
+        // para hacerlo pasando arrays en vez de un diccionario, mas amigable 
+        private static void addAllParams(String [] names, Object [] values, SqlCommand cmd)
+        {
+            names.Zip(values, (key, val) => cmd.Parameters.AddWithValue(key, val));
+        }
 
-        public static DataTable retrievingDT(String sp, Dictionary<String, object> parameters) {
-            String procedure = "AWANTA." + sp;
+        public static DataTable retrieveDTToBeConverted(String sp, Dictionary<String, object> parameters) {
+   
   
             using (SqlConnection sqlcon = new SqlConnection(infoConexion()))
             {
-                using (SqlCommand cmd = new SqlCommand(procedure, sqlcon))
+                using (SqlCommand cmd = new SqlCommand("AWANTA." + sp, sqlcon))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     if (parameters != null)
                     {
-                        addAllParams(parameters, cmd);
+                        foreach (var elem in parameters) {
+                            cmd.Parameters.AddWithValue(elem.Key, elem.Value);
+                        }
                     }
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
@@ -85,6 +92,33 @@ namespace AerolineaFrba.DAO
            
         }
 
+        public static DataTable retrieveDTToBeConverted(String sp, String[] names, Object[] values)
+        {
+
+            using (SqlConnection sqlcon = new SqlConnection(infoConexion()))
+            {
+                using (SqlCommand cmd = new SqlCommand("AWANTA." + sp, sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (names != null)
+                    {
+                        Dictionary<String, Object> dic = Enumerable.Range(0, names.Length).ToDictionary(i => names[i], i => values[i]);
+                        foreach (var elem in dic) {
+                            cmd.Parameters.AddWithValue(elem.Key, elem.Value == null ? System.DBNull.Value : elem.Value);
+                        }
+                    }
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        sqlcon.Open();
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        return dt;
+                    }
+
+                }
+            }
+
+        }
         public static void bindNamesToDataTable(DataTable dt, DataGridView dg) {
 
             for (var i = 0; i < dg.Columns.Count; i++) {
@@ -96,6 +130,12 @@ namespace AerolineaFrba.DAO
             dg.DataSource = dt;
           
         
+        }
+
+        public static void retrieveDT(DataTable dt, DataGridView dg)
+        {
+            bindNamesToDataTable(dt, dg);
+            dg.DataSource = dt;
         }
        
         private static DataTable _retrieveDataTable(string procedure,string[] argumentos,object[] parametros)

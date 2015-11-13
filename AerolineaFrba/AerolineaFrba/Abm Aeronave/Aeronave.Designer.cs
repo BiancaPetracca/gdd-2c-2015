@@ -1,4 +1,5 @@
-﻿namespace AerolineaFrba.Abm_Aeronave
+﻿using AerolineaFrba.SuperControls;
+namespace AerolineaFrba.Abm_Aeronave
 {
     partial class Aeronave
     {
@@ -28,52 +29,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Agregar = new System.Windows.Forms.Button();
-            this.Borrar = new System.Windows.Forms.Button();
-            this.groupBox = new System.Windows.Forms.GroupBox();
-            this.VerButacas = new System.Windows.Forms.Button();
-            this.Modificar = new System.Windows.Forms.Button();
-            this.Cerrar = new System.Windows.Forms.Button();
-            this.filtros = new System.Windows.Forms.GroupBox();
-            this.HabilitadasFiltro = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ServicioFiltro = new System.Windows.Forms.ComboBox();
-            this.limpiar = new System.Windows.Forms.Button();
-            this.buscar = new System.Windows.Forms.Button();
+            this.groupBox = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.VerButacas = new AerolineaFrba.SuperControls.SuperButton();
+            this.Modificar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.filtros = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.HabilitadasFiltro = new AerolineaFrba.SuperControls.SuperCheckBox();
+            this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.ServicioFiltro = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.limpiar = new AerolineaFrba.SuperControls.SuperButton();
+            this.buscar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Borrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.lista = new System.Windows.Forms.DataGridView();
-            this.scroll_ = new System.Windows.Forms.ScrollableControl();
             this.col_matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fabricante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_butacas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_butacas_pasillo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_butacas_vent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kgs = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_vidautil = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_estado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_fechabaja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fechareinicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.scroll_ = new System.Windows.Forms.ScrollableControl();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
             this.lista.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Agregar
-            // 
-            this.Agregar.Location = new System.Drawing.Point(604, 394);
-            this.Agregar.Name = "Agregar";
-            this.Agregar.Size = new System.Drawing.Size(75, 23);
-            this.Agregar.TabIndex = 2;
-            this.Agregar.Text = "Agregar";
-            this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
-            // 
-            // Borrar
-            // 
-            this.Borrar.Location = new System.Drawing.Point(694, 394);
-            this.Borrar.Name = "Borrar";
-            this.Borrar.Size = new System.Drawing.Size(75, 23);
-            this.Borrar.TabIndex = 1;
-            this.Borrar.Text = "Dar de baja";
-            this.Borrar.Click += new System.EventHandler(this.Borrar_Click);
             // 
             // groupBox
             // 
@@ -87,14 +71,14 @@
             this.groupBox.Controls.Add(this.lista);
             this.groupBox.Location = new System.Drawing.Point(12, 12);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(976, 436);
+            this.groupBox.Size = new System.Drawing.Size(1099, 468);
             this.groupBox.TabIndex = 4;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Aeronaves";
             // 
             // VerButacas
             // 
-            this.VerButacas.Location = new System.Drawing.Point(518, 394);
+            this.VerButacas.Location = new System.Drawing.Point(650, 408);
             this.VerButacas.Name = "VerButacas";
             this.VerButacas.Size = new System.Drawing.Size(75, 23);
             this.VerButacas.TabIndex = 8;
@@ -104,7 +88,7 @@
             // 
             // Modificar
             // 
-            this.Modificar.Location = new System.Drawing.Point(784, 394);
+            this.Modificar.Location = new System.Drawing.Point(916, 408);
             this.Modificar.Name = "Modificar";
             this.Modificar.Size = new System.Drawing.Size(75, 23);
             this.Modificar.TabIndex = 7;
@@ -114,7 +98,7 @@
             // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(871, 394);
+            this.Cerrar.Location = new System.Drawing.Point(1003, 408);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
             this.Cerrar.TabIndex = 6;
@@ -130,7 +114,7 @@
             this.filtros.Controls.Add(this.buscar);
             this.filtros.Location = new System.Drawing.Point(16, 19);
             this.filtros.Name = "filtros";
-            this.filtros.Size = new System.Drawing.Size(930, 76);
+            this.filtros.Size = new System.Drawing.Size(1062, 78);
             this.filtros.TabIndex = 5;
             this.filtros.TabStop = false;
             this.filtros.Text = "Filtros";
@@ -145,6 +129,7 @@
             this.HabilitadasFiltro.TabIndex = 13;
             this.HabilitadasFiltro.Text = "Sólo habilitadas";
             this.HabilitadasFiltro.UseVisualStyleBackColor = true;
+            this.HabilitadasFiltro.CheckedChanged += new System.EventHandler(this.HabilitadasFiltro_CheckedChanged);
             // 
             // label1
             // 
@@ -168,7 +153,7 @@
             // 
             // limpiar
             // 
-            this.limpiar.Location = new System.Drawing.Point(768, 28);
+            this.limpiar.Location = new System.Drawing.Point(768, 26);
             this.limpiar.Name = "limpiar";
             this.limpiar.Size = new System.Drawing.Size(75, 23);
             this.limpiar.TabIndex = 6;
@@ -177,12 +162,30 @@
             // 
             // buscar
             // 
-            this.buscar.Location = new System.Drawing.Point(662, 31);
+            this.buscar.Location = new System.Drawing.Point(662, 26);
             this.buscar.Name = "buscar";
             this.buscar.Size = new System.Drawing.Size(75, 23);
             this.buscar.TabIndex = 7;
             this.buscar.Text = "Buscar";
             this.buscar.Click += new System.EventHandler(this.buscar_Click);
+            // 
+            // Borrar
+            // 
+            this.Borrar.Location = new System.Drawing.Point(826, 408);
+            this.Borrar.Name = "Borrar";
+            this.Borrar.Size = new System.Drawing.Size(75, 23);
+            this.Borrar.TabIndex = 1;
+            this.Borrar.Text = "Dar de baja";
+            this.Borrar.Click += new System.EventHandler(this.Borrar_Click);
+            // 
+            // Agregar
+            // 
+            this.Agregar.Location = new System.Drawing.Point(736, 408);
+            this.Agregar.Name = "Agregar";
+            this.Agregar.Size = new System.Drawing.Size(75, 23);
+            this.Agregar.TabIndex = 2;
+            this.Agregar.Text = "Agregar";
+            this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // lista
             // 
@@ -194,7 +197,8 @@
             this.lista.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_matricula,
             this.col_fabricante,
-            this.col_butacas,
+            this.col_butacas_pasillo,
+            this.col_butacas_vent,
             this.col_kgs,
             this.col_vidautil,
             this.col_estado,
@@ -205,16 +209,9 @@
             this.lista.Location = new System.Drawing.Point(16, 112);
             this.lista.Name = "lista";
             this.lista.ReadOnly = true;
-            this.lista.Size = new System.Drawing.Size(930, 262);
+            this.lista.Size = new System.Drawing.Size(1062, 276);
             this.lista.TabIndex = 5;
             this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
-            // 
-            // scroll_
-            // 
-            this.scroll_.Location = new System.Drawing.Point(0, 0);
-            this.scroll_.Name = "scroll_";
-            this.scroll_.Size = new System.Drawing.Size(0, 0);
-            this.scroll_.TabIndex = 2;
             // 
             // col_matricula
             // 
@@ -228,11 +225,17 @@
             this.col_fabricante.Name = "col_fabricante";
             this.col_fabricante.ReadOnly = true;
             // 
-            // col_butacas
+            // col_butacas_pasillo
             // 
-            this.col_butacas.HeaderText = "Butacas";
-            this.col_butacas.Name = "col_butacas";
-            this.col_butacas.ReadOnly = true;
+            this.col_butacas_pasillo.HeaderText = "Butacas Pasillo";
+            this.col_butacas_pasillo.Name = "col_butacas_pasillo";
+            this.col_butacas_pasillo.ReadOnly = true;
+            // 
+            // col_butacas_vent
+            // 
+            this.col_butacas_vent.HeaderText = "Butacas Ventanilla";
+            this.col_butacas_vent.Name = "col_butacas_vent";
+            this.col_butacas_vent.ReadOnly = true;
             // 
             // col_kgs
             // 
@@ -275,13 +278,20 @@
             this.col_servicio.Name = "col_servicio";
             this.col_servicio.ReadOnly = true;
             // 
+            // scroll_
+            // 
+            this.scroll_.Location = new System.Drawing.Point(0, 0);
+            this.scroll_.Name = "scroll_";
+            this.scroll_.Size = new System.Drawing.Size(0, 0);
+            this.scroll_.TabIndex = 2;
+            // 
             // Aeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1000, 500);
+            this.ClientSize = new System.Drawing.Size(1123, 502);
             this.Controls.Add(this.groupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Aeronave";
@@ -300,28 +310,29 @@
         #endregion
 
         private System.Windows.Forms.DataGridCell listado;
-        private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.ComboBox ServicioFiltro; 
-        private System.Windows.Forms.GroupBox filtros;
+        private SuperGroupBox groupBox;
+        private SuperComboBox ServicioFiltro; 
+        private SuperGroupBox filtros;
 
-        private System.Windows.Forms.Button limpiar;
-        private System.Windows.Forms.Button buscar;
+        private SuperButton limpiar;
+        private SuperButton buscar;
  
 
-        private System.Windows.Forms.Button Agregar;
-        private System.Windows.Forms.Button Borrar;
+        private SuperButton Agregar;
+        private SuperButton Borrar;
 
         private System.Windows.Forms.DataGridView lista;
         private System.Windows.Forms.ScrollableControl scroll_;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Cerrar;
+        private SuperLabel label1;
+        private SuperButton Cerrar;
 
-        private System.Windows.Forms.Button VerButacas;
-        private System.Windows.Forms.Button Modificar;
-        private System.Windows.Forms.CheckBox HabilitadasFiltro;
+        private SuperButton VerButacas;
+        private SuperButton Modificar;
+        private SuperCheckBox HabilitadasFiltro;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_matricula;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_fabricante;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas_pasillo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas_vent;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kgs;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_vidautil;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_estado;

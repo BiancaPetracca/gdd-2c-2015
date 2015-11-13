@@ -222,15 +222,27 @@ GO
 
 /*------ABM DE AERONAVES------*/
 
-ALTER PROCEDURE AWANTA.get_aeronaves
+ALTER PROCEDURE AWANTA.get_aeronaves(@estado numeric(1) = null, @filtro nvarchar(255) = null)
 AS
 BEGIN
-SELECT aero_matricula, aero_fabricante, aero_cantidad_butacas_pasillo, aero_kgs_disponibles_encomiendas as asd, aero_kgs_disponibles_encomiendas,
-	 aero_estado, aero_fecha_de_alta, aero_fecha_reinicio_servicio, serv_nombre
-	FROM AWANTA.AERONAVE, AWANTA.SERVICIO WHERE id_servicio = serv_id_servicio
+SET @estado = nullif(@estado, 0)
+SELECT aero_matricula, aero_fabricante, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas as asd, aero_kgs_disponibles_encomiendas,
+	 aero_estado, aero_fecha_de_alta, aero_fecha_reinicio_servicio, serv_nombre FROM AWANTA.AERONAVE
+	JOIN AWANTA.SERVICIO ON id_servicio = serv_id_servicio
+	AND (@estado IS NULL OR @estado = aero_estado) AND (@filtro IS NULL OR @filtro = serv_nombre)
 END
 GO
 
+exec AWANTA.get_aeronaves @filtro = "Ejecutivo"
+
+
+CREATE PROCEDURE AWANTA.get_aeronaves_filtradas(@numero numeric(1), @filtro nvarchar(255))
+AS 
+BEGIN
+SELECT * FROM AWANTA.AERONAVE
+END
+GO
+/* LO PODEMOS BORRAR ME PARECE 
 CREATE PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18), @modelo nvarchar(255), @matricula nvarchar(255), @butacas_pasillo numeric(18), 
 @butacas_ventanilla numeric(18), @kilos_disponibles numeric(18), @fabricante nvarchar(255), @fecha_alta date, @fecha_baja_temporal date, 
 @fecha_alta_temporal date, @fecha_baja_definitiva date)
@@ -252,7 +264,7 @@ BEGIN
 	(@numero IS NULL OR aero_numero_de_aeronave=@numero) AND
 	id_servicio = serv_id_servicio
 END
-GO
+GO */
 
 CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),
 											@butacasPasillo INT,@butacasVentanilla INT,@kilosDisponibles INT)

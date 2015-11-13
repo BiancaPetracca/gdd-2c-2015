@@ -61,7 +61,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void limpiar_Click(object sender, EventArgs e)
         {
-
+            Extensions.cleanAll(this.filtros.Controls);
+            DAO.DAOAeronave.listarAeronaves(this.lista);
         }
 
         private void FabricanteFiltro_TextChanged(object sender, EventArgs e)
@@ -78,9 +79,16 @@ namespace AerolineaFrba.Abm_Aeronave
           DAO.DAOAeronave.listarAeronaves(this.lista); 
         }
 
+        // FILTRAR LAS AERONAVES SEGUN LO QUE HAYA SELECCIONADO EL USUARIO
         private void buscar_Click(object sender, EventArgs e)
         {
-         // DAO.DAOAeronave.filtrarAeronaves(this.HabilitadasFiltro.Checked, this.ServicioFiltro.SelectedItem.ToString);
+            string filtro = this.ServicioFiltro.SelectedIndex != -1 ? this.ServicioFiltro.SelectedItem.ToString() : null;
+         DAO.DAOAeronave.filtrarAeronaves(this.lista, this.HabilitadasFiltro.Checked, filtro);
+        }
+
+        private void HabilitadasFiltro_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

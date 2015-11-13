@@ -44,16 +44,17 @@ namespace AerolineaFrba.Generics
 
 
         // metodo para limpiar todo lo que tienen los controles o inicializarlos de nuevo 
-        public static void cleanAll(Control.ControlCollection controls) {
+        public static void cleanAll(Control.ControlCollection controls)
+        {
             foreach (Control ctr in controls)
             {
                 ((ISuperControls)ctr).clean();
             }
-        
+
         }
 
-            
-        }
 
     }
+
+}
 
