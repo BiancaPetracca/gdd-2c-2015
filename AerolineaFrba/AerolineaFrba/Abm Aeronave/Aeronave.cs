@@ -27,12 +27,7 @@ namespace AerolineaFrba.Abm_Aeronave
         }
       
 
-        private void Borrar_Click(object sender, EventArgs e)
-        {
-            this.openInNewWindow(new Abm_Aeronave.Alta());
-
-        }
-
+ 
         private void Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -71,7 +66,7 @@ namespace AerolineaFrba.Abm_Aeronave
         }
   
         private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { 
+        {
         }
         // LISTAR LAS AERONAVES
         private void Aeronave_Load(object sender, EventArgs e)
@@ -90,6 +85,17 @@ namespace AerolineaFrba.Abm_Aeronave
         {
 
         }
+
+        private void Borrar_Click(object sender, EventArgs e)
+        {
+           
+                Baja baja = new Baja();
+               baja.setBajaAeronave(this.lista.CurrentRow.Cells["col_matricula"].Value.ToString());
+               this.openInNewWindow(baja);
+            }
+          
+
+      
 
     }
 }

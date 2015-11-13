@@ -42,6 +42,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Borrar = new AerolineaFrba.SuperControls.SuperButton();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.lista = new System.Windows.Forms.DataGridView();
+            this.scroll_ = new System.Windows.Forms.ScrollableControl();
             this.col_matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fabricante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_butacas_pasillo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,7 +53,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_fechabaja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fechareinicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.scroll_ = new System.Windows.Forms.ScrollableControl();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
@@ -213,6 +213,13 @@ namespace AerolineaFrba.Abm_Aeronave
             this.lista.TabIndex = 5;
             this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
+            // scroll_
+            // 
+            this.scroll_.Location = new System.Drawing.Point(0, 0);
+            this.scroll_.Name = "scroll_";
+            this.scroll_.Size = new System.Drawing.Size(0, 0);
+            this.scroll_.TabIndex = 2;
+            // 
             // col_matricula
             // 
             this.col_matricula.HeaderText = "Matrícula";
@@ -277,13 +284,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_servicio.HeaderText = "Servicio";
             this.col_servicio.Name = "col_servicio";
             this.col_servicio.ReadOnly = true;
-            // 
-            // scroll_
-            // 
-            this.scroll_.Location = new System.Drawing.Point(0, 0);
-            this.scroll_.Name = "scroll_";
-            this.scroll_.Size = new System.Drawing.Size(0, 0);
-            this.scroll_.TabIndex = 2;
             // 
             // Aeronave
             // 
