@@ -15,7 +15,7 @@ namespace AerolineaFrba.DAO
         public static List<Ciudad> listCiudades()
         {
             List<Ciudad> ciudades = new List<Ciudad>();
-            foreach (DataRow row in SqlConnector.retrieveDataTable("get_ciudades").Rows)
+            foreach (DataRow row in SqlConnector.retrieveDT("get_ciudades").Rows)
             {
                 ciudades.Add(new Ciudad(row["ciu_nombre"].ToString()));
             }

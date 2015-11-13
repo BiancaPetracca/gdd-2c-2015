@@ -40,85 +40,56 @@ namespace AerolineaFrba.DAO
             }
         }        
         
-        // obtiene la data table resultante de ejecutar el procedure 
-        public static DataTable retrieveDataTable(string procedure, params object[] parametros)
+
+        public static DataTable retrieveDTToBeConverted(String sp, params Object[] values)
         {
-            string[] argumentos = generarParametros(procedure);
-            return _retrieveDataTable(procedure, argumentos, parametros);
-        }
+           
+           SqlDataAdapter da = new SqlDataAdapter(generateCommand(sp, values));
 
-
-
-
-        // METODO QUE OBTIENE LA DATA TABLE RESULTANTE DE EJECUTAR EL STORED PROCEDURE 
-        private static void addAllParams(Dictionary<String, Object> parameters, SqlCommand cmd)
-        {
-            foreach (var param in parameters)
-            {
-                cmd.Parameters.AddWithValue(param.Key, param.Value);
-            }
-        }
-
-        // para hacerlo pasando arrays en vez de un diccionario, mas amigable 
-        private static void addAllParams(String [] names, Object [] values, SqlCommand cmd)
-        {
-            names.Zip(values, (key, val) => cmd.Parameters.AddWithValue(key, val));
-        }
-
-        public static DataTable retrieveDTToBeConverted(String sp, Dictionary<String, object> parameters) {
-   
-  
-            using (SqlConnection sqlcon = new SqlConnection(infoConexion()))
-            {
-                using (SqlCommand cmd = new SqlCommand("AWANTA." + sp, sqlcon))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    if (parameters != null)
-                    {
-                        foreach (var elem in parameters) {
-                            cmd.Parameters.AddWithValue(elem.Key, elem.Value);
+                       
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                        
+                            return dt;
                         }
-                    }
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        sqlcon.Open();
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        return dt;
-                    }
 
+        private static SqlCommand generateCommand(String sp, params Object[] values) {
+
+            SqlConnection sqlcon = new SqlConnection(infoConexion());
+            sqlcon.Open();
+            SqlCommand cmd = new SqlCommand("AWANTA." + sp, sqlcon);
+            cmd.CommandType = CommandType.StoredProcedure;
+            string[] param_names = generarParametros(sp);
+            if (param_names.Count() != 0 && values.Count() != 0)
+            {
+                int i = 0;
+                // agrega los parametros que encontro junto con los valores que le mandamos al command
+                foreach (String param in param_names)
+                {
+                    
+                        cmd.Parameters.AddWithValue(param_names[i], values[i] == null ? System.DBNull.Value : values[i]);
+                   
+                  
+                        i++;
+                    
                 }
             }
            
+            return cmd;
+            
+        }
+        
+        public static void executeProcedure(String sp, params object[] values) {
+            SqlCommand cmd = generateCommand(sp, values);
+            SqlConnection sqlcon = new SqlConnection(infoConexion());
+            sqlcon.Open();
+            cmd.ExecuteNonQuery();
+            
         }
 
-        public static DataTable retrieveDTToBeConverted(String sp, String[] names, Object[] values)
-        {
+            
 
-            using (SqlConnection sqlcon = new SqlConnection(infoConexion()))
-            {
-                using (SqlCommand cmd = new SqlCommand("AWANTA." + sp, sqlcon))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    if (names != null)
-                    {
-                        Dictionary<String, Object> dic = Enumerable.Range(0, names.Length).ToDictionary(i => names[i], i => values[i]);
-                        foreach (var elem in dic) {
-                            cmd.Parameters.AddWithValue(elem.Key, elem.Value == null ? System.DBNull.Value : elem.Value);
-                        }
-                    }
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        sqlcon.Open();
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        return dt;
-                    }
-
-                }
-            }
-
-        }
+        
         public static void bindNamesToDataTable(DataTable dt, DataGridView dg) {
 
             for (var i = 0; i < dg.Columns.Count; i++) {
@@ -131,48 +102,18 @@ namespace AerolineaFrba.DAO
           
         
         }
+        public static DataTable retrieveDT(String sp, params Object[] values) {
+            return retrieveDTToBeConverted(sp, values);
+        }
 
-        public static void retrieveDT(DataTable dt, DataGridView dg)
+        public static void retrieveDT(String sp, DataGridView dg, params Object[] values)
         {
+            DataTable dt =  retrieveDTToBeConverted(sp, values);
             bindNamesToDataTable(dt, dg);
             dg.DataSource = dt;
         }
        
-        private static DataTable _retrieveDataTable(string procedure,string[] argumentos,object[] parametros)
-        {
- 	        SqlConnection connection = new SqlConnection();
-            SqlCommand command = new SqlCommand();
-            SqlDataReader dataReader;
-            DataTable dataTable = new DataTable();
-
-            try
-            {
-                conexion(connection, command);
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "AWANTA." + procedure;
-                if (chequearParametros(argumentos, parametros))
-                {
-                    cargarComandosSql(argumentos, parametros, command);
-                }
-                dataReader = command.ExecuteReader();
-                dataTable.Load(dataReader);
-                return dataTable;
-            }
-            catch(SqlException e)
-            {
-                throw e;
-            }
-
-            finally
-            {
-                if (connection != null)
-                {
-                    connection.Close();
-                }
-            }    
-        }
-
-
+      
         
         private static string[] generarParametros(string procedure)
         {
@@ -211,20 +152,7 @@ namespace AerolineaFrba.DAO
                 }
             }
         }
-       
-        // ejecuta un procedure
-        public static void ejecutarProcedure(string procedure, params object[] parametros)
-        {
-            string[] argumentos = generarParametros(procedure);
-            ejecutarProcedure(procedure, argumentos, parametros);
-        }
-
-
-        public static void ejecutarProcedure(string procedure)
-        {
-            ejecutarProcedure(procedure, null, null);
-        }
-
+   
         // ejecuta una consulta a partir de un procedure y devuelve si encontró algo o no
         public static bool checkIfExists(string procedure, params object[] parametros)
         {

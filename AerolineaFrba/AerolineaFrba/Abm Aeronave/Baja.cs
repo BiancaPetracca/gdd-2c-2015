@@ -31,6 +31,11 @@ namespace AerolineaFrba.Abm_Aeronave
         private void aceptar_Click(object sender, EventArgs e)
         {
             this.validateNotNullForAll(this.Controls);
+            ReemplazarOCancelar form = new ReemplazarOCancelar();
+            form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaBaja.Value, this.fechaReinicio.Value.ToString());
+            this.openInNewWindow(form);
+
+
         }
 
         private void button2_Click(object sender, EventArgs e) // para la fecha de reinicio
@@ -42,6 +47,11 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             Show(new MonthCalendar());
         }
+
+        public void setBajaAeronave(String matricula) {
+
+            this.matricula = matricula;
+}
 
     }
 }
