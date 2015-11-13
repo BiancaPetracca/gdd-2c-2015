@@ -17,14 +17,24 @@ namespace AerolineaFrba.DAO
 
         public static void listarAeronaves(System.Windows.Forms.DataGridView dg)
         {
-            SqlConnector.retrieveDT(SqlConnector.retrieveDTToBeConverted("get_aeronaves", null), dg);
+            SqlConnector.retrieveDT("get_aeronaves", dg);
 
         }
 
         public static void filtrarAeronaves(DataGridView dg, Boolean estado, String filtro) {
-        SqlConnector.retrieveDT(SqlConnector.retrieveDTToBeConverted("get_aeronaves", new string[] {"estado", "filtro"}, new object[] {estado ? 1 : 0, filtro}), dg);
+        SqlConnector.retrieveDT("get_aeronaves", dg, 1, filtro);
         
         }
+
+        public static void darDeBajaAeronave(int motivo) {
+            if (motivo == 0)
+            {
+                SqlConnector.executeProcedure("bajaLogicaDeAeronavePorFinDeVidaUtil");
+     return;
+     }
+            SqlConnector.executeProcedure("bajaLogicaDeAeronavePorMantenimiento");
+        }
+
 
         private static Aeronave convertirAeronave(DataRow dataRow,Aeronave aero)
         {

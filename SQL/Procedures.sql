@@ -233,7 +233,6 @@ SELECT aero_matricula, aero_fabricante, aero_cantidad_butacas_pasillo, aero_cant
 END
 GO
 
-exec AWANTA.get_aeronaves @filtro = "Ejecutivo"
 
 
 CREATE PROCEDURE AWANTA.get_aeronaves_filtradas(@numero numeric(1), @filtro nvarchar(255))
