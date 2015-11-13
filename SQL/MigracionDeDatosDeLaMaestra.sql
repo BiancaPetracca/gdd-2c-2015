@@ -346,7 +346,7 @@ GO
 
 /*TESTEADO*/												
 INSERT INTO AWANTA.RUTA_AEREA(rut_origen, rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg,rut_habilitada)
-SELECT DISTINCT AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio),Ruta_Precio_BasePasaje,Ruta_Precio_BaseKG,'H'
+SELECT DISTINCT AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio),Ruta_Precio_BasePasaje,Ruta_Precio_BaseKG,1
 FROM gd_esquema.Maestra
 GO
 
