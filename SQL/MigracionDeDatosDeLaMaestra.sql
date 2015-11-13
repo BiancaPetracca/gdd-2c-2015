@@ -354,11 +354,11 @@ GO
 /*------MIGRACION DE LA TABLA ROL------*/
 /*TESTEADO*/
 INSERT INTO AWANTA.ROL(rol_nombre,rol_estado)
-	VALUES('Administrativo','H')
+	VALUES('Administrativo',1)
 GO
 
 INSERT INTO AWANTA.ROL(rol_nombre,rol_estado)
-	VALUES('Cliente','H')
+	VALUES('Cliente',1)
 GO
 
 /*------MIGRACION DE LA TABLA FUNCIONALIDAD------*/
