@@ -228,7 +228,7 @@ BEGIN
 SET @estado = nullif(@estado, 0)
 SELECT aero_matricula, aero_fabricante, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas as asd, aero_kgs_disponibles_encomiendas,
 	 aero_estado, aero_fecha_de_alta, aero_fecha_reinicio_servicio, serv_nombre FROM AWANTA.AERONAVE
-	JOIN AWANTA.SERVICIO ON id_servicio = serv_id_servicio
+	JOIN AWANTA.SERVICIO ON aero_id_servicio = serv_id_servicio
 	AND (@estado IS NULL OR @estado = aero_estado) AND (@filtro IS NULL OR @filtro = serv_nombre)
 END
 GO
@@ -261,7 +261,7 @@ BEGIN
 	(@fecha_alta_temporal IS NULL OR aero_fecha_reinicio_servicio=@fecha_alta_temporal) AND
 	(@fecha_baja_definitiva IS NULL OR aero_fecha_baja_definitiva=@fecha_baja_definitiva) AND
 	(@numero IS NULL OR aero_numero_de_aeronave=@numero) AND
-	id_servicio = serv_id_servicio
+	aero_id_servicio = serv_id_servicio
 END
 GO */
 
@@ -272,7 +272,7 @@ AS
 		BEGIN TRY
 		IF NOT EXISTS (SELECT 1 FROM AWANTA.AERONAVE WHERE @matricula = aero_matricula)
 			BEGIN
-				INSERT INTO AWANTA.AERONAVE (aero_matricula,aero_modelo,aero_fabricante,id_servicio,
+				INSERT INTO AWANTA.AERONAVE (aero_matricula,aero_modelo,aero_fabricante,aero_id_servicio,
 				aero_cantidad_butacas_pasillo,aero_cantidad_butacas_ventanilla,aero_kgs_disponibles_encomiendas)
 
 				VALUES (@matricula,@modelo,@fabricante,AWANTA.buscarIdServicio(@servicio),@butacasPasillo,@butacasVentanilla,@kilosDisponibles)
@@ -443,7 +443,7 @@ AS
 BEGIN
 	DECLARE @serv_viaje numeric(18), @serv_avion numeric(18)
 	SET @serv_viaje = (SELECT TOP 1 rut_tipo_servicio FROM AWANTA.RUTA_AEREA WHERE rut_codigo = AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, null))
-	SET  @serv_avion = (SELECT TOP 1 id_servicio FROM AWANTA.AERONAVE WHERE aero_matricula = @avion)
+	SET  @serv_avion = (SELECT TOP 1 aero_id_servicio FROM AWANTA.AERONAVE WHERE aero_matricula = @avion)
 	
 	DECLARE @avion_libre int
 	SET @avion_libre = (SELECT count(1) FROM AWANTA.AERONAVE, AWANTA.VIAJE WHERE aero_matricula = @avion AND aero_numero_de_aeronave = via_avion AND
@@ -499,7 +499,7 @@ BEGIN
 	(SELECT cli_codigo
 	FROM AWANTA.CLIENTE 
 	WHERE cli_tipo_doc = @tipo_doc AND cli_nro_doc = @numero_doc), 
-	(SELECT termina_id FROM AWANTA.TERMINAL 
+	(SELECT terminal_id FROM AWANTA.TERMINAL 
 	WHERE terminal_tipo = @terminal))
 
 	DECLARE @compra_pasaje numeric(18)
@@ -548,3 +548,24 @@ SELECT * FROM AWANTA.CLIENTE
 INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, GETDATE())
 
 GO
+
+SELECT count(1) AS AERONAVE FROM AWANTA.AERONAVE
+SELECT count(1) AS BUTACA FROM AWANTA.BUTACA
+SELECT count(1) AS CANJE FROM AWANTA.CANJE
+SELECT count(1) AS CIUDAD FROM AWANTA.CIUDAD
+SELECT count(1) AS CLIENTE FROM AWANTA.CLIENTE
+SELECT count(1) AS COMPRA FROM AWANTA.COMPRA
+SELECT count(1) AS DEVOLUCION FROM AWANTA.DEVOLUCION
+SELECT count(1) AS ENCOMIENDA FROM AWANTA.ENCOMIENDA
+SELECT count(1) AS FUNC_X_ROL FROM AWANTA.FUNC_X_ROL
+SELECT count(1) AS FUNCIONALIDAD FROM AWANTA.FUNCIONALIDAD
+SELECT count(1) AS MILLAS FROM AWANTA.MILLAS_ACUMULADAS
+SELECT count(1) AS PASAJE FROM AWANTA.PASAJE
+SELECT count(1) AS PRODUCTO FROM AWANTA.PRODUCTO
+SELECT count(1) AS ROL FROM AWANTA.ROL
+SELECT count(1) AS RUTA FROM AWANTA.RUTA_AEREA
+SELECT count(1) AS SERVICIO FROM AWANTA.SERVICIO
+SELECT count(1) AS TERMINAL FROM AWANTA.TERMINAL
+SELECT count(1) AS PAGO FROM AWANTA.TIPO_DE_PAGO
+SELECT count(1) AS USUARIO FROM AWANTA.USUARIO
+SELECT count(1) AS VIAJE FROM AWANTA.VIAJE

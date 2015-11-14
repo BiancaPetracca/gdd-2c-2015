@@ -182,7 +182,7 @@ CREATE TABLE AWANTA.AERONAVE
 	aero_matricula nvarchar(255) unique not null,
 	aero_modelo nvarchar(255) not null,
 	aero_fabricante nvarchar(255) not null,
-	id_servicio numeric(18) not null foreign key
+	aero_id_servicio numeric(18) not null foreign key
 	references AWANTA.SERVICIO (serv_id_servicio),
 	aero_fecha_de_alta datetime not null,
 	aero_baja_fuera_de_servicio datetime,
@@ -220,7 +220,7 @@ CREATE TABLE AWANTA.TIPO_DE_PAGO
 
 CREATE TABLE AWANTA.TERMINAL
 (
-	termina_id numeric(18) identity primary key,
+	terminal_id numeric(18) identity primary key,
 	terminal_tipo nvarchar(255),
 	tipo_pago char foreign key
 	references AWANTA.TIPO_DE_PAGO(pago_tipo)
@@ -234,7 +234,7 @@ CREATE TABLE AWANTA.COMPRA
 	compra_cliente numeric(18) foreign key
 	references AWANTA.CLIENTE(cli_codigo),
 	compra_terminal numeric(18) foreign key 
-	references AWANTA.TERMINAL(termina_id),
+	references AWANTA.TERMINAL(terminal_id),
 )
 
 CREATE TABLE AWANTA.PASAJE
@@ -475,7 +475,7 @@ AS
 GO
 
 /*TESTEADO*/
-INSERT INTO AWANTA.AERONAVE(aero_matricula,aero_modelo,aero_fabricante,id_servicio,aero_fecha_de_alta,aero_kgs_disponibles_encomiendas, aero_estado)
+INSERT INTO AWANTA.AERONAVE(aero_matricula,aero_modelo,aero_fabricante,aero_id_servicio,aero_fecha_de_alta,aero_kgs_disponibles_encomiendas, aero_estado)
 SELECT DISTINCT Aeronave_Matricula,Aeronave_Modelo,Aeronave_Fabricante,AWANTA.buscarIdServicio(Tipo_Servicio),
 				(SELECT CONVERT(date,SYSDATETIME())),Aeronave_KG_Disponibles, 1
 FROM gd_esquema.Maestra
@@ -518,3 +518,6 @@ SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,Aeronave_Matricula,
 FROM gd_esquema.Maestra
 GO
 
+/*------MIGRACION DE LA TABLA COMPRA------*/
+INSERT INTO AWANTA.COMPRA(compra_viaje)
+SELECT via_codigo FROM AWANTA.VIAJE
