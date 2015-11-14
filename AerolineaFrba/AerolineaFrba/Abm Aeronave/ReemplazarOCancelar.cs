@@ -20,20 +20,17 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void CancelarViajes_Click(object sender, EventArgs e)
         {
-            if (this.tipoDeBaja == 1)
-            {
-                SqlConnector.executeProcedure("bajaLogicaDeAeronavePorFinDeVidaUtil", this.matricula, 0);
-                return;
-            }
-            SqlConnector.executeProcedure("bajaLogicaDeAeronavePorMantenimiento", this.matricula, this.fechaReinicio, 0);
+            DAOAeronave.darDeBajaAeronave(this.tipoDeBaja, this.matricula, this.fechaReinicio);
+            MessageBox.Show("Se dio de baja la aeronave: " + this.matricula);
+            this.Close();
+            
         }
-
         private void ReasignarViajes_Click(object sender, EventArgs e)
         {
             SqlConnector.executeProcedure("reemplazoDeAeronaveEnViajes");
         }
 
-        public void setTipoDeBaja(int tipo, String matricula, DateTime fechaBaja, String fechaReinicio) {
+        public void setTipoDeBaja(int tipo, String matricula, DateTime fechaBaja, DateTime fechaReinicio) {
             this.tipoDeBaja = tipo;
             this.matricula = matricula;
             this.fechaBaja = fechaBaja;

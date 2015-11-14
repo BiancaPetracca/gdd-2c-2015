@@ -26,15 +26,16 @@ namespace AerolineaFrba.DAO
         
         }
 
-        public static void darDeBajaAeronave(int motivo) {
+        public static void darDeBajaAeronave(int motivo, String matricula, DateTime fechaReinicio) {
             if (motivo == 0)
             {
-                SqlConnector.executeProcedure("bajaLogicaDeAeronavePorFinDeVidaUtil");
+                SqlConnector.executeProcedure("bajaLogicaDeAeronavePorFinDeVidaUtil", matricula, motivo);
      return;
      }
-            SqlConnector.executeProcedure("bajaLogicaDeAeronavePorMantenimiento");
+            SqlConnector.executeProcedure("bajaLogicaDeAeronavePorMantenimiento", matricula, fechaReinicio, motivo);
         }
 
+          
 
         private static Aeronave convertirAeronave(DataRow dataRow,Aeronave aero)
         {

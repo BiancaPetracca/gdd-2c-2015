@@ -193,7 +193,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.lista.AllowUserToAddRows = false;
             this.lista.AllowUserToDeleteRows = false;
             this.lista.AllowUserToResizeRows = false;
-            this.lista.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.lista.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_matricula,
             this.col_fabricante,
@@ -206,9 +205,12 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_fechareinicio,
             this.col_servicio});
             this.lista.Controls.Add(this.scroll_);
+            this.lista.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.lista.Location = new System.Drawing.Point(16, 112);
+            this.lista.MultiSelect = false;
             this.lista.Name = "lista";
             this.lista.ReadOnly = true;
+            this.lista.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.lista.Size = new System.Drawing.Size(1062, 276);
             this.lista.TabIndex = 5;
             this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
@@ -225,36 +227,42 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_matricula.HeaderText = "Matrícula";
             this.col_matricula.Name = "col_matricula";
             this.col_matricula.ReadOnly = true;
+            this.col_matricula.Width = 102;
             // 
             // col_fabricante
             // 
             this.col_fabricante.HeaderText = "Fabricante";
             this.col_fabricante.Name = "col_fabricante";
             this.col_fabricante.ReadOnly = true;
+            this.col_fabricante.Width = 102;
             // 
             // col_butacas_pasillo
             // 
             this.col_butacas_pasillo.HeaderText = "Butacas Pasillo";
             this.col_butacas_pasillo.Name = "col_butacas_pasillo";
             this.col_butacas_pasillo.ReadOnly = true;
+            this.col_butacas_pasillo.Width = 102;
             // 
             // col_butacas_vent
             // 
             this.col_butacas_vent.HeaderText = "Butacas Ventanilla";
             this.col_butacas_vent.Name = "col_butacas_vent";
             this.col_butacas_vent.ReadOnly = true;
+            this.col_butacas_vent.Width = 102;
             // 
             // col_kgs
             // 
             this.col_kgs.HeaderText = "Kgs. Encomienda";
             this.col_kgs.Name = "col_kgs";
             this.col_kgs.ReadOnly = true;
+            this.col_kgs.Width = 102;
             // 
             // col_vidautil
             // 
             this.col_vidautil.HeaderText = "Vida Útil";
             this.col_vidautil.Name = "col_vidautil";
             this.col_vidautil.ReadOnly = true;
+            this.col_vidautil.Width = 101;
             // 
             // col_estado
             // 
@@ -264,12 +272,14 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_estado.ReadOnly = true;
             this.col_estado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.col_estado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_estado.Width = 102;
             // 
             // col_fechabaja
             // 
             this.col_fechabaja.HeaderText = "Fecha de baja";
             this.col_fechabaja.Name = "col_fechabaja";
             this.col_fechabaja.ReadOnly = true;
+            this.col_fechabaja.Width = 102;
             // 
             // col_fechareinicio
             // 
@@ -277,6 +287,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_fechareinicio.HeaderText = "Fecha reinicio";
             this.col_fechareinicio.Name = "col_fechareinicio";
             this.col_fechareinicio.ReadOnly = true;
+            this.col_fechareinicio.Width = 102;
             // 
             // col_servicio
             // 
@@ -284,6 +295,8 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_servicio.HeaderText = "Servicio";
             this.col_servicio.Name = "col_servicio";
             this.col_servicio.ReadOnly = true;
+            this.col_servicio.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.col_servicio.Width = 102;
             // 
             // Aeronave
             // 

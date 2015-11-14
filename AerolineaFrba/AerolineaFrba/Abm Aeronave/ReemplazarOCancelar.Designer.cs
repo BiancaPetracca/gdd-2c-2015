@@ -97,8 +97,8 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperControls.SuperButton ReasignarViajes;
         private SuperControls.SuperLabel superLabel2;
         private int tipoDeBaja;
-        private string matricula;
+        private String matricula;
         private DateTime fechaBaja;
-        private String fechaReinicio;
+        private DateTime fechaReinicio;
     }
 }

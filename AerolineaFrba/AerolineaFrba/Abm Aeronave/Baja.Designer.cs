@@ -30,6 +30,7 @@ namespace AerolineaFrba.Abm_Aeronave
         /// </summary>
         private void InitializeComponent()
         {
+            this.MotivoBajaAeronave = new AerolineaFrba.SuperControls.SuperComboBox();
             this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.fechaReinicio = new AerolineaFrba.SuperControls.SuperDateTimePicker();
@@ -37,8 +38,20 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
             this.fechaBaja = new AerolineaFrba.SuperControls.SuperDateTimePicker();
-            this.MotivoBajaAeronave = new AerolineaFrba.SuperControls.SuperComboBox();
             this.SuspendLayout();
+            // 
+            // MotivoBajaAeronave
+            // 
+            this.MotivoBajaAeronave.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MotivoBajaAeronave.FormattingEnabled = true;
+            this.MotivoBajaAeronave.Items.AddRange(new object[] {
+            "Fin de vida util",
+            "Mantenimiento"});
+            this.MotivoBajaAeronave.Location = new System.Drawing.Point(34, 45);
+            this.MotivoBajaAeronave.Name = "MotivoBajaAeronave";
+            this.MotivoBajaAeronave.Size = new System.Drawing.Size(121, 21);
+            this.MotivoBajaAeronave.TabIndex = 9;
+            this.MotivoBajaAeronave.SelectedIndexChanged += new System.EventHandler(this.MotivoBajaAeronave_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -99,17 +112,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.fechaBaja.Name = "fechaBaja";
             this.fechaBaja.Size = new System.Drawing.Size(102, 20);
             this.fechaBaja.TabIndex = 5;
-            // 
-            // MotivoBajaAeronave
-            // 
-            this.MotivoBajaAeronave.FormattingEnabled = true;
-            this.MotivoBajaAeronave.Items.AddRange(new object[] {
-            "Fin de vida util",
-            "Mantenimiento"});
-            this.MotivoBajaAeronave.Location = new System.Drawing.Point(34, 45);
-            this.MotivoBajaAeronave.Name = "MotivoBajaAeronave";
-            this.MotivoBajaAeronave.Size = new System.Drawing.Size(121, 21);
-            this.MotivoBajaAeronave.TabIndex = 9;
             // 
             // Baja
             // 

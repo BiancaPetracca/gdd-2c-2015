@@ -20,7 +20,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Baja_Load(object sender, EventArgs e)
         {
-
+            this.label2.Hide();
+            this.fechaReinicio.Hide();
         }
 
         private void cancelar_Click(object sender, EventArgs e)
@@ -32,8 +33,9 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             this.validateNotNullForAll(this.Controls);
             ReemplazarOCancelar form = new ReemplazarOCancelar();
-            form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaBaja.Value, this.fechaReinicio.Value.ToString());
+            form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaBaja.Value, this.fechaReinicio.Value);
             this.openInNewWindow(form);
+            this.Close();
 
 
         }
@@ -52,6 +54,19 @@ namespace AerolineaFrba.Abm_Aeronave
 
             this.matricula = matricula;
 }
+
+        private void MotivoBajaAeronave_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.MotivoBajaAeronave.SelectedIndex == 1)
+            {
+                this.label2.Show();
+                this.fechaReinicio.Show();
+            }
+            else {
+                this.label2.Hide();
+                this.fechaReinicio.Hide();
+            }
+        }
 
     }
 }

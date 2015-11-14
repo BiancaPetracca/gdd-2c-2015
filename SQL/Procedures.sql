@@ -286,7 +286,7 @@ AS
 	END
 GO
 
-CREATE PROCEDURE AWANTA.bajaDeViajesAsociadosConAeronave(@numero NUMERIC(18))
+CREATE PROCEDURE AWANTA.bajaDeViajesAsociadosConAeronave(@numero NVARCHAR(255))
 AS
 	BEGIN
 		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,SYSDATETIME()))
@@ -381,6 +381,8 @@ AS
 	END
 GO
 
+exec AWANTA.bajaLogicaDeAeronavePorFinDeVidaUtil "BZD-177", 1
+GO
 CREATE PROCEDURE AWANTA.bajaLogicaDeAeronavePorMantenimiento(@matricula NVARCHAR(255),@fechaReinicio DATETIME,@reemplazo INT)
 AS
 	BEGIN
