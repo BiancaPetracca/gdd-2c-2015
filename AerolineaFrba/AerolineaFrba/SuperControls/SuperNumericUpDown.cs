@@ -30,5 +30,11 @@ namespace AerolineaFrba.SuperControls
 
         public void clean() { this.Value = 0; }
 
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

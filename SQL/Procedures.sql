@@ -224,11 +224,10 @@ BEGIN
 SET @estado = nullif(@estado, 0)
 SELECT aero_matricula, aero_modelo, aero_fabricante, serv_nombre, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas,
 	 aero_estado, aero_fecha_de_alta, aero_fecha_baja_definitiva, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio FROM AWANTA.AERONAVE
-	JOIN AWANTA.SERVICIO ON serv_id_servicio = serv_id_servicio
+	JOIN AWANTA.SERVICIO ON serv_id_servicio = aero_id_servicio
 	AND (@estado IS NULL OR @estado = aero_estado) AND (@filtro IS NULL OR @filtro = serv_nombre)
 END
 GO
-
 
 
 CREATE PROCEDURE AWANTA.get_aeronaves_filtradas(@numero numeric(1), @filtro nvarchar(255))
@@ -261,17 +260,18 @@ BEGIN
 END
 GO 
 
-CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),
+ALTER PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),
 											@butacasPasillo INT,@butacasVentanilla INT,@kilosDisponibles INT)
 AS
 	BEGIN
 		BEGIN TRY
 		IF NOT EXISTS (SELECT 1 FROM AWANTA.AERONAVE WHERE @matricula = aero_matricula)
 			BEGIN
-				INSERT INTO AWANTA.AERONAVE (aero_matricula,aero_modelo,aero_fabricante,aero_id_servicio,
-				aero_cantidad_butacas_pasillo,aero_cantidad_butacas_ventanilla,aero_kgs_disponibles_encomiendas)
+			
+				INSERT INTO AWANTA.AERONAVE (aero_matricula,aero_modelo,aero_fabricante,aero_id_servicio, aero_fecha_de_alta,
+				aero_cantidad_butacas_pasillo,aero_cantidad_butacas_ventanilla,aero_kgs_disponibles_encomiendas, aero_estado)
 
-				VALUES (@matricula,@modelo,@fabricante,AWANTA.buscarIdServicio(@servicio),@butacasPasillo,@butacasVentanilla,@kilosDisponibles)
+				VALUES (@matricula,@modelo,@fabricante,AWANTA.buscarIdServicio(@servicio), GETDATE(), @butacasPasillo,@butacasVentanilla,@kilosDisponibles, 1)
 				RETURN(0)
 			END
 		END TRY
@@ -281,6 +281,9 @@ AS
 		END CATCH
 	END
 GO
+EXEC AWANTA.altaDeAeronave 'KKK-666', 'asds', 'satannn', 'Ejecutivo', 20, 20, 666
+GO 
+SELECT * FROM AWANTA.AERONAVE
 
 CREATE PROCEDURE AWANTA.bajaDeViajesAsociadosConAeronave(@numero NVARCHAR(255))
 AS

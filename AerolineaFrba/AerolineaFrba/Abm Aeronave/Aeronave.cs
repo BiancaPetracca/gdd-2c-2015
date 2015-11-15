@@ -25,7 +25,7 @@ namespace AerolineaFrba.Abm_Aeronave
         // AGREGAR Y BORRAR ABRE LOS RESPECTIVOS FORMULARIOS
         private void Agregar_Click(object sender, EventArgs e)
         {
-            this.openInNewWindow(new Alta());
+            this.openInNewWindow(new Alta(this));
         }
 
 
@@ -37,7 +37,16 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            Model.Aeronave aeronave = new Model.Aeronave(DAO.DAOAeronave.obtenerCodigoAeronave((String)Extensions.cellValue(this.lista, "col_matricula")),
+            Model.Aeronave aeronave = getCurrentAeronave();
+
+            // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
+            this.openInNewWindow(new Modificacion(aeronave, this));
+
+        }
+
+        private Model.Aeronave getCurrentAeronave() {
+           return new Model.Aeronave(DAO.DAOAeronave.obtenerCodigoAeronave((String)Extensions.cellValue(this.lista, "col_matricula")), 
+
             (String)Extensions.cellValue(this.lista, "col_modelo"),
             (String)Extensions.cellValue(this.lista, "col_matricula"),
             (String)Extensions.cellValue(this.lista, "col_fabricante"),
@@ -48,10 +57,7 @@ namespace AerolineaFrba.Abm_Aeronave
             Convert.ToDecimal(Extensions.cellValue(this.lista, "col_kgs")),
             (Boolean)Extensions.cellValue(this.lista, "col_estado"),
             (String)Extensions.cellValue(this.lista, "col_servicio"));
-
-            // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
-           this.openInNewWindow(new Modificacion(aeronave, this));
-
+            
         }
 
         // VER BUTACAS
