@@ -528,6 +528,27 @@ SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,Aeronave_Matricula,
 FROM gd_esquema.Maestra
 GO
 
-/*------MIGRACION DE LA TABLA COMPRA------*/
-INSERT INTO AWANTA.COMPRA(compra_viaje)
-SELECT via_codigo FROM AWANTA.VIAJE
+/*------MIGRACION DE LA TABLA COMPRA revisar!------*/
+INSERT INTO AWANTA.COMPRA(compra_viaje, compra_cliente)
+SELECT via_codigo, cli_codigo 
+FROM AWANTA.VIAJE JOIN gd_esquema.Maestra ON
+via_fecha_salida = FechaSalida JOIN AWANTA.CLIENTE ON
+Cli_Dni = cli_nro_doc 
+
+
+/*TODO BUTACA?*/
+
+
+INSERT INTO AWANTA.PASAJE(pas_butaca, pas_compra)
+SELECT compra_id, Paquete_KG 
+FROM gd_esquema.Maestra JOIN AWANTA.VIAJE ON
+via_fecha_salida = FechaSalida AND via_fecha_llegada = FechaLLegada JOIN AWANTA.COMPRA ON
+via_codigo = compra_viaje
+WHERE Butaca_Nro = 0
+
+INSERT INTO AWANTA.ENCOMIENDA(enc_compra, enc_kg)
+SELECT compra_id, Paquete_KG 
+FROM gd_esquema.Maestra JOIN AWANTA.VIAJE ON
+via_fecha_salida = FechaSalida AND via_fecha_llegada = FechaLLegada JOIN AWANTA.COMPRA ON
+via_codigo = compra_viaje
+WHERE Butaca_Nro = 0
