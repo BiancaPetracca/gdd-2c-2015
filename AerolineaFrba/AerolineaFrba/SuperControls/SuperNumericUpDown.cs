@@ -17,6 +17,11 @@ namespace AerolineaFrba.SuperControls
             InitializeComponent();
         }
 
+
+        public Decimal value
+        {
+            get { return this.Value; }
+        }
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -24,5 +29,6 @@ namespace AerolineaFrba.SuperControls
         public Boolean valid() { return 0 != Decimal.Round(Value, 0);  }
 
         public void clean() { this.Value = 0; }
+
     }
 }

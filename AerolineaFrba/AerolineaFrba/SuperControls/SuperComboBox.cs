@@ -17,6 +17,13 @@ namespace AerolineaFrba.SuperControls
             InitializeComponent();
         }
 
+        public String value
+        {
+            get
+            {
+                return this.SelectedItem.ToString();
+            }
+        }
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -36,5 +43,11 @@ namespace AerolineaFrba.SuperControls
         public void clean() {
             this.SelectedIndex = -1;
         }
+
+        public void setItem(String item)
+        {
+            this.SelectedIndex = this.FindString(item);
+        }
+
     }
 }

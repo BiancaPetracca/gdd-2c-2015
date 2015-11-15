@@ -19,6 +19,13 @@ namespace AerolineaFrba.SuperControls
             InitializeComponent();
         }
 
+        public String value
+        {
+            get
+            {
+                return this.Text;
+            }
+        }
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -30,5 +37,7 @@ namespace AerolineaFrba.SuperControls
         }
 
         public void clean() { this.textBox1.ResetText(); }
+
+
     }
 }

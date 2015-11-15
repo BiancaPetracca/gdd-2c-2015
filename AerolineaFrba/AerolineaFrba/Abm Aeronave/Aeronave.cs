@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AerolineaFrba.Generics;
 using AerolineaFrba.SuperControls;
 using AerolineaFrba.DAO;
+using AerolineaFrba.Model;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
@@ -36,7 +37,21 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            this.openInNewWindow(new Modificacion());
+            Model.Aeronave aeronave = new Model.Aeronave(DAO.DAOAeronave.obtenerCodigoAeronave((String)Extensions.cellValue(this.lista, "col_matricula")),
+            (String)Extensions.cellValue(this.lista, "col_modelo"),
+            (String)Extensions.cellValue(this.lista, "col_matricula"),
+            (String)Extensions.cellValue(this.lista, "col_fabricante"),
+
+            Convert.ToDecimal(Extensions.cellValue(this.lista, "col_butacas_pasillo")),
+            Convert.ToDecimal(Extensions.cellValue(this.lista, "col_butacas_vent")),
+
+            Convert.ToDecimal(Extensions.cellValue(this.lista, "col_kgs")),
+            (Boolean)Extensions.cellValue(this.lista, "col_estado"),
+            (String)Extensions.cellValue(this.lista, "col_servicio"));
+
+            // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
+           this.openInNewWindow(new Modificacion(aeronave, this));
+
         }
 
         // VER BUTACAS
@@ -78,7 +93,7 @@ namespace AerolineaFrba.Abm_Aeronave
         // FILTRAR LAS AERONAVES SEGUN LO QUE HAYA SELECCIONADO EL USUARIO
         private void buscar_Click(object sender, EventArgs e)
         {
-            DAO.DAOAeronave.filtrarAeronaves(this.lista, this.HabilitadasFiltro.Checked, filtro);
+            this.reload();
         }
 
         private void HabilitadasFiltro_CheckedChanged(object sender, EventArgs e)
@@ -100,13 +115,19 @@ namespace AerolineaFrba.Abm_Aeronave
             MessageBox.Show("La aeronave que intenta dar de baja ya se encuentra inhabilitada");
         }
 
-        public void reload() {
+        public void reload()
+        {
             DAO.DAOAeronave.filtrarAeronaves(this.lista, this.HabilitadasFiltro.Checked, filtro);
         }
 
         private void ServicioFiltro_SelectedIndexChanged(object sender, EventArgs e)
         {
-           filtro = this.ServicioFiltro.SelectedIndex != -1 ? this.ServicioFiltro.SelectedItem.ToString() : null;
+            filtro = this.ServicioFiltro.SelectedIndex != -1 ? this.ServicioFiltro.SelectedItem.ToString() : null;
+        }
+
+        private void groupBox_Enter(object sender, EventArgs e)
+        {
+
         }
 
 

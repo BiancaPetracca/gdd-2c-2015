@@ -17,6 +17,15 @@ namespace AerolineaFrba.SuperControls
             InitializeComponent();
         }
 
+        public Boolean value
+        {
+            get
+            {
+                return this.Checked;
+            }
+        }
+
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -24,8 +33,7 @@ namespace AerolineaFrba.SuperControls
 
         public Boolean valid() { return true; }
 
-        public void clean() { this.checkBox1.Checked = false; }
-
+        public void clean() { this.Checked = false; }
 
 
     }

@@ -78,7 +78,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.fechaReinicio.Name = "fechaReinicio";
             this.fechaReinicio.Size = new System.Drawing.Size(102, 20);
             this.fechaReinicio.TabIndex = 6;
-            this.fechaReinicio.Value = new System.DateTime(2015, 11, 14, 16, 37, 12, 752);
+          
             // 
             // fechaBaja
             // 

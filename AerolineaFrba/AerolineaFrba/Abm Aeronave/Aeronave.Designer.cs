@@ -30,7 +30,6 @@ namespace AerolineaFrba.Abm_Aeronave
         private void InitializeComponent()
         {
             this.groupBox = new AerolineaFrba.SuperControls.SuperGroupBox();
-            this.VerButacas = new AerolineaFrba.SuperControls.SuperButton();
             this.Modificar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
             this.filtros = new AerolineaFrba.SuperControls.SuperGroupBox();
@@ -42,8 +41,8 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Borrar = new AerolineaFrba.SuperControls.SuperButton();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.lista = new System.Windows.Forms.DataGridView();
-            this.scroll_ = new System.Windows.Forms.ScrollableControl();
             this.col_matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fabricante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_butacas_pasillo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,6 +53,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_baja_definitiva = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_baja_mant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fechareinicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.scroll_ = new System.Windows.Forms.ScrollableControl();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
@@ -63,7 +63,6 @@ namespace AerolineaFrba.Abm_Aeronave
             // groupBox
             // 
             this.groupBox.AutoSize = true;
-            this.groupBox.Controls.Add(this.VerButacas);
             this.groupBox.Controls.Add(this.Modificar);
             this.groupBox.Controls.Add(this.Cerrar);
             this.groupBox.Controls.Add(this.filtros);
@@ -76,16 +75,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.groupBox.TabIndex = 4;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Aeronaves";
-            // 
-            // VerButacas
-            // 
-            this.VerButacas.Location = new System.Drawing.Point(650, 408);
-            this.VerButacas.Name = "VerButacas";
-            this.VerButacas.Size = new System.Drawing.Size(75, 23);
-            this.VerButacas.TabIndex = 8;
-            this.VerButacas.Text = "Ver butacas";
-            this.VerButacas.UseVisualStyleBackColor = true;
-            this.VerButacas.Click += new System.EventHandler(this.VerButacas_Click);
+            this.groupBox.Enter += new System.EventHandler(this.groupBox_Enter);
             // 
             // Modificar
             // 
@@ -143,6 +133,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // ServicioFiltro
             // 
             this.ServicioFiltro.AccessibleDescription = "Tipo de servicio";
+            this.ServicioFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ServicioFiltro.Items.AddRange(new object[] {
             "Ejecutivo",
             "Turista",
@@ -198,6 +189,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.lista.ColumnHeadersHeight = 40;
             this.lista.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_matricula,
+            this.col_modelo,
             this.col_fabricante,
             this.col_servicio,
             this.col_butacas_pasillo,
@@ -219,19 +211,18 @@ namespace AerolineaFrba.Abm_Aeronave
             this.lista.TabIndex = 5;
             this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
-            // scroll_
-            // 
-            this.scroll_.Location = new System.Drawing.Point(0, 0);
-            this.scroll_.Name = "scroll_";
-            this.scroll_.Size = new System.Drawing.Size(0, 0);
-            this.scroll_.TabIndex = 2;
-            // 
             // col_matricula
             // 
             this.col_matricula.HeaderText = "Matrícula";
             this.col_matricula.Name = "col_matricula";
             this.col_matricula.ReadOnly = true;
             this.col_matricula.Width = 102;
+            // 
+            // col_modelo
+            // 
+            this.col_modelo.HeaderText = "Modelo";
+            this.col_modelo.Name = "col_modelo";
+            this.col_modelo.ReadOnly = true;
             // 
             // col_fabricante
             // 
@@ -307,6 +298,13 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_fechareinicio.ReadOnly = true;
             this.col_fechareinicio.Width = 102;
             // 
+            // scroll_
+            // 
+            this.scroll_.Location = new System.Drawing.Point(0, 0);
+            this.scroll_.Name = "scroll_";
+            this.scroll_.Size = new System.Drawing.Size(0, 0);
+            this.scroll_.TabIndex = 2;
+            // 
             // Aeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,11 +345,10 @@ namespace AerolineaFrba.Abm_Aeronave
         private System.Windows.Forms.ScrollableControl scroll_;
         private SuperLabel label1;
         private SuperButton Cerrar;
-
-        private SuperButton VerButacas;
         private SuperButton Modificar;
         private SuperCheckBox HabilitadasFiltro;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_matricula;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_modelo;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_fabricante;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas_pasillo;
