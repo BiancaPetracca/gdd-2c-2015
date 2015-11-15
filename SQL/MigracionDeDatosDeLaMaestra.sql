@@ -347,11 +347,42 @@ AS
 	END
 GO
 
-/*TESTEADO*/												
-INSERT INTO AWANTA.RUTA_AEREA(rut_origen, rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg,rut_habilitada)
-SELECT DISTINCT AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio),Ruta_Precio_BasePasaje,Ruta_Precio_BaseKG,1
+/*TESTEADO*/
+
+----va por este lado pero no estoy segura, habria que probrarlo desde el principio 
+SET IDENTITY_INSERT AWANTA.RUTA_AEREA ON												
+INSERT INTO AWANTA.RUTA_AEREA(rut_codigo, rut_origen, rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg,rut_habilitada)
+	SELECT DISTINCT Ruta_Codigo, AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio),sum(Ruta_Precio_BasePasaje),sum(Ruta_Precio_BaseKG),1
 FROM gd_esquema.Maestra
+GROUP BY AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio)
+SET IDENTITY_INSERT AWANTA.RUTA_AEREA OFF 
 GO
+/*
+CREATE TABLE AWANTA.ASD
+(
+	rut_codigo numeric(18) identity primary key,
+	rut_origen numeric(18) not null foreign key
+	references AWANTA.CIUDAD(ciu_id),
+	rut_destino numeric(18) not null foreign key
+	references AWANTA.CIUDAD(ciu_id),
+	rut_tipo_servicio numeric(18) not null foreign key
+	references AWANTA.SERVICIO(serv_id_servicio),
+	rut_precio_base money not null,
+	rut_precio_base_x_kg money not null,
+	rut_habilitada bit not null,
+)
+
+
+
+SET IDENTITY_INSERT AWANTA.ASD ON												
+INSERT INTO AWANTA.ASD(rut_codigo, rut_origen, rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg,rut_habilitada)
+	SELECT DISTINCT Ruta_Codigo, AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio),sum(Ruta_Precio_BasePasaje),sum(Ruta_Precio_BaseKG),1
+FROM gd_esquema.Maestra
+GROUP BY AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen),AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio)
+SET IDENTITY_INSERT AWANTA.ASD OFF 
+GO
+
+SELECT Ruta_Ciudad_Origen, Ruta_Ciudad_Destino FROM gd_esquema.Maestra */
 
 
 /*------MIGRACION DE LA TABLA ROL------*/

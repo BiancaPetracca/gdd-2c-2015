@@ -229,7 +229,6 @@ SELECT aero_matricula, aero_modelo, aero_fabricante, serv_nombre, aero_cantidad_
 END
 GO
 
-
 CREATE PROCEDURE AWANTA.get_aeronaves_filtradas(@numero numeric(1), @filtro nvarchar(255))
 AS 
 BEGIN
@@ -281,9 +280,7 @@ AS
 		END CATCH
 	END
 GO
-EXEC AWANTA.altaDeAeronave 'KKK-666', 'asds', 'satannn', 'Ejecutivo', 20, 20, 666
-GO 
-SELECT * FROM AWANTA.AERONAVE
+
 
 CREATE PROCEDURE AWANTA.bajaDeViajesAsociadosConAeronave(@numero NVARCHAR(255))
 AS
@@ -294,20 +291,53 @@ AS
 GO
 
 -- Las condiciones son que la aeronave que va a reemplazarla no tenga viajes asignados entre esas fechas. 
-ALTER FUNCTION AWANTA.cumpleCondiciones(@aero_numero_de_aeronave NUMERIC(18),@fechaBaja DATETIME,@fechaReinicio DATETIME) 
+-- lo usamos tambien para saber las aeronaves disponibles entre dos fechas
+ALTER FUNCTION AWANTA.tieneViajesAsignados(@aero_numero_de_aeronave NUMERIC(18),@fechaBaja DATETIME,@fechaReinicio DATETIME) 
 RETURNS INT
 AS
 	BEGIN
+	-- si la aeronave tiene un viaje asignado en esas fechas
 		IF EXISTS(SELECT 1 FROM AWANTA.VIAJE 
 		JOIN AERONAVE ON aero_matricula = via_avion AND aero_numero_de_aeronave = @aero_numero_de_aeronave 
 		WHERE ((via_fecha_salida > @fechaBaja AND via_fecha_salida < @fechaReinicio) 
 													OR (via_fecha_llegada > @fechaBaja AND via_fecha_llegada < @fechaReinicio)))
 			BEGIN
+			-- devuelve -1
 				RETURN (-1)
 			END
 	RETURN (0)
 	END
 GO
+
+ALTER FUNCTION AWANTA.hay_aeronaves_disponibles(@fechaSalida DATETIME, @fechaEstimadaLlegada DATETIME) RETURNS INT
+AS 
+BEGIN
+IF (EXISTS(SELECT 1 FROM AWANTA.AERONAVE JOIN AWANTA.VIAJE ON via_avion = aero_matricula
+WHERE (SELECT AWANTA.tieneViajesAsignados(aero_numero_de_aeronave, @fechaSalida, @fechaEstimadaLlegada)) = 0
+AND aero_estado = 1 AND aero_fecha_de_alta < @fechaSalida))
+BEGIN 
+RETURN 1 
+END
+RETURN -1
+END
+GO
+
+ALTER PROCEDURE AWANTA.get_aeronaves_disponibles(@fechaSalida DATETIME, @fechaEstimadaLlegada DATETIME)
+AS
+BEGIN
+IF ((SELECT AWANTA.hay_aeronaves_disponibles(@fechaSalida, @fechaEstimadaLlegada)) = 1) 
+BEGIN
+(SELECT DISTINCT aero_matricula FROM AWANTA.AERONAVE JOIN AWANTA.VIAJE ON via_avion = aero_matricula
+WHERE (SELECT AWANTA.tieneViajesAsignados(aero_numero_de_aeronave, @fechaSalida, @fechaEstimadaLlegada)) = 0
+AND aero_estado = 1 AND aero_fecha_de_alta < @fechaSalida)
+END
+RETURN -1
+END
+GO
+
+SELECT * FROM AWANTA.RUTA_AEREA  ORDER BY rut_origen, rut_destino
+GO
+ 
 ALTER PROCEDURE AWANTA.existeAeronaveQueReemplace(@matricula NVARCHAR(255))
 AS
 	BEGIN
@@ -328,9 +358,9 @@ AS
 	DECLARE @numeroAvionDeReemplazo NUMERIC(18), @matriculaAvionDeReemplazo NVARCHAR(255)
 	-- hallo la que va a reemplazar 
 	SELECT @numeroAvionDeReemplazo = aero_reemplazo.aero_numero_de_aeronave, @matriculaAvionDeReemplazo = aero_reemplazo.aero_matricula FROM AWANTA.AERONAVE aero_reemplazo, AWANTA.AERONAVE aero_orig
-	WHERE aero_reemplazo.aero_fabricante = aero_orig.aero_fabricante AND aero_reemplazo.id_servicio = aero_orig.id_servicio AND aero_orig.aero_modelo = aero_reemplazo.aero_modelo
+	WHERE aero_reemplazo.aero_fabricante = aero_orig.aero_fabricante AND aero_reemplazo.aero_id_servicio = aero_orig.aero_id_servicio AND aero_orig.aero_modelo = aero_reemplazo.aero_modelo
 	AND aero_orig.aero_matricula <> aero_reemplazo.aero_matricula AND aero_reemplazo.aero_estado = 1 AND 
-	(SELECT AWANTA.cumpleCondiciones(aero_reemplazo.aero_numero_de_aeronave, aero_orig.aero_baja_fuera_de_servicio, aero_orig.aero_fecha_reinicio_servicio)) = 0
+	(SELECT AWANTA.tieneViajesAsignados(aero_reemplazo.aero_numero_de_aeronave, aero_orig.aero_baja_fuera_de_servicio, aero_orig.aero_fecha_reinicio_servicio)) = 0
 	
 	-- si la fecha de reinicio no es null, quiere decir que entonces era por una aeronave que se dio de baja por mantenimiento
 	DECLARE @fechaSalida DATETIME
@@ -467,10 +497,23 @@ GO
 
 /*------ALTA VIAJE------*/
 
+ALTER PROCEDURE AWANTA.get_rutas(@aeronave NVARCHAR(255))
+AS 
+BEGIN
+SELECT rut_codigo, o.ciu_nombre as origen, d.ciu_nombre as destino, serv_nombre as servicio, rut_precio_base, rut_precio_base_x_kg FROM AWANTA.RUTA_AEREA JOIN AWANTA.SERVICIO ON
+rut_tipo_servicio = serv_id_servicio
+JOIN AWANTA.AERONAVE ON aero_matricula = @aeronave AND rut_tipo_servicio = aero_id_servicio
+JOIN AWANTA.CIUDAD d ON rut_destino = d.ciu_id
+JOIN AWANTA.CIUDAD o ON rut_origen = o.ciu_id
+WHERE rut_habilitada = 1
+ORDER BY rut_codigo
+END
+GO
+
 CREATE PROCEDURE AWANTA.get_viajes(@fecha date, @origen nvarchar(255), @destino nvarchar(255))
 AS
 BEGIN
-	SELECT via_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), aero_
+	SELECT via_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), aero_matricula
 	
 	FROM AWANTA.VIAJE, AWANTA.RUTA_AEREA, AWANTA.AERONAVE
 	WHERE YEAR(via_fecha_salida) = YEAR(@fecha) AND
@@ -483,29 +526,28 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date, @ciudad_origen nvarchar(255), 
-										@ciudad_destino nvarchar(255))
+ALTER PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada date, @salida date, @ruta numeric)
 AS
 BEGIN
 	DECLARE @serv_viaje numeric(18), @serv_avion numeric(18)
-	SET @serv_viaje = (SELECT TOP 1 rut_tipo_servicio FROM AWANTA.RUTA_AEREA WHERE rut_codigo = AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, null))
+	SET @serv_viaje = (SELECT TOP 1 rut_tipo_servicio FROM AWANTA.RUTA_AEREA WHERE rut_codigo = @ruta)
 	SET  @serv_avion = (SELECT TOP 1 aero_id_servicio FROM AWANTA.AERONAVE WHERE aero_matricula = @avion)
 	
 	DECLARE @avion_libre int
-	SET @avion_libre = (SELECT count(1) FROM AWANTA.AERONAVE, AWANTA.VIAJE WHERE aero_matricula = @avion AND aero_numero_de_aeronave = via_avion AND
+	SET @avion_libre = (SELECT count(1) FROM AWANTA.AERONAVE, AWANTA.VIAJE WHERE aero_matricula = @avion AND aero_matricula = via_avion AND
 							via_fecha_llegada_estimada BETWEEN @salida AND @llegada_estimada)
 
 	IF(@serv_viaje = @serv_avion AND @avion_libre = 0)
 		BEGIN
+		
 			INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
-			VALUES(AWANTA.obtenerCodigoAeronave(@avion), @llegada_estimada, @salida,
-			AWANTA.obtenerCodigoRuta(@ciudad_origen, @ciudad_destino, null))
+			VALUES(@avion, @llegada_estimada, @salida, @ruta)
+			RETURN 1
 		END
-	ELSE
-		BEGIN
-			RETURN NULL
+
+			RETURN -1
 		END
-END
+
 GO
 
 CREATE PROCEDURE AWANTA.tiene_viajes_asignados(@matricula nvarchar(255))

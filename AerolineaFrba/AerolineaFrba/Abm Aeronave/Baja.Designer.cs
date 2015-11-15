@@ -148,7 +148,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperLabel label2;
         private SuperComboBox MotivoBajaAeronave;
         private string matricula;
-        private DateTime fecha;
+
         
 
     }

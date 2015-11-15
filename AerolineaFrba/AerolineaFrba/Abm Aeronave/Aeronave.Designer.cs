@@ -329,7 +329,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         #endregion
 
-        private System.Windows.Forms.DataGridCell listado;
+      
         private SuperGroupBox groupBox;
         private SuperComboBox ServicioFiltro; 
         private SuperGroupBox filtros;

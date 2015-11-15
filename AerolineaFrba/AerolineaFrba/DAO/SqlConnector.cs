@@ -53,6 +53,7 @@ namespace AerolineaFrba.DAO
                             return dt;
                         }
 
+
         private static SqlCommand generateCommand(String sp, params Object[] values) {
 
             SqlConnection sqlcon = new SqlConnection(infoConexion());
@@ -110,11 +111,15 @@ namespace AerolineaFrba.DAO
             return retrieveDTToBeConverted(sp, values);
         }
 
-        public static void retrieveDT(String sp, DataGridView dg, params Object[] values)
+        public static int retrieveDT(String sp, DataGridView dg, params Object[] values)
         {
             DataTable dt =  retrieveDTToBeConverted(sp, values);
+            if (dt == null) {
+                return -1;
+            }
             bindNamesToDataTable(dt, dg);
             dg.DataSource = dt;
+            return 1;
         }
        
       
