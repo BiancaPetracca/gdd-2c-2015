@@ -223,7 +223,7 @@ ALTER PROCEDURE AWANTA.get_aeronaves(@estado numeric(1) = null, @filtro nvarchar
 AS
 BEGIN
 SET @estado = nullif(@estado, 0)
-SELECT aero_matricula, aero_fabricante, serv_nombre, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas,
+SELECT aero_matricula, aero_modelo, aero_fabricante, serv_nombre, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas,
 	 aero_estado, aero_fecha_de_alta, aero_fecha_baja_definitiva, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio FROM AWANTA.AERONAVE
 	JOIN AWANTA.SERVICIO ON id_servicio = serv_id_servicio
 	AND (@estado IS NULL OR @estado = aero_estado) AND (@filtro IS NULL OR @filtro = serv_nombre)
@@ -238,7 +238,7 @@ BEGIN
 SELECT * FROM AWANTA.AERONAVE
 END
 GO
-/* LO PODEMOS BORRAR ME PARECE 
+
 CREATE PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18), @modelo nvarchar(255), @matricula nvarchar(255), @butacas_pasillo numeric(18), 
 @butacas_ventanilla numeric(18), @kilos_disponibles numeric(18), @fabricante nvarchar(255), @fecha_alta date, @fecha_baja_temporal date, 
 @fecha_alta_temporal date, @fecha_baja_definitiva date)
@@ -260,7 +260,7 @@ BEGIN
 	(@numero IS NULL OR aero_numero_de_aeronave=@numero) AND
 	aero_id_servicio = serv_id_servicio
 END
-GO */
+GO 
 
 CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),
 											@butacasPasillo INT,@butacasVentanilla INT,@kilosDisponibles INT)
@@ -291,12 +291,14 @@ AS
 	END
 GO
 
-CREATE FUNCTION AWANTA.cumpleCondiciones(@aero_numero_de_aeronave NUMERIC(18),@fechaBaja DATETIME,@fechaReinicio DATETIME) 
+-- Las condiciones son que la aeronave que va a reemplazarla no tenga viajes asignados entre esas fechas. 
+ALTER FUNCTION AWANTA.cumpleCondiciones(@aero_numero_de_aeronave NUMERIC(18),@fechaBaja DATETIME,@fechaReinicio DATETIME) 
 RETURNS INT
 AS
 	BEGIN
-		IF EXISTS(SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = @aero_numero_de_aeronave 
-											 AND ((via_fecha_salida > @fechaBaja AND via_fecha_salida < @fechaReinicio) 
+		IF EXISTS(SELECT 1 FROM AWANTA.VIAJE 
+		JOIN AERONAVE ON aero_matricula = via_avion AND aero_numero_de_aeronave = @aero_numero_de_aeronave 
+		WHERE ((via_fecha_salida > @fechaBaja AND via_fecha_salida < @fechaReinicio) 
 													OR (via_fecha_llegada > @fechaBaja AND via_fecha_llegada < @fechaReinicio)))
 			BEGIN
 				RETURN (-1)
@@ -325,7 +327,9 @@ AS
 	-- hallo la que va a reemplazar 
 	SELECT @numeroAvionDeReemplazo = aero_reemplazo.aero_numero_de_aeronave, @matriculaAvionDeReemplazo = aero_reemplazo.aero_matricula FROM AWANTA.AERONAVE aero_reemplazo, AWANTA.AERONAVE aero_orig
 	WHERE aero_reemplazo.aero_fabricante = aero_orig.aero_fabricante AND aero_reemplazo.id_servicio = aero_orig.id_servicio AND aero_orig.aero_modelo = aero_reemplazo.aero_modelo
-	AND aero_orig.aero_matricula <> aero_reemplazo.aero_matricula
+	AND aero_orig.aero_matricula <> aero_reemplazo.aero_matricula AND aero_reemplazo.aero_estado = 1 AND 
+	(SELECT AWANTA.cumpleCondiciones(aero_reemplazo.aero_numero_de_aeronave, aero_orig.aero_baja_fuera_de_servicio, aero_orig.aero_fecha_reinicio_servicio)) = 0
+	
 	-- si la fecha de reinicio no es null, quiere decir que entonces era por una aeronave que se dio de baja por mantenimiento
 	DECLARE @fechaSalida DATETIME
 				DECLARE @fechaLlegada DATETIME
@@ -438,8 +442,7 @@ AS
 GO
 
 
-CREATE FUNCTION AWANTA.obtenerCodigoAeronave(@matricula nvarchar(255))
-RETURNS NUMERIC(18)
+CREATE PROCEDURE AWANTA.obtenerCodigoAeronave(@matricula nvarchar(255))
 AS
 BEGIN
 	DECLARE @codigo numeric(18)
@@ -447,6 +450,25 @@ BEGIN
 	RETURN @codigo
 END
 GO
+
+ALTER PROCEDURE AWANTA.modificarAeronave(@numero numeric(18), @matricula nvarchar(255), @modelo nvarchar(255), @fabricante nvarchar(255), @servicio nvarchar(255), 
+@cantidadKgsEncomiendas numeric, @cantidadButacasVentanilla  numeric, @cantidadButacasPasillo numeric, @estado bit) 
+AS 
+BEGIN
+IF EXISTS(SELECT 1 FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula AND aero_numero_de_aeronave <> @numero) BEGIN RETURN -1 END
+DECLARE @numero_servicio NUMERIC(18), @matricula_vieja NVARCHAR(255)
+SELECT @matricula_vieja = aero_matricula FROM AWANTA.AERONAVE WHERE aero_numero_de_aeronave = @numero
+SELECT @numero_servicio = serv_id_servicio FROM SERVICIO WHERE serv_nombre = @servicio
+ALTER TABLE AWANTA.VIAJE NOCHECK CONSTRAINT ALL
+UPDATE AWANTA.AERONAVE 
+SET aero_matricula = @matricula, aero_modelo = @modelo, aero_fabricante = @fabricante, id_servicio = @numero_servicio,
+aero_kgs_disponibles_encomiendas = @cantidadKgsEncomiendas, aero_cantidad_butacas_ventanilla = @cantidadButacasVentanilla, 
+aero_cantidad_butacas_pasillo = @cantidadButacasPasillo, aero_estado = @estado
+WHERE aero_numero_de_aeronave = @numero
+UPDATE AWANTA.VIAJE SET via_avion = @matricula WHERE via_avion = @matricula_vieja
+ALTER TABLE AWANTA.VIAJE CHECK CONSTRAINT ALL 
+END
+GO 
 
 /*------ALTA VIAJE------*/
 
