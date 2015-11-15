@@ -292,6 +292,7 @@ GO
 
 /*CALCULO DE PORCENTAJES ADICIONAL DE RUTA POR TIPO DE SERVICIO*/
 /*TESTEADO*/
+
 CREATE FUNCTION AWANTA.porcentajeDadoUnServicio(@tipoServicio NVARCHAR(255))
 RETURNS INT
 AS
@@ -334,6 +335,8 @@ AS
 GO
 
 /*TESTEADO*/
+
+
 CREATE FUNCTION AWANTA.obtenerIdCiudad(@nombreCiudad NVARCHAR(255))
 RETURNS NUMERIC(18)
 AS
@@ -407,6 +410,8 @@ INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (9,2)
 INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (10,2)
 GO
 
+
+
 CREATE PROCEDURE [AWANTA].set_funcionalidades_x_rol(@id_rol numeric(18),@id_funcionalidad numeric(18))
 AS
 	INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES(@id_funcionalidad,@id_rol);
@@ -418,6 +423,8 @@ GO
 
 
 /*------MIGRACION USUARIO(PROCEDURE PARA INSERCION NO HACE FALTA EL ABM)------*/
+
+
 
 CREATE PROCEDURE [AWANTA].insertar_usuario(@username VARCHAR(50), @password VARCHAR(100),@fechaAlta DATETIME)
 AS BEGIN
@@ -440,6 +447,7 @@ GO
 
 /*------MIGRACION DE LA TABLA PRODUCTO------*/
 /*TESTEADO*/
+
 CREATE PROCEDURE [AWANTA].insertar_nuevo_producto(@nombreProducto NVARCHAR(255),@puntosNecesarios BIGINT,@stockProducto NUMERIC(18))
 AS	
 	IF NOT EXISTS(SELECT prod_nombre FROM AWANTA.PRODUCTO WHERE prod_nombre=@nombreProducto)
@@ -463,6 +471,8 @@ GO
 /*------MIGRACION DE LA TABLA AERONAVE------*/
 
 /*OBTENCION DE CANTIDAD DE BUTACAS DE LA AERONAVE*/
+
+
 CREATE FUNCTION AWANTA.obtenerButacasDeAeronave(@matricula NVARCHAR(255),@tipoButaca NVARCHAR(255))
 RETURNS INT
 AS

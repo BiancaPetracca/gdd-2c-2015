@@ -40,8 +40,7 @@ GO
 CREATE PROCEDURE AWANTA.get_funcionalidad(@username NVARCHAR(255), @funcionalidad NVARCHAR(255))
 AS 
 BEGIN
-	SELECT CASE WHEN ( SELECT *
-	FROM AWANTA.USUARIO, AWANTA.ROL, AWANTA.FUNC_X_ROL, AWANTA.FUNCIONALIDAD
+	SELECT CASE WHEN EXISTS( SELECT 1 FROM AWANTA.USUARIO, AWANTA.ROL, AWANTA.FUNC_X_ROL, AWANTA.FUNCIONALIDAD
 	WHERE USUARIO.usu_username = @username AND 
 		usu_rol = rol_id AND
 		ROL.rol_id = FUNC_X_ROL.f_x_r_rol AND 
@@ -225,7 +224,7 @@ BEGIN
 SET @estado = nullif(@estado, 0)
 SELECT aero_matricula, aero_modelo, aero_fabricante, serv_nombre, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas,
 	 aero_estado, aero_fecha_de_alta, aero_fecha_baja_definitiva, aero_baja_fuera_de_servicio, aero_fecha_reinicio_servicio FROM AWANTA.AERONAVE
-	JOIN AWANTA.SERVICIO ON id_servicio = serv_id_servicio
+	JOIN AWANTA.SERVICIO ON serv_id_servicio = serv_id_servicio
 	AND (@estado IS NULL OR @estado = aero_estado) AND (@filtro IS NULL OR @filtro = serv_nombre)
 END
 GO
@@ -377,11 +376,7 @@ AS
 			END
 
 GO
-select * from AWANTA.AERONAVE
-declare @fechaReinico datetime
-SET @fechaReinico = GETDATE()
-exec AWANTA.reemplazoDeAeronaveEnViajes 28, @fechaReinico
-GO
+
 
 ALTER PROCEDURE AWANTA.bajaLogicaDeAeronavePorFinDeVidaUtil(@matricula NVARCHAR(255),@reemplazo INT)
 AS
@@ -409,10 +404,7 @@ AS
 		RETURN(-1)
 	END
 GO
-declare @fechaReinico datetime
-SET @fechaReinico = GETDATE()
-EXEC AWANTA.bajaLogicaDeAeronavePorMantenimiento 'OXO-854', @fechaReinico, 1
-go
+
 
 ALTER PROCEDURE AWANTA.bajaLogicaDeAeronavePorMantenimiento(@matricula NVARCHAR(255),@fechaReinicio DATETIME,@reemplazo INT)
 AS
@@ -520,11 +512,6 @@ IF EXISTS(SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = @matricula) BEGIN RETURN 
 RETURN 0
 END
 GO
-
-DECLARE @f INT
-EXEC AWANTA.tiene_viajes_asignados @matricula = 'WWJ-213'
-
-SELECT * FROM AWANTA.VIAJE
 
 
 /*------LLEGADA A DESTINO------*/
