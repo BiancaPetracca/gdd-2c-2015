@@ -38,15 +38,17 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
             this.butacasVentanilla = new AerolineaFrba.SuperControls.SuperNumericUpDown();
-            this.disponible = new AerolineaFrba.SuperControls.SuperCheckBox();
+            this.estado = new AerolineaFrba.SuperControls.SuperCheckBox();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.butacasPasillo = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.lab_matricula = new AerolineaFrba.SuperControls.SuperLabel();
-            this.Matricula = new AerolineaFrba.SuperControls.SuperTextBox();
             this.lab_servicio = new AerolineaFrba.SuperControls.SuperLabel();
             this.servicio = new AerolineaFrba.SuperControls.SuperComboBox();
             this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.kgsEncomiendas = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.matriculaNumeros = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.matriculaLetras = new AerolineaFrba.SuperControls.SuperTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.butacasVentanilla)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.butacasPasillo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kgsEncomiendas)).BeginInit();
@@ -59,6 +61,8 @@ namespace AerolineaFrba.Abm_Aeronave
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 9;
             this.label6.Text = "Disponible";
+            this.label6.Visible = false;
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label3
             // 
@@ -80,19 +84,23 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             this.modelo.AccessibleDescription = "Modelo de la aeronave";
             this.modelo.Location = new System.Drawing.Point(134, 32);
+            this.modelo.MaxLength = 20;
             this.modelo.Name = "modelo";
             this.modelo.Size = new System.Drawing.Size(112, 20);
             this.modelo.TabIndex = 0;
+            this.modelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.modelo_KeyPress);
             this.modelo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nombre_MouseDown);
             // 
             // fabricante
             // 
             this.fabricante.AccessibleDescription = "Fabricante ";
             this.fabricante.Location = new System.Drawing.Point(134, 75);
+            this.fabricante.MaxLength = 20;
             this.fabricante.Name = "fabricante";
             this.fabricante.Size = new System.Drawing.Size(112, 20);
             this.fabricante.TabIndex = 1;
             this.fabricante.TextChanged += new System.EventHandler(this.fabricante_TextChanged);
+            this.fabricante.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fabricante_KeyPress);
             // 
             // label1
             // 
@@ -129,13 +137,14 @@ namespace AerolineaFrba.Abm_Aeronave
             this.butacasVentanilla.Size = new System.Drawing.Size(47, 20);
             this.butacasVentanilla.TabIndex = 13;
             // 
-            // disponible
+            // estado
             // 
-            this.disponible.AccessibleDescription = "Especificar habilitación ";
-            this.disponible.Location = new System.Drawing.Point(134, 306);
-            this.disponible.Name = "disponible";
-            this.disponible.Size = new System.Drawing.Size(104, 24);
-            this.disponible.TabIndex = 15;
+            this.estado.AccessibleDescription = "Especificar habilitación ";
+            this.estado.Location = new System.Drawing.Point(134, 306);
+            this.estado.Name = "estado";
+            this.estado.Size = new System.Drawing.Size(104, 24);
+            this.estado.TabIndex = 15;
+            this.estado.Visible = false;
             // 
             // superLabel1
             // 
@@ -161,14 +170,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.lab_matricula.Size = new System.Drawing.Size(100, 23);
             this.lab_matricula.TabIndex = 19;
             this.lab_matricula.Text = "Matrícula";
-            // 
-            // Matricula
-            // 
-            this.Matricula.AccessibleDescription = "Matrícula";
-            this.Matricula.Location = new System.Drawing.Point(134, 116);
-            this.Matricula.Name = "Matricula";
-            this.Matricula.Size = new System.Drawing.Size(112, 20);
-            this.Matricula.TabIndex = 18;
             // 
             // lab_servicio
             // 
@@ -214,18 +215,52 @@ namespace AerolineaFrba.Abm_Aeronave
             this.kgsEncomiendas.Name = "kgsEncomiendas";
             this.kgsEncomiendas.Size = new System.Drawing.Size(46, 20);
             this.kgsEncomiendas.TabIndex = 25;
+         
+            this.kgsEncomiendas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kgsEncomiendas_KeyPress);
+            // 
+            // matriculaNumeros
+            // 
+            this.matriculaNumeros.AccessibleDescription = "Matricula numeros";
+            this.matriculaNumeros.Location = new System.Drawing.Point(200, 113);
+            this.matriculaNumeros.MaxLength = 3;
+            this.matriculaNumeros.Name = "matriculaNumeros";
+            this.matriculaNumeros.Size = new System.Drawing.Size(46, 20);
+            this.matriculaNumeros.TabIndex = 29;
+            this.matriculaNumeros.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.matriculaNumeros_KeyPress);
+            // 
+            // superLabel3
+            // 
+            this.superLabel3.AutoSize = true;
+            this.superLabel3.Location = new System.Drawing.Point(184, 116);
+            this.superLabel3.Name = "superLabel3";
+            this.superLabel3.Size = new System.Drawing.Size(10, 13);
+            this.superLabel3.TabIndex = 28;
+            this.superLabel3.Text = "-";
+            // 
+            // matriculaLetras
+            // 
+            this.matriculaLetras.AccessibleDescription = "Letras de la matrícula";
+            this.matriculaLetras.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.matriculaLetras.Location = new System.Drawing.Point(134, 113);
+            this.matriculaLetras.MaxLength = 3;
+            this.matriculaLetras.Name = "matriculaLetras";
+            this.matriculaLetras.Size = new System.Drawing.Size(44, 20);
+            this.matriculaLetras.TabIndex = 27;
+            this.matriculaLetras.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.matriculaLetras_KeyPress);
             // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(387, 389);
+            this.Controls.Add(this.matriculaNumeros);
+            this.Controls.Add(this.superLabel3);
+            this.Controls.Add(this.matriculaLetras);
             this.Controls.Add(this.superLabel2);
             this.Controls.Add(this.kgsEncomiendas);
             this.Controls.Add(this.servicio);
             this.Controls.Add(this.lab_servicio);
             this.Controls.Add(this.lab_matricula);
-            this.Controls.Add(this.Matricula);
             this.Controls.Add(this.superLabel1);
             this.Controls.Add(this.butacasPasillo);
             this.Controls.Add(this.label6);
@@ -237,7 +272,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.Cancelar);
             this.Controls.Add(this.butacasVentanilla);
-            this.Controls.Add(this.disponible);
+            this.Controls.Add(this.estado);
             this.Name = "Alta";
             this.Text = "Nueva aeronave";
             this.Load += new System.EventHandler(this.Alta_Load);
@@ -253,7 +288,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private SuperTextBox modelo;
         private SuperTextBox fabricante;
-        private SuperCheckBox disponible;
+        private SuperCheckBox estado;
         private SuperLabel label1;
         private SuperLabel label2;
         private SuperLabel label3;
@@ -264,10 +299,12 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperLabel superLabel1;
         private SuperNumericUpDown butacasPasillo;
         private SuperLabel lab_matricula;
-        private SuperTextBox Matricula;
         private SuperLabel lab_servicio;
         private SuperComboBox servicio;
         private SuperLabel superLabel2;
         private SuperNumericUpDown kgsEncomiendas;
+        private SuperTextBox matriculaNumeros;
+        private SuperLabel superLabel3;
+        private SuperTextBox matriculaLetras;
     }
 }

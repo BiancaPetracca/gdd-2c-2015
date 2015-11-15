@@ -96,17 +96,17 @@ namespace AerolineaFrba.Generics
         {
             var msg = "";
             Boolean isvalid = true;
-           
+
             foreach (var criterium in criteria)
             {
-                
-               if (!criterium.Item1())
+
+                if (!criterium.Item1())
                 {
                     msg += criterium.Item2 + "\n";
                 }
             }
-         //  if (criteria.Any(x => !x.Item1()))
-            if(msg != "")
+            //  if (criteria.Any(x => !x.Item1()))
+            if (msg != "")
             {
                 isvalid = false;
                 throw new Exception(msg);
@@ -153,7 +153,12 @@ namespace AerolineaFrba.Generics
             e.Handled = !(char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
 
+        public static void allowLessThanLength(this Form aForm, SuperNumericUpDown num, KeyPressEventArgs e)
+        {
 
-
+            e.Handled = (num.Value.ToString().Length >= 4);
+        }
     }
+
+
 }

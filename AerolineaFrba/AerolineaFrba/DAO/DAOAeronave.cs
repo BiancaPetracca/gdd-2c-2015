@@ -92,22 +92,31 @@ namespace AerolineaFrba.DAO
             return SqlConnector.executeProcedure("bajaLogicaDeAeronavePorMantenimiento", matricula, fechaReinicio, reasignarOCancelar);
         }
 
-        public static int existeAeronaveQueReemplace(String matricula) {
+        public static int existeAeronaveQueReemplace(String matricula)
+        {
             return SqlConnector.executeProcedure("existeAeronaveQueReemplace", matricula);
         }
 
-        public static int modificarAeronave(Model.Aeronave aeronave) {
+        public static int modificarAeronave(Model.Aeronave aeronave)
+        {
             return SqlConnector.executeProcedure("modificarAeronave", aeronave.numero, aeronave.matricula, aeronave.modelo, aeronave.fabricante,
-                aeronave.servicio, aeronave.kgsEncomiendas, aeronave.cantidadButacasVentanilla, aeronave.cantidadButacasPasillo, aeronave.estadoAeronave? 1 : 0);
+                aeronave.servicio, aeronave.kgsEncomiendas, aeronave.cantidadButacasVentanilla, aeronave.cantidadButacasPasillo, aeronave.estadoAeronave ? 1 : 0);
         }
 
-        public static int obtenerCodigoAeronave(Model.Aeronave aeronave) {
+        public static int obtenerCodigoAeronave(Model.Aeronave aeronave)
+        {
             return SqlConnector.executeProcedure("obtenerCodigoAeronave", aeronave.matricula);
         }
 
         public static int obtenerCodigoAeronave(String aeronave)
         {
             return SqlConnector.executeProcedure("obtenerCodigoAeronave", aeronave);
+        }
+
+        public static int altaDeAeronave(Model.Aeronave aeronave)
+        {  return SqlConnector.executeProcedure("altaDeAeronave", aeronave.matricula, aeronave.modelo, aeronave.fabricante,
+                aeronave.servicio, aeronave.cantidadButacasPasillo,
+                aeronave.cantidadButacasVentanilla, aeronave.kgsEncomiendas);
         }
     }
 }

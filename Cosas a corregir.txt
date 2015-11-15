@@ -2,5 +2,5 @@
 
 AERONAVE
 
-REEMPLAZO DE VIAJES: muy lento, optimizarlo; agregar trigger scheduler (vuelta a habilitarse), hacer alta 
+REEMPLAZO DE VIAJES: muy lento, optimizarlo; hacer alta 
 
