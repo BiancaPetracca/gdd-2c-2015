@@ -34,10 +34,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.fechaReinicio = new AerolineaFrba.SuperControls.SuperDateTimePicker();
+            this.fechaBaja = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.label = new AerolineaFrba.SuperControls.SuperLabel();
             this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
-            this.fechaBaja = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.SuspendLayout();
             // 
             // MotivoBajaAeronave
@@ -74,9 +74,22 @@ namespace AerolineaFrba.Abm_Aeronave
             this.fechaReinicio.AccessibleDescription = "Elegir una fecha de reinicio";
             this.fechaReinicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.fechaReinicio.Location = new System.Drawing.Point(177, 113);
+            this.fechaReinicio.MinDate = DateTime.Today;
             this.fechaReinicio.Name = "fechaReinicio";
             this.fechaReinicio.Size = new System.Drawing.Size(102, 20);
             this.fechaReinicio.TabIndex = 6;
+            this.fechaReinicio.Value = new System.DateTime(2015, 11, 14, 16, 37, 12, 752);
+            // 
+            // fechaBaja
+            // 
+            this.fechaBaja.AccessibleDescription = "Elegir una fecha de baja";
+            this.fechaBaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fechaBaja.Location = new System.Drawing.Point(34, 113);
+            this.fechaBaja.MinDate = new System.DateTime(2015, 11, 14, 0, 0, 0, 0);
+            this.fechaBaja.Name = "fechaBaja";
+            this.fechaBaja.Size = new System.Drawing.Size(102, 20);
+            this.fechaBaja.TabIndex = 5;
+            this.fechaBaja.ValueChanged += new System.EventHandler(this.fechaBaja_ValueChanged);
             // 
             // label
             // 
@@ -103,15 +116,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Cancelar.TabIndex = 0;
             this.Cancelar.Text = "Cancelar";
             this.Cancelar.Click += new System.EventHandler(this.cancelar_Click);
-            // 
-            // fechaBaja
-            // 
-            this.fechaBaja.AccessibleDescription = "Elegir una fecha de baja";
-            this.fechaBaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fechaBaja.Location = new System.Drawing.Point(34, 113);
-            this.fechaBaja.Name = "fechaBaja";
-            this.fechaBaja.Size = new System.Drawing.Size(102, 20);
-            this.fechaBaja.TabIndex = 5;
             // 
             // Baja
             // 
@@ -145,6 +149,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperComboBox MotivoBajaAeronave;
         private string matricula;
         private DateTime fecha;
+        
 
     }
 }

@@ -13,6 +13,11 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class Baja : Form
     {
+
+        private Abm_Aeronave.Aeronave launcherBaja;
+        public Abm_Aeronave.Aeronave LauncherBaja { get { return launcherBaja; } set { launcherBaja = value; } }
+
+
         public Baja()
         {
             InitializeComponent();
@@ -32,12 +37,20 @@ namespace AerolineaFrba.Abm_Aeronave
         private void aceptar_Click(object sender, EventArgs e)
         {
             this.validateNotNullForAll(this.Controls);
-            ReemplazarOCancelar form = new ReemplazarOCancelar();
-            form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaBaja.Value, this.fechaReinicio.Value);
-            this.openInNewWindow(form);
+            if (DAO.DAOAeronave.tieneViajesAsignados(this.matricula) == 1)
+            {
+                ReemplazarOCancelar form = new ReemplazarOCancelar();
+                form.BajaLauncher = this.LauncherBaja;
+                form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaBaja.Value, this.fechaReinicio.Value);
+                this.openInNewWindow(form);
+            }
+            else
+            {
+                DAO.DAOAeronave.bajaDeAeronave(this.MotivoBajaAeronave.SelectedIndex, 0, this.matricula, this.fechaReinicio.Value);
+                MessageBox.Show("Se dio de baja exitosamente la aeronave:" + this.matricula);
+                this.LauncherBaja.reload();
+            }
             this.Close();
-
-
         }
 
         private void button2_Click(object sender, EventArgs e) // para la fecha de reinicio
@@ -50,10 +63,11 @@ namespace AerolineaFrba.Abm_Aeronave
             Show(new MonthCalendar());
         }
 
-        public void setBajaAeronave(String matricula) {
+        public void setBajaAeronave(String matricula)
+        {
 
             this.matricula = matricula;
-}
+        }
 
         private void MotivoBajaAeronave_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -62,10 +76,16 @@ namespace AerolineaFrba.Abm_Aeronave
                 this.label2.Show();
                 this.fechaReinicio.Show();
             }
-            else {
+            else
+            {
                 this.label2.Hide();
                 this.fechaReinicio.Hide();
             }
+        }
+
+        private void fechaBaja_ValueChanged(object sender, EventArgs e)
+        {
+            this.fechaReinicio.MinDate = this.fechaBaja.Value;
         }
 
     }

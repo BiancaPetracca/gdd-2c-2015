@@ -45,14 +45,15 @@ namespace AerolineaFrba.Abm_Aeronave
             this.scroll_ = new System.Windows.Forms.ScrollableControl();
             this.col_matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fabricante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_butacas_pasillo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_butacas_vent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kgs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_vidautil = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_estado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.col_fechabaja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_fecha_alta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_baja_definitiva = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_baja_mant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fechareinicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
@@ -150,6 +151,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.ServicioFiltro.Name = "ServicioFiltro";
             this.ServicioFiltro.Size = new System.Drawing.Size(219, 21);
             this.ServicioFiltro.TabIndex = 5;
+            this.ServicioFiltro.SelectedIndexChanged += new System.EventHandler(this.ServicioFiltro_SelectedIndexChanged);
             // 
             // limpiar
             // 
@@ -193,17 +195,19 @@ namespace AerolineaFrba.Abm_Aeronave
             this.lista.AllowUserToAddRows = false;
             this.lista.AllowUserToDeleteRows = false;
             this.lista.AllowUserToResizeRows = false;
+            this.lista.ColumnHeadersHeight = 40;
             this.lista.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_matricula,
             this.col_fabricante,
+            this.col_servicio,
             this.col_butacas_pasillo,
             this.col_butacas_vent,
             this.col_kgs,
-            this.col_vidautil,
             this.col_estado,
-            this.col_fechabaja,
-            this.col_fechareinicio,
-            this.col_servicio});
+            this.col_fecha_alta,
+            this.col_baja_definitiva,
+            this.col_baja_mant,
+            this.col_fechareinicio});
             this.lista.Controls.Add(this.scroll_);
             this.lista.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.lista.Location = new System.Drawing.Point(16, 112);
@@ -236,6 +240,15 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_fabricante.ReadOnly = true;
             this.col_fabricante.Width = 102;
             // 
+            // col_servicio
+            // 
+            this.col_servicio.DataPropertyName = "aero_servicio";
+            this.col_servicio.HeaderText = "Servicio";
+            this.col_servicio.Name = "col_servicio";
+            this.col_servicio.ReadOnly = true;
+            this.col_servicio.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.col_servicio.Width = 102;
+            // 
             // col_butacas_pasillo
             // 
             this.col_butacas_pasillo.HeaderText = "Butacas Pasillo";
@@ -257,13 +270,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_kgs.ReadOnly = true;
             this.col_kgs.Width = 102;
             // 
-            // col_vidautil
-            // 
-            this.col_vidautil.HeaderText = "Vida Útil";
-            this.col_vidautil.Name = "col_vidautil";
-            this.col_vidautil.ReadOnly = true;
-            this.col_vidautil.Width = 101;
-            // 
             // col_estado
             // 
             this.col_estado.DataPropertyName = "aero_estado";
@@ -274,29 +280,32 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_estado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.col_estado.Width = 102;
             // 
-            // col_fechabaja
+            // col_fecha_alta
             // 
-            this.col_fechabaja.HeaderText = "Fecha de baja";
-            this.col_fechabaja.Name = "col_fechabaja";
-            this.col_fechabaja.ReadOnly = true;
-            this.col_fechabaja.Width = 102;
+            this.col_fecha_alta.HeaderText = "Fecha de alta";
+            this.col_fecha_alta.Name = "col_fecha_alta";
+            this.col_fecha_alta.ReadOnly = true;
+            // 
+            // col_baja_definitiva
+            // 
+            this.col_baja_definitiva.HeaderText = "Fecha de baja definitiva";
+            this.col_baja_definitiva.Name = "col_baja_definitiva";
+            this.col_baja_definitiva.ReadOnly = true;
+            // 
+            // col_baja_mant
+            // 
+            this.col_baja_mant.HeaderText = "Fecha de baja (fuera de servicio)";
+            this.col_baja_mant.Name = "col_baja_mant";
+            this.col_baja_mant.ReadOnly = true;
+            this.col_baja_mant.Width = 102;
             // 
             // col_fechareinicio
             // 
             this.col_fechareinicio.DataPropertyName = "aero_fecha_reinicio_servicio";
-            this.col_fechareinicio.HeaderText = "Fecha reinicio";
+            this.col_fechareinicio.HeaderText = "Fecha reinicio servicio";
             this.col_fechareinicio.Name = "col_fechareinicio";
             this.col_fechareinicio.ReadOnly = true;
             this.col_fechareinicio.Width = 102;
-            // 
-            // col_servicio
-            // 
-            this.col_servicio.DataPropertyName = "aero_servicio";
-            this.col_servicio.HeaderText = "Servicio";
-            this.col_servicio.Name = "col_servicio";
-            this.col_servicio.ReadOnly = true;
-            this.col_servicio.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.col_servicio.Width = 102;
             // 
             // Aeronave
             // 
@@ -344,14 +353,15 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperCheckBox HabilitadasFiltro;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_matricula;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_fabricante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas_pasillo;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas_vent;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kgs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_vidautil;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_fechabaja;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_fecha_alta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_baja_definitiva;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_baja_mant;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_fechareinicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;
 
     }
 }

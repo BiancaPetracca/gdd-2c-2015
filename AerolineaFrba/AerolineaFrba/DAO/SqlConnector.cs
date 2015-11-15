@@ -64,7 +64,7 @@ namespace AerolineaFrba.DAO
             {
                 int i = 0;
                 // agrega los parametros que encontro junto con los valores que le mandamos al command
-                foreach (String param in param_names)
+                foreach (var val in values)
                 {
                     
                         cmd.Parameters.AddWithValue(param_names[i], values[i] == null ? System.DBNull.Value : values[i]);
@@ -79,11 +79,15 @@ namespace AerolineaFrba.DAO
             
         }
         
-        public static void executeProcedure(String sp, params object[] values) {
+        // ejecuta cualquier procedure, podemos obtener el valor que devuelven si se quiere 
+        public static int executeProcedure(String sp, params object[] values) {
             SqlCommand cmd = generateCommand(sp, values);
             SqlConnection sqlcon = new SqlConnection(infoConexion());
             sqlcon.Open();
+            var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
             cmd.ExecuteNonQuery();
+            return (int) returnParameter.Value;
             
         }
 

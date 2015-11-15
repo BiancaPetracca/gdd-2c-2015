@@ -12,7 +12,6 @@ using System.Windows.Forms;
 namespace AerolineaFrba.DAO
 {
     public static class DAOAeronave
-
     {
 
         public static void listarAeronaves(System.Windows.Forms.DataGridView dg)
@@ -21,35 +20,28 @@ namespace AerolineaFrba.DAO
 
         }
 
-        public static void filtrarAeronaves(DataGridView dg, Boolean estado, String filtro) {
-        SqlConnector.retrieveDT("get_aeronaves", dg, 1, filtro);
-        
-        }
-
-        public static void darDeBajaAeronave(int motivo, String matricula, DateTime fechaReinicio) {
-            if (motivo == 0)
-            {
-                SqlConnector.executeProcedure("bajaLogicaDeAeronavePorFinDeVidaUtil", matricula, motivo);
-     return;
-     }
-            SqlConnector.executeProcedure("bajaLogicaDeAeronavePorMantenimiento", matricula, fechaReinicio, motivo);
-        }
-
-          
-
-        private static Aeronave convertirAeronave(DataRow dataRow,Aeronave aero)
+        public static void filtrarAeronaves(DataGridView dg, Boolean estado, String filtro)
         {
-            
+            SqlConnector.retrieveDT("get_aeronaves", dg, estado, filtro);
+
+        }
+
+
+
+
+        private static Aeronave convertirAeronave(DataRow dataRow, Aeronave aero)
+        {
+
             aero.matricula = dataRow["aero_matricula"].ToString();
             aero.fabricante = dataRow["aero_fabricante"].ToString();
-            aero.cantidadButacas = Convert.ToInt32(dataRow["aero_cantidad_butacas_ventanilla"]) + Convert.ToInt32(dataRow["aero_cantidad_butacas_pasillo"]); 
+            aero.cantidadButacas = Convert.ToInt32(dataRow["aero_cantidad_butacas_ventanilla"]) + Convert.ToInt32(dataRow["aero_cantidad_butacas_pasillo"]);
             aero.kgsEncomiendas = Convert.ToInt32(dataRow["aero_kgs_disponibles_encomiendas"]);
 
             if ((dataRow["aero_fecha_baja_definitiva"] == (System.DBNull.Value)))
             {
                 aero.fechaBaja = null;
             }
-            else 
+            else
             {
                 aero.fechaBaja = Convert.ToDateTime(dataRow["aero_fecha_baja_definitiva"]);
             };
@@ -58,7 +50,7 @@ namespace AerolineaFrba.DAO
             {
                 aero.fechaAlta = null;
             }
-            else 
+            else
             {
                 aero.fechaAlta = Convert.ToDateTime(dataRow["aero_fecha_de_alta"]);
             };
@@ -72,12 +64,36 @@ namespace AerolineaFrba.DAO
             else
             {
                 aero.estadoAeronave = "Deshabilitada";
-            } 
-           // aero.fechaBaja = Convert.ToDateTime(dataRow["aero_baja_fuera_de_servicio"]);
-           // aero.fechaReinicio = Convert.ToDateTime(dataRow["aero_fecha_reinicio_servicio"]);
+            }
+            // aero.fechaBaja = Convert.ToDateTime(dataRow["aero_baja_fuera_de_servicio"]);
+            // aero.fechaReinicio = Convert.ToDateTime(dataRow["aero_fecha_reinicio_servicio"]);
             //aero.servicio = Convert.ToInt32(dataRow["serv_id_servicio"]);
 
             return aero;
+        }
+
+        public static int tieneViajesAsignados(String matricula)
+        {
+            return SqlConnector.executeProcedure("tiene_viajes_asignados", matricula);
+        }
+
+        public static int bajaDeAeronave(int tipoBaja, int reasignarOCancelar, String matricula, DateTime fechaReinicio)
+        {
+            // cancelar 0 reasignar 1
+            // tipoBaja 0 : fin de vida util, 1: mantenimiento
+
+            // si llega a pasar que le doy de baja a una aeronave y no tenia viajes asociados, da lo mismo poner un 1 o un 0 en reasignar o cancelar
+            // de todas formas no va a reasignar ni cancelar nada. 
+
+            if (tipoBaja == 0)
+            {
+                return SqlConnector.executeProcedure("bajaLogicaDeAeronavePorFinDeVidaUtil", matricula, reasignarOCancelar);
+            }
+            return SqlConnector.executeProcedure("bajaLogicaDeAeronavePorMantenimiento", matricula, fechaReinicio, reasignarOCancelar);
+        }
+
+        public static int existeAeronaveQueReemplace(String matricula) {
+            return SqlConnector.executeProcedure("existeAeronaveQueReemplace", matricula);
         }
     }
 }
