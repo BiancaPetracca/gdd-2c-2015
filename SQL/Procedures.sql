@@ -1,5 +1,10 @@
 /*----------STORED PROCEDURES APLICACION----------*/ 
 
+CREATE FUNCTION AWANTA.getDate() RETURNS DATETIME
+AS BEGIN 
+RETURN DATETIMEFROMPARTS(2017, 05, 13, 13, 13, 13, 000)
+END
+GO
 
 /*------LOGIN------*/
 
@@ -176,10 +181,10 @@ AS
 	END
 GO
 
-CREATE PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@origen nvarchar(255), @destino nvarchar(255), @servicio nvarchar(255))
+ALTER PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@origen nvarchar(255), @destino nvarchar(255), @servicio nvarchar(255))
 AS		
 	BEGIN
-		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,SYSDATETIME()))
+		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,AWANTA.getDate()))
 										AND via_ruta_aerea = AWANTA.obtenerCodigoRuta(@origen, @destino, @servicio)
 	END
 GO
@@ -259,33 +264,30 @@ BEGIN
 END
 GO 
 
+
 ALTER PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),
 											@butacasPasillo INT,@butacasVentanilla INT,@kilosDisponibles INT)
 AS
 	BEGIN
-		BEGIN TRY
 		IF NOT EXISTS (SELECT 1 FROM AWANTA.AERONAVE WHERE @matricula = aero_matricula)
 			BEGIN
 			
 				INSERT INTO AWANTA.AERONAVE (aero_matricula,aero_modelo,aero_fabricante,aero_id_servicio, aero_fecha_de_alta,
 				aero_cantidad_butacas_pasillo,aero_cantidad_butacas_ventanilla,aero_kgs_disponibles_encomiendas, aero_estado)
 
-				VALUES (@matricula,@modelo,@fabricante,AWANTA.buscarIdServicio(@servicio), GETDATE(), @butacasPasillo,@butacasVentanilla,@kilosDisponibles, 1)
+				VALUES (@matricula,@modelo,@fabricante,AWANTA.buscarIdServicio(@servicio), AWANTA.getDate(), @butacasPasillo,@butacasVentanilla,@kilosDisponibles, 1)
 				RETURN(0)
 			END
-		END TRY
-		BEGIN CATCH
-			IF @@ERROR = 2627 --CODIGO DE ERROR PARA REPETIDOS EN UN INSERT
-			RETURN(-1) 
-		END CATCH
+			RETURN -1 
 	END
 GO
-
-
-CREATE PROCEDURE AWANTA.bajaDeViajesAsociadosConAeronave(@numero NVARCHAR(255))
+SELECT aero_matricula FROM AWANTA.AERONAVE 
+EXEC AWANTA.altaDeAeronave 'GGG-666', asd, asdd, 'Ejecutivo', 2, 2 , 234
+GO
+ALTER PROCEDURE AWANTA.bajaDeViajesAsociadosConAeronave(@numero NVARCHAR(255))
 AS
 	BEGIN
-		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,SYSDATETIME()))
+		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,AWANTA.getDate()))
 										AND via_avion = @numero
 	END
 GO
@@ -367,7 +369,7 @@ AS
 				DECLARE @fechaLlegada DATETIME
 				DECLARE @matriculaAeronave NVARCHAR(255)
 				DECLARE @fechaDelDia DATETIME
-				SET @fechaDelDia = (SELECT CONVERT(date,SYSDATETIME()))
+				SET @fechaDelDia = (SELECT CONVERT(date,AWANTA.getDate()))
 				DECLARE @codigoViaje NUMERIC
 		IF (@fechaReinicio != NULL)
 			BEGIN
@@ -420,14 +422,14 @@ AS
 			IF (@reemplazo = 1)
 				BEGIN
 					DECLARE @fecha  SMALLDATETIME
-					SET @fecha = GETDATE()
+					SET @fecha = AWANTA.getDate()
 					-- REEMPLAZAR LA AERONAVE CON OTRA SI SE QUERIA REEMPLAZAR 
 					EXEC AWANTA.reemplazoDeAeronaveEnViajes @numero,@fecha
 				END
 			ELSE
 				BEGIN
 					UPDATE AWANTA.AERONAVE
-					SET aero_fecha_baja_definitiva = (SELECT CONVERT(date,SYSDATETIME())), aero_estado = 0
+					SET aero_fecha_baja_definitiva = (SELECT CONVERT(date,AWANTA.getDate())), aero_estado = 0
 					WHERE aero_numero_de_aeronave = @numero
 					-- CANCELAR LOS VIAJES DE ESA AERONAVE SI NO SE QUERIA REEMPLAZAR
 					EXEC AWANTA.bajaDeViajesAsociadosConAeronave @numero
@@ -447,7 +449,7 @@ AS
 		IF (@numero IS NOT NULL)
 			BEGIN
 				UPDATE AWANTA.AERONAVE
-				SET aero_baja_fuera_de_servicio = (SELECT CONVERT(date,SYSDATETIME())),
+				SET aero_baja_fuera_de_servicio = (SELECT CONVERT(date,AWANTA.getDate())),
 				aero_fecha_reinicio_servicio = @fechaReinicio,
 				aero_estado = 0
 				WHERE aero_numero_de_aeronave = @numero
@@ -486,7 +488,7 @@ SELECT @matricula_vieja = aero_matricula FROM AWANTA.AERONAVE WHERE aero_numero_
 SELECT @numero_servicio = serv_id_servicio FROM SERVICIO WHERE serv_nombre = @servicio
 ALTER TABLE AWANTA.VIAJE NOCHECK CONSTRAINT ALL
 UPDATE AWANTA.AERONAVE 
-SET aero_matricula = @matricula, aero_modelo = @modelo, aero_fabricante = @fabricante, id_servicio = @numero_servicio,
+SET aero_matricula = @matricula, aero_modelo = @modelo, aero_fabricante = @fabricante, aero_id_servicio = @numero_servicio,
 aero_kgs_disponibles_encomiendas = @cantidadKgsEncomiendas, aero_cantidad_butacas_ventanilla = @cantidadButacasVentanilla, 
 aero_cantidad_butacas_pasillo = @cantidadButacasPasillo, aero_estado = @estado
 WHERE aero_numero_de_aeronave = @numero
@@ -630,11 +632,11 @@ GO
 /*------MILLAS VIAJERO------*/
 
 
-CREATE PROCEDURE consultar_millas (@dni nvarchar(255))
+ALTER PROCEDURE consultar_millas (@dni nvarchar(255))
 AS
 BEGIN
 	SELECT total_millas AS 'Millas Acumuladas' FROM AWANTA.MILLAS_ACUMULADAS, AWANTA.CLIENTE
-	WHERE datediff(DAY, getdate(), fecha_vencimiento) < 365 AND
+	WHERE datediff(DAY, AWANTA.getDate(), fecha_vencimiento) < 365 AND
 	cli_codigo = cliente_id AND
 	cli_nro_doc = @dni
 END
@@ -642,7 +644,7 @@ GO
 
 SELECT * FROM AWANTA.CLIENTE
 
-INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, GETDATE())
+INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, AWANTA.getDate())
 
 GO
 

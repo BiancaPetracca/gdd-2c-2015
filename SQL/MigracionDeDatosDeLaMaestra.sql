@@ -583,3 +583,7 @@ FROM gd_esquema.Maestra JOIN AWANTA.VIAJE ON
 via_fecha_salida = FechaSalida AND via_fecha_llegada = FechaLLegada JOIN AWANTA.COMPRA ON
 via_codigo = compra_viaje
 WHERE Butaca_Nro = 0
+
+
+-- en la migracion dejamos la fecha original del sistema, porque asi los aviones fueron dados de alta antes de comprar
+-- en despues al usar la app siempre es la fecha del 2017, sino no seria consistente con las fechas de llegada.

@@ -74,7 +74,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.fechaReinicio.AccessibleDescription = "Elegir una fecha de reinicio";
             this.fechaReinicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.fechaReinicio.Location = new System.Drawing.Point(177, 113);
-            this.fechaReinicio.MinDate = DateTime.Today;
+            this.fechaReinicio.MinDate = Generics.Config.DateToday;
             this.fechaReinicio.Name = "fechaReinicio";
             this.fechaReinicio.Size = new System.Drawing.Size(102, 20);
             this.fechaReinicio.TabIndex = 6;
@@ -85,7 +85,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.fechaBaja.AccessibleDescription = "Elegir una fecha de baja";
             this.fechaBaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.fechaBaja.Location = new System.Drawing.Point(34, 113);
-            this.fechaBaja.MinDate = new System.DateTime(2015, 11, 14, 0, 0, 0, 0);
+            this.fechaBaja.MinDate = Generics.Config.DateToday;
             this.fechaBaja.Name = "fechaBaja";
             this.fechaBaja.Size = new System.Drawing.Size(102, 20);
             this.fechaBaja.TabIndex = 5;
