@@ -16,7 +16,12 @@ namespace AerolineaFrba.Compra
         {
             InitializeComponent();
         }
+        private int terminal = 0;
+        public Efectuar_Compra(int terminal) {
+            InitializeComponent();
+            this.terminal = terminal;
 
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (MedioPago.ValueMember == "Efectivo")
@@ -43,6 +48,14 @@ namespace AerolineaFrba.Compra
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Efectuar_Compra_Load(object sender, EventArgs e)
+        {
+            if (this.terminal == 1) {
+                this.MedioPago.Visible = false;
+                this.MedioPago.SelectedItem = "Tarjeta de Credito";
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
+using AerolineaFrba.DAO;
 
 namespace AerolineaFrba.Abm_Ruta
 {
@@ -25,7 +26,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            this.openInNewWindow(new Alta());
+            this.openInNewWindow(new Alta(this));
         }
 
 
@@ -44,20 +45,41 @@ namespace AerolineaFrba.Abm_Ruta
 
         }
 
-        // abre los forms correspondientes
-        private void lista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+
+        private void Ruta_Load(object sender, EventArgs e)
         {
-            if (e.ColumnIndex == this.lista.Columns["Modificar"].Index)
-            {
-                this.openIntoParent(new Modificacion(), this.MdiParent);
-            }
+            DAO.DAORuta.getRutas(this.lista);
+        }
 
-            if (e.ColumnIndex == this.lista.Columns["Eliminar"].Index)
-            {
-                // LLAMAR AL PROCEDURE QUE LA BORRE 
-                this.lista.Rows.RemoveAt(e.RowIndex);
-            }
+        public void reload() {
+            DAO.DAORuta.getRutas(this.lista);
+        }
 
+        private void darDeBaja_Click(object sender, EventArgs e)
+        {
+            DAO.DAORuta.darDeBaja(this.getCurrentRuta());
+        }
+
+        private void modificar_Click(object sender, EventArgs e)
+        {
+            Model.Ruta ruta = this.getCurrentRuta();
+            ruta.Codigo = Convert.ToUInt16(Extensions.cellValue(this.lista, "col_codigo"));
+            
+            // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
+            this.openInNewWindow(new Modificacion(ruta, this));
+
+        }
+
+        private Model.Ruta getCurrentRuta()
+        {
+            return new Model.Ruta((String)Extensions.cellValue(this.lista, "col_origen"),
+             (String)Extensions.cellValue(this.lista, "col_destino"),
+             (Boolean)Extensions.cellValue(this.lista, "col_habilitada"),
+             (String)Extensions.cellValue(this.lista, "col_servicio"),
+             Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_kg")),
+             Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_pasaje")));
+            
 
         }
     }

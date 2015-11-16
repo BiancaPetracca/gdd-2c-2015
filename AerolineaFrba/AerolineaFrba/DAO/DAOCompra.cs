@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using AerolineaFrba.Model;
 
 namespace AerolineaFrba.DAO
 {

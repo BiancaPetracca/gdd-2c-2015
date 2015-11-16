@@ -60,7 +60,7 @@ namespace AerolineaFrba.Generics
         }
 
         // validar que los controles no esten vacios
-        public static Boolean validar(this Form aForm, Control.ControlCollection controls)
+        private static Boolean validar(this Form aForm, Control.ControlCollection controls)
         {
 
             bool val = false;
@@ -92,7 +92,7 @@ namespace AerolineaFrba.Generics
 
 
         // metodo para hacer validaciones de dominio, pasandole funciones(criterios) y un mensaje que debe emitir si no se cumple
-        public static Boolean domainValidations(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
+        private static Boolean domainValidations(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
         {
             var msg = "";
             Boolean isvalid = true;

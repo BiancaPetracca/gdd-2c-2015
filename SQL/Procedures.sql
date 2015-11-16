@@ -6,18 +6,31 @@ RETURN DATETIMEFROMPARTS(2017, 05, 13, 13, 13, 13, 000)
 END
 GO
 
+ exec sp_addmessage @msgnum = 50013, @severity = 1, @msgtext = 'El usuario ya esta repetido', @lang = us_english
+ GO
+
 /*------LOGIN------*/
 
-ALTER PROCEDURE AWANTA.registrar_usuario(@usuario NVARCHAR(255), @password NVARCHAR(255))
+ALTER PROCEDURE AWANTA.registrar_usuario(@usuario NVARCHAR(255), @password NVARCHAR(255), @rol BIT)
 AS
 BEGIN
-INSERT INTO AWANTA.USUARIO(usu_username, usu_password, usu_estado, usu_fecha_alta, usu_intentos_login, usu_rol) VALUES(@usuario, HASHBYTES('SHA2_256', @password), 1, AWANTA.getDate(), 0, null)
+INSERT INTO AWANTA.USUARIO(usu_username, usu_estado, usu_fecha_alta, usu_intentos_login, usu_rol, usu_password) VALUES(@usuario, 0, AWANTA.getDate(), 0, @rol, HASHBYTES('SHA2_256', @password))
 END
 GO
 
-EXEC AWANTA.registrar_usuario 'user666', 'w23e'
-EXEC AWANTA.registrar_usuario 'admin666', 'w23e'
-SELECT * FROM AWANTA.USUARIO
+EXEC AWANTA.registrar_usuario 'admin667', 'w23e', 1
+EXEC AWANTA.registrar_usuario 'admin666', 'w23e', 1
+go
+alter TRIGGER AWANTA.username_repetido ON AWANTA.USUARIO INSTEAD OF INSERT
+AS BEGIN TRANSACTION
+IF (EXISTS(SELECT 1 FROM AWANTA.USUARIO WHERE usu_username = (SELECT usu_username FROM inserted)))
+BEGIN 
+ROLLBACK
+RAISERROR(50013, 1, 1, 'Usuario repetido')
+RETURN
+END 
+INSERT INTO AWANTA.USUARIO SELECT usu_username, usu_estado, usu_fecha_alta, usu_intentos_login, usu_rol, usu_password FROM INSERTED 
+COMMIT
 GO
 
 CREATE PROCEDURE [AWANTA].set_intentos_login(@nombre_usuario NVARCHAR(255),@intentos INT) 
@@ -72,23 +85,11 @@ BEGIN RETURN 1 END RETURN 2
 END
 GO
 
-UPDATE AWANTA.USUARIO SET usu_rol = 2 WHERE usu_username = 'user666'
-GO
-EXEC AWANTA.get_rol_usuario 'admin666'
-GO
-CREATE PROCEDURE AWANTA.inhabilitar_usuario(@nombre_usuario NVARCHAR(255))
+ALTER PROCEDURE AWANTA.inhabilitar_usuario(@nombre_usuario NVARCHAR(255))
 AS BEGIN
-UPDATE USUARIO SET usu_estado = 0 WHERE usu_username = @nombre_usuario
+UPDATE USUARIO SET usu_estado = -1 WHERE usu_username = @nombre_usuario
 END
 GO
-
-DECLARE @a NVARCHAR(255) = 'admin666'
-DECLARE @pp NVARCHAR(255) = 'w23e'
-DECLARE @p VARBINARY(32) = HASHBYTES('SHA2_256', @pp)
-DECLARE @pw VARBINARY(32) = CONVERT(VARBINARY(32),@p,2)
- EXEC AWANTA.validar_usuario @a, @p, 'Administrativo'
-GO
-
 
 CREATE PROCEDURE AWANTA.get_funcionalidad(@username NVARCHAR(255), @funcionalidad NVARCHAR(255))
 AS 
@@ -203,53 +204,72 @@ END
 GO
 
 /*------ABM DE RUTA AEREA------*/
-
-CREATE PROCEDURE AWANTA.get_all_rutas(@codigo numeric(18), @destino nvarchar(255), @origen nvarchar(255), @precio_base money, @precio_base_kg money, @servicio nvarchar(255))
+ALTER PROCEDURE AWANTA.get_all_rutas(@origen nvarchar(255) = null,  @destino nvarchar(255) = null, @servicio nvarchar(255) = null,
+ @habilitada int = 1,  @precio_base_kg money = null, @precio_base_pasaje money = null)
 AS 
 BEGIN
-	SELECT rut_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), rut_precio_base, rut_precio_base_x_kg, serv_nombre
-	FROM AWANTA.RUTA_AEREA, AWANTA.SERVICIO
-	WHERE (rut_habilitada = 1) AND
-	(@codigo IS NULL OR rut_codigo=@codigo) AND
+	SELECT rut_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), serv_nombre, rut_habilitada, rut_precio_base_x_kg, rut_precio_base
+	FROM AWANTA.RUTA_AEREA
+	JOIN AWANTA.SERVICIO ON serv_id_servicio = rut_tipo_servicio
+	WHERE (rut_habilitada = @habilitada) AND
 	(@destino IS NULL OR rut_destino=AWANTA.obtenerIdCiudad(@destino)) AND
 	(@origen IS NULL OR rut_origen=AWANTA.obtenerIdCiudad(@origen)) AND
-	(@precio_base IS NULL OR rut_precio_base=@precio_base) AND
+	(@precio_base_pasaje IS NULL OR rut_precio_base=@precio_base_pasaje) AND
 	(@precio_base_kg IS NULL OR rut_precio_base_x_kg=@precio_base_kg) AND
 	(@servicio IS NULL OR rut_tipo_servicio=AWANTA.buscarIdServicio(@servicio))
 END
 GO
 
-CREATE PROCEDURE AWANTA.altaRutaAerea(@ciudadOrigen NVARCHAR(255),@ciudadDestino NVARCHAR(255),@tipoServicio NVARCHAR(255), 
-											@rutaPrecioBasePasaje MONEY,@rutaPrecioBaseKilo MONEY)
+
+CREATE PROCEDURE AWANTA.modificar_ruta(@codigo NUMERIC, @origen nvarchar(255),  @destino nvarchar(255), @servicio nvarchar(255),
+ @habilitada bit,  @precio_base_kg money, @precio_base_pasaje money) AS
+ BEGIN
+ UPDATE AWANTA.RUTA_AEREA SET rut_origen = @origen, rut_destino = @destino, rut_tipo_servicio = AWANTA.buscarIdServicio(@servicio),
+  rut_habilitada = @habilitada, rut_precio_base_x_kg = @precio_base_kg, rut_precio_base = @precio_base_pasaje
+ WHERE @codigo = rut_codigo 
+ END
+ GO
+
+
+ALTER PROCEDURE AWANTA.altaRutaAerea(@ciudadOrigen NVARCHAR(255), @ciudadDestino NVARCHAR(255), @tipoServicio NVARCHAR(255), @rutaPrecioBasePasaje MONEY, @rutaPrecioBaseKilo MONEY, @habilitada bit)
 AS
 	BEGIN
-		INSERT INTO AWANTA.RUTA_AEREA(rut_origen,rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg)
+		INSERT INTO AWANTA.RUTA_AEREA(rut_origen,rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg, rut_habilitada)
 		VALUES (AWANTA.obtenerIdCiudad(@ciudadOrigen),AWANTA.obtenerIdCiudad(@ciudadDestino),AWANTA.buscarIdServicio(@tipoServicio),
-					@rutaPrecioBasePasaje,@rutaPrecioBaseKilo)
+					@rutaPrecioBasePasaje,@rutaPrecioBaseKilo, @habilitada)
+					RETURN 1
 	END
 GO
+SELECT * FROM AWANTA.RUTA_AEREA where rut_precio_base = 666
+EXEC AWANTA.altaRutaAerea 'Buenos Aires', 'Bruselas', 'Ejecutivo', 666, 0, 1
 
-ALTER PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@origen nvarchar(255), @destino nvarchar(255), @servicio nvarchar(255))
+ALTER PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@ruta NUMERIC(18))
 AS		
 	BEGIN
-		DELETE FROM AWANTA.VIAJE WHERE via_fecha_salida > (SELECT CONVERT(date,AWANTA.getDate()))
-										AND via_ruta_aerea = AWANTA.obtenerCodigoRuta(@origen, @destino, @servicio)
+	UPDATE AWANTA.VIAJE SET via_cancelado = 0 WHERE via_ruta_aerea = @ruta -- en un trigger mejor me parece
+	DELETE FROM AWANTA.COMPRA WHERE EXISTS (SELECT 1 FROM AWANTA.VIAJE WHERE compra_viaje = via_codigo
+		 AND via_fecha_salida > (SELECT CONVERT(date,AWANTA.getDate()))
+										AND via_ruta_aerea = @ruta)
 	END
 GO
 
-CREATE PROCEDURE AWANTA.bajaRutaAerea(@ciudadOrigen NVARCHAR(255),@ciudadDestino NVARCHAR(255),@tipoServicio NVARCHAR(255))
+CREATE TRIGGER AWANTA.tr_baja_pasajes ON AWANTA.COMPRA INSTEAD OF DELETE 
+AS 
+BEGIN 
+	DELETE FROM AWANTA.PASAJE WHERE EXISTS (SELECT 1 FROM deleted WHERE compra_id = pas_compra)
+	DELETE FROM AWANTA.ENCOMIENDA WHERE EXISTS (SELECT 1 FROM deleted WHERE compra_id = enc_compra)
+	DELETE FROM AWANTA.COMPRA WHERE EXISTS (SELECT 1 FROM deleted d WHERE compra_id = d.compra_id)
+END
+GO
+
+
+ALTER PROCEDURE AWANTA.bajaRutaAerea(@codigo NUMERIC(18))
 AS
 	BEGIN
-		DECLARE @pkDeLaRuta NUMERIC(18)
-		SET @pkDeLaRuta = (SELECT rut_codigo FROM AWANTA.RUTA_AEREA 
-		WHERE rut_origen = @ciudadOrigen 
-		AND rut_destino = @ciudadDestino 
-		AND rut_tipo_servicio = (SELECT serv_id_servicio FROM AWANTA.SERVICIO WHERE serv_nombre = @tipoServicio))
-		
 		UPDATE AWANTA.RUTA_AEREA
 		SET rut_habilitada = 0
-		WHERE rut_codigo = @pkDeLaRuta
-		EXEC AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea @pkDeLaRuta
+		WHERE rut_codigo = @codigo
+		EXEC AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea @codigo
 	END
 GO
 

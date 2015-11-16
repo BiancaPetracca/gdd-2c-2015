@@ -77,7 +77,6 @@
             this.Usuario.Name = "Usuario";
             this.Usuario.Size = new System.Drawing.Size(202, 20);
             this.Usuario.TabIndex = 0;
-           
             // 
             // label_Contrasenia
             // 
@@ -111,11 +110,11 @@
             // 
             this.Bienvenida.AutoSize = true;
             this.Bienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.Bienvenida.Location = new System.Drawing.Point(47, 44);
+            this.Bienvenida.Location = new System.Drawing.Point(68, 38);
             this.Bienvenida.Name = "Bienvenida";
-            this.Bienvenida.Size = new System.Drawing.Size(336, 25);
+            this.Bienvenida.Size = new System.Drawing.Size(125, 25);
             this.Bienvenida.TabIndex = 14;
-            this.Bienvenida.Text = "¡Bienvenido al sistema de aerolíneas!";
+            this.Bienvenida.Text = "Iniciar sesión";
             // 
             // Rol
             // 

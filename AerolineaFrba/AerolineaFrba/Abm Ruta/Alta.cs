@@ -19,6 +19,14 @@ namespace AerolineaFrba.Abm_Ruta
             InitializeComponent();
         }
 
+        private Abm_Ruta.Ruta launcher;
+
+        public Alta(Abm_Ruta.Ruta launcher)
+        {
+            InitializeComponent();
+            this.launcher = launcher;
+        }
+
         private void Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -26,8 +34,31 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            this.validateNotNullForAll(this.Controls); 
-            
+            if (!this.validateNotNullForAll(this.datosRuta.Controls)) { return; }
+            if (!this.validateDomain(Validations.criteriumMessage(() => this.Origen.value != this.Destino.value, "No pueden ser iguales las ciudades"),
+                 Validations.criteriumMessage(() => this.PrecioKG.valid() || this.PrecioPasaje.valid(), "No puede no tener precio para encomiendas ni para pasaje"))) { return; }
+
+            Model.Ruta ruta = getRutaIngresada();
+            if (DAO.DAORuta.darDeAlta(ruta))
+            {
+                MessageBox.Show("Ruta creada con éxito.");
+                Extensions.cleanAll(this.Controls);
+                launcher.reload();
+                return;
+            }
+
+        }
+
+        private void Alta_Load(object sender, EventArgs e)
+        {
+            this.Origen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
+            this.Destino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
+        }
+
+        private Model.Ruta getRutaIngresada()
+        {
+            return new Model.Ruta(this.Origen.value, this.Destino.value, true, this.servicio.value, this.PrecioKG.value, this.PrecioPasaje.value);
+
         }
 
     }

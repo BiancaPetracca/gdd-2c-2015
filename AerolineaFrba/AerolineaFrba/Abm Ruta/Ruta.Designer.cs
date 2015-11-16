@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.darDeBaja = new AerolineaFrba.SuperControls.SuperButton();
+            this.modificar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cerrar = new System.Windows.Forms.Button();
             this.filtros = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,14 +43,13 @@
             this.filtro1 = new System.Windows.Forms.Label();
             this.Agregar = new System.Windows.Forms.Button();
             this.lista = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_habilitada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pb_kg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pb_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
@@ -56,20 +57,42 @@
             // 
             // groupBox
             // 
+            this.groupBox.Controls.Add(this.darDeBaja);
+            this.groupBox.Controls.Add(this.modificar);
             this.groupBox.Controls.Add(this.Cerrar);
             this.groupBox.Controls.Add(this.filtros);
             this.groupBox.Controls.Add(this.Agregar);
             this.groupBox.Controls.Add(this.lista);
             this.groupBox.Location = new System.Drawing.Point(12, 12);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(979, 428);
+            this.groupBox.Size = new System.Drawing.Size(1110, 473);
             this.groupBox.TabIndex = 5;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Rutas";
             // 
+            // darDeBaja
+            // 
+            this.darDeBaja.Location = new System.Drawing.Point(854, 435);
+            this.darDeBaja.Name = "darDeBaja";
+            this.darDeBaja.Size = new System.Drawing.Size(75, 23);
+            this.darDeBaja.TabIndex = 8;
+            this.darDeBaja.Text = "Dar de baja";
+            this.darDeBaja.UseVisualStyleBackColor = true;
+            this.darDeBaja.Click += new System.EventHandler(this.darDeBaja_Click);
+            // 
+            // modificar
+            // 
+            this.modificar.Location = new System.Drawing.Point(773, 435);
+            this.modificar.Name = "modificar";
+            this.modificar.Size = new System.Drawing.Size(75, 23);
+            this.modificar.TabIndex = 7;
+            this.modificar.Text = "Modificar";
+            this.modificar.UseVisualStyleBackColor = true;
+            this.modificar.Click += new System.EventHandler(this.modificar_Click);
+            // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(885, 390);
+            this.Cerrar.Location = new System.Drawing.Point(1023, 435);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
             this.Cerrar.TabIndex = 6;
@@ -88,7 +111,7 @@
             this.filtros.Controls.Add(this.filtro1);
             this.filtros.Location = new System.Drawing.Point(16, 19);
             this.filtros.Name = "filtros";
-            this.filtros.Size = new System.Drawing.Size(944, 99);
+            this.filtros.Size = new System.Drawing.Size(1082, 100);
             this.filtros.TabIndex = 5;
             this.filtros.TabStop = false;
             this.filtros.Text = "Filtros";
@@ -158,7 +181,7 @@
             // 
             // Agregar
             // 
-            this.Agregar.Location = new System.Drawing.Point(797, 390);
+            this.Agregar.Location = new System.Drawing.Point(935, 435);
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
             this.Agregar.TabIndex = 2;
@@ -172,103 +195,71 @@
             this.lista.AllowUserToDeleteRows = false;
             this.lista.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.lista.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Modificar,
-            this.Eliminar});
+            this.col_codigo,
+            this.col_origen,
+            this.col_destino,
+            this.col_servicio,
+            this.col_habilitada,
+            this.col_pb_kg,
+            this.col_pb_pasaje});
             this.lista.Location = new System.Drawing.Point(16, 137);
             this.lista.Name = "lista";
-            this.lista.Size = new System.Drawing.Size(944, 235);
+            this.lista.ReadOnly = true;
+            this.lista.Size = new System.Drawing.Size(1082, 279);
             this.lista.TabIndex = 5;
-            this.lista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lista_CellContentClick);
             // 
-            // Column1
+            // col_codigo
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.Frozen = true;
-            this.Column1.HeaderText = "Código";
-            this.Column1.Name = "Column1";
-            this.Column1.ToolTipText = "Codigo";
-            this.Column1.Width = 140;
+            this.col_codigo.HeaderText = "Codigo";
+            this.col_codigo.Name = "col_codigo";
+            this.col_codigo.ReadOnly = true;
             // 
-            // Column2
+            // col_origen
             // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.Frozen = true;
-            this.Column2.HeaderText = "Servicio";
-            this.Column2.Items.AddRange(new object[] {
-            "Turista",
-            "Ejecutivo",
-            "Primera Clase"});
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.ToolTipText = "Servicio";
-            this.Column2.Width = 141;
+            this.col_origen.HeaderText = "Origen";
+            this.col_origen.Name = "col_origen";
+            this.col_origen.ReadOnly = true;
             // 
-            // Column3
+            // col_destino
             // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column3.Frozen = true;
-            this.Column3.HeaderText = "Origen";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 140;
+            this.col_destino.HeaderText = "Destino";
+            this.col_destino.Name = "col_destino";
+            this.col_destino.ReadOnly = true;
             // 
-            // Column4
+            // col_servicio
             // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column4.Frozen = true;
-            this.Column4.HeaderText = "Destino";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 140;
+            this.col_servicio.HeaderText = "Servicio";
+            this.col_servicio.Name = "col_servicio";
+            this.col_servicio.ReadOnly = true;
             // 
-            // Column5
+            // col_habilitada
             // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column5.Frozen = true;
-            this.Column5.HeaderText = "Precio Base KG";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
+            this.col_habilitada.HeaderText = "Habilitada";
+            this.col_habilitada.Name = "col_habilitada";
+            this.col_habilitada.ReadOnly = true;
             // 
-            // Column6
+            // col_pb_kg
             // 
-            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column6.Frozen = true;
-            this.Column6.HeaderText = "Precio Base Pasaje";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 120;
+            this.col_pb_kg.HeaderText = "Precio Base KG";
+            this.col_pb_kg.Name = "col_pb_kg";
+            this.col_pb_kg.ReadOnly = true;
             // 
-            // Modificar
+            // col_pb_pasaje
             // 
-            this.Modificar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Modificar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Modificar.HeaderText = "Modificar";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.ReadOnly = true;
-            this.Modificar.Text = "Modificar";
-            this.Modificar.ToolTipText = "Modificar";
-            this.Modificar.UseColumnTextForButtonValue = true;
-            // 
-            // Eliminar
-            // 
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Name = "Eliminar";
+            this.col_pb_pasaje.HeaderText = "Precio Base Pasaje";
+            this.col_pb_pasaje.Name = "col_pb_pasaje";
+            this.col_pb_pasaje.ReadOnly = true;
             // 
             // Ruta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1003, 453);
+            this.ClientSize = new System.Drawing.Size(1134, 497);
             this.Controls.Add(this.groupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Ruta";
             this.Text = "Ruta";
+            this.Load += new System.EventHandler(this.Ruta_Load);
             this.groupBox.ResumeLayout(false);
             this.filtros.ResumeLayout(false);
             this.filtros.PerformLayout();
@@ -292,13 +283,14 @@
         private System.Windows.Forms.Button Agregar;
         private System.Windows.Forms.DataGridView lista;
         private System.Windows.Forms.Button Cerrar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Eliminar;
+        private SuperControls.SuperButton darDeBaja;
+        private SuperControls.SuperButton modificar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_codigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_origen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_destino;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_habilitada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pb_kg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pb_pasaje;
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AerolineaFrba.DAO
+namespace AerolineaFrba.Model
 {
     public class Ciudad{
         public String nombre_ciudad { get; set; }

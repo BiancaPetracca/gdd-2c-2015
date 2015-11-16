@@ -137,6 +137,12 @@
     </Compile>
     <Compile Include="Generics\Config.cs" />
     <Compile Include="Generics\Crypto.cs" />
+    <Compile Include="Login\Ingreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\Ingreso.Designer.cs">
+      <DependentUpon>Ingreso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Aeronave.cs" />
     <Compile Include="Model\Ciudad.cs" />
     <Compile Include="Model\Compra.cs" />
@@ -148,6 +154,7 @@
     <Compile Include="DAO\SqlConnector.cs" />
     <Compile Include="Generics\Extensions.cs" />
     <Compile Include="Generics\Validations.cs" />
+    <Compile Include="Model\Ruta.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="SuperControls\ISuperControls.cs" />
     <Compile Include="SuperControls\SuperButton.cs">
@@ -358,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\Ruta.resx">
       <DependentUpon>Ruta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\Ingreso.resx">
+      <DependentUpon>Ingreso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\RegistroUsuario.resx">
       <DependentUpon>RegistroUsuario.cs</DependentUpon>

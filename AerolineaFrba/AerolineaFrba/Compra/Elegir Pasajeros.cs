@@ -13,16 +13,24 @@ namespace AerolineaFrba.Compra
 {
     public partial class Elegir_Pasajeros : Form
     {
+        private int terminal = 0;
         public Elegir_Pasajeros()
         {
             InitializeComponent();
         }
+
+        public Elegir_Pasajeros(int terminal)
+        {
+            InitializeComponent();
+            this.terminal = terminal;
+        }
+        
         // si hay celdas vacias indica que la seleccione
         private void Siguiente_Click(object sender, EventArgs e)
         {
             if (!this.DatosPasajes.anyEmptyCells("NumeroButaca", "Seleccione una butaca"))
             {
-                this.openIntoParent(new Efectuar_Compra(), this.MdiParent);
+                this.openIntoParent(new Efectuar_Compra(this.terminal), this.MdiParent);
             }
             
         }
