@@ -8,6 +8,18 @@ GO
 
 /*------LOGIN------*/
 
+ALTER PROCEDURE AWANTA.registrar_usuario(@usuario NVARCHAR(255), @password NVARCHAR(255))
+AS
+BEGIN
+INSERT INTO AWANTA.USUARIO(usu_username, usu_password, usu_estado, usu_fecha_alta, usu_intentos_login, usu_rol) VALUES(@usuario, HASHBYTES('SHA2_256', @password), 1, AWANTA.getDate(), 0, null)
+END
+GO
+
+EXEC AWANTA.registrar_usuario 'user666', 'w23e'
+EXEC AWANTA.registrar_usuario 'admin666', 'w23e'
+SELECT * FROM AWANTA.USUARIO
+GO
+
 CREATE PROCEDURE [AWANTA].set_intentos_login(@nombre_usuario NVARCHAR(255),@intentos INT) 
 AS
 	BEGIN
@@ -31,16 +43,52 @@ AS
 		UPDATE USUARIO SET usu_estado = @estado WHERE usu_username = @nombre_usuario
 	END
 GO
-CREATE PROCEDURE AWANTA.validar_usuario(@username NVARCHAR(255), @password NVARCHAR(255))
+ALTER PROCEDURE AWANTA.validar_usuario(@username NVARCHAR(255), @password VARBINARY(32), @rol NVARCHAR(255))
 AS 
-	BEGIN
-		IF EXISTS ( SELECT 1 FROM AWANTA.USUARIO WHERE usu_username = @username AND usu_password = @password)
+BEGIN
+		IF EXISTS (SELECT 1 FROM AWANTA.USUARIO 
+		WHERE usu_username = @username AND @password = usu_password)
 			BEGIN
 				RETURN 1
 			END
-		RETURN 0
+		RETURN -1
 	END
 GO
+
+ALTER PROCEDURE AWANTA.get_estado_usuario(@nombre_usuario NVARCHAR(255))
+AS BEGIN
+IF EXISTS (SELECT 1 FROM AWANTA.USUARIO WHERE usu_username = @nombre_usuario AND usu_estado = 1)
+BEGIN RETURN 1 END RETURN -1
+END
+GO
+
+
+SELECT * FROM AWANTA.USUARIO
+
+ALTER PROCEDURE AWANTA.get_rol_usuario(@nombre_usuario NVARCHAR(255)) 
+AS BEGIN
+IF (EXISTS (SELECT 1 FROM AWANTA.USUARIO WHERE @nombre_usuario = usu_username AND usu_rol = 1))
+BEGIN RETURN 1 END RETURN 2 
+END
+GO
+
+UPDATE AWANTA.USUARIO SET usu_rol = 2 WHERE usu_username = 'user666'
+GO
+EXEC AWANTA.get_rol_usuario 'admin666'
+GO
+CREATE PROCEDURE AWANTA.inhabilitar_usuario(@nombre_usuario NVARCHAR(255))
+AS BEGIN
+UPDATE USUARIO SET usu_estado = 0 WHERE usu_username = @nombre_usuario
+END
+GO
+
+DECLARE @a NVARCHAR(255) = 'admin666'
+DECLARE @pp NVARCHAR(255) = 'w23e'
+DECLARE @p VARBINARY(32) = HASHBYTES('SHA2_256', @pp)
+DECLARE @pw VARBINARY(32) = CONVERT(VARBINARY(32),@p,2)
+ EXEC AWANTA.validar_usuario @a, @p, 'Administrativo'
+GO
+
 
 CREATE PROCEDURE AWANTA.get_funcionalidad(@username NVARCHAR(255), @funcionalidad NVARCHAR(255))
 AS 
@@ -497,6 +545,8 @@ ALTER TABLE AWANTA.VIAJE CHECK CONSTRAINT ALL
 END
 GO 
 
+EXEC AWANTA.validar_usuario 'admin666', 'w23e', 'Administrativo'
+ GO
 /*------ALTA VIAJE------*/
 
 ALTER PROCEDURE AWANTA.get_rutas(@aeronave NVARCHAR(255))
