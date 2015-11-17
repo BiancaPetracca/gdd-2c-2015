@@ -31,15 +31,16 @@
             this.Estado = new AerolineaFrba.SuperControls.SuperCheckBox();
             this.Nombre = new AerolineaFrba.SuperControls.SuperTextBox();
             this.FuncionalidadesRol = new System.Windows.Forms.DataGridView();
-            this.Funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.rol_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
             this.FuncionalidadSeleccion = new AerolineaFrba.SuperControls.SuperComboBox();
             this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
+            this.eliminar = new AerolineaFrba.SuperControls.SuperButton();
+            this.cambiarNombre = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.FuncionalidadesRol)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,12 +53,13 @@
             this.Estado.TabIndex = 0;
             this.Estado.Text = "Habilitado";
             this.Estado.UseVisualStyleBackColor = true;
+            this.Estado.CheckedChanged += new System.EventHandler(this.Estado_CheckedChanged);
             // 
             // Nombre
             // 
             this.Nombre.Location = new System.Drawing.Point(132, 33);
             this.Nombre.Name = "Nombre";
-            this.Nombre.Size = new System.Drawing.Size(100, 20);
+            this.Nombre.Size = new System.Drawing.Size(191, 20);
             this.Nombre.TabIndex = 1;
             // 
             // FuncionalidadesRol
@@ -67,23 +69,22 @@
             this.FuncionalidadesRol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FuncionalidadesRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FuncionalidadesRol.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Funcionalidades,
-            this.Eliminar});
+            this.rol_id,
+            this.col_funcionalidades});
             this.FuncionalidadesRol.Location = new System.Drawing.Point(50, 158);
             this.FuncionalidadesRol.Name = "FuncionalidadesRol";
-            this.FuncionalidadesRol.Size = new System.Drawing.Size(390, 276);
+            this.FuncionalidadesRol.Size = new System.Drawing.Size(390, 251);
             this.FuncionalidadesRol.TabIndex = 2;
-            this.FuncionalidadesRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FuncionalidadesRol_CellContentClick);
             // 
-            // Funcionalidades
+            // rol_id
             // 
-            this.Funcionalidades.HeaderText = "Funcionalidades";
-            this.Funcionalidades.Name = "Funcionalidades";
+            this.rol_id.HeaderText = "ID";
+            this.rol_id.Name = "rol_id";
             // 
-            // Eliminar
+            // col_funcionalidades
             // 
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Name = "Eliminar";
+            this.col_funcionalidades.HeaderText = "Funcionalidades";
+            this.col_funcionalidades.Name = "col_funcionalidades";
             // 
             // superLabel1
             // 
@@ -103,18 +104,9 @@
             this.superLabel2.TabIndex = 4;
             this.superLabel2.Text = "Estado";
             // 
-            // Aceptar
-            // 
-            this.Aceptar.Location = new System.Drawing.Point(273, 452);
-            this.Aceptar.Name = "Aceptar";
-            this.Aceptar.Size = new System.Drawing.Size(75, 23);
-            this.Aceptar.TabIndex = 6;
-            this.Aceptar.Text = "Aceptar";
-            this.Aceptar.UseVisualStyleBackColor = true;
-            // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(365, 452);
+            this.Cerrar.Location = new System.Drawing.Point(365, 425);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
             this.Cerrar.TabIndex = 7;
@@ -124,10 +116,11 @@
             // 
             // FuncionalidadSeleccion
             // 
+            this.FuncionalidadSeleccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FuncionalidadSeleccion.FormattingEnabled = true;
             this.FuncionalidadSeleccion.Location = new System.Drawing.Point(132, 106);
             this.FuncionalidadSeleccion.Name = "FuncionalidadSeleccion";
-            this.FuncionalidadSeleccion.Size = new System.Drawing.Size(121, 21);
+            this.FuncionalidadSeleccion.Size = new System.Drawing.Size(191, 21);
             this.FuncionalidadSeleccion.TabIndex = 8;
             // 
             // superLabel3
@@ -141,7 +134,7 @@
             // 
             // Agregar
             // 
-            this.Agregar.Location = new System.Drawing.Point(273, 104);
+            this.Agregar.Location = new System.Drawing.Point(365, 106);
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
             this.Agregar.TabIndex = 10;
@@ -149,16 +142,37 @@
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
+            // eliminar
+            // 
+            this.eliminar.Location = new System.Drawing.Point(274, 425);
+            this.eliminar.Name = "eliminar";
+            this.eliminar.Size = new System.Drawing.Size(75, 23);
+            this.eliminar.TabIndex = 11;
+            this.eliminar.Text = "Eliminar";
+            this.eliminar.UseVisualStyleBackColor = true;
+            this.eliminar.Click += new System.EventHandler(this.eliminar_Click);
+            // 
+            // cambiarNombre
+            // 
+            this.cambiarNombre.Location = new System.Drawing.Point(365, 33);
+            this.cambiarNombre.Name = "cambiarNombre";
+            this.cambiarNombre.Size = new System.Drawing.Size(75, 23);
+            this.cambiarNombre.TabIndex = 12;
+            this.cambiarNombre.Text = "Cambiar";
+            this.cambiarNombre.UseVisualStyleBackColor = true;
+            this.cambiarNombre.Click += new System.EventHandler(this.cambiarNombre_Click);
+            // 
             // Modificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 492);
+            this.ClientSize = new System.Drawing.Size(488, 469);
+            this.Controls.Add(this.cambiarNombre);
+            this.Controls.Add(this.eliminar);
             this.Controls.Add(this.Agregar);
             this.Controls.Add(this.superLabel3);
             this.Controls.Add(this.FuncionalidadSeleccion);
             this.Controls.Add(this.Cerrar);
-            this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.superLabel2);
             this.Controls.Add(this.superLabel1);
             this.Controls.Add(this.FuncionalidadesRol);
@@ -166,6 +180,7 @@
             this.Controls.Add(this.Estado);
             this.Name = "Modificacion";
             this.Text = "Modificacion";
+            this.Load += new System.EventHandler(this.Modificacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.FuncionalidadesRol)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -178,14 +193,15 @@
         private SuperControls.SuperTextBox Nombre;
         private System.Windows.Forms.DataGridView FuncionalidadesRol;
         private SuperControls.SuperLabel superLabel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Funcionalidades;
-        private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
         private SuperControls.SuperLabel superLabel2;
-        private SuperControls.SuperButton Aceptar;
         private SuperControls.SuperButton Cerrar;
         private SuperControls.SuperComboBox FuncionalidadSeleccion;
         private SuperControls.SuperLabel superLabel3;
         private SuperControls.SuperButton Agregar;
+        private SuperControls.SuperButton eliminar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rol_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_funcionalidades;
+        private SuperControls.SuperButton cambiarNombre;
 
     }
 }

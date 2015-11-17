@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
-            this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
+            this.guardar = new AerolineaFrba.SuperControls.SuperButton();
             this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Nombre = new AerolineaFrba.SuperControls.SuperTextBox();
@@ -38,14 +38,16 @@
             this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.FuncionalidadesRol = new System.Windows.Forms.DataGridView();
-            this.Funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quitar = new AerolineaFrba.SuperControls.SuperButton();
+            this.datosRol = new AerolineaFrba.SuperControls.SuperGroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.FuncionalidadesRol)).BeginInit();
+            this.datosRol.SuspendLayout();
             this.SuspendLayout();
             // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(345, 417);
+            this.Cerrar.Location = new System.Drawing.Point(394, 421);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
             this.Cerrar.TabIndex = 15;
@@ -53,20 +55,20 @@
             this.Cerrar.UseVisualStyleBackColor = true;
             this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
-            // Aceptar
+            // guardar
             // 
-            this.Aceptar.Location = new System.Drawing.Point(253, 417);
-            this.Aceptar.Name = "Aceptar";
-            this.Aceptar.Size = new System.Drawing.Size(75, 23);
-            this.Aceptar.TabIndex = 14;
-            this.Aceptar.Text = "Aceptar";
-            this.Aceptar.UseVisualStyleBackColor = true;
-            this.Aceptar.Click += new System.EventHandler(this.Aceptar_Click);
+            this.guardar.Location = new System.Drawing.Point(302, 421);
+            this.guardar.Name = "guardar";
+            this.guardar.Size = new System.Drawing.Size(75, 23);
+            this.guardar.TabIndex = 14;
+            this.guardar.Text = "Guardar";
+            this.guardar.UseVisualStyleBackColor = true;
+            this.guardar.Click += new System.EventHandler(this.Aceptar_Click);
             // 
             // superLabel2
             // 
             this.superLabel2.AutoSize = true;
-            this.superLabel2.Location = new System.Drawing.Point(41, 71);
+            this.superLabel2.Location = new System.Drawing.Point(19, 62);
             this.superLabel2.Name = "superLabel2";
             this.superLabel2.Size = new System.Drawing.Size(40, 13);
             this.superLabel2.TabIndex = 12;
@@ -75,7 +77,7 @@
             // superLabel1
             // 
             this.superLabel1.AutoSize = true;
-            this.superLabel1.Location = new System.Drawing.Point(41, 39);
+            this.superLabel1.Location = new System.Drawing.Point(19, 26);
             this.superLabel1.Name = "superLabel1";
             this.superLabel1.Size = new System.Drawing.Size(44, 13);
             this.superLabel1.TabIndex = 11;
@@ -83,15 +85,17 @@
             // 
             // Nombre
             // 
-            this.Nombre.Location = new System.Drawing.Point(131, 39);
+            this.Nombre.AccessibleDescription = "Nombre del rol";
+            this.Nombre.Location = new System.Drawing.Point(136, 26);
             this.Nombre.Name = "Nombre";
-            this.Nombre.Size = new System.Drawing.Size(100, 20);
+            this.Nombre.Size = new System.Drawing.Size(159, 20);
             this.Nombre.TabIndex = 9;
             // 
             // Estado
             // 
+            this.Estado.AccessibleDescription = "Habilitado o no";
             this.Estado.AutoSize = true;
-            this.Estado.Location = new System.Drawing.Point(131, 71);
+            this.Estado.Location = new System.Drawing.Point(136, 61);
             this.Estado.Name = "Estado";
             this.Estado.Size = new System.Drawing.Size(73, 17);
             this.Estado.TabIndex = 8;
@@ -100,16 +104,17 @@
             // 
             // Funcionalidad
             // 
+            this.Funcionalidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Funcionalidad.FormattingEnabled = true;
-            this.Funcionalidad.Location = new System.Drawing.Point(131, 102);
+            this.Funcionalidad.Location = new System.Drawing.Point(180, 108);
             this.Funcionalidad.Name = "Funcionalidad";
-            this.Funcionalidad.Size = new System.Drawing.Size(121, 21);
+            this.Funcionalidad.Size = new System.Drawing.Size(159, 21);
             this.Funcionalidad.TabIndex = 16;
             // 
             // superLabel3
             // 
             this.superLabel3.AutoSize = true;
-            this.superLabel3.Location = new System.Drawing.Point(41, 105);
+            this.superLabel3.Location = new System.Drawing.Point(63, 108);
             this.superLabel3.Name = "superLabel3";
             this.superLabel3.Size = new System.Drawing.Size(84, 13);
             this.superLabel3.TabIndex = 17;
@@ -117,7 +122,7 @@
             // 
             // Agregar
             // 
-            this.Agregar.Location = new System.Drawing.Point(268, 100);
+            this.Agregar.Location = new System.Drawing.Point(377, 106);
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
             this.Agregar.TabIndex = 18;
@@ -132,42 +137,61 @@
             this.FuncionalidadesRol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FuncionalidadesRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FuncionalidadesRol.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Funcionalidades,
-            this.Eliminar});
-            this.FuncionalidadesRol.Location = new System.Drawing.Point(44, 148);
+            this.col_funcionalidades});
+            this.FuncionalidadesRol.Location = new System.Drawing.Point(44, 169);
             this.FuncionalidadesRol.Name = "FuncionalidadesRol";
-            this.FuncionalidadesRol.Size = new System.Drawing.Size(376, 246);
+            this.FuncionalidadesRol.Size = new System.Drawing.Size(425, 246);
             this.FuncionalidadesRol.TabIndex = 19;
             this.FuncionalidadesRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FuncionalidadesRol_CellContentClick);
             // 
-            // Funcionalidades
+            // col_funcionalidades
             // 
-            this.Funcionalidades.HeaderText = "Funcionalidades";
-            this.Funcionalidades.Name = "Funcionalidades";
+            this.col_funcionalidades.HeaderText = "Funcionalidades";
+            this.col_funcionalidades.Name = "col_funcionalidades";
+            this.col_funcionalidades.ReadOnly = true;
             // 
-            // Eliminar
+            // quitar
             // 
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Name = "Eliminar";
+            this.quitar.Location = new System.Drawing.Point(210, 421);
+            this.quitar.Name = "quitar";
+            this.quitar.Size = new System.Drawing.Size(75, 23);
+            this.quitar.TabIndex = 20;
+            this.quitar.Text = "Quitar";
+            this.quitar.UseVisualStyleBackColor = true;
+            this.quitar.Click += new System.EventHandler(this.quitar_Click);
+            // 
+            // datosRol
+            // 
+            this.datosRol.Controls.Add(this.superLabel1);
+            this.datosRol.Controls.Add(this.Estado);
+            this.datosRol.Controls.Add(this.Nombre);
+            this.datosRol.Controls.Add(this.superLabel2);
+            this.datosRol.Location = new System.Drawing.Point(44, 12);
+            this.datosRol.Name = "datosRol";
+            this.datosRol.Size = new System.Drawing.Size(425, 84);
+            this.datosRol.TabIndex = 21;
+            this.datosRol.TabStop = false;
+            this.datosRol.Text = "Datos del rol";
             // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 457);
-            this.Controls.Add(this.FuncionalidadesRol);
-            this.Controls.Add(this.Agregar);
+            this.ClientSize = new System.Drawing.Size(508, 456);
             this.Controls.Add(this.superLabel3);
+            this.Controls.Add(this.Agregar);
             this.Controls.Add(this.Funcionalidad);
+            this.Controls.Add(this.datosRol);
+            this.Controls.Add(this.quitar);
+            this.Controls.Add(this.FuncionalidadesRol);
             this.Controls.Add(this.Cerrar);
-            this.Controls.Add(this.Aceptar);
-            this.Controls.Add(this.superLabel2);
-            this.Controls.Add(this.superLabel1);
-            this.Controls.Add(this.Nombre);
-            this.Controls.Add(this.Estado);
+            this.Controls.Add(this.guardar);
             this.Name = "Alta";
             this.Text = "Alta";
+            this.Load += new System.EventHandler(this.Alta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.FuncionalidadesRol)).EndInit();
+            this.datosRol.ResumeLayout(false);
+            this.datosRol.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,7 +200,7 @@
         #endregion
 
         private SuperControls.SuperButton Cerrar;
-        private SuperControls.SuperButton Aceptar;
+        private SuperControls.SuperButton guardar;
         private SuperControls.SuperLabel superLabel2;
         private SuperControls.SuperLabel superLabel1;
         private SuperControls.SuperTextBox Nombre;
@@ -185,7 +209,8 @@
         private SuperControls.SuperLabel superLabel3;
         private SuperControls.SuperButton Agregar;
         private System.Windows.Forms.DataGridView FuncionalidadesRol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Funcionalidades;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Eliminar;
+        private SuperControls.SuperButton quitar;
+        private SuperControls.SuperGroupBox datosRol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_funcionalidades;
     }
 }

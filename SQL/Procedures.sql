@@ -110,28 +110,57 @@ END
 END
 GO
 /*------ABM DE ROL------*/
-CREATE PROCEDURE AWANTA.get_funcionalidades(@rol nvarchar(255))
+ALTER PROCEDURE AWANTA.get_funcionalidades(@rol nvarchar(255))
 AS
 BEGIN
-	SELECT fun_descripcion FROM AWANTA.FUNCIONALIDAD, AWANTA.FUNC_X_ROL, AWANTA.ROL
+	SELECT fun_id, fun_descripcion FROM AWANTA.FUNCIONALIDAD, AWANTA.FUNC_X_ROL, AWANTA.ROL
 	WHERE fun_id = f_x_r_funcionalidad AND
 	f_x_r_rol = rol_id AND
 	rol_nombre = @rol
 END
 GO
 
-CREATE PROCEDURE AWANTA.get_roles
+ALTER PROCEDURE AWANTA.get_funcionalidades_que_no_tiene(@rol nvarchar(255))
+AS
+BEGIN 
+SELECT fun_id, fun_descripcion FROM AWANTA.FUNCIONALIDAD
+WHERE NOT EXISTS (SELECT 1 FROM AWANTA.FUNC_X_ROL, AWANTA.ROL
+	WHERE f_x_r_funcionalidad = fun_id AND 
+	f_x_r_rol = rol_id AND
+	rol_nombre = @rol)
+END
+GO
+EXEC AWANTA.get_funcionalidades_que_no_tiene 'Cliente'
+
+
+ALTER PROCEDURE AWANTA.get_roles
 AS
 BEGIN
-	SELECT * FROM AWANTA.ROL
+	SELECT rol_nombre, rol_estado FROM AWANTA.ROL
+END
+GO
+CREATE PROCEDURE AWANTA.get_all_funcionalidades
+AS
+BEGIN
+SELECT fun_descripcion FROM AWANTA.FUNCIONALIDAD
 END
 GO
 
-CREATE PROCEDURE AWANTA.crear_rol(@descripcion nvarchar(255))
+ALTER PROCEDURE AWANTA.get_id_funcionalidad(@func NVARCHAR(255))
+AS
+BEGIN
+SELECT TOP 1 fun_id FROM AWANTA.FUNCIONALIDAD WHERE fun_descripcion = @func
+END
+GO
+
+SELECT * FROM AWANTA.ROL
+DELETE  FROM AWANTA.ROL WHERE rol_id > 2
+
+ALTER PROCEDURE AWANTA.crear_rol(@descripcion nvarchar(255), @estado bit)
 AS
 BEGIN
 	INSERT INTO AWANTA.ROL(rol_nombre, rol_estado)
-	VALUES(@descripcion, 1)
+	VALUES(@descripcion, @estado)
 END
 GO
 
@@ -156,22 +185,35 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE AWANTA.asignar_funcionalidad_a_rol (@rol nvarchar(255), @func nvarchar(255))
+ALTER PROCEDURE AWANTA.asignar_funcionalidad_a_rol (@rol nvarchar(255), @func nvarchar(255))
 AS
 BEGIN
-	INSERT INTO AWANTA.FUNC_X_ROL VALUES ((SELECT TOP 1 rol_id FROM AWANTA.ROL WHERE rol_nombre = @rol),
+	INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_rol, f_x_r_funcionalidad) VALUES ((SELECT TOP 1 rol_id FROM AWANTA.ROL WHERE rol_nombre = @rol),
 	 (SELECT TOP 1 fun_id FROM AWANTA.FUNCIONALIDAD WHERE fun_descripcion = @func))
 END
 GO
 
-CREATE PROCEDURE AWANTA.borrar_funcionalidad(@descripcion_func nvarchar(255))
+CREATE FUNCTION AWANTA.getIdRol(@rol nvarchar(255)) RETURNS INT
+AS
+BEGIN
+RETURN (SELECT rol_id FROM AWANTA.ROL WHERE rol_nombre = @rol)
+END
+GO
+
+ALTER PROCEDURE AWANTA.borrar_funcionalidad(@rol nvarchar(255), @descripcion_func nvarchar(255))
 AS
 BEGIN
 	DELETE FROM AWANTA.FUNC_X_ROL
 	WHERE f_x_r_funcionalidad = (SELECT fun_id FROM AWANTA.FUNCIONALIDAD WHERE fun_descripcion = @descripcion_func)
+	AND f_x_r_rol = (SELECT AWANTA.getIdRol(@rol))
 
-	DELETE FROM AWANTA.FUNCIONALIDAD
-	WHERE @descripcion_func = fun_descripcion
+END
+GO
+
+CREATE PROCEDURE AWANTA.existe_rol(@rol nvarchar(255))
+AS
+BEGIN
+	IF(EXISTS(SELECT 1 FROM AWANTA.ROL WHERE rol_nombre = @rol)) BEGIN RETURN 1 END RETURN -1
 END
 GO
 
@@ -180,6 +222,15 @@ AS
 BEGIN
 	UPDATE AWANTA.ROL
 	SET rol_nombre = @nuevo_nombre
+	WHERE rol_nombre = @nombre
+END
+GO
+
+CREATE PROCEDURE AWANTA.habilitar_rol(@nombre nvarchar(255))
+AS
+BEGIN
+	UPDATE AWANTA.ROL
+	SET rol_estado = 1 
 	WHERE rol_nombre = @nombre
 END
 GO

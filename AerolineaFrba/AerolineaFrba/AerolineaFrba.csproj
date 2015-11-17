@@ -136,6 +136,7 @@
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
     <Compile Include="DAO\DAOProductos.cs" />
+    <Compile Include="DAO\DAORol.cs" />
     <Compile Include="Generics\Config.cs" />
     <Compile Include="Generics\Crypto.cs" />
     <Compile Include="Login\Ingreso.cs">
@@ -155,6 +156,7 @@
     <Compile Include="DAO\SqlConnector.cs" />
     <Compile Include="Generics\Extensions.cs" />
     <Compile Include="Generics\Validations.cs" />
+    <Compile Include="Model\Rol.cs" />
     <Compile Include="Model\Ruta.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Model\Viaje.cs" />

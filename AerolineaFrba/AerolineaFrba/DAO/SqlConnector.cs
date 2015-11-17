@@ -38,8 +38,18 @@ namespace AerolineaFrba.DAO
             {
                 throw exception;
             }
-        }        
-        
+        }
+
+
+        public static List<String> retrieveList(String procedure, String dt_col, params object[] param)
+        {
+            List<String> list = new List<String>();
+            foreach (DataRow row in SqlConnector.retrieveDT(procedure, param).Rows)
+            {
+                list.Add(row[dt_col].ToString());
+            }
+            return list;
+        }
 
         public static DataTable retrieveDTToBeConverted(String sp, params Object[] values)
         {
