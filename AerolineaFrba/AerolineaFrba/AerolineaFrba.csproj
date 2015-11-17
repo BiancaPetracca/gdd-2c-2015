@@ -135,6 +135,7 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAO\DAOProductos.cs" />
     <Compile Include="Generics\Config.cs" />
     <Compile Include="Generics\Crypto.cs" />
     <Compile Include="Login\Ingreso.cs">

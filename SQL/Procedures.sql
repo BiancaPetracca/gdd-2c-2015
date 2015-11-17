@@ -9,6 +9,9 @@ GO
  exec sp_addmessage @msgnum = 50013, @severity = 1, @msgtext = 'El usuario ya esta repetido', @lang = us_english
  GO
 
+
+
+
 /*------LOGIN------*/
 
 ALTER PROCEDURE AWANTA.registrar_usuario(@usuario NVARCHAR(255), @password NVARCHAR(255), @rol BIT)
@@ -218,9 +221,8 @@ BEGIN
 	(@precio_base_kg IS NULL OR rut_precio_base_x_kg=@precio_base_kg) AND
 	(@servicio IS NULL OR rut_tipo_servicio=AWANTA.buscarIdServicio(@servicio))
 END
+
 GO
-
-
 ALTER PROCEDURE AWANTA.modificar_ruta(@codigo NUMERIC, @origen nvarchar(255),  @destino nvarchar(255),  @habilitada int, @servicio nvarchar(255), @precio_base_kg money, @precio_base_pasaje money) AS
  BEGIN
  DECLARE @id_servicio NUMERIC(18)
@@ -579,15 +581,22 @@ ALTER PROCEDURE AWANTA.aeronave_coincide_registro(@matricula NVARCHAR(255), @ori
 AS 
 BEGIN
 IF(EXISTS(SELECT 1 FROM AWANTA.AERONAVE 
-JOIN AWANTA.VIAJE ON via_avion = aero_numero_de_aeronave
+JOIN AWANTA.VIAJE ON via_avion = aero_matricula
 JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.obtenerIdCiudad(@origen) AND rut_destino = AWANTA.obtenerIdCiudad(@destino)
 WHERE aero_matricula = @matricula AND (AWANTA.es_aprox_esa_fecha(@llegada, via_fecha_llegada_estimada) = 1)))
 BEGIN RETURN 1 END RETURN -1
 END 
 GO 
 
-
-
+-- A NIVEL DE LA APLICACION, DIRECTAMENTE NO DEJAMOS QUE EL USUARIO INGRESE A LA DATA GRID UN VIAJE QUE YA FUE REGISTRADO COMO LLEGADA
+CREATE PROCEDURE AWANTA.aeronave_ya_registrada(@matricula NVARCHAR(255), @origen NVARCHAR(255), @destino NVARCHAR(255), @llegada DATETIME) AS 
+BEGIN
+IF (EXISTS(SELECT 1 FROM AWANTA.AERONAVE 
+JOIN AWANTA.VIAJE ON via_avion = aero_matricula
+JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.obtenerIdCiudad(@origen) AND rut_destino = AWANTA.obtenerIdCiudad(@destino)
+WHERE aero_matricula = @matricula AND (AWANTA.es_aprox_esa_fecha(@llegada, via_fecha_llegada_estimada) = 1) AND via_fecha_llegada IS NOT NULL))
+BEGIN RETURN 1 END RETURN -1 END 
+GO
 
 ALTER PROCEDURE AWANTA.registrar_llegada_viaje(@matricula NVARCHAR(255), @origen NVARCHAR(255), @destino NVARCHAR(255), @llegada DATETIME)
 AS

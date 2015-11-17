@@ -23,6 +23,14 @@ namespace AerolineaFrba.DAO
             return ciudades;
         }
 
-
+        public static List<String> listarCiudades()
+        {
+            List<String> ciudades = new List<String>();
+            foreach (DataRow row in SqlConnector.retrieveDT("get_ciudades").Rows)
+            {
+                ciudades.Add(row["ciu_nombre"].ToString());
+            }
+            return ciudades;
+        }
     }
 }

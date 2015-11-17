@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AerolineaFrba.Generics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +28,7 @@ namespace AerolineaFrba.SuperControls
         public Boolean valid() { return true; }
         public void clean()
         {
+           
         }
 
 

@@ -37,14 +37,20 @@ namespace AerolineaFrba.DAO
             return aeronaves;
         }
 
-        public static int coincideConElViaje(String matricula, String origen, String destino, DateTime llegada) {
+        public static int coincideConElViaje(Viaje viaje) {
 
-            return SqlConnector.executeProcedure("aeronave_coincide_registro", matricula, origen, destino, llegada);
+            return SqlConnector.executeProcedure("aeronave_coincide_registro", viaje.matricula, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaLlegada);
         }
 
         public static int agregarRegistroLlegada(Viaje viaje)
         {
             return SqlConnector.executeProcedure("registrar_llegada_viaje", viaje.matricula, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaLlegada);
         }
+
+        public static int aeronaveYaRegistrada(Viaje viaje)
+        {
+            return SqlConnector.executeProcedure("aeronave_ya_registrada", viaje.matricula, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaLlegada);
+        }
     }
+
 }

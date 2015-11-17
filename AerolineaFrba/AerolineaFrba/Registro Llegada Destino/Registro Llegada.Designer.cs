@@ -36,16 +36,16 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.col_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_llegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aeronaveLlegada = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.superLabel4 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.matricula = new AerolineaFrba.SuperControls.SuperComboBox();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.fechaLlegada = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.AeropuertoDestino = new AerolineaFrba.SuperControls.SuperComboBox();
             this.AeropuertoOrigen = new AerolineaFrba.SuperControls.SuperComboBox();
             this.guardar = new AerolineaFrba.SuperControls.SuperButton();
-            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.superLabel4 = new AerolineaFrba.SuperControls.SuperLabel();
             ((System.ComponentModel.ISupportInitialize)(this.registros)).BeginInit();
             this.aeronaveLlegada.SuspendLayout();
             this.SuspendLayout();
@@ -117,6 +117,42 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.aeronaveLlegada.TabStop = false;
             this.aeronaveLlegada.Text = "Datos llegada";
             // 
+            // superLabel4
+            // 
+            this.superLabel4.AutoSize = true;
+            this.superLabel4.Location = new System.Drawing.Point(354, 63);
+            this.superLabel4.Name = "superLabel4";
+            this.superLabel4.Size = new System.Drawing.Size(98, 13);
+            this.superLabel4.TabIndex = 20;
+            this.superLabel4.Text = "Aeropuerto Destino";
+            // 
+            // superLabel3
+            // 
+            this.superLabel3.AutoSize = true;
+            this.superLabel3.Location = new System.Drawing.Point(354, 33);
+            this.superLabel3.Name = "superLabel3";
+            this.superLabel3.Size = new System.Drawing.Size(93, 13);
+            this.superLabel3.TabIndex = 19;
+            this.superLabel3.Text = "Aeropuerto Origen";
+            // 
+            // superLabel2
+            // 
+            this.superLabel2.AutoSize = true;
+            this.superLabel2.Location = new System.Drawing.Point(78, 63);
+            this.superLabel2.Name = "superLabel2";
+            this.superLabel2.Size = new System.Drawing.Size(45, 13);
+            this.superLabel2.TabIndex = 18;
+            this.superLabel2.Text = "Llegada";
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(71, 34);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(52, 13);
+            this.superLabel1.TabIndex = 17;
+            this.superLabel1.Text = "Matrícula";
+            // 
             // matricula
             // 
             this.matricula.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -138,7 +174,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             // 
             // fechaLlegada
             // 
-            this.fechaLlegada.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.fechaLlegada.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.fechaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaLlegada.Location = new System.Drawing.Point(164, 63);
             this.fechaLlegada.Name = "fechaLlegada";
@@ -172,42 +208,6 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.guardar.Text = "Guardar registros";
             this.guardar.UseVisualStyleBackColor = true;
             this.guardar.Click += new System.EventHandler(this.guardar_Click);
-            // 
-            // superLabel1
-            // 
-            this.superLabel1.AutoSize = true;
-            this.superLabel1.Location = new System.Drawing.Point(71, 34);
-            this.superLabel1.Name = "superLabel1";
-            this.superLabel1.Size = new System.Drawing.Size(52, 13);
-            this.superLabel1.TabIndex = 17;
-            this.superLabel1.Text = "Matrícula";
-            // 
-            // superLabel2
-            // 
-            this.superLabel2.AutoSize = true;
-            this.superLabel2.Location = new System.Drawing.Point(78, 63);
-            this.superLabel2.Name = "superLabel2";
-            this.superLabel2.Size = new System.Drawing.Size(45, 13);
-            this.superLabel2.TabIndex = 18;
-            this.superLabel2.Text = "Llegada";
-            // 
-            // superLabel3
-            // 
-            this.superLabel3.AutoSize = true;
-            this.superLabel3.Location = new System.Drawing.Point(354, 33);
-            this.superLabel3.Name = "superLabel3";
-            this.superLabel3.Size = new System.Drawing.Size(93, 13);
-            this.superLabel3.TabIndex = 19;
-            this.superLabel3.Text = "Aeropuerto Origen";
-            // 
-            // superLabel4
-            // 
-            this.superLabel4.AutoSize = true;
-            this.superLabel4.Location = new System.Drawing.Point(354, 63);
-            this.superLabel4.Name = "superLabel4";
-            this.superLabel4.Size = new System.Drawing.Size(98, 13);
-            this.superLabel4.TabIndex = 20;
-            this.superLabel4.Text = "Aeropuerto Destino";
             // 
             // RegistroLlegadaAeronave
             // 
