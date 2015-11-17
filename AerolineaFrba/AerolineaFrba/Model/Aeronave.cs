@@ -9,6 +9,9 @@ namespace AerolineaFrba.Model
     public class Aeronave
     {
         public Aeronave() { }
+        public Aeronave(String matricula) {
+            this.matricula = matricula;
+        }
         public Aeronave(int numero, String modelo, String matricula, String fabricante, Decimal cantidadButacasPasillo,
             Decimal cantidadButacasVentanilla, Decimal kgsEncomiendas, Boolean estadoAeronave, /*DateTime fechaBaja,
             DateTime fechaReinicio, DateTime fechaBajaFueraServicio, DateTime fechaAlta,*/ String servicio)

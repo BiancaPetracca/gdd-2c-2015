@@ -221,15 +221,17 @@ END
 GO
 
 
-CREATE PROCEDURE AWANTA.modificar_ruta(@codigo NUMERIC, @origen nvarchar(255),  @destino nvarchar(255), @servicio nvarchar(255),
- @habilitada bit,  @precio_base_kg money, @precio_base_pasaje money) AS
+ALTER PROCEDURE AWANTA.modificar_ruta(@codigo NUMERIC, @origen nvarchar(255),  @destino nvarchar(255),  @habilitada int, @servicio nvarchar(255), @precio_base_kg money, @precio_base_pasaje money) AS
  BEGIN
- UPDATE AWANTA.RUTA_AEREA SET rut_origen = @origen, rut_destino = @destino, rut_tipo_servicio = AWANTA.buscarIdServicio(@servicio),
+ DECLARE @id_servicio NUMERIC(18)
+ SET @id_servicio = AWANTA.buscarIdServicio(@servicio)
+ UPDATE AWANTA.RUTA_AEREA SET rut_origen = AWANTA.obtenerIdCiudad(@origen), rut_destino = AWANTA.obtenerIdCiudad(@destino), rut_tipo_servicio = @id_servicio,
   rut_habilitada = @habilitada, rut_precio_base_x_kg = @precio_base_kg, rut_precio_base = @precio_base_pasaje
  WHERE @codigo = rut_codigo 
  END
  GO
 
+ EXEC AWANTA.modificar_ruta 1, 'Bruselas', 'Buenos Aires', 1, 'Turista', 666, 0 
 
 ALTER PROCEDURE AWANTA.altaRutaAerea(@ciudadOrigen NVARCHAR(255), @ciudadDestino NVARCHAR(255), @tipoServicio NVARCHAR(255), @rutaPrecioBasePasaje MONEY, @rutaPrecioBaseKilo MONEY, @habilitada bit)
 AS
@@ -309,9 +311,10 @@ SELECT * FROM AWANTA.AERONAVE
 END
 GO
 
-CREATE PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18), @modelo nvarchar(255), @matricula nvarchar(255), @butacas_pasillo numeric(18), 
-@butacas_ventanilla numeric(18), @kilos_disponibles numeric(18), @fabricante nvarchar(255), @fecha_alta date, @fecha_baja_temporal date, 
-@fecha_alta_temporal date, @fecha_baja_definitiva date)
+ALTER PROCEDURE AWANTA.get_all_aeronaves(@numero numeric(18) = null, @modelo nvarchar(255) = null, @matricula nvarchar(255) = null,
+ @butacas_pasillo numeric(18) = null, @butacas_ventanilla numeric(18) = null, @kilos_disponibles numeric(18) = null,
+ @fabricante nvarchar(255) = null, @fecha_alta date = null, @fecha_baja_temporal date = null, 
+@fecha_alta_temporal date = null, @fecha_baja_definitiva date = null)
 AS 
 BEGIN
 	SELECT aero_matricula, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas, 
@@ -564,6 +567,40 @@ UPDATE AWANTA.VIAJE SET via_avion = @matricula WHERE via_avion = @matricula_viej
 ALTER TABLE AWANTA.VIAJE CHECK CONSTRAINT ALL 
 END
 GO 
+
+ALTER FUNCTION AWANTA.es_aprox_esa_fecha(@fechaLlegada DATETIME, @fechaLlegadaEstimada DATETIME)
+RETURNS INT
+AS 
+BEGIN
+IF (DATEDIFF(MINUTE, @fechaLlegadaEstimada, @fechaLlegada) BETWEEN -10 AND 10) BEGIN RETURN 1 END RETURN -1 END
+GO
+-- PARA SABER SI UNA AERONAVE, CIUDAD ORIGEN Y DESTINO Y LLEGADA SE CORRESPONDEN CON ESA FECHA
+ALTER PROCEDURE AWANTA.aeronave_coincide_registro(@matricula NVARCHAR(255), @origen NVARCHAR(255), @destino NVARCHAR(255), @llegada DATETIME)
+AS 
+BEGIN
+IF(EXISTS(SELECT 1 FROM AWANTA.AERONAVE 
+JOIN AWANTA.VIAJE ON via_avion = aero_numero_de_aeronave
+JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.obtenerIdCiudad(@origen) AND rut_destino = AWANTA.obtenerIdCiudad(@destino)
+WHERE aero_matricula = @matricula AND (AWANTA.es_aprox_esa_fecha(@llegada, via_fecha_llegada_estimada) = 1)))
+BEGIN RETURN 1 END RETURN -1
+END 
+GO 
+
+
+
+
+ALTER PROCEDURE AWANTA.registrar_llegada_viaje(@matricula NVARCHAR(255), @origen NVARCHAR(255), @destino NVARCHAR(255), @llegada DATETIME)
+AS
+BEGIN
+UPDATE V SET via_fecha_llegada = @llegada FROM AWANTA.AERONAVE 
+JOIN AWANTA.VIAJE V ON V.via_avion = aero_matricula
+JOIN AWANTA.RUTA_AEREA ON V.via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.obtenerIdCiudad(@origen) AND rut_destino = AWANTA.obtenerIdCiudad(@destino)
+WHERE aero_matricula = @matricula AND (AWANTA.es_aprox_esa_fecha(@llegada, V.via_fecha_llegada_estimada) = 1)
+END
+GO
+
+
+
 
 EXEC AWANTA.validar_usuario 'admin666', 'w23e', 'Administrativo'
  GO

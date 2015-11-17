@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace AerolineaFrba.Model
 {
     public class Ciudad{
-        public String nombre_ciudad { get; set; }
+        public String nombre { get; set; }
 
-        public Ciudad(String nombre_ciudad)
+        public Ciudad(String nombre)
         {
-            this.nombre_ciudad = nombre_ciudad;
+            this.nombre = nombre;
         }
     }
 }

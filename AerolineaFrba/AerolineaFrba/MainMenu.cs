@@ -53,7 +53,7 @@ namespace AerolineaFrba
 
         private void registroDeLlegadaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.openInNewWindow(new Registro_Llegada_Destino.RegistroLlegadaAeronave());
+            this.openIntoParent(new Registro_Llegada_Destino.RegistroLlegadaAeronave(), this);
         }
 
         private void pasajeToolStripMenuItem_Click(object sender, EventArgs e)

@@ -29,5 +29,22 @@ namespace AerolineaFrba.DAO
         {
             return SqlConnector.executeProcedure("create_viaje", matricula, llegada, salida, codigoRuta);
         }
+
+        public static List<String> getAllAeronaves()
+        {
+            List<String> aeronaves = new List<String>();
+            aeronaves = SqlConnector.retrieveDT("get_all_aeronaves").AsEnumerable().ToList().ConvertAll(x => x.Field<String>("aero_matricula"));
+            return aeronaves;
+        }
+
+        public static int coincideConElViaje(String matricula, String origen, String destino, DateTime llegada) {
+
+            return SqlConnector.executeProcedure("aeronave_coincide_registro", matricula, origen, destino, llegada);
+        }
+
+        public static int agregarRegistroLlegada(Viaje viaje)
+        {
+            return SqlConnector.executeProcedure("registrar_llegada_viaje", viaje.matricula, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaLlegada);
+        }
     }
 }

@@ -156,6 +156,7 @@
     <Compile Include="Generics\Validations.cs" />
     <Compile Include="Model\Ruta.cs" />
     <Compile Include="Model\Usuario.cs" />
+    <Compile Include="Model\Viaje.cs" />
     <Compile Include="SuperControls\ISuperControls.cs" />
     <Compile Include="SuperControls\SuperButton.cs">
       <SubType>Component</SubType>
