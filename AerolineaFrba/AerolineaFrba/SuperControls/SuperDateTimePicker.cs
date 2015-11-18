@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AerolineaFrba.Generics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,8 @@ namespace AerolineaFrba.SuperControls
             InitializeComponent();
         }
 
+        public DateTime value { get { return this.Value;  } }
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -25,6 +28,9 @@ namespace AerolineaFrba.SuperControls
         public Boolean valid() { return true; }
         public void clean()
         {
+           
         }
+
+
     }
 }

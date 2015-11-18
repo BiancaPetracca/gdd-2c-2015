@@ -29,7 +29,6 @@ namespace AerolineaFrba.Abm_Ruta
         /// </summary>
         private void InitializeComponent()
         {
-            this.Servicio = new AerolineaFrba.SuperControls.SuperCheckedListBox();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
             this.Codigo = new AerolineaFrba.SuperControls.SuperTextBox();
             this.Origen = new AerolineaFrba.SuperControls.SuperComboBox();
@@ -43,23 +42,12 @@ namespace AerolineaFrba.Abm_Ruta
             this.PrecioKG = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.PrecioPasaje = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.Modificar = new AerolineaFrba.SuperControls.SuperButton();
+            this.servicio = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.datosRuta = new AerolineaFrba.SuperControls.SuperGroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioKG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioPasaje)).BeginInit();
+            this.datosRuta.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Servicio
-            // 
-            this.Servicio.AccessibleDescription = "Servicio(s) que ofrece";
-            this.Servicio.FormattingEnabled = true;
-            this.Servicio.Items.AddRange(new object[] {
-            "Turista",
-            "Ejecutivo",
-            "Primera Clase"});
-            this.Servicio.Location = new System.Drawing.Point(173, 87);
-            this.Servicio.Name = "Servicio";
-            this.Servicio.Size = new System.Drawing.Size(93, 49);
-            this.Servicio.TabIndex = 28;
-            this.Servicio.SelectedIndexChanged += new System.EventHandler(this.Servicio_SelectedIndexChanged);
             // 
             // Cerrar
             // 
@@ -74,16 +62,18 @@ namespace AerolineaFrba.Abm_Ruta
             // Codigo
             // 
             this.Codigo.AccessibleDescription = "Código de la ruta";
-            this.Codigo.Location = new System.Drawing.Point(173, 43);
+            this.Codigo.Location = new System.Drawing.Point(190, 52);
             this.Codigo.Name = "Codigo";
-            this.Codigo.Size = new System.Drawing.Size(100, 20);
+            this.Codigo.ReadOnly = true;
+            this.Codigo.Size = new System.Drawing.Size(120, 20);
             this.Codigo.TabIndex = 17;
             // 
             // Origen
             // 
             this.Origen.AccessibleDescription = "Ciudad origen";
+            this.Origen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Origen.FormattingEnabled = true;
-            this.Origen.Location = new System.Drawing.Point(173, 154);
+            this.Origen.Location = new System.Drawing.Point(165, 81);
             this.Origen.Name = "Origen";
             this.Origen.Size = new System.Drawing.Size(121, 21);
             this.Origen.TabIndex = 18;
@@ -91,8 +81,9 @@ namespace AerolineaFrba.Abm_Ruta
             // Destino
             // 
             this.Destino.AccessibleDescription = "Ciudad destino";
+            this.Destino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Destino.FormattingEnabled = true;
-            this.Destino.Location = new System.Drawing.Point(173, 200);
+            this.Destino.Location = new System.Drawing.Point(165, 127);
             this.Destino.Name = "Destino";
             this.Destino.Size = new System.Drawing.Size(121, 21);
             this.Destino.TabIndex = 19;
@@ -100,7 +91,7 @@ namespace AerolineaFrba.Abm_Ruta
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 46);
+            this.label1.Location = new System.Drawing.Point(52, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 22;
@@ -109,7 +100,7 @@ namespace AerolineaFrba.Abm_Ruta
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 107);
+            this.label2.Location = new System.Drawing.Point(27, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 23;
@@ -118,7 +109,7 @@ namespace AerolineaFrba.Abm_Ruta
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 157);
+            this.label3.Location = new System.Drawing.Point(27, 84);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 24;
@@ -127,7 +118,7 @@ namespace AerolineaFrba.Abm_Ruta
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(35, 203);
+            this.label4.Location = new System.Drawing.Point(27, 130);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 25;
@@ -136,7 +127,7 @@ namespace AerolineaFrba.Abm_Ruta
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(35, 257);
+            this.label5.Location = new System.Drawing.Point(52, 274);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 13);
             this.label5.TabIndex = 26;
@@ -145,7 +136,7 @@ namespace AerolineaFrba.Abm_Ruta
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(35, 294);
+            this.label6.Location = new System.Drawing.Point(52, 311);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(115, 13);
             this.label6.TabIndex = 27;
@@ -155,8 +146,14 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             this.PrecioKG.AccessibleDescription = "Precio base por Kg. en encomiendas";
             this.PrecioKG.DecimalPlaces = 2;
-            this.PrecioKG.Location = new System.Drawing.Point(173, 257);
+            this.PrecioKG.Location = new System.Drawing.Point(190, 274);
+            this.PrecioKG.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
             this.PrecioKG.Name = "PrecioKG";
+            this.PrecioKG.ReadOnly = true;
             this.PrecioKG.Size = new System.Drawing.Size(120, 20);
             this.PrecioKG.TabIndex = 29;
             // 
@@ -164,8 +161,14 @@ namespace AerolineaFrba.Abm_Ruta
             // 
             this.PrecioPasaje.AccessibleDescription = "Precio base por pasaje";
             this.PrecioPasaje.DecimalPlaces = 2;
-            this.PrecioPasaje.Location = new System.Drawing.Point(173, 294);
+            this.PrecioPasaje.Location = new System.Drawing.Point(190, 311);
+            this.PrecioPasaje.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
             this.PrecioPasaje.Name = "PrecioPasaje";
+            this.PrecioPasaje.ReadOnly = true;
             this.PrecioPasaje.Size = new System.Drawing.Size(120, 20);
             this.PrecioPasaje.TabIndex = 30;
             // 
@@ -179,29 +182,54 @@ namespace AerolineaFrba.Abm_Ruta
             this.Modificar.UseVisualStyleBackColor = true;
             this.Modificar.Click += new System.EventHandler(this.Modificar_Click);
             // 
+            // servicio
+            // 
+            this.servicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.servicio.FormattingEnabled = true;
+            this.servicio.Items.AddRange(new object[] {
+            "Turista",
+            "Ejecutivo",
+            "Primera Clase"});
+            this.servicio.Location = new System.Drawing.Point(164, 31);
+            this.servicio.Name = "servicio";
+            this.servicio.Size = new System.Drawing.Size(121, 21);
+            this.servicio.TabIndex = 31;
+            // 
+            // datosRuta
+            // 
+            this.datosRuta.Controls.Add(this.label2);
+            this.datosRuta.Controls.Add(this.servicio);
+            this.datosRuta.Controls.Add(this.Origen);
+            this.datosRuta.Controls.Add(this.Destino);
+            this.datosRuta.Controls.Add(this.label3);
+            this.datosRuta.Controls.Add(this.label4);
+            this.datosRuta.Location = new System.Drawing.Point(25, 87);
+            this.datosRuta.Name = "datosRuta";
+            this.datosRuta.Size = new System.Drawing.Size(369, 165);
+            this.datosRuta.TabIndex = 32;
+            this.datosRuta.TabStop = false;
+            // 
             // Modificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 412);
+            this.Controls.Add(this.datosRuta);
             this.Controls.Add(this.PrecioPasaje);
             this.Controls.Add(this.PrecioKG);
-            this.Controls.Add(this.Servicio);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Destino);
-            this.Controls.Add(this.Origen);
             this.Controls.Add(this.Codigo);
             this.Controls.Add(this.Cerrar);
             this.Controls.Add(this.Modificar);
             this.Name = "Modificacion";
             this.Text = "Modificacion";
+            this.Load += new System.EventHandler(this.Modificacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PrecioKG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioPasaje)).EndInit();
+            this.datosRuta.ResumeLayout(false);
+            this.datosRuta.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,7 +237,6 @@ namespace AerolineaFrba.Abm_Ruta
 
         #endregion
 
-        private SuperCheckedListBox Servicio;
         private SuperButton Modificar;
         private SuperButton Cerrar;
         private SuperTextBox Codigo;
@@ -223,6 +250,8 @@ namespace AerolineaFrba.Abm_Ruta
         private SuperLabel label6;
         private SuperNumericUpDown PrecioKG;
         private SuperNumericUpDown PrecioPasaje;
+        private SuperComboBox servicio;
+        private SuperGroupBox datosRuta;
 
     }
 }

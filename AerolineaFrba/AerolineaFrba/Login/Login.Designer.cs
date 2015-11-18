@@ -30,7 +30,7 @@
         {
             this.IniciarSesion = new AerolineaFrba.SuperControls.SuperButton();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
-            this.Contraseña = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.pass = new AerolineaFrba.SuperControls.SuperTextBox();
             this.Usuario = new AerolineaFrba.SuperControls.SuperTextBox();
             this.label_Contrasenia = new AerolineaFrba.SuperControls.SuperLabel();
             this.label_Usuario = new AerolineaFrba.SuperControls.SuperLabel();
@@ -61,14 +61,14 @@
             this.Cerrar.UseVisualStyleBackColor = true;
             this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
-            // Contraseña
+            // pass
             // 
-            this.Contraseña.AccessibleDescription = "Contraseña ";
-            this.Contraseña.Location = new System.Drawing.Point(154, 147);
-            this.Contraseña.Name = "Contraseña";
-            this.Contraseña.PasswordChar = '*';
-            this.Contraseña.Size = new System.Drawing.Size(202, 20);
-            this.Contraseña.TabIndex = 1;
+            this.pass.AccessibleDescription = "Contraseña ";
+            this.pass.Location = new System.Drawing.Point(154, 147);
+            this.pass.Name = "pass";
+            this.pass.PasswordChar = '*';
+            this.pass.Size = new System.Drawing.Size(202, 20);
+            this.pass.TabIndex = 1;
             // 
             // Usuario
             // 
@@ -110,11 +110,11 @@
             // 
             this.Bienvenida.AutoSize = true;
             this.Bienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.Bienvenida.Location = new System.Drawing.Point(47, 44);
+            this.Bienvenida.Location = new System.Drawing.Point(68, 38);
             this.Bienvenida.Name = "Bienvenida";
-            this.Bienvenida.Size = new System.Drawing.Size(336, 25);
+            this.Bienvenida.Size = new System.Drawing.Size(125, 25);
             this.Bienvenida.TabIndex = 14;
-            this.Bienvenida.Text = "¡Bienvenido al sistema de aerolíneas!";
+            this.Bienvenida.Text = "Iniciar sesión";
             // 
             // Rol
             // 
@@ -150,7 +150,7 @@
             this.Controls.Add(this.IniciarSesion);
             this.Controls.Add(this.label_Rol);
             this.Controls.Add(this.Cerrar);
-            this.Controls.Add(this.Contraseña);
+            this.Controls.Add(this.pass);
             this.Controls.Add(this.Usuario);
             this.Controls.Add(this.label_Usuario);
             this.Controls.Add(this.label_Contrasenia);
@@ -168,7 +168,7 @@
 
         private AerolineaFrba.SuperControls.SuperButton IniciarSesion;
         private AerolineaFrba.SuperControls.SuperButton Cerrar;
-        private AerolineaFrba.SuperControls.SuperTextBox Contraseña;
+        private AerolineaFrba.SuperControls.SuperTextBox pass;
         private AerolineaFrba.SuperControls.SuperTextBox Usuario;
         private AerolineaFrba.SuperControls.SuperLabel label_Contrasenia;
         private AerolineaFrba.SuperControls.SuperLabel label_Usuario;

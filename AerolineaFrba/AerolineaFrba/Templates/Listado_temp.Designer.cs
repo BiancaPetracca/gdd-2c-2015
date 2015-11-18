@@ -250,7 +250,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridCell listado;
+ 
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.TextBox buscador;
         private System.Windows.Forms.TextBox buscadorExacto;
@@ -261,7 +261,7 @@
         private System.Windows.Forms.Button buscar;
 
         private System.Windows.Forms.Button seleccionar;
-        private System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1;
+     
 
         private System.Windows.Forms.Button agregar; 
         private System.Windows.Forms.Button borrar;

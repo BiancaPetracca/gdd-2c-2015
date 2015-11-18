@@ -29,29 +29,29 @@ namespace AerolineaFrba.Compra
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new SuperGroupBox();
-            this.groupBox2 = new SuperGroupBox();
-            this.label7 = new SuperLabel();
-            this.Cuotas = new SuperNumericUpDown();
-            this.label6 = new SuperLabel();
-            this.CodigoSeguridad = new SuperTextBox();
-            this.label5 = new SuperLabel();
-            this.NumeroTarjeta = new SuperTextBox();
-            this.label4 = new SuperLabel();
-            this.FechaExpiracion = new SuperDateTimePicker();
-            this.label3 = new SuperLabel();
-            this.TipoTarjeta = new SuperComboBox();
-            this.button2 = new SuperButton();
-            this.label2 = new SuperLabel();
+            this.groupBox1 = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.groupBox2 = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.label7 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.Cuotas = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.label6 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.CodigoSeguridad = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.label5 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.NumeroTarjeta = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.label4 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.FechaExpiracion = new AerolineaFrba.SuperControls.SuperDateTimePicker();
+            this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.TipoTarjeta = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.button2 = new AerolineaFrba.SuperControls.SuperButton();
+            this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dirección = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new SuperButton();
-            this.label1 = new SuperLabel();
-            this.MedioPago = new SuperComboBox();
+            this.button1 = new AerolineaFrba.SuperControls.SuperButton();
+            this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.MedioPago = new AerolineaFrba.SuperControls.SuperComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Cuotas)).BeginInit();
@@ -107,6 +107,7 @@ namespace AerolineaFrba.Compra
             this.Cuotas.AccessibleDescription = "Cuotas en las que desee pagarlo";
             this.Cuotas.Location = new System.Drawing.Point(699, 124);
             this.Cuotas.Name = "Cuotas";
+            this.Cuotas.ReadOnly = true;
             this.Cuotas.Size = new System.Drawing.Size(41, 20);
             this.Cuotas.TabIndex = 8;
             // 
@@ -281,6 +282,7 @@ namespace AerolineaFrba.Compra
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Efectuar_Compra";
             this.Text = "Efectuar_Compra";
+            this.Load += new System.EventHandler(this.Efectuar_Compra_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

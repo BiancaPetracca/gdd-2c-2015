@@ -15,57 +15,55 @@ namespace AerolineaFrba.Login
 {
     public partial class Login : Form
     {
-        private String username = "";
-        private String password;
-        private int intentosLogin;
-      
+
 
         public Login()
         {
             InitializeComponent();
-            intentosLogin = 0;
-            
+
         }
 
         private void IniciarSesion_Click(object sender, EventArgs e)
         {
-            if (username != Usuario.Text) {
-                username = Usuario.Text;
-                // ASIGNARLE LOS INTENTOS AL USUARIO 
-                intentosLogin = 0;
-            }
-
-                if (intentosLogin >= 3)
+            if (user.Username != this.Usuario.Text)
             {
-                // TODO INHABILITAR AL USUARIO 
+                user.Intentos = 0;
+                user.Username = this.Usuario.Text;
+                user.Password = this.pass.Text;
+                user.Estado = DAO.DAOLogin.getEstado(user);
+                user.Rol = (DAO.DAOLogin.obtenerRolUsuario(user) == 1)? "Administrativo" : "Cliente";
+                if (user.Estado == -1)
+                {
+                    MessageBox.Show("El usuario está inhabilitado!");
+                    Extensions.cleanAll(this.Controls);
+                    return;
+                }
+            }
+            if (user.Intentos >= 3)
+            {
+                DAO.DAOLogin.inhabilitarUsuario(user);
                 MessageBox.Show("Usuario inhabilitado");
+                return;
             }
-            else
 
-                    // asigna los intentos que tiene y permite o no correr la app
+            if (this.validateNotNullForAll(this.Controls))
             {
-                if (!this.validateNotNullForAll(this.Controls))
+                if (puedeAcceder(user.Rol) && (DAO.DAOLogin.validarUsername(user.Username, user.Password, this.Rol.value) == 1))
                 {
-                    username = Usuario.Text;
-                    password = Contraseña.Text;
+                    user.Intentos = 0;
+
+                    this.openInNewWindow(new MainMenu());
+                    this.Close();
+                    return;
                 }
-                if (usuarioValido())
-                {
-                    intentosLogin = 0;
-                    Application.Run(new MainMenu());
-                }
-                else
-                {
-                    intentosLogin++;
-                    MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - intentosLogin));
-                }
+                
+                    user.Intentos++;
+                    MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - user.Intentos));
+                
+
             }
         }
 
-        private bool usuarioValido()
-        {
-            return this.validarUsername("validar_usuario", username,password);
-        }
 
         private void Cerrar_Click(object sender, EventArgs e)
         {
@@ -74,8 +72,17 @@ namespace AerolineaFrba.Login
 
         private void Login_Load(object sender, EventArgs e)
         {
-            intentosLogin = 0;
+            user = new Model.Usuario(this.Usuario.Text, this.pass.Text);
+
         }
 
+        private Model.Usuario user;
+
+
+        private Boolean puedeAcceder(String rol)
+        {
+            if (rol == "Administrativo") { return true; }
+            return (this.Rol.SelectedItem.ToString() == "Cliente");
+        }
     }
 }

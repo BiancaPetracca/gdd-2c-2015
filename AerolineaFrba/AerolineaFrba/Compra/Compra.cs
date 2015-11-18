@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
 using AerolineaFrba.DAO;
+using AerolineaFrba.Model;
 
 namespace AerolineaFrba.Compra
 {
@@ -20,12 +21,19 @@ namespace AerolineaFrba.Compra
             InitializeComponent();
         }
 
+        public Compra(Model.Compra compra) {
+            InitializeComponent();
+            this.compra = compra;
+        }
+
+        private Model.Compra compra;
+
         // setea los datos del vuelo 
         private void Siguiente_Click(object sender, EventArgs e)
         {
             if (! this.Pasaje.noRows("No hay ningún pasaje definido"))
             {
-                Elegir_Pasajeros form = new Elegir_Pasajeros();
+                Elegir_Pasajeros form = new Elegir_Pasajeros(compra.Terminal);
                 form.setFlightData(this.CiudadOrigen.SelectedItem.ToString(), this.CiudadDestino.SelectedItem.ToString(), this.Kgs.Value, this.CantPasaje.Value, this.FechaViaje.Value, this.Kgs.Value);
 
                 this.openIntoParent(form, this.MdiParent);
@@ -76,9 +84,9 @@ namespace AerolineaFrba.Compra
         private void Compra_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
-      
-           this.CiudadOrigen.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre_ciudad"));
-           this.CiudadDestino.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre_ciudad"));
+     
+           this.CiudadOrigen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
+           this.CiudadDestino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
         }
 
 

@@ -1,0 +1,1 @@
+Si modifico la aeronave, tengo que poder modificarle las fechas de alta baja etc? 

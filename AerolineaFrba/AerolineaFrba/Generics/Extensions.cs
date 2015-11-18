@@ -26,7 +26,7 @@ namespace AerolineaFrba.Generics
         public static void openInNewWindow(this Form aForm, Form form)
         {
             form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            form.Show();
+            form.ShowDialog();
         }
 
 
@@ -53,7 +53,11 @@ namespace AerolineaFrba.Generics
 
         }
 
+        public static Object cellValue(DataGridView dg, String column) {
+            return dg.CurrentRow.Cells[column].Value;
+        }
 
+  
     }
 
 }

@@ -20,7 +20,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-           this.openInNewWindow(new Alta());
+           this.openInNewWindow(new Alta(this));
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
@@ -28,13 +28,24 @@ namespace AerolineaFrba.Abm_Rol
             this.Close();
         }
 
-        private void dataGridView_SeleccionRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private void RolListado_Load(object sender, EventArgs e)
         {
-            if (e.ColumnIndex == this.ListadoRoles.Columns["Modificar"].Index)
-            {
-               this.openInNewWindow(new Modificacion());
-            }
-           
+            this.reload();
         }
+
+        private void modificar_Click(object sender, EventArgs e){
+
+
+            this.openInNewWindow(new Abm_Rol.Modificacion(this, getCurrentRol()));
+
+        }
+    private Model.Rol getCurrentRol(){
+        return new Model.Rol((String)Extensions.cellValue(this.ListadoRoles, "col_rol"), Convert.ToBoolean(Extensions.cellValue(this.ListadoRoles, "col_habilitado")));
     }
+
+    public void reload() {
+        DAO.DAORol.getAllRoles(this.ListadoRoles);
+    }
+     }
 }

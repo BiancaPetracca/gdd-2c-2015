@@ -1,0 +1,6 @@
+--------------- SQL ---------------
+
+AERONAVE
+
+REEMPLAZO DE VIAJES: muy lento, optimizarlo; hacer alta 
+

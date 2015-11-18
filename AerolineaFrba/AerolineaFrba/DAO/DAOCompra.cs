@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using AerolineaFrba.Model;
 
 namespace AerolineaFrba.DAO
 {
@@ -22,6 +23,14 @@ namespace AerolineaFrba.DAO
             return ciudades;
         }
 
-
+        public static List<String> listarCiudades()
+        {
+            List<String> ciudades = new List<String>();
+            foreach (DataRow row in SqlConnector.retrieveDT("get_ciudades").Rows)
+            {
+                ciudades.Add(row["ciu_nombre"].ToString());
+            }
+            return ciudades;
+        }
     }
 }

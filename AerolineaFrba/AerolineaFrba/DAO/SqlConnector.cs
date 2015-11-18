@@ -38,8 +38,18 @@ namespace AerolineaFrba.DAO
             {
                 throw exception;
             }
-        }        
-        
+        }
+
+
+        public static List<String> retrieveList(String procedure, String dt_col, params object[] param)
+        {
+            List<String> list = new List<String>();
+            foreach (DataRow row in SqlConnector.retrieveDT(procedure, param).Rows)
+            {
+                list.Add(row[dt_col].ToString());
+            }
+            return list;
+        }
 
         public static DataTable retrieveDTToBeConverted(String sp, params Object[] values)
         {
@@ -53,6 +63,7 @@ namespace AerolineaFrba.DAO
                             return dt;
                         }
 
+
         private static SqlCommand generateCommand(String sp, params Object[] values) {
 
             SqlConnection sqlcon = new SqlConnection(infoConexion());
@@ -64,7 +75,7 @@ namespace AerolineaFrba.DAO
             {
                 int i = 0;
                 // agrega los parametros que encontro junto con los valores que le mandamos al command
-                foreach (String param in param_names)
+                foreach (var val in values)
                 {
                     
                         cmd.Parameters.AddWithValue(param_names[i], values[i] == null ? System.DBNull.Value : values[i]);
@@ -79,11 +90,15 @@ namespace AerolineaFrba.DAO
             
         }
         
-        public static void executeProcedure(String sp, params object[] values) {
+        // ejecuta cualquier procedure, podemos obtener el valor que devuelven si se quiere 
+        public static int executeProcedure(String sp, params object[] values) {
             SqlCommand cmd = generateCommand(sp, values);
             SqlConnection sqlcon = new SqlConnection(infoConexion());
             sqlcon.Open();
+            var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
             cmd.ExecuteNonQuery();
+            return (int) returnParameter.Value;
             
         }
 
@@ -106,11 +121,15 @@ namespace AerolineaFrba.DAO
             return retrieveDTToBeConverted(sp, values);
         }
 
-        public static void retrieveDT(String sp, DataGridView dg, params Object[] values)
+        public static int retrieveDT(String sp, DataGridView dg, params Object[] values)
         {
             DataTable dt =  retrieveDTToBeConverted(sp, values);
+            if (dt == null) {
+                return -1;
+            }
             bindNamesToDataTable(dt, dg);
             dg.DataSource = dt;
+            return 1;
         }
        
       

@@ -13,34 +13,64 @@ namespace AerolineaFrba.Abm_Rol
 {
     public partial class Alta : Form
     {
+        public Abm_Rol.RolListado launcher { get; set; }
         public Alta()
         {
             InitializeComponent();
         }
 
+        public Alta(Abm_Rol.RolListado launcher)
+        {
+            InitializeComponent();
+            this.launcher = launcher;
+        }
+
         private void Cerrar_Click(object sender, EventArgs e)
         {
+            launcher.reload();
             this.Close();
         }
 
         private void Aceptar_Click(object sender, EventArgs e)
         {
-            if (! FuncionalidadesRol.anyEmptyCells("Funcionalidades", "El rol debe tener al menos una funcionalidad")) { 
-                // llamar al procedure!
-            }
+            Model.Rol rol = new Model.Rol(this.Nombre.value, this.Estado.value);
+            if (!this.validateNotNullForAll(this.datosRol.Controls)) { return; }
+            if (this.FuncionalidadesRol.Rows.Count == 0) { MessageBox.Show("El rol debe tener al menos una funcionalidad"); return; }
+                DAO.DAORol.crearNuevoRol(rol, this.FuncionalidadesRol); 
+                MessageBox.Show("Rol creado con éxito!");
+                Extensions.cleanAll(this.datosRol.Controls);
+                this.FuncionalidadesRol.Rows.Clear();
+            
         }
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (Funcionalidad.SelectedIndex != -1) {
-                FuncionalidadesRol.Rows.Add(Funcionalidad.SelectedItem);
+            String func = Funcionalidad.SelectedItem.ToString();
+            if (DAO.DAORol.yaExisteRol(this.Nombre.value) == 1) { MessageBox.Show("Ya existe un rol con ese nombre"); return; }
+            foreach(DataGridViewRow row in this.FuncionalidadesRol.Rows) {
+                if (row.Cells["col_funcionalidades"].Value.ToString() == func) {
+                    MessageBox.Show("Ya agregó esa funcionalidad!");
+                    return;
+                }
             }
+            FuncionalidadesRol.Rows.Add(func);
+            
             Funcionalidad.ResetText();
         }
 
         private void FuncionalidadesRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
+        }
+
+        private void Alta_Load(object sender, EventArgs e)
+        {
+            this.Funcionalidad.AddAll(DAO.DAORol.getAllFuncionalidades());
+        }
+
+        private void quitar_Click(object sender, EventArgs e)
+        {
+            this.FuncionalidadesRol.Rows.RemoveAt(this.FuncionalidadesRol.CurrentRow.Index);
         }
     }
 }

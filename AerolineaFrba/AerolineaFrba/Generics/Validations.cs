@@ -60,7 +60,7 @@ namespace AerolineaFrba.Generics
         }
 
         // validar que los controles no esten vacios
-        public static Boolean validar(this Form aForm, Control.ControlCollection controls)
+        private static Boolean validar(this Form aForm, Control.ControlCollection controls)
         {
 
             bool val = false;
@@ -92,21 +92,21 @@ namespace AerolineaFrba.Generics
 
 
         // metodo para hacer validaciones de dominio, pasandole funciones(criterios) y un mensaje que debe emitir si no se cumple
-        public static Boolean domainValidations(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
+        private static Boolean domainValidations(this Form aForm, params Tuple<Func<Boolean>, String>[] criteria)
         {
             var msg = "";
             Boolean isvalid = true;
-           
+
             foreach (var criterium in criteria)
             {
-                
-               if (!criterium.Item1())
+
+                if (!criterium.Item1())
                 {
                     msg += criterium.Item2 + "\n";
                 }
             }
-         //  if (criteria.Any(x => !x.Item1()))
-            if(msg != "")
+            //  if (criteria.Any(x => !x.Item1()))
+            if (msg != "")
             {
                 isvalid = false;
                 throw new Exception(msg);
@@ -153,7 +153,12 @@ namespace AerolineaFrba.Generics
             e.Handled = !(char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
 
+        public static void allowLessThanLength(this Form aForm, SuperNumericUpDown num, KeyPressEventArgs e)
+        {
 
-
+            e.Handled = (num.Value.ToString().Length >= 4);
+        }
     }
+
+
 }

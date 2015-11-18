@@ -334,7 +334,7 @@ namespace AerolineaFrba.Compra
         private System.Windows.Forms.DataGridView Pasaje;
         private SuperGroupBox Opciones;
         private SuperButton ViajeOk;
-        private int viaje_elegido = 0;
+
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaViajar;
         private System.Windows.Forms.DataGridViewTextBoxColumn CiudadOrigenCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn CiudadDestinoCol;

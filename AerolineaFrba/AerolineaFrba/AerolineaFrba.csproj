@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -134,6 +135,16 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAO\DAOProductos.cs" />
+    <Compile Include="DAO\DAORol.cs" />
+    <Compile Include="Generics\Config.cs" />
+    <Compile Include="Generics\Crypto.cs" />
+    <Compile Include="Login\Ingreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\Ingreso.Designer.cs">
+      <DependentUpon>Ingreso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Aeronave.cs" />
     <Compile Include="Model\Ciudad.cs" />
     <Compile Include="Model\Compra.cs" />
@@ -145,6 +156,10 @@
     <Compile Include="DAO\SqlConnector.cs" />
     <Compile Include="Generics\Extensions.cs" />
     <Compile Include="Generics\Validations.cs" />
+    <Compile Include="Model\Rol.cs" />
+    <Compile Include="Model\Ruta.cs" />
+    <Compile Include="Model\Usuario.cs" />
+    <Compile Include="Model\Viaje.cs" />
     <Compile Include="SuperControls\ISuperControls.cs" />
     <Compile Include="SuperControls\SuperButton.cs">
       <SubType>Component</SubType>
@@ -354,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\Ruta.resx">
       <DependentUpon>Ruta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\Ingreso.resx">
+      <DependentUpon>Ingreso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\RegistroUsuario.resx">
       <DependentUpon>RegistroUsuario.cs</DependentUpon>
