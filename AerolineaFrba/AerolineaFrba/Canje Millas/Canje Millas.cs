@@ -45,9 +45,34 @@ namespace AerolineaFrba.Canje_Millas
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (this.validateNotNullForAll(this.AgregarProductos.Controls))
+           
             this.ProductosCanjear.Rows.Add(this.NombreProducto.SelectedValue, this.CantidadProducto.Value);
         }
+
+        private void NombreProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // cuando elijo un producto seteo el maximo de la cantidad al maximo stock que hay. cada vez que agrego reload 
+            this.CantidadProducto.Value = 0;
+            this.CantidadProducto.Maximum = DAO.DAOProductos.obtenerCantidadProducto(this.NombreProducto.value);
+        }
+
+        private void Canje_Millas_Load(object sender, EventArgs e)
+        {
+            this.NombreProducto.AddAll(DAO.DAOProductos.listarProductos());
+        }
+
+        private void FechaCanje_ValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void verificar_Click(object sender, EventArgs e)
+        {
+            if (DAO.DAOUsuario.elClienteExiste(this.DNI.value) == -1) {
+                MessageBox.Show("El cliente no existe, verifique que ingresó correctamente el dni.");
+                return;
+            }
+        }
+
 
     }
 }

@@ -85,8 +85,8 @@ namespace AerolineaFrba.Compra
         {
             CheckForIllegalCrossThreadCalls = false;
      
-           this.CiudadOrigen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
-           this.CiudadDestino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
+           this.CiudadOrigen.AddAll(DAO.DAOCompra.listarCiudades());
+           this.CiudadDestino.AddAll(DAO.DAOCompra.listarCiudades());
         }
 
 

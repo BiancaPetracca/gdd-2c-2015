@@ -90,6 +90,7 @@
             this.Nombre.Name = "Nombre";
             this.Nombre.Size = new System.Drawing.Size(159, 20);
             this.Nombre.TabIndex = 9;
+            this.Nombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Nombre_KeyPress);
             // 
             // Estado
             // 

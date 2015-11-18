@@ -50,6 +50,8 @@ namespace AerolineaFrba.Abm_Ruta
         private void Ruta_Load(object sender, EventArgs e)
         {
             DAO.DAORuta.getRutas(this.lista);
+            this.origen.AddAll(DAOCompra.listarCiudades());
+            this.destino.AddAll(DAOCompra.listarCiudades());
         }
 
         public void reload() {
@@ -80,6 +82,17 @@ namespace AerolineaFrba.Abm_Ruta
              Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_kg")),
              Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_pasaje")));
             
+
+        }
+
+
+        private void limpiar_Click_1(object sender, EventArgs e)
+        {
+            Extensions.cleanAll(this.filtros.Controls);
+        }
+
+        private void buscar_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -21,5 +21,10 @@ namespace AerolineaFrba.Listado_Estadistico
         {
             this.Close();
         }
+
+        private void superNumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

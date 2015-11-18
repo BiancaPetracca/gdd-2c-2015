@@ -77,6 +77,7 @@ namespace AerolineaFrba.Abm_Ruta
             this.Codigo.ReadOnly = true;
             this.Codigo.Size = new System.Drawing.Size(120, 20);
             this.Codigo.TabIndex = 2;
+            this.Codigo.Visible = false;
             // 
             // Origen
             // 
@@ -106,6 +107,7 @@ namespace AerolineaFrba.Abm_Ruta
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Código";
+            this.label1.Visible = false;
             // 
             // label2
             // 

@@ -164,6 +164,8 @@ BEGIN
 END
 GO
 
+select * from awanta.AERONAVE
+
 CREATE PROCEDURE AWANTA.bajar_rol(@descripcion nvarchar(255))
 AS
 BEGIN
@@ -797,7 +799,7 @@ END
 GO
 
 /*------MILLAS VIAJERO------*/
-
+SELECT * from gd_esquema.maestra
 
 ALTER PROCEDURE consultar_millas (@dni nvarchar(255))
 AS
@@ -809,10 +811,52 @@ BEGIN
 END
 GO
 
+
+CREATE PROCEDURE get_millas_cliente(@dni nvarchar(255))
+AS
+BEGIN
+	SELECT FROM AWANTA.CLIENTE 
+	JOIN AWANTA.COMPRA ON compra_cliente = cli_codigo
+	JOIN AWANTA.PASAJE ON compra_id = pas_compra
+	JOIN AWANTA.ENCOMIENDA ON compra_id = enc_compra
+	WHERE datediff(YEAR, AWANTA.getDate(), compra_) < 1
+
 SELECT * FROM AWANTA.CLIENTE
 
 INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, AWANTA.getDate())
 
+GO
+
+---------------- PRODUCTOS
+SELECT * FROM AWANTA.PRODUCTO
+CREATE PROCEDURE AWANTA.get_productos_disponibles
+AS
+BEGIN
+SELECT prod_nombre FROM AWANTA.PRODUCTO WHERE prod_stock > 0
+END
+GO
+
+ALTER PROCEDURE AWANTA.get_stock_producto(@prod NVARCHAR(255))
+AS
+BEGIN
+RETURN (SELECT TOP 1 prod_stock FROM AWANTA.PRODUCTO WHERE prod_nombre = @prod)
+END
+GO
+
+ALTER PROCEDURE AWANTA.get_puntos_producto(@prod NVARCHAR(255))
+AS
+BEGIN
+RETURN (SELECT TOP 1 prod_puntos FROM AWANTA.PRODUCTO WHERE prod_nombre = @prod)
+END
+GO
+
+------------- CLIENTES
+
+CREATE PROCEDURE AWANTA.existe_cliente(@dni NUMERIC(8))
+AS
+BEGIN
+IF(EXISTS(SELECT 1 FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = 'DNI'))
+BEGIN RETURN 1 END RETURN -1 END
 GO
 
 SELECT count(1) AS AERONAVE FROM AWANTA.AERONAVE

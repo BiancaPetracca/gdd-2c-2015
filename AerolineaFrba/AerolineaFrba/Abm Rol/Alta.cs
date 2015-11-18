@@ -72,5 +72,10 @@ namespace AerolineaFrba.Abm_Rol
         {
             this.FuncionalidadesRol.Rows.RemoveAt(this.FuncionalidadesRol.CurrentRow.Index);
         }
+
+        private void Nombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericOnly(e);
+        }
     }
 }

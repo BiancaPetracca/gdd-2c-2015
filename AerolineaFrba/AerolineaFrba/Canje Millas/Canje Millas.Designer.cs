@@ -29,14 +29,10 @@ namespace AerolineaFrba.Canje_Millas
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CanjearMillas = new System.Windows.Forms.GroupBox();
-            this.DatosCanjeador = new System.Windows.Forms.GroupBox();
             this.DNI = new AerolineaFrba.SuperControls.SuperTextBox();
-            this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.FechaCanje = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.AgregarProductos = new System.Windows.Forms.GroupBox();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
@@ -48,11 +44,13 @@ namespace AerolineaFrba.Canje_Millas
             this.ProductosCanjear = new System.Windows.Forms.DataGridView();
             this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.verificar = new AerolineaFrba.SuperControls.SuperButton();
+            this.DatosCanjeador = new AerolineaFrba.SuperControls.SuperGroupBox();
             this.CanjearMillas.SuspendLayout();
-            this.DatosCanjeador.SuspendLayout();
             this.AgregarProductos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CantidadProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProductosCanjear)).BeginInit();
+            this.DatosCanjeador.SuspendLayout();
             this.SuspendLayout();
             // 
             // CanjearMillas
@@ -69,56 +67,14 @@ namespace AerolineaFrba.Canje_Millas
             this.CanjearMillas.TabStop = false;
             this.CanjearMillas.Text = "Canjear millas";
             // 
-            // DatosCanjeador
-            // 
-            this.DatosCanjeador.Controls.Add(this.DNI);
-            this.DatosCanjeador.Controls.Add(this.label1);
-            this.DatosCanjeador.Controls.Add(this.label2);
-            this.DatosCanjeador.Controls.Add(this.FechaCanje);
-            this.DatosCanjeador.Location = new System.Drawing.Point(52, 43);
-            this.DatosCanjeador.Name = "DatosCanjeador";
-            this.DatosCanjeador.Size = new System.Drawing.Size(280, 153);
-            this.DatosCanjeador.TabIndex = 11;
-            this.DatosCanjeador.TabStop = false;
-            this.DatosCanjeador.Text = "Datos del canjeador";
-            // 
             // DNI
             // 
             this.DNI.AccessibleDescription = "DNI del beneficiario";
-            this.DNI.Location = new System.Drawing.Point(16, 56);
+            this.DNI.Location = new System.Drawing.Point(20, 39);
             this.DNI.MaxLength = 8;
             this.DNI.Name = "DNI";
             this.DNI.Size = new System.Drawing.Size(115, 20);
             this.DNI.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Ingrese DNI:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 88);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Ingrese fecha de canje:";
-            // 
-            // FechaCanje
-            // 
-            this.FechaCanje.AccessibleDescription = "Fecha de canje";
-            this.FechaCanje.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.FechaCanje.Location = new System.Drawing.Point(13, 119);
-            this.FechaCanje.MaxDate = new System.DateTime(2015, 10, 20, 0, 0, 0, 0);
-            this.FechaCanje.Name = "FechaCanje";
-            this.FechaCanje.Size = new System.Drawing.Size(119, 20);
-            this.FechaCanje.TabIndex = 4;
-            this.FechaCanje.Value = new System.DateTime(2015, 10, 20, 0, 0, 0, 0);
             // 
             // AgregarProductos
             // 
@@ -127,7 +83,7 @@ namespace AerolineaFrba.Canje_Millas
             this.AgregarProductos.Controls.Add(this.NombreProducto);
             this.AgregarProductos.Controls.Add(this.CantidadProducto);
             this.AgregarProductos.Controls.Add(this.superLabel1);
-            this.AgregarProductos.Location = new System.Drawing.Point(52, 217);
+            this.AgregarProductos.Location = new System.Drawing.Point(54, 171);
             this.AgregarProductos.Name = "AgregarProductos";
             this.AgregarProductos.Size = new System.Drawing.Size(280, 122);
             this.AgregarProductos.TabIndex = 10;
@@ -156,17 +112,20 @@ namespace AerolineaFrba.Canje_Millas
             // NombreProducto
             // 
             this.NombreProducto.AccessibleDescription = "Producto a canjear";
+            this.NombreProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NombreProducto.FormattingEnabled = true;
             this.NombreProducto.Location = new System.Drawing.Point(81, 39);
             this.NombreProducto.Name = "NombreProducto";
             this.NombreProducto.Size = new System.Drawing.Size(177, 21);
             this.NombreProducto.TabIndex = 7;
+            this.NombreProducto.SelectedIndexChanged += new System.EventHandler(this.NombreProducto_SelectedIndexChanged);
             // 
             // CantidadProducto
             // 
             this.CantidadProducto.AccessibleDescription = "Cantidad de un producto";
             this.CantidadProducto.Location = new System.Drawing.Point(82, 83);
             this.CantidadProducto.Name = "CantidadProducto";
+            this.CantidadProducto.ReadOnly = true;
             this.CantidadProducto.Size = new System.Drawing.Size(40, 20);
             this.CantidadProducto.TabIndex = 8;
             // 
@@ -216,8 +175,8 @@ namespace AerolineaFrba.Canje_Millas
             // 
             // Producto
             // 
-            dataGridViewCellStyle1.NullValue = "\"\"";
-            this.Producto.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.NullValue = "\"\"";
+            this.Producto.DefaultCellStyle = dataGridViewCellStyle3;
             this.Producto.HeaderText = "Producto";
             this.Producto.Name = "Producto";
             this.Producto.ReadOnly = true;
@@ -227,12 +186,34 @@ namespace AerolineaFrba.Canje_Millas
             // 
             // Cantidad
             // 
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = "0";
-            this.Cantidad.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Format = "N0";
+            dataGridViewCellStyle4.NullValue = "0";
+            this.Cantidad.DefaultCellStyle = dataGridViewCellStyle4;
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
             this.Cantidad.ReadOnly = true;
+            // 
+            // verificar
+            // 
+            this.verificar.Location = new System.Drawing.Point(162, 37);
+            this.verificar.Name = "verificar";
+            this.verificar.Size = new System.Drawing.Size(75, 23);
+            this.verificar.TabIndex = 11;
+            this.verificar.Text = "Verificar";
+            this.verificar.UseVisualStyleBackColor = true;
+            this.verificar.Click += new System.EventHandler(this.verificar_Click);
+            // 
+            // DatosCanjeador
+            // 
+            this.DatosCanjeador.AccessibleDescription = "DNI";
+            this.DatosCanjeador.Controls.Add(this.DNI);
+            this.DatosCanjeador.Controls.Add(this.verificar);
+            this.DatosCanjeador.Location = new System.Drawing.Point(54, 43);
+            this.DatosCanjeador.Name = "DatosCanjeador";
+            this.DatosCanjeador.Size = new System.Drawing.Size(280, 100);
+            this.DatosCanjeador.TabIndex = 12;
+            this.DatosCanjeador.TabStop = false;
+            this.DatosCanjeador.Text = "DNI del cliente";
             // 
             // Canje_Millas
             // 
@@ -243,13 +224,14 @@ namespace AerolineaFrba.Canje_Millas
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Canje_Millas";
             this.Text = "Canjear Millas";
+            this.Load += new System.EventHandler(this.Canje_Millas_Load);
             this.CanjearMillas.ResumeLayout(false);
-            this.DatosCanjeador.ResumeLayout(false);
-            this.DatosCanjeador.PerformLayout();
             this.AgregarProductos.ResumeLayout(false);
             this.AgregarProductos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CantidadProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProductosCanjear)).EndInit();
+            this.DatosCanjeador.ResumeLayout(false);
+            this.DatosCanjeador.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -259,19 +241,17 @@ namespace AerolineaFrba.Canje_Millas
         private System.Windows.Forms.GroupBox CanjearMillas;
         private System.Windows.Forms.DataGridView ProductosCanjear;
         private System.Windows.Forms.Button RealizarCanje;
-        private SuperDateTimePicker FechaCanje;
-        private SuperLabel label2;
         private SuperTextBox DNI;
-        private SuperLabel label1;
         private System.Windows.Forms.GroupBox AgregarProductos;
         private SuperControls.SuperButton Agregar;
         private SuperControls.SuperLabel superLabel2;
         private SuperControls.SuperComboBox NombreProducto;
         private SuperControls.SuperNumericUpDown CantidadProducto;
         private SuperControls.SuperLabel superLabel1;
-        private System.Windows.Forms.GroupBox DatosCanjeador;
         private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private SuperButton Cancelar;
+        private SuperButton verificar;
+        private SuperGroupBox DatosCanjeador;
     }
 }

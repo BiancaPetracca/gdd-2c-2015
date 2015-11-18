@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.Semestre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.TipoListado = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -43,8 +42,12 @@
             this.PuntosAcumulados = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DiasFueraServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
+            this.superNumericUpDown1 = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.superDateTimePicker1 = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Top5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superNumericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -52,17 +55,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(37, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 13);
+            this.label1.Size = new System.Drawing.Size(54, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Seleccione semestre:";
-            // 
-            // Semestre
-            // 
-            this.Semestre.AccessibleDescription = "Semestre";
-            this.Semestre.Location = new System.Drawing.Point(162, 32);
-            this.Semestre.Name = "Semestre";
-            this.Semestre.Size = new System.Drawing.Size(100, 20);
-            this.Semestre.TabIndex = 1;
+            this.label1.Text = "Semestre:";
             // 
             // label2
             // 
@@ -76,6 +71,7 @@
             // TipoListado
             // 
             this.TipoListado.AccessibleName = "Tipo de listado";
+            this.TipoListado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TipoListado.FormattingEnabled = true;
             this.TipoListado.Items.AddRange(new object[] {
             "Destinos con más pasajes comprados",
@@ -165,21 +161,68 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // superNumericUpDown1
+            // 
+            this.superNumericUpDown1.Location = new System.Drawing.Point(97, 35);
+            this.superNumericUpDown1.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.superNumericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.superNumericUpDown1.Name = "superNumericUpDown1";
+            this.superNumericUpDown1.ReadOnly = true;
+            this.superNumericUpDown1.Size = new System.Drawing.Size(36, 20);
+            this.superNumericUpDown1.TabIndex = 6;
+            this.superNumericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.superNumericUpDown1.ValueChanged += new System.EventHandler(this.superNumericUpDown1_ValueChanged);
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(164, 35);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(29, 13);
+            this.superLabel1.TabIndex = 7;
+            this.superLabel1.Text = "Año:";
+            // 
+            // superDateTimePicker1
+            // 
+            this.superDateTimePicker1.CustomFormat = "yyyy";
+            this.superDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.superDateTimePicker1.Location = new System.Drawing.Point(200, 35);
+            this.superDateTimePicker1.MaxDate = new System.DateTime(2018, 12, 31, 0, 0, 0, 0);
+            this.superDateTimePicker1.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.superDateTimePicker1.Name = "superDateTimePicker1";
+            this.superDateTimePicker1.Size = new System.Drawing.Size(54, 20);
+            this.superDateTimePicker1.TabIndex = 8;
+            // 
             // Listado_Estadisticas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 442);
+            this.Controls.Add(this.superDateTimePicker1);
+            this.Controls.Add(this.superLabel1);
+            this.Controls.Add(this.superNumericUpDown1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.TipoListado);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.Semestre);
             this.Controls.Add(this.label1);
             this.Name = "Listado_Estadisticas";
             this.Text = "Listado Estadístico";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Top5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superNumericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,7 +231,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox Semestre;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox TipoListado;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -202,5 +244,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PuntosAcumulados;
         private System.Windows.Forms.DataGridViewTextBoxColumn DiasFueraServicio;
         private System.Windows.Forms.Button button1;
+        private SuperControls.SuperNumericUpDown superNumericUpDown1;
+        private SuperControls.SuperLabel superLabel1;
+        private SuperControls.SuperDateTimePicker superDateTimePicker1;
     }
 }

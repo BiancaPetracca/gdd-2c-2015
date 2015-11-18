@@ -235,7 +235,9 @@ CREATE TABLE AWANTA.COMPRA
 	references AWANTA.CLIENTE(cli_codigo),
 	compra_terminal numeric(18) foreign key 
 	references AWANTA.TERMINAL(terminal_id),
+	compra_fecha DATETIME
 )
+
 
 CREATE TABLE AWANTA.PASAJE
 (
@@ -567,6 +569,10 @@ via_fecha_salida = FechaSalida JOIN AWANTA.CLIENTE ON
 Cli_Dni = cli_nro_doc 
 
 
+DECLARE curs_fechas FOR SELECT Pasaje_FechaCompra FROM gd_esquema.Maestra
+JOIN AWANTA.COMPRA ON Pasaje_codigo = compra_id
+ SELECT * FROM AWANTA.compra
+SELECT * FROM gd_esquema.Maestra
 /*TODO BUTACA?*/
 
 

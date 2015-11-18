@@ -45,6 +45,17 @@ namespace AerolineaFrba.Model
         public DateTime fechaAlta { get; set; }
         public String servicio { get; set; }
 
+// DECIDIMOS QUE LOS TIPOS DE BUTACA SI ES IMPAR ES DE PASILLO Y SI ES PAR, ES DE VENTANILLA.
+        public String tipoDeButaca(int numero)
+        {
+            if ((numero % 2) == 0)
+            {
+                return "Pasillo";
+            }
+            return "Ventanilla";
+        }
+
+
 
     }
 }

@@ -75,6 +75,11 @@ namespace AerolineaFrba.Abm_Rol
             rol.nombre = this.Nombre.Text;
         }
 
+        private void Nombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericOnly(e);
+        }
+
 
     }
 }

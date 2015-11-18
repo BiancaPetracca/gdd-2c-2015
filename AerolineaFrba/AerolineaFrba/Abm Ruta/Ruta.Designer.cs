@@ -28,19 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox = new System.Windows.Forms.GroupBox();
+            this.buscar = new System.Windows.Forms.GroupBox();
             this.darDeBaja = new AerolineaFrba.SuperControls.SuperButton();
             this.modificar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cerrar = new System.Windows.Forms.Button();
             this.filtros = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.filtro2 = new System.Windows.Forms.Label();
-            this.buscador = new System.Windows.Forms.TextBox();
-            this.buscadorExacto = new System.Windows.Forms.TextBox();
-            this.combo = new System.Windows.Forms.ComboBox();
-            this.Limpiar = new System.Windows.Forms.Button();
-            this.Buscar = new System.Windows.Forms.Button();
-            this.filtro1 = new System.Windows.Forms.Label();
             this.Agregar = new System.Windows.Forms.Button();
             this.lista = new System.Windows.Forms.DataGridView();
             this.col_codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,25 +42,31 @@
             this.col_habilitada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_pb_kg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_pb_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox.SuspendLayout();
+            this.origen = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.destino = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.superButton1 = new AerolineaFrba.SuperControls.SuperButton();
+            this.limpiar = new AerolineaFrba.SuperControls.SuperButton();
+            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.buscar.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox
+            // buscar
             // 
-            this.groupBox.Controls.Add(this.darDeBaja);
-            this.groupBox.Controls.Add(this.modificar);
-            this.groupBox.Controls.Add(this.Cerrar);
-            this.groupBox.Controls.Add(this.filtros);
-            this.groupBox.Controls.Add(this.Agregar);
-            this.groupBox.Controls.Add(this.lista);
-            this.groupBox.Location = new System.Drawing.Point(12, 12);
-            this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(1110, 473);
-            this.groupBox.TabIndex = 5;
-            this.groupBox.TabStop = false;
-            this.groupBox.Text = "Rutas";
+            this.buscar.Controls.Add(this.darDeBaja);
+            this.buscar.Controls.Add(this.modificar);
+            this.buscar.Controls.Add(this.Cerrar);
+            this.buscar.Controls.Add(this.filtros);
+            this.buscar.Controls.Add(this.Agregar);
+            this.buscar.Controls.Add(this.lista);
+            this.buscar.Location = new System.Drawing.Point(12, 12);
+            this.buscar.Name = "buscar";
+            this.buscar.Size = new System.Drawing.Size(1110, 473);
+            this.buscar.TabIndex = 5;
+            this.buscar.TabStop = false;
+            this.buscar.Text = "Rutas";
             // 
             // darDeBaja
             // 
@@ -101,83 +99,18 @@
             // 
             // filtros
             // 
-            this.filtros.Controls.Add(this.label1);
-            this.filtros.Controls.Add(this.filtro2);
-            this.filtros.Controls.Add(this.buscador);
-            this.filtros.Controls.Add(this.buscadorExacto);
-            this.filtros.Controls.Add(this.combo);
-            this.filtros.Controls.Add(this.Limpiar);
-            this.filtros.Controls.Add(this.Buscar);
-            this.filtros.Controls.Add(this.filtro1);
+            this.filtros.Controls.Add(this.superLabel2);
+            this.filtros.Controls.Add(this.superLabel1);
+            this.filtros.Controls.Add(this.limpiar);
+            this.filtros.Controls.Add(this.superButton1);
+            this.filtros.Controls.Add(this.destino);
+            this.filtros.Controls.Add(this.origen);
             this.filtros.Location = new System.Drawing.Point(16, 19);
             this.filtros.Name = "filtros";
             this.filtros.Size = new System.Drawing.Size(1082, 100);
             this.filtros.TabIndex = 5;
             this.filtros.TabStop = false;
             this.filtros.Text = "Filtros";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(473, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 23);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Opciones";
-            // 
-            // filtro2
-            // 
-            this.filtro2.Location = new System.Drawing.Point(6, 37);
-            this.filtro2.Name = "filtro2";
-            this.filtro2.Size = new System.Drawing.Size(100, 23);
-            this.filtro2.TabIndex = 11;
-            this.filtro2.Text = "Nombre exacto";
-            // 
-            // buscador
-            // 
-            this.buscador.Location = new System.Drawing.Point(112, 70);
-            this.buscador.Name = "buscador";
-            this.buscador.Size = new System.Drawing.Size(161, 20);
-            this.buscador.TabIndex = 0;
-            // 
-            // buscadorExacto
-            // 
-            this.buscadorExacto.Location = new System.Drawing.Point(112, 34);
-            this.buscadorExacto.Name = "buscadorExacto";
-            this.buscadorExacto.Size = new System.Drawing.Size(161, 20);
-            this.buscadorExacto.TabIndex = 1;
-            // 
-            // combo
-            // 
-            this.combo.Location = new System.Drawing.Point(552, 27);
-            this.combo.Name = "combo";
-            this.combo.Size = new System.Drawing.Size(219, 21);
-            this.combo.TabIndex = 5;
-            // 
-            // Limpiar
-            // 
-            this.Limpiar.Location = new System.Drawing.Point(599, 67);
-            this.Limpiar.Name = "Limpiar";
-            this.Limpiar.Size = new System.Drawing.Size(75, 23);
-            this.Limpiar.TabIndex = 6;
-            this.Limpiar.Text = "Limpiar";
-            this.Limpiar.Click += new System.EventHandler(this.Limpiar_Click);
-            // 
-            // Buscar
-            // 
-            this.Buscar.Location = new System.Drawing.Point(697, 67);
-            this.Buscar.Name = "Buscar";
-            this.Buscar.Size = new System.Drawing.Size(75, 23);
-            this.Buscar.TabIndex = 7;
-            this.Buscar.Text = "Buscar";
-            this.Buscar.Click += new System.EventHandler(this.Buscar_Click);
-            // 
-            // filtro1
-            // 
-            this.filtro1.Location = new System.Drawing.Point(6, 73);
-            this.filtro1.Name = "filtro1";
-            this.filtro1.Size = new System.Drawing.Size(100, 23);
-            this.filtro1.TabIndex = 10;
-            this.filtro1.Text = "Por clave";
             // 
             // Agregar
             // 
@@ -250,17 +183,73 @@
             this.col_pb_pasaje.Name = "col_pb_pasaje";
             this.col_pb_pasaje.ReadOnly = true;
             // 
+            // origen
+            // 
+            this.origen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.origen.FormattingEnabled = true;
+            this.origen.Location = new System.Drawing.Point(167, 20);
+            this.origen.Name = "origen";
+            this.origen.Size = new System.Drawing.Size(139, 21);
+            this.origen.TabIndex = 0;
+            // 
+            // destino
+            // 
+            this.destino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.destino.FormattingEnabled = true;
+            this.destino.Location = new System.Drawing.Point(167, 60);
+            this.destino.Name = "destino";
+            this.destino.Size = new System.Drawing.Size(139, 21);
+            this.destino.TabIndex = 1;
+            // 
+            // superButton1
+            // 
+            this.superButton1.Location = new System.Drawing.Point(403, 17);
+            this.superButton1.Name = "superButton1";
+            this.superButton1.Size = new System.Drawing.Size(75, 23);
+            this.superButton1.TabIndex = 2;
+            this.superButton1.Text = "Buscar";
+            this.superButton1.UseVisualStyleBackColor = true;
+            this.superButton1.Click += new System.EventHandler(this.buscar_Click);
+            // 
+            // limpiar
+            // 
+            this.limpiar.Location = new System.Drawing.Point(403, 57);
+            this.limpiar.Name = "limpiar";
+            this.limpiar.Size = new System.Drawing.Size(75, 23);
+            this.limpiar.TabIndex = 3;
+            this.limpiar.Text = "Limpiar";
+            this.limpiar.UseVisualStyleBackColor = true;
+            this.limpiar.Click += new System.EventHandler(this.limpiar_Click_1);
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(45, 27);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(61, 13);
+            this.superLabel1.TabIndex = 4;
+            this.superLabel1.Text = "Con origen:";
+            // 
+            // superLabel2
+            // 
+            this.superLabel2.AutoSize = true;
+            this.superLabel2.Location = new System.Drawing.Point(45, 60);
+            this.superLabel2.Name = "superLabel2";
+            this.superLabel2.Size = new System.Drawing.Size(66, 13);
+            this.superLabel2.TabIndex = 5;
+            this.superLabel2.Text = "Con destino:";
+            // 
             // Ruta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1134, 497);
-            this.Controls.Add(this.groupBox);
+            this.Controls.Add(this.buscar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Ruta";
             this.Text = "Ruta";
             this.Load += new System.EventHandler(this.Ruta_Load);
-            this.groupBox.ResumeLayout(false);
+            this.buscar.ResumeLayout(false);
             this.filtros.ResumeLayout(false);
             this.filtros.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).EndInit();
@@ -270,16 +259,8 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox;
+        private System.Windows.Forms.GroupBox buscar;
         private System.Windows.Forms.GroupBox filtros;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label filtro2;
-        private System.Windows.Forms.TextBox buscador;
-        private System.Windows.Forms.TextBox buscadorExacto;
-        private System.Windows.Forms.ComboBox combo;
-        private System.Windows.Forms.Button Limpiar;
-        private System.Windows.Forms.Button Buscar;
-        private System.Windows.Forms.Label filtro1;
         private System.Windows.Forms.Button Agregar;
         private System.Windows.Forms.DataGridView lista;
         private System.Windows.Forms.Button Cerrar;
@@ -292,5 +273,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_habilitada;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_pb_kg;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_pb_pasaje;
+        private SuperControls.SuperButton superButton1;
+        private SuperControls.SuperComboBox destino;
+        private SuperControls.SuperComboBox origen;
+        private SuperControls.SuperButton limpiar;
+        private SuperControls.SuperLabel superLabel2;
+        private SuperControls.SuperLabel superLabel1;
     }
 }
