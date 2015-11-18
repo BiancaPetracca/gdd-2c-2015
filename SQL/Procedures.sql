@@ -222,7 +222,7 @@ GO
 
 /*------ABM DE AERONAVES------*/
 
-ALTER PROCEDURE AWANTA.get_aeronaves(@estado numeric(1) = null, @filtro nvarchar(255) = null)
+CREATE PROCEDURE AWANTA.get_aeronaves(@estado numeric(1) = null, @filtro nvarchar(255) = null)
 AS
 BEGIN
 SET @estado = nullif(@estado, 0)
