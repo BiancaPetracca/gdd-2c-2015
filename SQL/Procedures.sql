@@ -1,10 +1,699 @@
-/*----------STORED PROCEDURES APLICACION----------*/ 
+USE [GD2C2015]
+GO
+
+IF (NOT EXISTS ( SELECT  1 FROM sys.schemas WHERE name = 'AWANTA' )) 
+	BEGIN 
+    EXEC('CREATE SCHEMA [AWANTA] AUTHORIZATION [gd]')
+	END
+GO
+
+/*---------------------------DROP DE LAS TABLAS---------------------------*/
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'HISTORICO_BAJAS')
+	DROP TABLE AWANTA.HISTORICO_BAJAS
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'DEVOLUCION')
+	DROP TABLE AWANTA.DEVOLUCION
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'PASAJE')
+	DROP TABLE AWANTA.PASAJE
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'ENCOMIENDA')
+	DROP TABLE AWANTA.ENCOMIENDA
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'COMPRA')
+	DROP TABLE AWANTA.COMPRA
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'TERMINAL')
+	DROP TABLE AWANTA.TERMINAL
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'TIPO_DE_PAGO')
+	DROP TABLE AWANTA.TIPO_DE_PAGO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'BUTACAXVIAJE')
+	DROP TABLE AWANTA.BUTACAXVIAJE
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'BUTACA')
+	DROP TABLE AWANTA.BUTACA
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'VIAJE')
+	DROP TABLE AWANTA.VIAJE
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'AERONAVE')
+	DROP TABLE AWANTA.AERONAVE
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'MODELO')
+	DROP TABLE AWANTA.MODELO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'FABRICANTE')
+	DROP TABLE AWANTA.FABRICANTE
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'CANJE')
+	DROP TABLE AWANTA.CANJE
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'PRODUCTO')
+	DROP TABLE AWANTA.PRODUCTO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'CLIENTE')
+	DROP TABLE AWANTA.CLIENTE
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'USUARIO')
+	DROP TABLE AWANTA.USUARIO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'FUNC_X_ROL')
+	DROP TABLE AWANTA.FUNC_X_ROL
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'FUNCIONALIDAD')
+	DROP TABLE AWANTA.FUNCIONALIDAD
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'ROL')
+	DROP TABLE AWANTA.ROL
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'SERVICIOXRUTA')
+	DROP TABLE AWANTA.SERVICIOXRUTA
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'RUTA_AEREA')
+	DROP TABLE AWANTA.RUTA_AEREA
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'SERVICIO')
+	DROP TABLE AWANTA.SERVICIO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'CIUDAD')
+	DROP TABLE AWANTA.CIUDAD
+GO
+/*---------------------------CREACION DE TABLAS Y CONSTRAINTS---------------------------*/
 
 CREATE FUNCTION AWANTA.getDate() RETURNS DATETIME
 AS BEGIN 
 RETURN DATETIMEFROMPARTS(2017, 05, 13, 13, 13, 13, 000)
 END
 GO
+
+CREATE TABLE AWANTA.CIUDAD
+(
+	ciu_id numeric(18) identity(1,1) primary key,
+	ciu_nombre nvarchar(255) not null,
+)
+
+CREATE TABLE AWANTA.SERVICIO
+(
+	serv_id_servicio numeric(18) identity(1,1) primary key,
+	serv_nombre nvarchar(255) not null,
+	serv_porcentaje_adicional int not null,		
+)
+
+CREATE TABLE AWANTA.RUTA_AEREA
+(
+	rut_codigo numeric(18) identity(1,1) primary key,
+	rut_codigo_original numeric(18),
+	rut_origen numeric(18) not null foreign key
+	references AWANTA.CIUDAD(ciu_id),
+	rut_destino numeric(18) not null foreign key
+	references AWANTA.CIUDAD(ciu_id),
+	rut_precio_base money not null,
+	rut_precio_base_x_kg money not null,
+	rut_habilitada bit not null,
+)
+
+CREATE TABLE AWANTA.SERVICIOXRUTA (
+	servxr_ruta numeric(18) NOT NULL foreign key references AWANTA.RUTA_AEREA(rut_codigo),
+	servxr_servicio numeric(18) NOT NULL foreign key references AWANTA.SERVICIO(serv_id_servicio)
+)
+CREATE TABLE AWANTA.ROL
+(
+	rol_id numeric(18) identity(1,1) primary key,
+	rol_nombre nvarchar(255) not null,
+	rol_funcionalidades nvarchar(255),
+	rol_estado bit not null,
+)
+
+CREATE TABLE AWANTA.FUNCIONALIDAD
+(
+	fun_id numeric(18) identity(1,1) primary key,
+	fun_descripcion nvarchar(255) not null,
+)
+
+CREATE TABLE AWANTA.FUNC_X_ROL
+(
+	f_x_r_funcionalidad numeric(18) not null foreign key
+	references AWANTA.FUNCIONALIDAD(fun_id) ,
+	f_x_r_rol numeric(18) not null foreign key 
+	references AWANTA.ROL(rol_id),
+)
+
+CREATE TABLE AWANTA.USUARIO
+(
+	usu_id numeric(18) identity(1,1) primary key,
+	usu_username nvarchar(255) unique not null,
+	usu_password nvarchar(255) not null,
+	usu_estado bit not null,
+	usu_fecha_alta datetime not null,
+	usu_intentos_login int not null,
+	usu_rol numeric(18) foreign key
+	references AWANTA.ROL(rol_id)
+)
+
+CREATE TABLE AWANTA.CLIENTE
+(	
+	cli_codigo numeric(18) identity(1,1) primary key,
+	cli_tipo_doc nvarchar(255) not null,
+	cli_nro_doc numeric(18) not null,
+	cli_nombre nvarchar(255) not null,
+	cli_apellido nvarchar(255) not null,
+	cli_direccion nvarchar(255) not null,
+	cli_telefono numeric(18) not null,
+	cli_fecha_nac datetime not null,
+	cli_mail nvarchar(255)
+
+)
+
+CREATE TABLE AWANTA.PRODUCTO
+(
+	prod_id numeric(18) identity(1,1) primary key,
+	prod_nombre nvarchar(255) not null,
+	prod_millas bigint not null,
+	prod_stock numeric(18),
+)
+
+CREATE TABLE AWANTA.CANJE  --suponemos que un canje es por cada producto, no que puede tener varios. 
+(
+	can_codigo numeric(18) identity(1,1) primary key,
+	can_canjeador numeric(18) not null foreign key
+	references AWANTA.CLIENTE(cli_codigo),
+	can_producto numeric(18) not null foreign key
+	references AWANTA.PRODUCTO(prod_id),
+	can_cantidad numeric(18) not null,
+	can_fecha datetime not null,
+)
+
+
+CREATE TABLE AWANTA.FABRICANTE(
+	fab_id numeric(18) identity(1,1) primary key,
+	fab_nombre nvarchar(255)
+	)
+
+CREATE TABLE AWANTA.MODELO(
+	mod_id numeric(18) identity(1,1) primary key,
+	mod_nombre nvarchar(255), -- puede tener un nombre o no! 
+	mod_fabricante numeric(18) not null foreign key references AWANTA.FABRICANTE(fab_id)
+)
+
+CREATE TABLE AWANTA.AERONAVE
+(
+	aero_numero numeric(18) identity(1,1) primary key,
+	aero_matricula nvarchar(255) unique not null,
+	aero_modelo numeric(18) not null foreign key references AWANTA.MODELO(mod_id),
+	aero_id_servicio numeric(18) not null foreign key
+	references AWANTA.SERVICIO (serv_id_servicio),
+	aero_fecha_de_alta datetime not null,
+	aero_baja_fuera_de_servicio datetime,
+	aero_fecha_reinicio_servicio datetime,
+	aero_fecha_baja_definitiva datetime,
+	aero_cantidad_butacas_pasillo int, -- estos vendrian a ser el maximo de butacas pasillo y ventanilla que puede tener.
+	aero_cantidad_butacas_ventanilla int,
+	aero_kgs_disponibles_encomiendas int not null,
+	aero_estado bit not null,
+
+)
+
+CREATE TABLE AWANTA.VIAJE
+(
+	via_codigo numeric(18) identity(1,1) primary key,
+	via_fecha_salida datetime not null,
+	via_fecha_llegada datetime,
+	via_fecha_llegada_estimada datetime not null,
+	via_avion numeric(18) foreign key
+	references AWANTA.AERONAVE(aero_numero),
+	via_ruta_aerea numeric(18) foreign key
+	references AWANTA.RUTA_AEREA(rut_codigo),
+	via_cancelado bit,
+)
+
+CREATE TABLE AWANTA.BUTACA
+(
+	but_id numeric(18) identity(1,1) primary key,
+	but_numero int not null,
+	but_piso int not null,
+	but_tipo nvarchar(255) not null,
+	but_aeronave numeric not null foreign key references AWANTA.AERONAVE(aero_numero)
+
+)
+
+CREATE TABLE AWANTA.BUTACAXVIAJE (
+	butxv_viaje numeric(18) foreign key references AWANTA.VIAJE(via_codigo),
+	butxv_butaca numeric(18) foreign key references AWANTA.BUTACA(but_id),
+	butxv_ocupada bit
+	PRIMARY KEY (butxv_viaje, butxv_butaca)
+	)
+
+CREATE TABLE AWANTA.TIPO_DE_PAGO
+(
+
+	tarjeta_tipo_pago char primary key,
+	tarjeta_nro numeric(18),
+	tarjeta_codigo_seguridad numeric(18),
+	tarjeta_fecha_vencimiento datetime,
+	tarjeta_tipo nvarchar(255),
+	tarjeta_cliente numeric(18) references AWANTA.CLIENTE(cli_codigo)
+)
+
+CREATE TABLE AWANTA.COMPRA
+(
+	compra_id numeric(18) identity(1,1) primary key,
+	compra_cliente numeric(18) foreign key
+	references AWANTA.CLIENTE(cli_codigo),
+	compra_fecha DATETIME,
+	compra_monto numeric(18,2)
+)
+
+CREATE TABLE AWANTA.PASAJE
+(
+	pas_codigo numeric(18) identity (1,1) primary key,
+	pas_pasajero numeric(18) foreign key references AWANTA.CLIENTE(cli_codigo),
+	pas_compra numeric(18) foreign key references AWANTA.COMPRA(compra_id),
+	pas_viaje numeric(18) foreign key references AWANTA.VIAJE(via_codigo),
+	pas_butaca numeric(18) foreign key references AWANTA.BUTACA(but_id) 
+	-- referencio a la butaca, cuando quiera consultar me fijo en el viaje tambien y en butacas por viaje salta si esta ocupada o no.
+)
+
+CREATE TABLE AWANTA.ENCOMIENDA
+(
+	enc_codigo numeric(18) identity(1,1) primary key,
+	enc_kg int not null,
+	enc_viaje numeric(18) foreign key references AWANTA.VIAJE(via_codigo),
+	enc_encomendador numeric(18) foreign key references AWANTA.CLIENTE(cli_codigo),
+	enc_compra numeric(18) foreign key references AWANTA.COMPRA(compra_id),
+)
+
+
+CREATE TABLE AWANTA.DEVOLUCION
+(
+	dev_codigo numeric(18) identity(1,1) primary key,
+	dev_motivo nvarchar(255) not null,
+	dev_fecha datetime not null,
+	dev_pasaje numeric(18) 
+	references AWANTA.PASAJE(pas_codigo),
+	dev_encomienda numeric(18)
+	references AWANTA.ENCOMIENDA(enc_codigo)
+)
+
+
+CREATE TABLE AWANTA.HISTORICO_BAJAS 
+(
+	baja_codigo NUMERIC(18) identity (1,1) PRIMARY KEY,
+	baja_avion NUMERIC(18) not null foreign key references AWANTA.AERONAVE(aero_numero),
+	baja_avion_reemplazo NUMERIC(18) foreign key references AWANTA.AERONAVE(aero_numero),
+	baja_fecha DATETIME not null,
+	baja_reinicio DATETIME,
+	baja_motivo bit,  -- 0 si fue por fin de vida util, 1 si era por mantenimiento
+	baja_ciudad NUMERIC(18) -- le pongo la ciudad en la que estaba cuando fue dado de baja
+)
+
+GO
+/*---------------------------MIGRACION DE LA TABLA MAESTRA---------------------------*/
+
+/*------MIGRACION DE LA TABLA CIUDAD------*/
+INSERT INTO AWANTA.CIUDAD(ciu_nombre)
+	SELECT DISTINCT Ruta_Ciudad_Origen
+	FROM gd_esquema.Maestra
+	WHERE NOT EXISTS (SELECT 1 FROM AWANTA.CIUDAD where ciu_nombre = Ruta_Ciudad_Origen)
+GO
+
+
+/*------MIGRACION DE LA TABLA SERVICIO------*/
+
+/*CALCULO DE PORCENTAJES ADICIONAL DE RUTA POR TIPO DE SERVICIO*/
+/*TESTEADO*/
+
+CREATE FUNCTION AWANTA.porcentajeDadoUnServicio(@tipoServicio NVARCHAR(255))
+RETURNS INT
+AS
+	BEGIN
+		DECLARE @porcentaje INT
+		DECLARE @precioTotal NUMERIC
+		DECLARE @precioBase NUMERIC
+		DECLARE miCursor CURSOR FOR SELECT Pasaje_Precio,Ruta_Precio_BasePasaje FROM gd_esquema.Maestra 
+									WHERE Tipo_Servicio=@tipoServicio AND Pasaje_Precio > 0
+		OPEN miCursor
+
+		FETCH FROM miCursor INTO @precioTotal,@precioBase
+
+		WHILE @@FETCH_STATUS = 0
+			BEGIN
+				SET @porcentaje = (@precioTotal-@precioBase) * 100 / @precioTotal
+				CLOSE miCursor
+				DEALLOCATE miCursor
+				RETURN @porcentaje
+			END	
+		RETURN @porcentaje
+	END
+GO
+
+/*TESTEADO*/
+INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Turista',AWANTA.porcentajeDadoUnServicio('Turista'));
+GO
+INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Primera Clase',AWANTA.porcentajeDadoUnServicio('Primera Clase'));
+GO
+INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Ejecutivo',AWANTA.porcentajeDadoUnServicio('Ejecutivo'));
+GO
+/*------MIGRACION DE LA TABLA RUTA_AEREA------*/
+
+ALTER FUNCTION AWANTA.buscarIdServicio(@Tipo_Servicio NVARCHAR(255))
+RETURNS NUMERIC(18)
+AS
+	BEGIN
+		RETURN (SELECT TOP 1 serv_id_servicio FROM AWANTA.SERVICIO WHERE @Tipo_Servicio LIKE '%' + serv_nombre)
+	END 
+GO
+
+ALTER FUNCTION AWANTA.obtenerIdCiudad(@nombreCiudad NVARCHAR(255))
+RETURNS NUMERIC(18)
+AS
+	BEGIN
+		RETURN (SELECT TOP 1 ciu_id FROM AWANTA.CIUDAD WHERE ciu_nombre LIKE '%' + @nombreCiudad)
+	END
+GO
+
+----- MIGRACION DE RUTAS -------
+--decidimos que el precio del pasaje va a ser el maximo que aparecio en la ruta  y que el original lo dejamos como forma de manejar 
+-- a las rutas que repetian el mismo codigo, despues para validar que sean distintas comparamos por el resto de los campos.
+-- como ahora las rutas que tienen el mismo codigo difieren en origen o destino, en la migracion comparamos directamente por eso.
+-- despues no va a ser asi, porque ya utilizamos solo el codigo de la ruta (el auto generado) y no hace falta.  
+-- para los servicios, vimos que en la tabla ninguna ruta tiene mas de uno entonces para migrar directamente 
+--- añadimos a la asociativa desde aca, pero para la creacion de nuevas rutas se hace distinto. 
+
+
+
+DECLARE curs_rutas CURSOR FOR SELECT DISTINCT Ruta_Codigo, AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen), AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino),AWANTA.buscarIdServicio(Tipo_Servicio),max(Ruta_Precio_BaseKG),max(Ruta_Precio_BasePasaje)
+FROM gd_esquema.Maestra
+GROUP BY Ruta_Codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, Tipo_Servicio
+ORDER BY Ruta_Codigo
+OPEN curs_rutas 
+-- sabemos que incrementa de a uno el codigo entonces hacemos lo mismo 
+DECLARE @codigo numeric, @origen numeric, @destino numeric, @servicio numeric, @basekg numeric, @basepasaje numeric	
+FETCH FROM curs_rutas INTO @codigo, @origen, @destino, @servicio, @basekg, @basepasaje	
+WHILE @@FETCH_STATUS = 0
+BEGIN						
+INSERT INTO AWANTA.RUTA_AEREA(rut_codigo_original, rut_origen, rut_destino, rut_precio_base_x_kg,rut_precio_base,rut_habilitada)
+VALUES (@codigo, @origen , @destino, @basekg, @basepasaje, 1)
+INSERT INTO AWANTA.SERVICIOXRUTA(servxr_ruta, servxr_servicio) VALUES (SCOPE_IDENTITY(), @servicio)
+FETCH FROM curs_rutas INTO @codigo, @origen, @destino, @servicio, @basekg, @basepasaje	
+END
+CLOSE curs_rutas
+DEALLOCATE curs_rutas
+GO
+
+
+
+/*------MIGRACION DE LA TABLA ROL------*/
+INSERT INTO AWANTA.ROL(rol_nombre,rol_estado)
+	VALUES('Administrativo',1)
+GO
+
+INSERT INTO AWANTA.ROL(rol_nombre,rol_estado)
+	VALUES('Cliente',1)
+GO
+
+/*------MIGRACION DE LA TABLA FUNCIONALIDAD------*/
+/*TESTEADO*/
+INSERT INTO AWANTA.FUNCIONALIDAD(fun_descripcion)
+	SELECT 'ABM de Rol'
+	UNION ALL
+	SELECT 'ABM de Ciudades'
+	UNION ALL
+	SELECT 'ABM de Ruta Aerea'
+	UNION ALL
+	SELECT 'ABM de Aeronaves'
+	UNION ALL
+	SELECT 'Generar Viaje'
+	UNION ALL
+	SELECT 'Registro de Llegada a Destino'
+	UNION ALL
+	SELECT 'Compra de Pasaje/Encomienda'
+	UNION ALL
+	SELECT 'Devolucion de Pasaje o Encomienda'
+	UNION ALL
+	SELECT 'Consultar Millas De Pasajero Frecuente'
+	UNION ALL
+	SELECT 'Canje de Millas de Pasajero Frecuente'
+	UNION ALL
+	SELECT 'Listado Estadistico'
+GO
+/*------MIGRACION DE LA TABLA FUNCIONALIDAD_X_ROL------*/	
+
+	/*----FUNCIONALIDADES DEL ADMIN----*/ /*TESTEADO*/
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (1,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (2,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (3,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (4,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (5,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (6,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (7,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (8,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (9,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (10,1)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (11,1)
+
+	/*----FUNCIONALIDADES DEL CLIENTE----*//*TESTEADO*/
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (7,2)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (9,2)
+INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES (10,2)
+GO
+
+
+
+CREATE PROCEDURE [AWANTA].set_funcionalidades_x_rol(@id_rol numeric(18),@id_funcionalidad numeric(18))
+AS
+	INSERT INTO AWANTA.FUNC_X_ROL(f_x_r_funcionalidad,f_x_r_rol) VALUES(@id_funcionalidad,@id_rol);
+GO
+/*EXEC DE ESTE PROCEDURE MAS ABAJO PARA INSERTAR FUNCIONALIDADES PARA CADA ROL*/
+
+/*TODO CREAR INDICES PARA MEJORAR LA PERFORMANCE*/
+
+
+
+/*------MIGRACION USUARIO(PROCEDURE PARA INSERCION NO HACE FALTA EL ABM)------*/
+
+
+
+CREATE PROCEDURE [AWANTA].insertar_usuario(@username VARCHAR(50), @password VARCHAR(100),@fechaAlta DATETIME)
+AS BEGIN
+	BEGIN TRY
+		INSERT INTO [AWANTA].USUARIO (usu_username, usu_password,usu_estado,usu_fecha_alta,usu_intentos_login) VALUES (@username, @password,'H', @fechaAlta,0)
+	END TRY
+	BEGIN CATCH
+		print '@@error=' print @@error
+		/*TODO VER ERROR QUE TIRAR*/
+	END CATCH
+END
+GO
+
+/*------MIGRACION DE LA TABLA CLIENTE------*/
+/*TESTEADO*/
+INSERT INTO AWANTA.CLIENTE(cli_tipo_doc,cli_nro_doc,cli_nombre,cli_apellido,cli_direccion,cli_telefono,cli_fecha_nac,cli_mail)
+SELECT DISTINCT 'DNI',Cli_Dni,Cli_Nombre,Cli_Apellido,Cli_Dir,Cli_Telefono,Cli_Fecha_Nac,Cli_Mail
+FROM gd_esquema.Maestra
+GO
+
+/*------MIGRACION DE LA TABLA PRODUCTO------*/
+/*TESTEADO*/
+
+CREATE PROCEDURE [AWANTA].insertar_nuevo_producto(@nombreProducto NVARCHAR(255),@puntosNecesarios BIGINT,@stockProducto NUMERIC(18))
+AS	
+	IF NOT EXISTS(SELECT prod_nombre FROM AWANTA.PRODUCTO WHERE prod_nombre=@nombreProducto)
+	BEGIN
+		INSERT INTO AWANTA.PRODUCTO(prod_nombre,prod_millas,prod_stock)
+		VALUES(@nombreProducto,@puntosNecesarios,@stockProducto);
+	END
+GO
+/*TESTEADO*/
+	/*------INSERTO PRODUCTOS INICIALES------*/
+EXEC AWANTA.insertar_nuevo_producto 'Televisor LCD',5000,100
+EXEC AWANTA.insertar_nuevo_producto 'Notebook',6000,50
+EXEC AWANTA.insertar_nuevo_producto 'Home Theatre',4500,60
+EXEC AWANTA.insertar_nuevo_producto 'Playstation 4 ',3000,1000
+EXEC AWANTA.insertar_nuevo_producto 'Heladera',2500,1000
+EXEC AWANTA.insertar_nuevo_producto 'Smartphone',3500,2000
+EXEC AWANTA.insertar_nuevo_producto 'Tablet',3000,1500
+
+GO
+
+--------- MIGRACION DE LOS FABRICANTES ------------
+-- con este trigger sabemos que es unico el nombre, de todas formas lo prohibimos a nivel app. 
+CREATE TRIGGER AWANTA.tr_updatear_fabricantes ON AWANTA.FABRICANTE INSTEAD OF UPDATE 
+AS
+BEGIN
+DECLARE @insertado NVARCHAR(255)
+DECLARE @id NUMERIC
+SELECT @insertado = fab_nombre from inserted  
+SELECT @id = fab_id from inserted
+IF (EXISTS(SELECT 1 FROM AWANTA.FABRICANTE where @insertado = fab_nombre))
+BEGIN 
+RAISERROR(50300, -1, -1, 'Repetido el fabricante')
+RETURN
+END
+UPDATE AWANTA.FABRICANTE SET fab_nombre = @insertado WHERE fab_id = @id 
+END
+GO
+INSERT INTO AWANTA.FABRICANTE SELECT DISTINCT Aeronave_Fabricante from gd_esquema.Maestra
+GO
+CREATE FUNCTION AWANTA.getIdFabricante(@fabricante NVARCHAR(255)) RETURNS NUMERIC
+AS BEGIN
+RETURN (SELECT fab_id FROM AWANTA.FABRICANTE WHERE fab_nombre = @fabricante)
+END
+GO
+
+----------- MIGRACION DE LOS MODELOS -------------
+-- interpretamos que como el modelo forma parte de la aeronave, es un modelo distinto por aeronave. cada fabricante tiene 
+-- el modelo 
+
+INSERT INTO AWANTA.MODELO(mod_fabricante,mod_nombre) SELECT AWANTA.getIdFabricante(Aeronave_Fabricante), Aeronave_Modelo from gd_esquema.Maestra group by Aeronave_Fabricante, Aeronave_Modelo order by AWANTA.getIdFabricante(Aeronave_Fabricante)
+--------- MIGRACION DE LOS MODELOS ----------------
+
+/*------MIGRACION DE LA TABLA AERONAVE------*/
+GO
+CREATE FUNCTION AWANTA.getIdModelo(@fabricante NVARCHAR(255), @modelo NVARCHAR(255)) RETURNS NUMERIC
+AS BEGIN
+RETURN (SELECT mod_id FROM AWANTA.MODELO WHERE mod_fabricante = AWANTA.getIdFabricante(@fabricante) AND mod_nombre = @modelo)
+END
+GO
+
+---- insertar los modelos de la aeronave --- 
+INSERT INTO AWANTA.AERONAVE(aero_modelo) SELECT AWANTA.getIdModelo(Aeronave_Fabricante, Aeronave_Modelo) from gd_esquema.Maestra
+GROUP BY Aeronave_Modelo, Aeronave_Fabricante, Tipo_Servicio, Aeronave_Matricula
+ORDER BY Aeronave_Matricula
+GO
+/*OBTENCION DE CANTIDAD DE BUTACAS DE LA AERONAVE*/
+
+CREATE FUNCTION AWANTA.obtenerButacasDeAeronave(@matricula NVARCHAR(255),@tipoButaca NVARCHAR(255))
+RETURNS INT
+AS
+	BEGIN
+		RETURN (SELECT TOP 1 Butaca_Nro FROM gd_esquema.Maestra WHERE Aeronave_Matricula = @matricula
+									AND Butaca_Tipo = @tipoButaca ORDER BY Butaca_Nro desc)
+	END
+GO
+
+/*TESTEADO*/
+-- Suponemos que las butacas (cantidad o tipos) no van a ser modificadas. 
+/*CREATE TRIGGER tr_butaca_insert ON AWANTA.AERONAVE AFTER INSERT 
+AS 
+BEGIN
+DECLARE @avion NUMERIC, @pasillo INT, @ventanilla INT, @i INT = 0
+SELECT @avion = aero_numero, @pasillo = aero_cantidad_butacas_pasillo, @ventanilla = aero_cantidad_butacas_ventanilla FROM inserted
+-- luego de esto tengo que insertar tanta cantidad de butacas como haya aviones y asientos. 
+WHILE (@i < @pasillo) 
+BEGIN
+INSERT INTO AWANTA.BUTACA(but_numero, but_tipo, but_aeronave, but_piso) VALUES (@i, 'Pasillo', @avion, 0)
+SET @i = @i + 1
+END
+SET @i = 0 
+WHILE (@i < @ventanilla) 
+BEGIN 
+INSERT INTO AWANTA.BUTACA(but_numero, but_tipo, but_aeronave, but_piso) VALUES (@i, 'Ventanilla', @avion, 0)
+SET @i = @i + 1
+END
+END 
+GO*/
+------- MIGRACION DE AERONAVES -------
+
+INSERT INTO AWANTA.AERONAVE(aero_matricula,aero_modelo,aero_id_servicio,aero_fecha_de_alta, aero_cantidad_butacas_pasillo, aero_cantidad_butacas_ventanilla, aero_kgs_disponibles_encomiendas, aero_estado)
+SELECT Aeronave_Matricula, AWANTA.getIdModelo(Aeronave_Fabricante, Aeronave_Modelo),
+AWANTA.buscarIdServicio(Tipo_Servicio), CONVERT(date,AWANTA.getDate()),
+AWANTA.obtenerButacasDeAeronave(Aeronave_Matricula, 'Pasillo'), AWANTA.obtenerButacasDeAeronave(Aeronave_Matricula, 'Ventanilla'),
+max(Aeronave_KG_Disponibles), 1
+FROM gd_esquema.Maestra
+GROUP BY Aeronave_Matricula,  Aeronave_Fabricante, Aeronave_Modelo, Tipo_Servicio
+GO
+
+-------- MIGRACION DE BUTACAS -------
+INSERT INTO AWANTA.BUTACA(but_numero, but_piso, but_tipo, but_aeronave) 
+SELECT Butaca_Nro, Butaca_Piso, Butaca_Tipo, (SELECT aero_numero FROM AWANTA.AERONAVE where aero_matricula = Aeronave_Matricula) 
+FROM gd_esquema.Maestra WHERE Butaca_Piso = 1 
+GROUP BY Aeronave_Matricula, Butaca_Nro, Butaca_Piso, Butaca_Tipo 
+GO
+-- UNA VEZ INSERTADAS LAS BUTACAS QUE YA HAY, RELLENO LAS QUE QUEDARON EN EL MEDIO QUE NO ESTABAN. 	
+
+/*------MIGRACION DE LA TABLA VIAJE------*/
+INSERT INTO AWANTA.VIAJE(via_fecha_salida,via_fecha_llegada,via_fecha_llegada_estimada,via_avion,via_ruta_aerea)
+SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,(SELECT aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = Aeronave_Matricula),
+			(SELECT TOP 1 rut_codigo FROM AWANTA.RUTA_AEREA 
+			 WHERE (AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino) = rut_destino) AND 
+			 (AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen) = rut_origen) and (Ruta_Codigo = rut_codigo_original))
+FROM gd_esquema.Maestra
+GO
+------- MIGRACION DE BUTACAS POR VIAJE -------- como no hay otras butacas ahora le ponemos que tome de estas dos tablas, despues se hace diferente.
+ /* HACERLO DESPUES DE LA INSERCION DE COMPRA, ENCOMIENDA Y PASAJE ASI DIRECTAMENTE HAGO EL SELECT EN PASAJE. 
+ INSERT INTO AWANTA.BUTACAXVIAJE
+SELECT aero_numero, but_id, 1 FROM AWANTA.AERONAVE JOIN AWANTA.BUTACA on but_aeronave = aero_numero */
+/*------MIGRACION DE LA TABLA COMPRA revisar!------*/
+
+CREATE FUNCTION AWANTA.getIdCliente(@dni numeric(18)) RETURNS NUMERIC(18) AS
+BEGIN
+RETURN (SELECT top 1 cli_codigo FROM AWANTA.CLIENTE where cli_nro_doc = @dni)
+END
+GO
+
+----- MIGRACION COMPRA --------
+--- en este caso hacemos > 1901 porque es la fecha por defecto que pone sql cuando una fecha es null. 
+INSERT INTO AWANTA.COMPRA(compra_cliente, compra_fecha, compra_monto)
+SELECT (SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE WHERE m.Cli_Dni = cli_nro_doc AND m.Cli_Apellido = Cli_Apellido), m.Paquete_FechaCompra, m.Paquete_Precio FROM gd_esquema.Maestra m
+where YEAR(m.Paquete_FechaCompra) > 1901 AND Butaca_Tipo = '0'
+INSERT INTO AWANTA.COMPRA(compra_cliente, compra_fecha, compra_monto)
+SELECT (SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE WHERE m.Cli_Dni = cli_nro_doc), m.Pasaje_FechaCompra, m.Pasaje_Precio FROM gd_esquema.Maestra m
+where YEAR(m.Pasaje_FechaCompra) > 1901 AND Butaca_Tipo <> '0'
+GO
+
+SELECT * FROM AWANTA.COMPRA
+
+SELECT COUNT(*) FROM AWANTA.VIAJE
+SELECT * FROM gd_esquema.Maestra
+/*(SELECT butxv_butaca FROM AWANTA.BUTACAXVIAJE WHERE butxv_viaje =
+(SELECT via_codigo FROM AWANTA.VIAJE WHERE via_avion = n.Aeronave_Matricula AND via_fecha_llegada = n.FechaLLegada AND
+ via_fecha_llegada_estimada = n.Fecha_LLegada_Estimada AND via_fecha_salida = n.FechaSalida and via_ruta_aerea = (SELECT TOP 1 rut_codigo FROM AWANTA.RUTA_AEREA 
+WHERE (AWANTA.obtenerIdCiudad(Ruta_Ciudad_Destino) = rut_destino) AND 
+(AWANTA.obtenerIdCiudad(Ruta_Ciudad_Origen) = rut_origen) and (Ruta_Codigo = rut_codigo_original)))) FROM gd_esquema.Maestra n
+*/
+------ MIGRACION PASAJE ------------
+-- mediante queries vimos que no estaban repetidos los pasajes (los codigos) 
+SET IDENTITY_INSERT AWANTA.PASAJE ON
+INSERT INTO AWANTA.PASAJE(pas_codigo, pas_pasajero, pas_compra, pas_butaca,  pas_viaje)
+-- aca elegimos la butaca que pertenece a ese viaje 
+SELECT DISTINCT m.Pasaje_Codigo, (SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = Cli_Dni and Cli_Nombre = cli_nombre), (SELECT TOP 1 compra_id FROM AWANTA.COMPRA WHERE compra_cliente = (SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = Cli_Dni and Cli_Nombre = cli_nombre) AND compra_fecha = m.Pasaje_FechaCompra AND m.Pasaje_Precio = compra_monto),
+ (SELECT but_id FROM AWANTA.BUTACA WHERE but_aeronave IN (SELECT aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = m.Aeronave_Matricula)
+AND but_piso = m.Butaca_Piso AND but_numero = m.Butaca_Nro AND m.Butaca_Tipo = but_tipo),
+(SELECT top 1 via_codigo FROM AWANTA.VIAJE WHERE via_avion = (SELECT TOP 1 aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = m.Aeronave_Matricula) AND via_fecha_llegada = m.FechaLLegada AND
+ via_fecha_llegada_estimada = m.Fecha_LLegada_Estimada AND via_fecha_salida = m.FechaSalida and via_ruta_aerea = (SELECT TOP 1 rut_codigo FROM AWANTA.RUTA_AEREA 
+WHERE (SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Origen) = rut_origen AND 
+(SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Destino) = rut_destino and (m.Ruta_Codigo = rut_codigo_original))) FROM gd_esquema.Maestra m
+where m.Pasaje_Codigo != 0 
+SET IDENTITY_INSERT AWANTA.PASAJE OFF
+
+SET IDENTITY_INSERT AWANTA.ENCOMIENDA ON 
+INSERT INTO AWANTA.ENCOMIENDA(enc_codigo, enc_encomendador, enc_compra, enc_kg, enc_viaje)
+SELECT DISTINCT m.Paquete_Codigo, (SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = Cli_Dni and Cli_Nombre = cli_nombre), (SELECT TOP 1 compra_id FROM AWANTA.COMPRA WHERE compra_cliente = (SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = Cli_Dni and Cli_Nombre = cli_nombre) AND compra_fecha = m.Paquete_FechaCompra AND m.Paquete_Precio = compra_monto), m.Paquete_KG,
+(SELECT top 1 via_codigo FROM AWANTA.VIAJE WHERE via_avion = (SELECT TOP 1 aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = m.Aeronave_Matricula) AND via_fecha_llegada = m.FechaLLegada AND
+ via_fecha_llegada_estimada = m.Fecha_LLegada_Estimada AND via_fecha_salida = m.FechaSalida and via_ruta_aerea = (SELECT TOP 1 rut_codigo FROM AWANTA.RUTA_AEREA 
+WHERE (SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Origen) = rut_origen AND 
+(SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Destino) = rut_destino and (m.Ruta_Codigo = rut_codigo_original))) FROM gd_esquema.Maestra m
+where m.Pasaje_Codigo = 0 
+SET IDENTITY_INSERT AWANTA.ENCOMIENDA OFF
+
+--- Como vimos que no hay ningun registro con una fecha de llegada, quiere decir que todos los aviones registrados ya llegaron, por lo tanto no vamos a
+-- poner esas butacas en butaca por viaje porque no lo necesitamos, los viajes ya pasaron, es simplemente registrarlo.
+-- en cambio para los nuevos viajes si se van a registrar. 
+-- en la migracion dejamos la fecha original del sistema, porque asi los aviones fueron dados de alta antes de comprar
+-- en despues al usar la app siempre es la fecha del 2017, sino no seria consistente con las fechas de llegada.
+
+
+/*----------STORED PROCEDURES APLICACION----------*/ 
+GO
+
 
  exec sp_addmessage @msgnum = 50013, @severity = 1, @msgtext = 'El usuario ya esta repetido', @lang = us_english
  GO
@@ -22,8 +711,10 @@ END
 GO
 
 EXEC AWANTA.registrar_usuario 'admin667', 'w23e', 1
+go
 EXEC AWANTA.registrar_usuario 'admin666', 'w23e', 1
 go
+
 alter TRIGGER AWANTA.username_repetido ON AWANTA.USUARIO INSTEAD OF INSERT
 AS BEGIN TRANSACTION
 IF (EXISTS(SELECT 1 FROM AWANTA.USUARIO WHERE usu_username = (SELECT usu_username FROM inserted)))
@@ -79,8 +770,6 @@ END
 GO
 
 
-SELECT * FROM AWANTA.USUARIO
-
 ALTER PROCEDURE AWANTA.get_rol_usuario(@nombre_usuario NVARCHAR(255)) 
 AS BEGIN
 IF (EXISTS (SELECT 1 FROM AWANTA.USUARIO WHERE @nombre_usuario = usu_username AND usu_rol = 1))
@@ -130,7 +819,6 @@ WHERE NOT EXISTS (SELECT 1 FROM AWANTA.FUNC_X_ROL, AWANTA.ROL
 	rol_nombre = @rol)
 END
 GO
-EXEC AWANTA.get_funcionalidades_que_no_tiene 'Cliente'
 
 
 ALTER PROCEDURE AWANTA.get_roles
@@ -153,8 +841,6 @@ SELECT TOP 1 fun_id FROM AWANTA.FUNCIONALIDAD WHERE fun_descripcion = @func
 END
 GO
 
-SELECT * FROM AWANTA.ROL
-DELETE  FROM AWANTA.ROL WHERE rol_id > 2
 
 ALTER PROCEDURE AWANTA.crear_rol(@descripcion nvarchar(255), @estado bit)
 AS
@@ -164,7 +850,6 @@ BEGIN
 END
 GO
 
-select * from awanta.AERONAVE
 
 CREATE PROCEDURE AWANTA.bajar_rol(@descripcion nvarchar(255))
 AS
@@ -266,13 +951,14 @@ AS
 BEGIN
 	SELECT rut_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), serv_nombre, rut_habilitada, rut_precio_base_x_kg, rut_precio_base
 	FROM AWANTA.RUTA_AEREA
-	JOIN AWANTA.SERVICIO ON serv_id_servicio = rut_tipo_servicio
+	JOIN AWANTA.SERVICIOXRUTA ON servxr_ruta = rut_codigo
+	JOIN AWANTA.SERVICIO ON servxr_servicio = serv_id_servicio
 	WHERE (rut_habilitada = @habilitada) AND
 	(@destino IS NULL OR rut_destino=AWANTA.obtenerIdCiudad(@destino)) AND
 	(@origen IS NULL OR rut_origen=AWANTA.obtenerIdCiudad(@origen)) AND
 	(@precio_base_pasaje IS NULL OR rut_precio_base=@precio_base_pasaje) AND
 	(@precio_base_kg IS NULL OR rut_precio_base_x_kg=@precio_base_kg) AND
-	(@servicio IS NULL OR rut_tipo_servicio=AWANTA.buscarIdServicio(@servicio))
+	(@servicio IS NULL OR servxr_servicio=AWANTA.buscarIdServicio(@servicio))
 END
 
 GO
@@ -280,31 +966,29 @@ ALTER PROCEDURE AWANTA.modificar_ruta(@codigo NUMERIC, @origen nvarchar(255),  @
  BEGIN
  DECLARE @id_servicio NUMERIC(18)
  SET @id_servicio = AWANTA.buscarIdServicio(@servicio)
- UPDATE AWANTA.RUTA_AEREA SET rut_origen = AWANTA.obtenerIdCiudad(@origen), rut_destino = AWANTA.obtenerIdCiudad(@destino), rut_tipo_servicio = @id_servicio,
+ UPDATE AWANTA.RUTA_AEREA SET rut_origen = AWANTA.obtenerIdCiudad(@origen), rut_destino = AWANTA.obtenerIdCiudad(@destino),
   rut_habilitada = @habilitada, rut_precio_base_x_kg = @precio_base_kg, rut_precio_base = @precio_base_pasaje
  WHERE @codigo = rut_codigo 
  END
  GO
 
- EXEC AWANTA.modificar_ruta 1, 'Bruselas', 'Buenos Aires', 1, 'Turista', 666, 0 
 
 ALTER PROCEDURE AWANTA.altaRutaAerea(@ciudadOrigen NVARCHAR(255), @ciudadDestino NVARCHAR(255), @tipoServicio NVARCHAR(255), @rutaPrecioBasePasaje MONEY, @rutaPrecioBaseKilo MONEY, @habilitada bit)
 AS
 	BEGIN
-		INSERT INTO AWANTA.RUTA_AEREA(rut_origen,rut_destino,rut_tipo_servicio,rut_precio_base,rut_precio_base_x_kg, rut_habilitada)
-		VALUES (AWANTA.obtenerIdCiudad(@ciudadOrigen),AWANTA.obtenerIdCiudad(@ciudadDestino),AWANTA.buscarIdServicio(@tipoServicio),
+		INSERT INTO AWANTA.RUTA_AEREA(rut_origen,rut_destino,rut_precio_base,rut_precio_base_x_kg, rut_habilitada)
+		VALUES (AWANTA.obtenerIdCiudad(@ciudadOrigen),AWANTA.obtenerIdCiudad(@ciudadDestino),
 					@rutaPrecioBasePasaje,@rutaPrecioBaseKilo, @habilitada)
 					RETURN 1
 	END
 GO
-SELECT * FROM AWANTA.RUTA_AEREA where rut_precio_base = 666
-EXEC AWANTA.altaRutaAerea 'Buenos Aires', 'Bruselas', 'Ejecutivo', 666, 0, 1
 
 ALTER PROCEDURE AWANTA.darDeBajaPasajesAsociadosPorBajaDeRutaAerea(@ruta NUMERIC(18))
 AS		
 	BEGIN
 	UPDATE AWANTA.VIAJE SET via_cancelado = 0 WHERE via_ruta_aerea = @ruta -- en un trigger mejor me parece
-	DELETE FROM AWANTA.COMPRA WHERE EXISTS (SELECT 1 FROM AWANTA.VIAJE WHERE compra_viaje = via_codigo
+	DELETE FROM AWANTA.COMPRA WHERE EXISTS (SELECT 1 FROM AWANTA.VIAJE, AWANTA.ENCOMIENDA, AWANTA.PASAJE 
+	WHERE (enc_viaje = via_codigo OR pas_viaje = via_codigo)
 		 AND via_fecha_salida > (SELECT CONVERT(date,AWANTA.getDate()))
 										AND via_ruta_aerea = @ruta)
 	END
@@ -385,7 +1069,7 @@ BEGIN
 	(@fecha_baja_temporal IS NULL OR aero_baja_fuera_de_servicio=@fecha_baja_temporal) AND
 	(@fecha_alta_temporal IS NULL OR aero_fecha_reinicio_servicio=@fecha_alta_temporal) AND
 	(@fecha_baja_definitiva IS NULL OR aero_fecha_baja_definitiva=@fecha_baja_definitiva) AND
-	(@numero IS NULL OR aero_numero_de_aeronave=@numero) AND
+	(@numero IS NULL OR aero_numero=@numero) AND
 	aero_id_servicio = serv_id_servicio
 END
 GO 
@@ -426,7 +1110,7 @@ AS
 	BEGIN
 	-- si la aeronave tiene un viaje asignado en esas fechas
 		IF EXISTS(SELECT 1 FROM AWANTA.VIAJE 
-		JOIN AERONAVE ON aero_matricula = via_avion AND aero_numero_de_aeronave = @aero_numero_de_aeronave 
+		JOIN AERONAVE ON aero_matricula = via_avion AND aero_numero = @aero_numero_de_aeronave 
 		WHERE ((via_fecha_salida > @fechaBaja AND via_fecha_salida < @fechaReinicio) 
 													OR (via_fecha_llegada > @fechaBaja AND via_fecha_llegada < @fechaReinicio)))
 			BEGIN
@@ -441,7 +1125,7 @@ ALTER FUNCTION AWANTA.hay_aeronaves_disponibles(@fechaSalida DATETIME, @fechaEst
 AS 
 BEGIN
 IF (EXISTS(SELECT 1 FROM AWANTA.AERONAVE JOIN AWANTA.VIAJE ON via_avion = aero_matricula
-WHERE (SELECT AWANTA.tieneViajesAsignados(aero_numero_de_aeronave, @fechaSalida, @fechaEstimadaLlegada)) = 0
+WHERE (SELECT AWANTA.tieneViajesAsignados(aero_numero, @fechaSalida, @fechaEstimadaLlegada)) = 0
 AND aero_estado = 1 AND aero_fecha_de_alta < @fechaSalida))
 BEGIN 
 RETURN 1 
@@ -456,7 +1140,7 @@ BEGIN
 IF ((SELECT AWANTA.hay_aeronaves_disponibles(@fechaSalida, @fechaEstimadaLlegada)) = 1) 
 BEGIN
 (SELECT DISTINCT aero_matricula FROM AWANTA.AERONAVE JOIN AWANTA.VIAJE ON via_avion = aero_matricula
-WHERE (SELECT AWANTA.tieneViajesAsignados(aero_numero_de_aeronave, @fechaSalida, @fechaEstimadaLlegada)) = 0
+WHERE (SELECT AWANTA.tieneViajesAsignados(aero_numero, @fechaSalida, @fechaEstimadaLlegada)) = 0
 AND aero_estado = 1 AND aero_fecha_de_alta < @fechaSalida)
 END
 RETURN -1
@@ -485,10 +1169,10 @@ AS
 	BEGIN
 	DECLARE @numeroAvionDeReemplazo NUMERIC(18), @matriculaAvionDeReemplazo NVARCHAR(255)
 	-- hallo la que va a reemplazar 
-	SELECT @numeroAvionDeReemplazo = aero_reemplazo.aero_numero_de_aeronave, @matriculaAvionDeReemplazo = aero_reemplazo.aero_matricula FROM AWANTA.AERONAVE aero_reemplazo, AWANTA.AERONAVE aero_orig
+	SELECT @numeroAvionDeReemplazo = aero_reemplazo.aero_numero, @matriculaAvionDeReemplazo = aero_reemplazo.aero_matricula FROM AWANTA.AERONAVE aero_reemplazo, AWANTA.AERONAVE aero_orig
 	WHERE aero_reemplazo.aero_fabricante = aero_orig.aero_fabricante AND aero_reemplazo.aero_id_servicio = aero_orig.aero_id_servicio AND aero_orig.aero_modelo = aero_reemplazo.aero_modelo
 	AND aero_orig.aero_matricula <> aero_reemplazo.aero_matricula AND aero_reemplazo.aero_estado = 1 AND 
-	(SELECT AWANTA.tieneViajesAsignados(aero_reemplazo.aero_numero_de_aeronave, aero_orig.aero_baja_fuera_de_servicio, aero_orig.aero_fecha_reinicio_servicio)) = 0
+	(SELECT AWANTA.tieneViajesAsignados(aero_reemplazo.aero_numero, aero_orig.aero_baja_fuera_de_servicio, aero_orig.aero_fecha_reinicio_servicio)) = 0
 	
 	-- si la fecha de reinicio no es null, quiere decir que entonces era por una aeronave que se dio de baja por mantenimiento
 	DECLARE @fechaSalida DATETIME
@@ -543,7 +1227,7 @@ ALTER PROCEDURE AWANTA.bajaLogicaDeAeronavePorFinDeVidaUtil(@matricula NVARCHAR(
 AS
 	BEGIN
 		DECLARE @numero NUMERIC
-		SELECT @numero = aero_numero_de_aeronave FROM AWANTA.AERONAVE WHERE @matricula = aero_matricula
+		SELECT @numero = aero_numero FROM AWANTA.AERONAVE WHERE @matricula = aero_matricula
 		IF (@numero IS NOT NULL)
 			IF (@reemplazo = 1)
 				BEGIN
@@ -556,7 +1240,7 @@ AS
 				BEGIN
 					UPDATE AWANTA.AERONAVE
 					SET aero_fecha_baja_definitiva = (SELECT CONVERT(date,AWANTA.getDate())), aero_estado = 0
-					WHERE aero_numero_de_aeronave = @numero
+					WHERE aero_numero = @numero
 					-- CANCELAR LOS VIAJES DE ESA AERONAVE SI NO SE QUERIA REEMPLAZAR
 					EXEC AWANTA.bajaDeViajesAsociadosConAeronave @numero
 					RETURN(0)
@@ -571,14 +1255,14 @@ ALTER PROCEDURE AWANTA.bajaLogicaDeAeronavePorMantenimiento(@matricula NVARCHAR(
 AS
 	BEGIN
 		DECLARE @numero NUMERIC
-		SELECT @numero = aero_numero_de_aeronave FROM AWANTA.AERONAVE WHERE @matricula = aero_matricula
+		SELECT @numero = aero_numero FROM AWANTA.AERONAVE WHERE @matricula = aero_matricula
 		IF (@numero IS NOT NULL)
 			BEGIN
 				UPDATE AWANTA.AERONAVE
 				SET aero_baja_fuera_de_servicio = (SELECT CONVERT(date,AWANTA.getDate())),
 				aero_fecha_reinicio_servicio = @fechaReinicio,
 				aero_estado = 0
-				WHERE aero_numero_de_aeronave = @numero
+				WHERE aero_numero = @numero
 				--Me fijo si hay que cancelar los viajes o reemplazarlos
 				--SI ES 1 REEMPLAZO SINO 0 PARA CANCELACION
 				IF (@reemplazo = 1)
@@ -599,7 +1283,7 @@ CREATE PROCEDURE AWANTA.obtenerCodigoAeronave(@matricula nvarchar(255))
 AS
 BEGIN
 	DECLARE @codigo numeric(18)
-	SET @codigo = (SELECT aero_numero_de_aeronave FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula)
+	SET @codigo = (SELECT aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula)
 	RETURN @codigo
 END
 GO
@@ -608,16 +1292,16 @@ ALTER PROCEDURE AWANTA.modificarAeronave(@numero numeric(18), @matricula nvarcha
 @cantidadKgsEncomiendas numeric, @cantidadButacasVentanilla  numeric, @cantidadButacasPasillo numeric, @estado bit) 
 AS 
 BEGIN
-IF EXISTS(SELECT 1 FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula AND aero_numero_de_aeronave <> @numero) BEGIN RETURN -1 END
+IF EXISTS(SELECT 1 FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula AND aero_numero <> @numero) BEGIN RETURN -1 END
 DECLARE @numero_servicio NUMERIC(18), @matricula_vieja NVARCHAR(255)
-SELECT @matricula_vieja = aero_matricula FROM AWANTA.AERONAVE WHERE aero_numero_de_aeronave = @numero
+SELECT @matricula_vieja = aero_matricula FROM AWANTA.AERONAVE WHERE aero_numero = @numero
 SELECT @numero_servicio = serv_id_servicio FROM SERVICIO WHERE serv_nombre = @servicio
 ALTER TABLE AWANTA.VIAJE NOCHECK CONSTRAINT ALL
 UPDATE AWANTA.AERONAVE 
 SET aero_matricula = @matricula, aero_modelo = @modelo, aero_fabricante = @fabricante, aero_id_servicio = @numero_servicio,
 aero_kgs_disponibles_encomiendas = @cantidadKgsEncomiendas, aero_cantidad_butacas_ventanilla = @cantidadButacasVentanilla, 
 aero_cantidad_butacas_pasillo = @cantidadButacasPasillo, aero_estado = @estado
-WHERE aero_numero_de_aeronave = @numero
+WHERE aero_numero = @numero
 UPDATE AWANTA.VIAJE SET via_avion = @matricula WHERE via_avion = @matricula_vieja
 ALTER TABLE AWANTA.VIAJE CHECK CONSTRAINT ALL 
 END
@@ -693,7 +1377,7 @@ BEGIN
 	via_ruta_aerea = rut_codigo AND
 	rut_origen = AWANTA.obtenerIdCiudad(@origen) AND
 	rut_destino = AWANTA.obtenerIdCiudad(@destino) AND
-	via_avion = aero_numero_de_aeronave
+	via_avion = aero_numero
 END
 GO
 
@@ -799,18 +1483,9 @@ END
 GO
 
 /*------MILLAS VIAJERO------*/
-SELECT * from gd_esquema.maestra
 
-ALTER PROCEDURE consultar_millas (@dni nvarchar(255))
-AS
-BEGIN
-	SELECT total_millas AS 'Millas Acumuladas' FROM AWANTA.MILLAS_ACUMULADAS, AWANTA.CLIENTE
-	WHERE datediff(DAY, AWANTA.getDate(), fecha_vencimiento) < 365 AND
-	cli_codigo = cliente_id AND
-	cli_nro_doc = @dni
-END
-GO
 
+/*
 
 CREATE PROCEDURE get_millas_cliente(@dni nvarchar(255))
 AS
@@ -821,14 +1496,9 @@ BEGIN
 	JOIN AWANTA.ENCOMIENDA ON compra_id = enc_compra
 	WHERE datediff(YEAR, AWANTA.getDate(), compra_) < 1
 
-SELECT * FROM AWANTA.CLIENTE
-
-INSERT INTO AWANTA.MILLAS_ACUMULADAS(cliente_id, total_millas, fecha_vencimiento) VALUES((SELECT TOP 1 cli_codigo FROM AWANTA.CLIENTE), 1230, AWANTA.getDate())
-
-GO
+*/
 
 ---------------- PRODUCTOS
-SELECT * FROM AWANTA.PRODUCTO
 CREATE PROCEDURE AWANTA.get_productos_disponibles
 AS
 BEGIN
@@ -869,7 +1539,6 @@ SELECT count(1) AS DEVOLUCION FROM AWANTA.DEVOLUCION
 SELECT count(1) AS ENCOMIENDA FROM AWANTA.ENCOMIENDA
 SELECT count(1) AS FUNC_X_ROL FROM AWANTA.FUNC_X_ROL
 SELECT count(1) AS FUNCIONALIDAD FROM AWANTA.FUNCIONALIDAD
-SELECT count(1) AS MILLAS FROM AWANTA.MILLAS_ACUMULADAS
 SELECT count(1) AS PASAJE FROM AWANTA.PASAJE
 SELECT count(1) AS PRODUCTO FROM AWANTA.PRODUCTO
 SELECT count(1) AS ROL FROM AWANTA.ROL

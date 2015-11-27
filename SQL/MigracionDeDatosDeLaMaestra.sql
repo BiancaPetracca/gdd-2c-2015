@@ -1,10 +1,10 @@
 USE [GD2C2015]
 GO
 
-IF NOT EXISTS ( SELECT  *
-                FROM    sys.schemas
-                WHERE   name = N'AWANTA' ) 
-    EXEC('CREATE SCHEMA [AWANTA] AUTHORIZATION [gd]');
+IF (NOT EXISTS ( SELECT  1 FROM sys.schemas WHERE name = 'AWANTA' )) 
+	BEGIN 
+    EXEC('CREATE SCHEMA [AWANTA] AUTHORIZATION [gd]')
+	END
 GO
 
 /*---------------------------DROP DE LAS TABLAS---------------------------*/
@@ -256,13 +256,16 @@ CREATE TABLE AWANTA.ENCOMIENDA
 	references AWANTA.COMPRA(compra_id),
 )
 
+
 CREATE TABLE AWANTA.DEVOLUCION
 (
 	dev_codigo numeric(18) identity primary key,
 	dev_motivo nvarchar(255) not null,
 	dev_fecha datetime not null,
-	dev_compra numeric(18) foreign key
-	references AWANTA.COMPRA(compra_id),
+	dev_pasaje numeric(18)
+	references AWANTA.PASAJE(pas_codigo),
+	dev_encomienda numeric(18)
+	references AWANTA.ENCOMIENDA(enc_codigo)
 )
 
 CREATE TABLE AWANTA.MILLAS_ACUMULADAS
@@ -271,6 +274,17 @@ CREATE TABLE AWANTA.MILLAS_ACUMULADAS
 	references AWANTA.CLIENTE(cli_codigo),
 	total_millas int not null,
 	fecha_vencimiento datetime not null,
+)
+
+CREATE TABLE AWANTA.HISTORICO_BAJAS 
+(
+	baja_codigo NUMERIC(18) identity PRIMARY KEY,
+	baja_avion NUMERIC(18) foreign key references AWANTA.AERONAVE(aero_numero_de_aeronave),
+	baja_avion_reemplazo NUMERIC(18) foreign key references AWANTA.AERONAVE(aero_numero_de_aeronave),
+	baja_fecha DATETIME not null,
+	baja_reinicio DATETIME,
+	baja_motivo bit,  -- 0 si fue por fin de vida util, 1 si era por mantenimiento
+	baja_ciudad NUMERIC(18) -- le pongo la ciudad en la que estaba cuando fue dado de baja
 )
 
 
@@ -321,7 +335,9 @@ GO
 
 /*TESTEADO*/
 INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Turista',AWANTA.porcentajeDadoUnServicio('Turista'));
+GO
 INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Primera Clase',AWANTA.porcentajeDadoUnServicio('Primera Clase'));
+GO
 INSERT INTO AWANTA.SERVICIO(serv_nombre,serv_porcentaje_adicional) VALUES('Ejecutivo',AWANTA.porcentajeDadoUnServicio('Ejecutivo'));
 GO
 /*------MIGRACION DE LA TABLA RUTA_AEREA------*/
@@ -561,14 +577,14 @@ SELECT FechaSalida,FechaLlegada,Fecha_LLegada_Estimada,Aeronave_Matricula,
 FROM gd_esquema.Maestra
 GO
 
-/*------MIGRACION DE LA TABLA COMPRA revisar!------*/
+/*------MIGRACION DE LA TABLA COMPRA revisar!------*//*
 INSERT INTO AWANTA.COMPRA(compra_viaje, compra_cliente)
 SELECT via_codigo, cli_codigo 
 FROM AWANTA.VIAJE JOIN gd_esquema.Maestra ON
 via_fecha_salida = FechaSalida JOIN AWANTA.CLIENTE ON
 Cli_Dni = cli_nro_doc 
 
-
+SELECT TOP 2 * FROM AWANTA.VIAJE
 DECLARE curs_fechas FOR SELECT Pasaje_FechaCompra FROM gd_esquema.Maestra
 JOIN AWANTA.COMPRA ON Pasaje_codigo = compra_id
  SELECT * FROM AWANTA.compra
@@ -588,7 +604,7 @@ SELECT compra_id, Paquete_KG
 FROM gd_esquema.Maestra JOIN AWANTA.VIAJE ON
 via_fecha_salida = FechaSalida AND via_fecha_llegada = FechaLLegada JOIN AWANTA.COMPRA ON
 via_codigo = compra_viaje
-WHERE Butaca_Nro = 0
+WHERE Butaca_Nro = 0 */
 
 
 -- en la migracion dejamos la fecha original del sistema, porque asi los aviones fueron dados de alta antes de comprar
