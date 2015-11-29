@@ -29,128 +29,199 @@ namespace AerolineaFrba.Canje_Millas
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CanjearMillas = new System.Windows.Forms.GroupBox();
+            this.datosCanje = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.DatosCanjeador = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.tipoDNI = new AerolineaFrba.SuperControls.SuperComboBox();
             this.DNI = new AerolineaFrba.SuperControls.SuperTextBox();
-            this.AgregarProductos = new System.Windows.Forms.GroupBox();
-            this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
-            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.NombreProducto = new AerolineaFrba.SuperControls.SuperComboBox();
-            this.CantidadProducto = new AerolineaFrba.SuperControls.SuperNumericUpDown();
+            this.sumaParcialCanjes = new AerolineaFrba.SuperControls.SuperTextBox();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.RealizarCanje = new System.Windows.Forms.Button();
+            this.verificar = new AerolineaFrba.SuperControls.SuperButton();
+            this.millasQueTiene = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.lab_sumaParcialCanjes = new AerolineaFrba.SuperControls.SuperLabel();
+            this.productosDisponibles = new System.Windows.Forms.DataGridView();
+            this.col_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_millas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
+            this.RealizarCanjes = new System.Windows.Forms.Button();
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
             this.ProductosCanjear = new System.Windows.Forms.DataGridView();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.verificar = new AerolineaFrba.SuperControls.SuperButton();
-            this.DatosCanjeador = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.col_producto_canjear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CanjearMillas.SuspendLayout();
-            this.AgregarProductos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CantidadProducto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ProductosCanjear)).BeginInit();
+            this.datosCanje.SuspendLayout();
             this.DatosCanjeador.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productosDisponibles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductosCanjear)).BeginInit();
             this.SuspendLayout();
             // 
             // CanjearMillas
             // 
-            this.CanjearMillas.Controls.Add(this.DatosCanjeador);
-            this.CanjearMillas.Controls.Add(this.AgregarProductos);
-            this.CanjearMillas.Controls.Add(this.RealizarCanje);
+            this.CanjearMillas.Controls.Add(this.datosCanje);
+            this.CanjearMillas.Controls.Add(this.productosDisponibles);
+            this.CanjearMillas.Controls.Add(this.Agregar);
+            this.CanjearMillas.Controls.Add(this.RealizarCanjes);
             this.CanjearMillas.Controls.Add(this.Cancelar);
             this.CanjearMillas.Controls.Add(this.ProductosCanjear);
             this.CanjearMillas.Location = new System.Drawing.Point(12, 12);
             this.CanjearMillas.Name = "CanjearMillas";
-            this.CanjearMillas.Size = new System.Drawing.Size(794, 391);
+            this.CanjearMillas.Size = new System.Drawing.Size(896, 429);
             this.CanjearMillas.TabIndex = 0;
             this.CanjearMillas.TabStop = false;
             this.CanjearMillas.Text = "Canjear millas";
             // 
+            // datosCanje
+            // 
+            this.datosCanje.Controls.Add(this.DatosCanjeador);
+            this.datosCanje.Controls.Add(this.sumaParcialCanjes);
+            this.datosCanje.Controls.Add(this.superLabel1);
+            this.datosCanje.Controls.Add(this.verificar);
+            this.datosCanje.Controls.Add(this.millasQueTiene);
+            this.datosCanje.Controls.Add(this.lab_sumaParcialCanjes);
+            this.datosCanje.Location = new System.Drawing.Point(49, 31);
+            this.datosCanje.Name = "datosCanje";
+            this.datosCanje.Size = new System.Drawing.Size(819, 62);
+            this.datosCanje.TabIndex = 18;
+            this.datosCanje.TabStop = false;
+            // 
+            // DatosCanjeador
+            // 
+            this.DatosCanjeador.AccessibleDescription = "DNI";
+            this.DatosCanjeador.Controls.Add(this.tipoDNI);
+            this.DatosCanjeador.Controls.Add(this.DNI);
+            this.DatosCanjeador.Location = new System.Drawing.Point(21, 12);
+            this.DatosCanjeador.Name = "DatosCanjeador";
+            this.DatosCanjeador.Size = new System.Drawing.Size(243, 40);
+            this.DatosCanjeador.TabIndex = 12;
+            this.DatosCanjeador.TabStop = false;
+            this.DatosCanjeador.Text = "DNI del cliente";
+            // 
+            // tipoDNI
+            // 
+            this.tipoDNI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipoDNI.FormattingEnabled = true;
+            this.tipoDNI.Items.AddRange(new object[] {
+            "DNI",
+            "LI",
+            "LC"});
+            this.tipoDNI.Location = new System.Drawing.Point(31, 13);
+            this.tipoDNI.Name = "tipoDNI";
+            this.tipoDNI.Size = new System.Drawing.Size(58, 21);
+            this.tipoDNI.TabIndex = 12;
+            // 
             // DNI
             // 
             this.DNI.AccessibleDescription = "DNI del beneficiario";
-            this.DNI.Location = new System.Drawing.Point(20, 39);
+            this.DNI.Location = new System.Drawing.Point(113, 13);
             this.DNI.MaxLength = 8;
             this.DNI.Name = "DNI";
             this.DNI.Size = new System.Drawing.Size(115, 20);
             this.DNI.TabIndex = 2;
+            this.DNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DNI_KeyPress);
             // 
-            // AgregarProductos
+            // sumaParcialCanjes
             // 
-            this.AgregarProductos.Controls.Add(this.Agregar);
-            this.AgregarProductos.Controls.Add(this.superLabel2);
-            this.AgregarProductos.Controls.Add(this.NombreProducto);
-            this.AgregarProductos.Controls.Add(this.CantidadProducto);
-            this.AgregarProductos.Controls.Add(this.superLabel1);
-            this.AgregarProductos.Location = new System.Drawing.Point(54, 171);
-            this.AgregarProductos.Name = "AgregarProductos";
-            this.AgregarProductos.Size = new System.Drawing.Size(280, 122);
-            this.AgregarProductos.TabIndex = 10;
-            this.AgregarProductos.TabStop = false;
-            this.AgregarProductos.Text = "Agregar productos";
+            this.sumaParcialCanjes.Location = new System.Drawing.Point(701, 25);
+            this.sumaParcialCanjes.Name = "sumaParcialCanjes";
+            this.sumaParcialCanjes.ReadOnly = true;
+            this.sumaParcialCanjes.Size = new System.Drawing.Size(82, 20);
+            this.sumaParcialCanjes.TabIndex = 17;
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(354, 28);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(83, 13);
+            this.superLabel1.TabIndex = 14;
+            this.superLabel1.Text = "Millas que tiene:";
+            // 
+            // verificar
+            // 
+            this.verificar.Location = new System.Drawing.Point(279, 23);
+            this.verificar.Name = "verificar";
+            this.verificar.Size = new System.Drawing.Size(56, 23);
+            this.verificar.TabIndex = 11;
+            this.verificar.Text = "Verificar";
+            this.verificar.UseVisualStyleBackColor = true;
+            this.verificar.Click += new System.EventHandler(this.verificar_Click);
+            // 
+            // millasQueTiene
+            // 
+            this.millasQueTiene.Location = new System.Drawing.Point(443, 25);
+            this.millasQueTiene.Name = "millasQueTiene";
+            this.millasQueTiene.ReadOnly = true;
+            this.millasQueTiene.Size = new System.Drawing.Size(70, 20);
+            this.millasQueTiene.TabIndex = 15;
+            // 
+            // lab_sumaParcialCanjes
+            // 
+            this.lab_sumaParcialCanjes.AutoSize = true;
+            this.lab_sumaParcialCanjes.Location = new System.Drawing.Point(531, 28);
+            this.lab_sumaParcialCanjes.Name = "lab_sumaParcialCanjes";
+            this.lab_sumaParcialCanjes.Size = new System.Drawing.Size(164, 13);
+            this.lab_sumaParcialCanjes.TabIndex = 16;
+            this.lab_sumaParcialCanjes.Text = "Suma parcial millas en los canjes:";
+            // 
+            // productosDisponibles
+            // 
+            this.productosDisponibles.AllowUserToAddRows = false;
+            this.productosDisponibles.AllowUserToDeleteRows = false;
+            this.productosDisponibles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.productosDisponibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.productosDisponibles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_producto,
+            this.col_millas,
+            this.col_stock});
+            this.productosDisponibles.Location = new System.Drawing.Point(49, 118);
+            this.productosDisponibles.Name = "productosDisponibles";
+            this.productosDisponibles.Size = new System.Drawing.Size(406, 218);
+            this.productosDisponibles.TabIndex = 13;
+            // 
+            // col_producto
+            // 
+            this.col_producto.HeaderText = "Producto";
+            this.col_producto.Name = "col_producto";
+            this.col_producto.ReadOnly = true;
+            // 
+            // col_millas
+            // 
+            this.col_millas.HeaderText = "Millas que cuesta";
+            this.col_millas.Name = "col_millas";
+            this.col_millas.ReadOnly = true;
+            // 
+            // col_stock
+            // 
+            this.col_stock.HeaderText = "Unidades disponibles";
+            this.col_stock.Name = "col_stock";
+            this.col_stock.ReadOnly = true;
             // 
             // Agregar
             // 
-            this.Agregar.Location = new System.Drawing.Point(184, 80);
+            this.Agregar.Location = new System.Drawing.Point(347, 385);
             this.Agregar.Name = "Agregar";
-            this.Agregar.Size = new System.Drawing.Size(75, 23);
+            this.Agregar.Size = new System.Drawing.Size(108, 23);
             this.Agregar.TabIndex = 11;
             this.Agregar.Text = "Agregar";
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
-            // superLabel2
+            // RealizarCanjes
             // 
-            this.superLabel2.AutoSize = true;
-            this.superLabel2.Location = new System.Drawing.Point(26, 85);
-            this.superLabel2.Name = "superLabel2";
-            this.superLabel2.Size = new System.Drawing.Size(49, 13);
-            this.superLabel2.TabIndex = 10;
-            this.superLabel2.Text = "Cantidad";
-            // 
-            // NombreProducto
-            // 
-            this.NombreProducto.AccessibleDescription = "Producto a canjear";
-            this.NombreProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.NombreProducto.FormattingEnabled = true;
-            this.NombreProducto.Location = new System.Drawing.Point(81, 39);
-            this.NombreProducto.Name = "NombreProducto";
-            this.NombreProducto.Size = new System.Drawing.Size(177, 21);
-            this.NombreProducto.TabIndex = 7;
-            this.NombreProducto.SelectedIndexChanged += new System.EventHandler(this.NombreProducto_SelectedIndexChanged);
-            // 
-            // CantidadProducto
-            // 
-            this.CantidadProducto.AccessibleDescription = "Cantidad de un producto";
-            this.CantidadProducto.Location = new System.Drawing.Point(82, 83);
-            this.CantidadProducto.Name = "CantidadProducto";
-            this.CantidadProducto.ReadOnly = true;
-            this.CantidadProducto.Size = new System.Drawing.Size(40, 20);
-            this.CantidadProducto.TabIndex = 8;
-            // 
-            // superLabel1
-            // 
-            this.superLabel1.AutoSize = true;
-            this.superLabel1.Location = new System.Drawing.Point(25, 42);
-            this.superLabel1.Name = "superLabel1";
-            this.superLabel1.Size = new System.Drawing.Size(50, 13);
-            this.superLabel1.TabIndex = 9;
-            this.superLabel1.Text = "Producto";
-            // 
-            // RealizarCanje
-            // 
-            this.RealizarCanje.Location = new System.Drawing.Point(653, 345);
-            this.RealizarCanje.Name = "RealizarCanje";
-            this.RealizarCanje.Size = new System.Drawing.Size(101, 23);
-            this.RealizarCanje.TabIndex = 6;
-            this.RealizarCanje.Text = "Realizar canje";
-            this.RealizarCanje.UseVisualStyleBackColor = true;
-            this.RealizarCanje.Click += new System.EventHandler(this.RealizarCanje_Click);
+            this.RealizarCanjes.Location = new System.Drawing.Point(767, 385);
+            this.RealizarCanjes.Name = "RealizarCanjes";
+            this.RealizarCanjes.Size = new System.Drawing.Size(101, 23);
+            this.RealizarCanjes.TabIndex = 6;
+            this.RealizarCanjes.Text = "Realizar canjes";
+            this.RealizarCanjes.UseVisualStyleBackColor = true;
+            this.RealizarCanjes.Click += new System.EventHandler(this.RealizarCanje_Click);
             // 
             // Cancelar
             // 
-            this.Cancelar.Location = new System.Drawing.Point(527, 345);
+            this.Cancelar.Location = new System.Drawing.Point(641, 385);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(75, 23);
             this.Cancelar.TabIndex = 5;
@@ -165,73 +236,51 @@ namespace AerolineaFrba.Canje_Millas
             this.ProductosCanjear.AllowUserToDeleteRows = false;
             this.ProductosCanjear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ProductosCanjear.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Producto,
-            this.Cantidad});
-            this.ProductosCanjear.Location = new System.Drawing.Point(411, 43);
+            this.col_producto_canjear,
+            this.col_cantidad});
+            this.ProductosCanjear.Location = new System.Drawing.Point(525, 118);
             this.ProductosCanjear.Name = "ProductosCanjear";
-            this.ProductosCanjear.Size = new System.Drawing.Size(343, 250);
+            this.ProductosCanjear.Size = new System.Drawing.Size(343, 218);
             this.ProductosCanjear.TabIndex = 0;
             this.ProductosCanjear.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // Producto
+            // col_producto_canjear
             // 
-            dataGridViewCellStyle3.NullValue = "\"\"";
-            this.Producto.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Producto.HeaderText = "Producto";
-            this.Producto.Name = "Producto";
-            this.Producto.ReadOnly = true;
-            this.Producto.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Producto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Producto.Width = 200;
+            dataGridViewCellStyle1.NullValue = "\"\"";
+            this.col_producto_canjear.DefaultCellStyle = dataGridViewCellStyle1;
+            this.col_producto_canjear.HeaderText = "Producto";
+            this.col_producto_canjear.Name = "col_producto_canjear";
+            this.col_producto_canjear.ReadOnly = true;
+            this.col_producto_canjear.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_producto_canjear.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.col_producto_canjear.Width = 200;
             // 
-            // Cantidad
+            // col_cantidad
             // 
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = "0";
-            this.Cantidad.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.ReadOnly = true;
-            // 
-            // verificar
-            // 
-            this.verificar.Location = new System.Drawing.Point(162, 37);
-            this.verificar.Name = "verificar";
-            this.verificar.Size = new System.Drawing.Size(75, 23);
-            this.verificar.TabIndex = 11;
-            this.verificar.Text = "Verificar";
-            this.verificar.UseVisualStyleBackColor = true;
-            this.verificar.Click += new System.EventHandler(this.verificar_Click);
-            // 
-            // DatosCanjeador
-            // 
-            this.DatosCanjeador.AccessibleDescription = "DNI";
-            this.DatosCanjeador.Controls.Add(this.DNI);
-            this.DatosCanjeador.Controls.Add(this.verificar);
-            this.DatosCanjeador.Location = new System.Drawing.Point(54, 43);
-            this.DatosCanjeador.Name = "DatosCanjeador";
-            this.DatosCanjeador.Size = new System.Drawing.Size(280, 100);
-            this.DatosCanjeador.TabIndex = 12;
-            this.DatosCanjeador.TabStop = false;
-            this.DatosCanjeador.Text = "DNI del cliente";
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.col_cantidad.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_cantidad.HeaderText = "Cantidad";
+            this.col_cantidad.Name = "col_cantidad";
+            this.col_cantidad.ReadOnly = true;
             // 
             // Canje_Millas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(830, 425);
+            this.ClientSize = new System.Drawing.Size(949, 481);
             this.Controls.Add(this.CanjearMillas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Canje_Millas";
             this.Text = "Canjear Millas";
             this.Load += new System.EventHandler(this.Canje_Millas_Load);
             this.CanjearMillas.ResumeLayout(false);
-            this.AgregarProductos.ResumeLayout(false);
-            this.AgregarProductos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CantidadProducto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ProductosCanjear)).EndInit();
+            this.datosCanje.ResumeLayout(false);
+            this.datosCanje.PerformLayout();
             this.DatosCanjeador.ResumeLayout(false);
             this.DatosCanjeador.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productosDisponibles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductosCanjear)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -240,18 +289,23 @@ namespace AerolineaFrba.Canje_Millas
 
         private System.Windows.Forms.GroupBox CanjearMillas;
         private System.Windows.Forms.DataGridView ProductosCanjear;
-        private System.Windows.Forms.Button RealizarCanje;
+        private System.Windows.Forms.Button RealizarCanjes;
         private SuperTextBox DNI;
-        private System.Windows.Forms.GroupBox AgregarProductos;
         private SuperControls.SuperButton Agregar;
-        private SuperControls.SuperLabel superLabel2;
-        private SuperControls.SuperComboBox NombreProducto;
-        private SuperControls.SuperNumericUpDown CantidadProducto;
-        private SuperControls.SuperLabel superLabel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private SuperButton Cancelar;
         private SuperButton verificar;
         private SuperGroupBox DatosCanjeador;
+        private System.Windows.Forms.DataGridView productosDisponibles;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_producto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_millas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_stock;
+        private SuperTextBox sumaParcialCanjes;
+        private SuperLabel lab_sumaParcialCanjes;
+        private SuperTextBox millasQueTiene;
+        private SuperLabel superLabel1;
+        private SuperComboBox tipoDNI;
+        private SuperGroupBox datosCanje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_producto_canjear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cantidad;
     }
 }

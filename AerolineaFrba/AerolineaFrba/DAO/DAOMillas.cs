@@ -9,10 +9,7 @@ namespace AerolineaFrba.DAO
 {
     public class DAOMillas
     {
-        public static int get_millas(DataGridView dg, String tipo_dni, Decimal dni) {
-            return SqlConnector.retrieveDT("info_millas", dg, tipo_dni, dni);
-        }
-
+    
         internal static void clientesConMasMillas(DateTime dateTime1, DateTime dateTime2, DataGridView dg)
         {
             SqlConnector.retrieveDT("clientes_con_mas_millas_acumuladas", dg, dateTime1, dateTime2);
@@ -40,9 +37,31 @@ namespace AerolineaFrba.DAO
         {
            SqlConnector.retrieveDT("destinos_aeronaves_mas_vacias", dg, dateTime1, dateTime2);
         }
-        
 
 
 
+
+
+        internal static void canjearProductos(DataGridView ProductosCanjear, String tipoDNI, Object DNI)
+        {
+            foreach(DataGridViewRow row in ProductosCanjear.Rows){
+                SqlConnector.executeProcedure("canjear_productos", tipoDNI, Convert.ToDecimal(DNI), row.Cells["col_producto_canjear"].Value.ToString(),
+                    Convert.ToDecimal(row.Cells["col_cantidad"].Value));
+        }}
+
+        internal static void getMillasCanjes(DataGridView canjes, String tipoDNI, String DNI)
+        {
+            SqlConnector.retrieveDT("info_canjes", canjes, tipoDNI, DNI);
+        }
+
+        internal static void getMillasPasajes(DataGridView pasajes, String tipoDNI, String DNI)
+        {
+            SqlConnector.retrieveDT("info_pasajes", pasajes, tipoDNI, DNI);
+        } 
+
+        internal static void getMillasEncomiendas(DataGridView encomiendas, String tipoDNI, String DNI)
+        {
+            SqlConnector.retrieveDT("info_encomiendas", encomiendas, tipoDNI, DNI);
+        }
     }
 }

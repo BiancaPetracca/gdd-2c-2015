@@ -21,5 +21,10 @@ namespace AerolineaFrba.DAO
         {
             return SqlConnector.executeProcedure("get_puntos_producto", producto);
         }
+
+        internal static void getProductos(System.Windows.Forms.DataGridView productosDisponibles)
+        {
+            SqlConnector.retrieveDT("get_productos_disponibles", productosDisponibles);
+        }
     }
 }

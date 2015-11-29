@@ -36,6 +36,14 @@ namespace AerolineaFrba.Compra
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
             this.IngresarDatos = new AerolineaFrba.SuperControls.SuperButton();
             this.Pasaje = new System.Windows.Forms.DataGridView();
+            this.col_codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_salida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_estimada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_encomiendas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pasajes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Opciones = new AerolineaFrba.SuperControls.SuperGroupBox();
             this.OpcionesOk = new AerolineaFrba.SuperControls.SuperButton();
             this.cant_pasajes = new AerolineaFrba.SuperControls.SuperNumericUpDown();
@@ -52,14 +60,6 @@ namespace AerolineaFrba.Compra
             this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
             this.fechaSalida = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.col_codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_salida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_estimada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_encomiendas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pasajes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComprarPasaje.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Pasaje)).BeginInit();
             this.Opciones.SuspendLayout();
@@ -76,16 +76,16 @@ namespace AerolineaFrba.Compra
             this.ComprarPasaje.Controls.Add(this.Pasaje);
             this.ComprarPasaje.Controls.Add(this.Opciones);
             this.ComprarPasaje.Controls.Add(this.ElegirViaje);
-            this.ComprarPasaje.Location = new System.Drawing.Point(22, 12);
+            this.ComprarPasaje.Location = new System.Drawing.Point(24, 12);
             this.ComprarPasaje.Name = "ComprarPasaje";
-            this.ComprarPasaje.Size = new System.Drawing.Size(900, 408);
+            this.ComprarPasaje.Size = new System.Drawing.Size(1171, 417);
             this.ComprarPasaje.TabIndex = 0;
             this.ComprarPasaje.TabStop = false;
             this.ComprarPasaje.Text = "Comprar Pasaje";
             // 
             // Cancelar
             // 
-            this.Cancelar.Location = new System.Drawing.Point(624, 359);
+            this.Cancelar.Location = new System.Drawing.Point(848, 365);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(75, 23);
             this.Cancelar.TabIndex = 16;
@@ -95,7 +95,7 @@ namespace AerolineaFrba.Compra
             // 
             // IngresarDatos
             // 
-            this.IngresarDatos.Location = new System.Drawing.Point(749, 359);
+            this.IngresarDatos.Location = new System.Drawing.Point(973, 365);
             this.IngresarDatos.Name = "IngresarDatos";
             this.IngresarDatos.Size = new System.Drawing.Size(122, 23);
             this.IngresarDatos.TabIndex = 15;
@@ -118,177 +118,11 @@ namespace AerolineaFrba.Compra
             this.col_servicio,
             this.col_encomiendas,
             this.col_pasajes});
-            this.Pasaje.Location = new System.Drawing.Point(18, 240);
+            this.Pasaje.Location = new System.Drawing.Point(189, 235);
             this.Pasaje.Name = "Pasaje";
             this.Pasaje.Size = new System.Drawing.Size(853, 72);
             this.Pasaje.TabIndex = 15;
             this.Pasaje.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Pasaje_CellContentClick);
-            // 
-            // Opciones
-            // 
-            this.Opciones.Controls.Add(this.OpcionesOk);
-            this.Opciones.Controls.Add(this.cant_pasajes);
-            this.Opciones.Controls.Add(this.Pasajes);
-            this.Opciones.Controls.Add(this.label5);
-            this.Opciones.Controls.Add(this.encomienda);
-            this.Opciones.Location = new System.Drawing.Point(520, 36);
-            this.Opciones.Name = "Opciones";
-            this.Opciones.Size = new System.Drawing.Size(351, 150);
-            this.Opciones.TabIndex = 14;
-            this.Opciones.TabStop = false;
-            this.Opciones.Text = "Elegir servicio";
-            // 
-            // OpcionesOk
-            // 
-            this.OpcionesOk.Location = new System.Drawing.Point(277, 107);
-            this.OpcionesOk.Name = "OpcionesOk";
-            this.OpcionesOk.Size = new System.Drawing.Size(47, 23);
-            this.OpcionesOk.TabIndex = 14;
-            this.OpcionesOk.Text = "Ok";
-            this.OpcionesOk.UseVisualStyleBackColor = true;
-            this.OpcionesOk.Click += new System.EventHandler(this.OpcionesOk_Click);
-            // 
-            // cant_pasajes
-            // 
-            this.cant_pasajes.AccessibleDescription = "Cantidad de pasajes";
-            this.cant_pasajes.Location = new System.Drawing.Point(178, 68);
-            this.cant_pasajes.Name = "cant_pasajes";
-            this.cant_pasajes.ReadOnly = true;
-            this.cant_pasajes.Size = new System.Drawing.Size(55, 20);
-            this.cant_pasajes.TabIndex = 13;
-            // 
-            // Pasajes
-            // 
-            this.Pasajes.AutoSize = true;
-            this.Pasajes.Location = new System.Drawing.Point(45, 73);
-            this.Pasajes.Name = "Pasajes";
-            this.Pasajes.Size = new System.Drawing.Size(44, 13);
-            this.Pasajes.TabIndex = 12;
-            this.Pasajes.Text = "Pasajes";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(45, 33);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Encomienda (Kgs)";
-            // 
-            // encomienda
-            // 
-            this.encomienda.AccessibleDescription = "Peso de la encomienda";
-            this.encomienda.Location = new System.Drawing.Point(178, 31);
-            this.encomienda.Name = "encomienda";
-            this.encomienda.ReadOnly = true;
-            this.encomienda.Size = new System.Drawing.Size(55, 20);
-            this.encomienda.TabIndex = 10;
-            this.encomienda.ValueChanged += new System.EventHandler(this.Kgs_ValueChanged);
-            // 
-            // ElegirViaje
-            // 
-            this.ElegirViaje.Controls.Add(this.superLabel1);
-            this.ElegirViaje.Controls.Add(this.fechaLlegada);
-            this.ElegirViaje.Controls.Add(this.ViajeOk);
-            this.ElegirViaje.Controls.Add(this.label1);
-            this.ElegirViaje.Controls.Add(this.CiudadDestino);
-            this.ElegirViaje.Controls.Add(this.CiudadOrigen);
-            this.ElegirViaje.Controls.Add(this.label3);
-            this.ElegirViaje.Controls.Add(this.fechaSalida);
-            this.ElegirViaje.Controls.Add(this.label2);
-            this.ElegirViaje.Location = new System.Drawing.Point(18, 36);
-            this.ElegirViaje.Name = "ElegirViaje";
-            this.ElegirViaje.Size = new System.Drawing.Size(481, 150);
-            this.ElegirViaje.TabIndex = 6;
-            this.ElegirViaje.TabStop = false;
-            this.ElegirViaje.Text = "Elegir viaje";
-            // 
-            // superLabel1
-            // 
-            this.superLabel1.AutoSize = true;
-            this.superLabel1.Location = new System.Drawing.Point(220, 96);
-            this.superLabel1.Name = "superLabel1";
-            this.superLabel1.Size = new System.Drawing.Size(74, 13);
-            this.superLabel1.TabIndex = 8;
-            this.superLabel1.Text = "Fecha llegada";
-            // 
-            // fechaLlegada
-            // 
-            this.fechaLlegada.AccessibleDescription = "Fecha del viaje";
-            this.fechaLlegada.CustomFormat = "dd/MM/yyyy hh:mm:ss";
-            this.fechaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.fechaLlegada.Location = new System.Drawing.Point(223, 112);
-            this.fechaLlegada.Name = "fechaLlegada";
-            this.fechaLlegada.Size = new System.Drawing.Size(144, 20);
-            this.fechaLlegada.TabIndex = 7;
-            // 
-            // ViajeOk
-            // 
-            this.ViajeOk.Location = new System.Drawing.Point(402, 68);
-            this.ViajeOk.Name = "ViajeOk";
-            this.ViajeOk.Size = new System.Drawing.Size(45, 23);
-            this.ViajeOk.TabIndex = 6;
-            this.ViajeOk.Text = "Ok";
-            this.ViajeOk.UseVisualStyleBackColor = true;
-            this.ViajeOk.Click += new System.EventHandler(this.ViajeOk_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(220, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Fecha salida";
-            // 
-            // CiudadDestino
-            // 
-            this.CiudadDestino.AccessibleDescription = "Ciudad destino";
-            this.CiudadDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CiudadDestino.FormattingEnabled = true;
-            this.CiudadDestino.Location = new System.Drawing.Point(33, 112);
-            this.CiudadDestino.Name = "CiudadDestino";
-            this.CiudadDestino.Size = new System.Drawing.Size(117, 21);
-            this.CiudadDestino.TabIndex = 5;
-            // 
-            // CiudadOrigen
-            // 
-            this.CiudadOrigen.AccessibleDescription = "Ciudad origen";
-            this.CiudadOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CiudadOrigen.FormattingEnabled = true;
-            this.CiudadOrigen.Location = new System.Drawing.Point(33, 35);
-            this.CiudadOrigen.Name = "CiudadOrigen";
-            this.CiudadOrigen.Size = new System.Drawing.Size(117, 21);
-            this.CiudadOrigen.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 96);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Ciudad Destino";
-            // 
-            // fechaSalida
-            // 
-            this.fechaSalida.AccessibleDescription = "Fecha del viaje";
-            this.fechaSalida.CustomFormat = "dd/MM/yyyy hh:mm:ss";
-            this.fechaSalida.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.fechaSalida.Location = new System.Drawing.Point(223, 36);
-            this.fechaSalida.Name = "fechaSalida";
-            this.fechaSalida.Size = new System.Drawing.Size(140, 20);
-            this.fechaSalida.TabIndex = 0;
-            this.fechaSalida.ValueChanged += new System.EventHandler(this.fechaSalida_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Ciudad Origen";
             // 
             // col_codigo
             // 
@@ -334,11 +168,177 @@ namespace AerolineaFrba.Compra
             this.col_pasajes.HeaderText = "Número de pasajes";
             this.col_pasajes.Name = "col_pasajes";
             // 
+            // Opciones
+            // 
+            this.Opciones.Controls.Add(this.OpcionesOk);
+            this.Opciones.Controls.Add(this.cant_pasajes);
+            this.Opciones.Controls.Add(this.Pasajes);
+            this.Opciones.Controls.Add(this.label5);
+            this.Opciones.Controls.Add(this.encomienda);
+            this.Opciones.Location = new System.Drawing.Point(783, 36);
+            this.Opciones.Name = "Opciones";
+            this.Opciones.Size = new System.Drawing.Size(364, 150);
+            this.Opciones.TabIndex = 14;
+            this.Opciones.TabStop = false;
+            this.Opciones.Text = "Elegir servicio";
+            // 
+            // OpcionesOk
+            // 
+            this.OpcionesOk.Location = new System.Drawing.Point(278, 65);
+            this.OpcionesOk.Name = "OpcionesOk";
+            this.OpcionesOk.Size = new System.Drawing.Size(47, 23);
+            this.OpcionesOk.TabIndex = 14;
+            this.OpcionesOk.Text = "Ok";
+            this.OpcionesOk.UseVisualStyleBackColor = true;
+            this.OpcionesOk.Click += new System.EventHandler(this.OpcionesOk_Click);
+            // 
+            // cant_pasajes
+            // 
+            this.cant_pasajes.AccessibleDescription = "Cantidad de pasajes";
+            this.cant_pasajes.Location = new System.Drawing.Point(178, 93);
+            this.cant_pasajes.Name = "cant_pasajes";
+            this.cant_pasajes.ReadOnly = true;
+            this.cant_pasajes.Size = new System.Drawing.Size(55, 20);
+            this.cant_pasajes.TabIndex = 13;
+            // 
+            // Pasajes
+            // 
+            this.Pasajes.AutoSize = true;
+            this.Pasajes.Location = new System.Drawing.Point(45, 98);
+            this.Pasajes.Name = "Pasajes";
+            this.Pasajes.Size = new System.Drawing.Size(44, 13);
+            this.Pasajes.TabIndex = 12;
+            this.Pasajes.Text = "Pasajes";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(45, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(93, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Encomienda (Kgs)";
+            // 
+            // encomienda
+            // 
+            this.encomienda.AccessibleDescription = "Peso de la encomienda";
+            this.encomienda.Location = new System.Drawing.Point(178, 31);
+            this.encomienda.Name = "encomienda";
+            this.encomienda.ReadOnly = true;
+            this.encomienda.Size = new System.Drawing.Size(55, 20);
+            this.encomienda.TabIndex = 10;
+            this.encomienda.ValueChanged += new System.EventHandler(this.Kgs_ValueChanged);
+            // 
+            // ElegirViaje
+            // 
+            this.ElegirViaje.Controls.Add(this.superLabel1);
+            this.ElegirViaje.Controls.Add(this.fechaLlegada);
+            this.ElegirViaje.Controls.Add(this.ViajeOk);
+            this.ElegirViaje.Controls.Add(this.label1);
+            this.ElegirViaje.Controls.Add(this.CiudadDestino);
+            this.ElegirViaje.Controls.Add(this.CiudadOrigen);
+            this.ElegirViaje.Controls.Add(this.label3);
+            this.ElegirViaje.Controls.Add(this.fechaSalida);
+            this.ElegirViaje.Controls.Add(this.label2);
+            this.ElegirViaje.Location = new System.Drawing.Point(18, 36);
+            this.ElegirViaje.Name = "ElegirViaje";
+            this.ElegirViaje.Size = new System.Drawing.Size(733, 150);
+            this.ElegirViaje.TabIndex = 6;
+            this.ElegirViaje.TabStop = false;
+            this.ElegirViaje.Text = "Elegir viaje";
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(300, 43);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(74, 13);
+            this.superLabel1.TabIndex = 8;
+            this.superLabel1.Text = "Fecha llegada";
+            // 
+            // fechaLlegada
+            // 
+            this.fechaLlegada.AccessibleDescription = "Fecha del viaje";
+            this.fechaLlegada.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.fechaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.fechaLlegada.Location = new System.Drawing.Point(416, 41);
+            this.fechaLlegada.Name = "fechaLlegada";
+            this.fechaLlegada.Size = new System.Drawing.Size(144, 20);
+            this.fechaLlegada.TabIndex = 7;
+            // 
+            // ViajeOk
+            // 
+            this.ViajeOk.Location = new System.Drawing.Point(606, 65);
+            this.ViajeOk.Name = "ViajeOk";
+            this.ViajeOk.Size = new System.Drawing.Size(45, 23);
+            this.ViajeOk.TabIndex = 6;
+            this.ViajeOk.Text = "Ok";
+            this.ViajeOk.UseVisualStyleBackColor = true;
+            this.ViajeOk.Click += new System.EventHandler(this.ViajeOk_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(43, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Fecha salida";
+            // 
+            // CiudadDestino
+            // 
+            this.CiudadDestino.AccessibleDescription = "Ciudad destino";
+            this.CiudadDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CiudadDestino.FormattingEnabled = true;
+            this.CiudadDestino.Location = new System.Drawing.Point(416, 98);
+            this.CiudadDestino.Name = "CiudadDestino";
+            this.CiudadDestino.Size = new System.Drawing.Size(144, 21);
+            this.CiudadDestino.TabIndex = 5;
+            // 
+            // CiudadOrigen
+            // 
+            this.CiudadOrigen.AccessibleDescription = "Ciudad origen";
+            this.CiudadOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CiudadOrigen.FormattingEnabled = true;
+            this.CiudadOrigen.Location = new System.Drawing.Point(130, 98);
+            this.CiudadOrigen.Name = "CiudadOrigen";
+            this.CiudadOrigen.Size = new System.Drawing.Size(140, 21);
+            this.CiudadOrigen.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(300, 101);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(79, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Ciudad Destino";
+            // 
+            // fechaSalida
+            // 
+            this.fechaSalida.AccessibleDescription = "Fecha del viaje";
+            this.fechaSalida.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.fechaSalida.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.fechaSalida.Location = new System.Drawing.Point(130, 41);
+            this.fechaSalida.Name = "fechaSalida";
+            this.fechaSalida.Size = new System.Drawing.Size(140, 20);
+            this.fechaSalida.TabIndex = 0;
+            this.fechaSalida.ValueChanged += new System.EventHandler(this.fechaSalida_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(43, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Ciudad Origen";
+            // 
             // Compra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 446);
+            this.ClientSize = new System.Drawing.Size(1224, 495);
             this.Controls.Add(this.ComprarPasaje);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Compra";

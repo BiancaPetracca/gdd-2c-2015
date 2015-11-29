@@ -1666,18 +1666,18 @@ AND ((EXISTS(SELECT 1 FROM AWANTA.VIAJE JOIN AWANTA.PASAJE ON pas_viaje = via_co
 END
 GO
 
-CREATE PROCEDURE AWANTA.existe_cliente(@dni NUMERIC(18))
+ALTER PROCEDURE AWANTA.existe_cliente(@tipo_dni CHAR(5), @dni NUMERIC(18))
 AS
 BEGIN
-IF EXISTS(SELECT 1 FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = 'DNI')
+IF EXISTS(SELECT 1 FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
 BEGIN RETURN 1 END 
 RETURN -1 END
 GO
 
-CREATE PROCEDURE AWANTA.get_cliente(@tipo_dni CHAR(5), @dni NUMERIC(18))
+ALTER PROCEDURE AWANTA.get_cliente(@tipo_dni CHAR(5), @dni NUMERIC(18))
 AS
 BEGIN
-SELECT cli_tipo_doc, cli_nro_doc, cli_nombre, cli_apellido, cli_direccion, cli_telefono,cli_mail, cli_fecha_nac FROM AWANTA.CLIENTE WHERE @tipo_dni = cli_tipo_doc AND @dni = cli_nro_doc
+SELECT cli_nombre, cli_apellido, cli_direccion, cli_telefono, cli_mail, cli_fecha_nac FROM AWANTA.CLIENTE WHERE @tipo_dni = cli_tipo_doc AND @dni = cli_nro_doc
 END
 GO
 
@@ -1770,19 +1770,19 @@ WHERE  cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, can_fe
 GROUP BY cli_codigo),0)
 END
 GO
-CREATE FUNCTION AWANTA.get_millas(@tipo_dni char(5), @dni numeric(18)) RETURNS INT 
+ALTER FUNCTION AWANTA.get_millas(@tipo_dni char(5), @dni numeric(18)) RETURNS INT 
 AS
 BEGIN
-RETURN (SELECT isnull((SELECT SUM(prod_millas * can_cantidad) FROM AWANTA.CLIENTE
-JOIN AWANTA.CANJE ON can_canjeador = cli_codigo 
-JOIN AWANTA.PRODUCTO ON prod_id = can_producto
-WHERE  cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, can_fecha, AWANTA.getDate()) < 1  
-GROUP BY cli_codigo),0) + isnull((SELECT SUM(enc_precio) FROM AWANTA.CLIENTE
+RETURN (SELECT isnull((SELECT SUM(enc_precio) FROM AWANTA.CLIENTE
 	JOIN AWANTA.ENCOMIENDA ON enc_encomendador = cli_codigo 
 	JOIN AWANTA.COMPRA ON enc_compra = compra_id 
 	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA
 	WHERE enc_codigo = devxp_encomienda)
-	GROUP BY cli_codigo	),0) + isnull((SELECT SUM(pas_precio) FROM AWANTA.CLIENTE
+	GROUP BY cli_codigo	),0) - isnull((SELECT SUM(prod_millas * can_cantidad) FROM AWANTA.CLIENTE
+JOIN AWANTA.CANJE ON can_canjeador = cli_codigo 
+JOIN AWANTA.PRODUCTO ON prod_id = can_producto
+WHERE  cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, can_fecha, AWANTA.getDate()) < 1  
+GROUP BY cli_codigo),0) + isnull((SELECT SUM(pas_precio) FROM AWANTA.CLIENTE
 	JOIN AWANTA.PASAJE ON pas_pasajero = cli_codigo 
 	JOIN AWANTA.COMPRA ON pas_compra = compra_id 
 	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE 
@@ -1790,11 +1790,17 @@ GROUP BY cli_codigo),0) + isnull((SELECT SUM(enc_precio) FROM AWANTA.CLIENTE
 	GROUP BY cli_codigo),0))
 END
 GO
-EXEC AWANTA.info_millas 'DNI', 31357390
-CREATE PROCEDURE AWANTA.info_canjes(@tipo_dni char(5), @dni numeric(18))
+
+CREATE PROCEDURE AWANTA.get_millas_cliente(@tipo_dni char(5), @dni numeric(18)) AS
+BEGIN
+RETURN (SELECT AWANTA.get_millas(@tipo_dni, @dni))
+END
+GO
+
+ALTER PROCEDURE AWANTA.info_canjes(@tipo_dni char(5), @dni numeric(18))
 AS
 BEGIN
-SELECT 'Canje', can_fecha, prod_nombre, can_cantidad, prod_millas FROM AWANTA.CANJE JOIN 
+SELECT can_fecha, prod_nombre, can_cantidad, prod_millas FROM AWANTA.CANJE JOIN 
 AWANTA.PRODUCTO ON can_producto = prod_id 
 WHERE DATEDIFF(YEAR, can_fecha, AWANTA.getDate()) < 1 AND can_canjeador = AWANTA.getIdCliente(@tipo_dni, @dni)
 END
@@ -1802,21 +1808,27 @@ GO
 ALTER PROCEDURE AWANTA.info_pasajes(@tipo_dni char(5), @dni numeric(18))
 AS
 BEGIN
-SELECT 'Pasaje', compra_fecha, pas_codigo, compra_cliente, (pas_precio/10) FROM AWANTA.PASAJE JOIN
-AWANTA.COMPRA ON compra_id = pas_compra
+SELECT compra_fecha, AWANTA.obtenerNombreCiudad(rut_origen),AWANTA.obtenerNombreCiudad(rut_destino), (pas_precio/10) FROM AWANTA.PASAJE JOIN
+AWANTA.COMPRA ON compra_id = pas_compra 
+JOIN VIAJE ON via_codigo = pas_viaje 
+JOIN RUTA_AEREA ON rut_codigo = via_ruta_aerea
 WHERE DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo) 
-AND pas_pasajero IN (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
+AND pas_pasajero = (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
 END
 GO
+
 ALTER PROCEDURE AWANTA.info_encomiendas(@tipo_dni char(5), @dni numeric(18))
 AS
 BEGIN
- SELECT 'Encomienda', compra_fecha, enc_codigo, compra_cliente, (enc_precio/10) FROM AWANTA.ENCOMIENDA JOIN
+ SELECT compra_fecha, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), (enc_precio/10) FROM AWANTA.ENCOMIENDA JOIN
 AWANTA.COMPRA ON compra_id = enc_compra 
+JOIN VIAJE ON via_codigo = enc_viaje 
+JOIN RUTA_AEREA ON rut_codigo = via_ruta_aerea
 WHERE DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE devxp_encomienda = enc_codigo)
- AND enc_encomendador IN (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
+ AND enc_encomendador = (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
 END
 GO
+
 
 ALTER PROCEDURE AWANTA.info_millas(@tipo_dni char(5), @dni numeric(18))
 AS
@@ -1836,28 +1848,31 @@ WHERE DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 AND NOT EXISTS(SELECT 1
   AND enc_encomendador IN (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
 END
 GO
-
+EXEC AWANTA.info_millas 'DNI', 1122696
 ---------------- PRODUCTOS
-CREATE PROCEDURE AWANTA.get_productos_disponibles
+
+CREATE FUNCTION AWANTA.get_id_producto(@nombre nvarchar(255)) RETURNS NUMERIC(18)
 AS
 BEGIN
-SELECT prod_nombre FROM AWANTA.PRODUCTO WHERE prod_stock > 0
+RETURN (SELECT prod_id FROM AWANTA.PRODUCTO WHERE prod_nombre = @nombre)
 END
 GO
 
-CREATE PROCEDURE AWANTA.get_stock_producto(@prod NVARCHAR(255))
+ALTER PROCEDURE AWANTA.get_productos_disponibles
 AS
 BEGIN
-RETURN (SELECT TOP 1 prod_stock FROM AWANTA.PRODUCTO WHERE prod_nombre = @prod)
+SELECT prod_nombre, prod_millas, prod_stock FROM AWANTA.PRODUCTO WHERE prod_stock > 0
 END
 GO
 
-CREATE PROCEDURE AWANTA.get_puntos_producto(@prod NVARCHAR(255))
+
+ALTER PROCEDURE AWANTA.canjear_productos(@tipo_dni CHAR(5), @dni NUMERIC(18), @producto nvarchar(255), @cantidad int)
 AS
 BEGIN
-RETURN (SELECT TOP 1 prod_millas FROM AWANTA.PRODUCTO WHERE prod_nombre = @prod)
+INSERT INTO AWANTA.CANJE(can_fecha, can_canjeador, can_producto, can_cantidad) VALUES (AWANTA.getDate(), AWANTA.getIdCliente(@tipo_dni, @dni), AWANTA.get_id_producto(@producto), @cantidad)
 END
 GO
+
 
 ------------- CLIENTES
 

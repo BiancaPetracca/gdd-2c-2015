@@ -36,7 +36,7 @@ namespace AerolineaFrba.SuperControls
             return this.Text != String.Empty;
         }
 
-        public void clean() { this.textBox1.ResetText(); }
+        public void clean() { ResetText(); }
 
 
     }

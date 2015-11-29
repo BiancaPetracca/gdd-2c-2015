@@ -33,9 +33,9 @@ namespace AerolineaFrba.DAO
             return ciudades;
         }
 
-        public static List<String> listarCompras(Decimal dni)
+        public static List<String> listarCompras(Object dni)
         {
-           return SqlConnector.retrieveList("get_compras", "compra_id", dni);
+           return SqlConnector.retrieveList("get_compras", "compra_id", Convert.ToDecimal(dni));
         }
 
         public static List<String> listarEncomiendas(Decimal compra) {
