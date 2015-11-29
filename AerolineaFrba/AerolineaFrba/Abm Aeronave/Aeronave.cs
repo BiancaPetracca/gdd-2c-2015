@@ -37,6 +37,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Modificar_Click(object sender, EventArgs e)
         {
+            if (this.lista.SelectedCells.Count == 0 && this.lista.SelectedRows.Count == 0) {
+                MessageBox.Show("Tiene que seleccionar alguna aeronave para modificarla");
+                return;
+            }
             Model.Aeronave aeronave = getCurrentAeronave();
 
             // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
@@ -44,18 +48,16 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
-        private Model.Aeronave getCurrentAeronave() {
+        public Model.Aeronave getCurrentAeronave() {
+
            return new Model.Aeronave(DAO.DAOAeronave.obtenerCodigoAeronave((String)Extensions.cellValue(this.lista, "col_matricula")), 
 
             (String)Extensions.cellValue(this.lista, "col_modelo"),
             (String)Extensions.cellValue(this.lista, "col_matricula"),
             (String)Extensions.cellValue(this.lista, "col_fabricante"),
 
-            Convert.ToDecimal(Extensions.cellValue(this.lista, "col_butacas_pasillo")),
-            Convert.ToDecimal(Extensions.cellValue(this.lista, "col_butacas_vent")),
-
             Convert.ToDecimal(Extensions.cellValue(this.lista, "col_kgs")),
-            (Boolean)Extensions.cellValue(this.lista, "col_estado"),
+            Convert.ToBoolean(Extensions.cellValue(this.lista, "col_estado")),
             (String)Extensions.cellValue(this.lista, "col_servicio"));
             
         }
@@ -63,7 +65,9 @@ namespace AerolineaFrba.Abm_Aeronave
         // VER BUTACAS
         private void VerButacas_Click(object sender, EventArgs e)
         {
-            this.openInNewWindow(new Butacas());
+            Butacas but = new Butacas();
+            but.motivo = 0;
+            this.openInNewWindow(but);
         }
         // NO PERMITIR QUE INSERTEN CARACTERES QUE NO SE PUEDEN
         private void MatriculaFiltro_KeyPress(object sender, KeyPressEventArgs e)
@@ -109,7 +113,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Borrar_Click(object sender, EventArgs e)
         {
-            if ((Boolean)(this.lista.CurrentRow.Cells["col_estado"].Value))
+            if (this.lista.SelectedCells.Count == 0 && this.lista.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Tiene que seleccionar alguna aeronave para poder darla de baja");
+                return;
+            }
+            Model.Aeronave aeronave = this.getCurrentAeronave();
+            if (DAO.DAOAeronave.estaHabilitada(aeronave.numero) == 1)
             {
                 Baja baja = new Baja();
                 baja.LauncherBaja = this;
@@ -134,6 +144,18 @@ namespace AerolineaFrba.Abm_Aeronave
         private void groupBox_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void modelosAdmin_Click(object sender, EventArgs e)
+        {
+            this.openInNewWindow(new AdminModelos());
+        }
+
+        private void verButacas_Click_1(object sender, EventArgs e)
+        {
+            Model.Aeronave aero = getCurrentAeronave();
+            aero.numero = DAO.DAOAeronave.getNumeroAeronave(aero.matricula);
+            this.openInNewWindow(new Butacas(aero.numero, 0));
         }
 
 

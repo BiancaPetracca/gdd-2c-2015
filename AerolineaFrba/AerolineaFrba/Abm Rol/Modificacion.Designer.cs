@@ -61,6 +61,7 @@
             this.Nombre.Name = "Nombre";
             this.Nombre.Size = new System.Drawing.Size(191, 20);
             this.Nombre.TabIndex = 1;
+            this.Nombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Nombre_KeyPress);
             // 
             // FuncionalidadesRol
             // 

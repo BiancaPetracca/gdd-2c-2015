@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
+using AerolineaFrba.SuperControls;
 
 namespace AerolineaFrba.Devolucion
 {
@@ -21,20 +22,29 @@ namespace AerolineaFrba.Devolucion
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (this.validateNotNullForAll(this.CompraDevolver.Controls))
-            this.Devoluciones.Rows.Add(this.Fecha.Value, this.PNR.Text, this.Codigo.Text, this.MotivoDevolucion.Text);
+            if (this.pasajes.valid())
+            {
+                if (validarSinRepetido(this.pasajes))
+                {
+                    this.Devoluciones.Rows.Add(this.codigoCompra.value, this.pasajes.value, this.MotivoDevolucion.value);
+                    this.codigoCompra.Enabled = false;
+                }
+            }
         }
 
         private void RealizarDevolucion_Click(object sender, EventArgs e)
         {
-            try { if (this.Devoluciones.Rows.Count == 0) { throw new Exception("No ha agregado nada para realizar su devolución"); } }
-            catch (Exception excepcion)
-            {
-                MessageBox.Show(excepcion.Message);
+           Decimal devolucion = DAO.DAOCompra.crearDevolucion(Convert.ToDecimal(codigoCompra.value));
+            foreach (DataGridViewRow row in Devoluciones.Rows) {
+               DAO.DAOCompra.devolverItems(devolucion, Convert.ToDecimal(row.Cells["col_item"].Value), Convert.ToString(row.Cells["col_motivo"].Value));
+            
             }
-            // LLAMAR A PROCEDURE QUE GUARDE ESO
-        }
+            MessageBox.Show("Devolucion realizada, código de devolucion: " + devolucion.ToString());
+            this.codigoCompra.Enabled = true;
+            this.Devoluciones.clean();
 
+
+        }
         private void Limpiar_Click(object sender, EventArgs e)
         {
             this.Devoluciones.Rows.Clear();
@@ -43,6 +53,61 @@ namespace AerolineaFrba.Devolucion
         private void Cerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void superTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowNumericOnly(e);
+        }
+
+        private void verCompras_Click(object sender, EventArgs e)
+        {
+            Decimal dni = Convert.ToDecimal(this.dni.value);
+            if (!DAO.DAOCliente.existeCliente(dni)){
+            MessageBox.Show("No existe cliente con dicho dni");
+                return;
+            }
+            this.codigoCompra.clean();
+            this.codigoCompra.AddAll(DAO.DAOCompra.listarCompras(dni));
+        }
+
+        private void codigoCompra_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Decimal cod = Convert.ToDecimal(this.codigoCompra.value);
+            this.pasajes.clean();
+            this.pasajes.AddAll(DAO.DAOCompra.listarPasajes(cod));
+            this.encomiendas.clean();
+            this.encomiendas.AddAll(DAO.DAOCompra.listarEncomiendas(cod));
+        }
+
+        private void agregarEncomienda_Click(object sender, EventArgs e)
+        {
+            if (this.encomiendas.valid())
+            {
+                if (validarSinRepetido(this.encomiendas))
+                {
+                    this.Devoluciones.Rows.Add(this.codigoCompra.value, this.encomiendas.value, this.MotivoDevolucion.value);
+                    this.codigoCompra.Enabled = false;
+                }
+            }
+
+
+        }
+
+        private Boolean validarSinRepetido(SuperComboBox cb) {
+            if (!this.codigoCompra.valid()) { return false; ; }
+            foreach (DataGridViewRow row in this.Devoluciones.Rows)
+            {
+                if (Convert.ToString(row.Cells["col_item"].Value) == cb.value)
+                {
+
+                    MessageBox.Show("Ya esta ingresado ese pasaje");
+                    return false;
+
+                }
+                
+            }
+            return true;
         }
     }
 }

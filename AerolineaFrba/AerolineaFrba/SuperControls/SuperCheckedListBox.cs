@@ -38,7 +38,10 @@ namespace AerolineaFrba.SuperControls
 
         public void clean()
         {
-            this.ClearSelected();
+            for (int i = 0;i < this.Items.Count; i++)
+            {
+                this.SetItemChecked(this.Items.IndexOf(this.Items[i].ToString()), false);
+            }
         }
         // esto esta horrible lo tengo que arreglar  TODO 
 
@@ -56,6 +59,21 @@ namespace AerolineaFrba.SuperControls
             foreach (DataGridViewColumn dgc in cols)
             {
                 dgc.Visible = isChecked;
+            }
+        }
+
+        public void check(List<String> checkedItems) {
+            ObjectCollection items = this.Items; // paralelo, para que no me modifique el resto 
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (checkedItems.Contains(items[i].ToString()))
+                {
+                    this.SetItemChecked(this.Items.IndexOf(items[i].ToString()), true);
+                }
+                else
+                {
+                    this.SetItemChecked(this.Items.IndexOf(items[i].ToString()), false);
+                }
             }
         }
 

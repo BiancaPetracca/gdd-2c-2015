@@ -14,10 +14,13 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class Alta : Form
     {
+        
         private Abm_Aeronave.Aeronave launcher { get; set; }
         private Model.Aeronave aeronave { get; set; }
         public Abm_Aeronave.Aeronave Launcher { get { return launcher; } set { launcher = value; } }
         public Model.Aeronave Aeronave { get { return aeronave; } set { aeronave = value; } }
+        public Boolean butacasElegidas { get; set; }
+        public DataGridView dgButacas { get; set; }
 
         public Alta()
         {
@@ -29,6 +32,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             InitializeComponent();
             this.launcher = launcher;
+            this.butacasElegidas = false;
 
         }
 
@@ -39,7 +43,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Alta_Load(object sender, EventArgs e)
         {
-
+            this.fabricante.AddAll(DAO.DAOAeronave.listarFabricantes());
         }
 
 
@@ -61,9 +65,9 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 Aeronave = new Model.Aeronave(0,
                      modelo.value, matriculaLetras.value + "-" + matriculaNumeros.value, fabricante.value,
-                     butacasPasillo.value,
-                     butacasVentanilla.value, kgsEncomiendas.value, estado.value, servicio.value);
-                if (DAO.DAOAeronave.altaDeAeronave(Aeronave) == -1)
+                     kgsEncomiendas.value, estado.value, servicio.value);
+                
+                if (DAO.DAOAeronave.altaDeAeronave(Aeronave, dgButacas) == -1)
                 {
                     MessageBox.Show("No se pudo insertar la aeronave, ingrese otra matrícula diferente");
                     return;
@@ -111,7 +115,27 @@ namespace AerolineaFrba.Abm_Aeronave
             this.allowLessThanLength(this.kgsEncomiendas, e);
         }
 
-        
+
+
+        private void fabricante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.modelo.clean();
+            this.modelo.AddAll(DAO.DAOAeronave.listarModelos(this.fabricante.value));
+        }
+
+        private void elegirButacas_Click(object sender, EventArgs e)
+        {
+            Butacas but = new Abm_Aeronave.Butacas(this, 1);
+          
+            this.openInNewWindow(but);
+        }
+
+
+
+        public void setButacasNuevas(DataGridView dg)
+        {
+            this.dgButacas = dg;
+        }
     }
 
 

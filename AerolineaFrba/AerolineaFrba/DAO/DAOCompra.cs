@@ -32,5 +32,39 @@ namespace AerolineaFrba.DAO
             }
             return ciudades;
         }
+
+        public static List<String> listarCompras(Decimal dni)
+        {
+           return SqlConnector.retrieveList("get_compras", "compra_id", dni);
+        }
+
+        public static List<String> listarEncomiendas(Decimal compra) {
+            return SqlConnector.retrieveList("get_encomiendas", "enc_codigo", compra);
+        }
+
+        public static List<String> listarPasajes(Decimal compra)
+        {
+            return SqlConnector.retrieveList("get_pasajes", "pas_codigo", compra);
+        }
+
+        public static Decimal crearDevolucion(Decimal compra)
+        {
+            return SqlConnector.executeProcedure("crear_devolucion", compra);
+        }
+
+        public static int devolverItems(Decimal devolucion, Decimal item, String motivo)
+        {
+            return SqlConnector.executeProcedure("devolver_items", devolucion, item, motivo);
+        }
+
+        public static void encontrarViajes(System.Windows.Forms.DataGridView dataGridView, String origen, String destino, DateTime salida, DateTime llegada)
+        {
+            SqlConnector.retrieveDT("get_viajes", dataGridView, salida, llegada, origen, destino);
+        }
+
+        public static bool hayViajesDisponibles(Viaje viaje)
+        {
+            return SqlConnector.executeProcedure("hay_viajes_disponibles", viaje.fechaSalida, viaje.fechaLlegadaEstimada, viaje.ciudadOrigen, viaje.ciudadDestino) == 1 ? true : false;
+        }
     }
 }

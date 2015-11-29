@@ -13,6 +13,7 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class Modificacion : Form
     {
+        public DataGridView butacasModificadas = new DataGridView();
         private Model.Aeronave aeronave { get; set; }
         public Model.Aeronave Aeronave { get { return aeronave; } set { aeronave = value; } }
         public Model.Aeronave AeronaveModificada { get; set; }
@@ -53,14 +54,13 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             AeronaveModificada = new Model.Aeronave(this.Aeronave.numero,
                 modelo.value, matriculaLetras.value+"-"+matriculaNumeros.value, fabricante.value,
-                butacasPasillo.value,
-                butacasVentanilla.value, kgsEncomiendas.value, estado.value, servicio.value);
+      kgsEncomiendas.value, estado.value, servicio.value);
             if (this.validateNotNullForAll(this.Controls))
             {
                 if (!Aeronave.Equals(AeronaveModificada)) // TODO QUE SE COMPARE BIEN
                 {
                     //UPDATEAR SI SE MODIFICARON EN ALGO 
-                    if (DAO.DAOAeronave.modificarAeronave(AeronaveModificada) == -1)
+                    if (DAO.DAOAeronave.modificarAeronave(AeronaveModificada, butacasModificadas) == -1)
                     {
                         MessageBox.Show("La matrícula ya está siendo usada por otra aeronave. Elija otra.");
                         return;
@@ -79,16 +79,27 @@ namespace AerolineaFrba.Abm_Aeronave
 
 
         private void Modificacion_Load(object sender, EventArgs e)
+        
         {
-            this.modelo.Text = aeronave.modelo;
+            this.fabricante.AddAll(DAO.DAOAeronave.listarFabricantes());
+            this.fabricante.SelectedItem = aeronave.fabricante;
+            this.modelo.AddAll(DAO.DAOAeronave.listarModelos(this.fabricante.value));
+            this.modelo.SelectedItem = aeronave.modelo;
             this.matriculaLetras.Text = aeronave.matricula.Substring(0, 3);
             this.matriculaNumeros.Text = aeronave.matricula.Substring(4, 3);
-            this.fabricante.Text = aeronave.fabricante;
             this.servicio.setItem(aeronave.servicio);
-        //    this.estado.Checked = aeronave.estadoAeronave;
+       
             this.kgsEncomiendas.Value = aeronave.kgsEncomiendas;
-            this.butacasPasillo.Value = aeronave.cantidadButacasPasillo;
-            this.butacasVentanilla.Value = aeronave.cantidadButacasVentanilla;
+            if (DAO.DAOAeronave.tieneViajesAsignados(Aeronave.matricula) == 1) {
+                MessageBox.Show("La aeronave tiene viajes asignados, por lo tanto sólo puede cambiar la matrícula");
+                this.fabricante.Enabled = false;
+                this.modelo.Enabled = false;
+                this.servicio.Enabled = false;
+                this.elegirButacas.Enabled = false;
+                this.kgsEncomiendas.ReadOnly = true;
+                this.estado.Enabled = false;
+            };
+         
 
         }
 
@@ -118,6 +129,22 @@ namespace AerolineaFrba.Abm_Aeronave
         }
 
 
+        private void fabricante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.modelo.clean();
+            this.modelo.AddAll(DAO.DAOAeronave.listarModelos(fabricante.value));
+        }
+
+        private void elegirButacas_Click(object sender, EventArgs e)
+        {
+            Aeronave.numero = DAO.DAOAeronave.getNumeroAeronave(Aeronave.matricula);
+            this.openInNewWindow(new Butacas(this, Aeronave.numero, 2));
+        }
+
+        public void setButacasModificadas(DataGridView dg)
+        {
+            this.butacasModificadas = dg;
+        }
     }
 }
 

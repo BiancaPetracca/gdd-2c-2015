@@ -53,9 +53,17 @@ namespace AerolineaFrba.Generics
 
         }
 
-        public static Object cellValue(DataGridView dg, String column) {
+        public static Object cellValue(this DataGridView dg, String column) {
             return dg.CurrentRow.Cells[column].Value;
         }
+
+
+        public static void clean(this DataGridView dg){
+            for (int i = 0; i < dg.Rows.Count; i++ )
+            {
+                dg.Rows.RemoveAt(i);
+            }
+        } 
 
   
     }

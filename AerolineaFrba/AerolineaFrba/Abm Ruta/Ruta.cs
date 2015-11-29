@@ -50,6 +50,8 @@ namespace AerolineaFrba.Abm_Ruta
         private void Ruta_Load(object sender, EventArgs e)
         {
             DAO.DAORuta.getRutas(this.lista);
+            this.origen.AddAll(DAOCompra.listarCiudades());
+            this.destino.AddAll(DAOCompra.listarCiudades());
         }
 
         public void reload() {
@@ -59,13 +61,14 @@ namespace AerolineaFrba.Abm_Ruta
         private void darDeBaja_Click(object sender, EventArgs e)
         {
             DAO.DAORuta.darDeBaja(this.getCurrentRuta());
+            MessageBox.Show("Se dio de baja a la ruta");
+            this.reload();
+
         }
 
         private void modificar_Click(object sender, EventArgs e)
         {
             Model.Ruta ruta = this.getCurrentRuta();
-            ruta.Codigo = Convert.ToUInt16(Extensions.cellValue(this.lista, "col_codigo"));
-            
             // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
             this.openInNewWindow(new Modificacion(ruta, this));
 
@@ -73,13 +76,30 @@ namespace AerolineaFrba.Abm_Ruta
 
         private Model.Ruta getCurrentRuta()
         {
-            return new Model.Ruta((String)Extensions.cellValue(this.lista, "col_origen"),
+            return new Model.Ruta(Convert.ToUInt16(Extensions.cellValue(this.lista, "col_codigo")),
+                (String)Extensions.cellValue(this.lista, "col_origen"),
              (String)Extensions.cellValue(this.lista, "col_destino"),
              (Boolean)Extensions.cellValue(this.lista, "col_habilitada"),
-             (String)Extensions.cellValue(this.lista, "col_servicio"),
+             DAO.DAORuta.getServicios(Convert.ToInt16(Extensions.cellValue(this.lista, "col_codigo"))),
              Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_kg")),
              Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_pasaje")));
             
+
+        }
+
+
+        private void limpiar_Click_1(object sender, EventArgs e)
+        {
+            Extensions.cleanAll(this.filtros.Controls);
+        }
+
+        private void buscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buscar_Enter(object sender, EventArgs e)
+        {
 
         }
     }

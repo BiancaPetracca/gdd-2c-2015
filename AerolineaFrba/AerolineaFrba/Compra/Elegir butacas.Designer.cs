@@ -1,7 +1,6 @@
-﻿using AerolineaFrba.SuperControls;
-namespace AerolineaFrba.Abm_Aeronave
+﻿namespace AerolineaFrba.Compra
 {
-    partial class Butacas
+    partial class Elegir_butacas
     {
         /// <summary>
         /// Required designer variable.
@@ -46,13 +45,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.grid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_butaca,
             this.col_tipo});
-            this.grid.Location = new System.Drawing.Point(12, 12);
+            this.grid.Location = new System.Drawing.Point(33, 12);
             this.grid.Name = "grid";
             this.grid.Size = new System.Drawing.Size(243, 409);
-            this.grid.TabIndex = 0;
-            this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellContentClick);
-            this.grid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.grid_RowsAdded);
-            this.grid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.grid_RowsRemoved);
+            this.grid.TabIndex = 3;
             // 
             // col_butaca
             // 
@@ -72,33 +68,33 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // Guardar
             // 
-            this.Guardar.Location = new System.Drawing.Point(180, 438);
+            this.Guardar.Location = new System.Drawing.Point(201, 438);
             this.Guardar.Name = "Guardar";
             this.Guardar.Size = new System.Drawing.Size(75, 23);
-            this.Guardar.TabIndex = 1;
+            this.Guardar.TabIndex = 4;
             this.Guardar.Text = "Guardar";
             this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
             // 
             // cancelar
             // 
-            this.cancelar.Location = new System.Drawing.Point(94, 438);
+            this.cancelar.Location = new System.Drawing.Point(115, 438);
             this.cancelar.Name = "cancelar";
             this.cancelar.Size = new System.Drawing.Size(75, 23);
-            this.cancelar.TabIndex = 2;
+            this.cancelar.TabIndex = 5;
             this.cancelar.Text = "Cancelar";
-            this.cancelar.Click += new System.EventHandler(this.Cancelar_Click);
+            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
             // 
-            // Butacas
+            // Elegir_butacas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(272, 471);
+            this.ClientSize = new System.Drawing.Size(300, 478);
             this.Controls.Add(this.grid);
             this.Controls.Add(this.Guardar);
             this.Controls.Add(this.cancelar);
-            this.Name = "Butacas";
-            this.Text = "Butacas";
-            this.Load += new System.EventHandler(this.Butacas_Load);
+            this.Name = "Elegir_butacas";
+            this.Text = "Elegir_butacas";
+            this.Load += new System.EventHandler(this.Elegir_butacas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.ResumeLayout(false);
 
@@ -107,9 +103,9 @@ namespace AerolineaFrba.Abm_Aeronave
         #endregion
 
         private System.Windows.Forms.DataGridView grid;
-        private SuperButton Guardar;
-        private SuperButton cancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_butaca;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_tipo;
+        private SuperControls.SuperButton Guardar;
+        private SuperControls.SuperButton cancelar;
     }
 }

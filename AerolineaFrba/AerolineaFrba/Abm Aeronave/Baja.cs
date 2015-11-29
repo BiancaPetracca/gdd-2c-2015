@@ -37,15 +37,16 @@ namespace AerolineaFrba.Abm_Aeronave
         private void aceptar_Click(object sender, EventArgs e)
         {
             this.validateNotNullForAll(this.Controls);
+            // Si tiene viajes asignados posteriores, hay que asignarselos a otra aeronave. 
             if (DAO.DAOAeronave.tieneViajesAsignados(this.matricula) == 1)
             {
                 ReemplazarOCancelar form = new ReemplazarOCancelar();
                 form.BajaLauncher = this.LauncherBaja;
-                form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaBaja.Value, this.fechaReinicio.Value);
+                form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaReinicio.Value);
                 this.openInNewWindow(form);
             }
             else
-            {
+            { // Si no tiene viajes asignados, entonces directamente se da de baja a la aeronave y listo. 
                 DAO.DAOAeronave.bajaDeAeronave(this.MotivoBajaAeronave.SelectedIndex, 0, this.matricula, this.fechaReinicio.Value);
                 MessageBox.Show("Se dio de baja exitosamente la aeronave:" + this.matricula);
                 this.LauncherBaja.reload();
@@ -83,10 +84,6 @@ namespace AerolineaFrba.Abm_Aeronave
             }
         }
 
-        private void fechaBaja_ValueChanged(object sender, EventArgs e)
-        {
-            this.fechaReinicio.MinDate = this.fechaBaja.Value;
-        }
 
     }
 }

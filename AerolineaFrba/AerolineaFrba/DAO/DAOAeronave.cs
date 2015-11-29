@@ -97,10 +97,12 @@ namespace AerolineaFrba.DAO
             return SqlConnector.executeProcedure("existeAeronaveQueReemplace", matricula);
         }
 
-        public static int modificarAeronave(Model.Aeronave aeronave)
+        public static int modificarAeronave(Model.Aeronave aeronave, DataGridView dgButacas)
         {
-            return SqlConnector.executeProcedure("modificarAeronave", aeronave.numero, aeronave.matricula, aeronave.modelo, aeronave.fabricante,
-                aeronave.servicio, aeronave.kgsEncomiendas, aeronave.cantidadButacasVentanilla, aeronave.cantidadButacasPasillo, aeronave.estadoAeronave ? 1 : 0);
+            int r = SqlConnector.executeProcedure("modificarAeronave", aeronave.numero, aeronave.matricula, aeronave.modelo, aeronave.fabricante,
+                aeronave.servicio, aeronave.kgsEncomiendas, aeronave.estadoAeronave ? 1 : 0);
+            modificarButacas(dgButacas, aeronave.numero);
+            return r;
         }
 
         public static int obtenerCodigoAeronave(Model.Aeronave aeronave)
@@ -113,10 +115,74 @@ namespace AerolineaFrba.DAO
             return SqlConnector.executeProcedure("obtenerCodigoAeronave", aeronave);
         }
 
-        public static int altaDeAeronave(Model.Aeronave aeronave)
-        {  return SqlConnector.executeProcedure("altaDeAeronave", aeronave.matricula, aeronave.modelo, aeronave.fabricante,
-                aeronave.servicio, aeronave.cantidadButacasPasillo,
-                aeronave.cantidadButacasVentanilla, aeronave.kgsEncomiendas);
+        public static int altaDeAeronave(Model.Aeronave aeronave, DataGridView dgButacas)
+        { int numeroAeronave = SqlConnector.executeProcedure("altaDeAeronave", aeronave.matricula, aeronave.modelo, aeronave.fabricante,
+                aeronave.servicio, aeronave.kgsEncomiendas);
+        modificarButacas(dgButacas, numeroAeronave);
+        return numeroAeronave;
+            
+        }
+
+
+        public static void modificarButacas(DataGridView dg, int numeroAeronave)
+        {
+            foreach (DataGridViewRow row in dg.Rows)
+            {
+                if (row.Index < dg.Rows.Count -1)
+                {
+                     SqlConnector.executeProcedure("set_butacas", numeroAeronave, (int)row.Cells["col_butaca"].Value, Convert.ToString(row.Cells["col_tipo"].Value));
+                }
+            }
+
+        }
+
+        public static int getModelos(String fabricante, DataGridView dg)
+        {
+            return SqlConnector.retrieveDT("getModelos", dg, fabricante);
+        }
+
+        public static List<String> listarModelos(String fabricante) {
+            return SqlConnector.retrieveList("getModelos", "mod_nombre", fabricante);
+        }
+
+        public static List<String> listarFabricantes() {
+            return SqlConnector.retrieveList("getFabricantes", "fab_nombre");
+        }
+
+        public static int modificarModelo(String viejoNombre, String nuevoNombre, String fabricante)
+        {
+            return SqlConnector.executeProcedure("modificarModelo", viejoNombre, nuevoNombre, fabricante);
+        }
+
+        public static int agregarModelo(String nombre, String fabricante)
+        {
+            return SqlConnector.executeProcedure("agregarModelo", nombre, fabricante);
+        }
+
+
+        public static int getButacas(int avion, DataGridView dg)
+        {
+            return SqlConnector.retrieveDT("get_butacas", dg, avion);
+        }
+
+        public static int getNumeroAeronave(String matricula)
+        {
+            return SqlConnector.executeProcedure("get_id_aeronave", matricula);
+        }
+
+        public static int estaHabilitada(int avion)
+        {
+            return SqlConnector.executeProcedure("get_estado_aeronave", avion);
+        }
+
+        public static int getButacasDisponibles(Model.Viaje viaje, DataGridView dg)
+        {
+            return SqlConnector.retrieveDT("get_butacas_disponibles", dg, viaje.codigo);
+        }
+
+        public static int modificarEstadoButaca(Decimal viaje, Decimal butaca, int estado)
+        {
+            return SqlConnector.executeProcedure("set_butaca_ocupada", viaje, butaca, estado);
         }
     }
 }

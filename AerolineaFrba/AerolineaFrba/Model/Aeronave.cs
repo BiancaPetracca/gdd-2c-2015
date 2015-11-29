@@ -12,8 +12,7 @@ namespace AerolineaFrba.Model
         public Aeronave(String matricula) {
             this.matricula = matricula;
         }
-        public Aeronave(int numero, String modelo, String matricula, String fabricante, Decimal cantidadButacasPasillo,
-            Decimal cantidadButacasVentanilla, Decimal kgsEncomiendas, Boolean estadoAeronave, /*DateTime fechaBaja,
+        public Aeronave(int numero, String modelo, String matricula, String fabricante, Decimal kgsEncomiendas, Boolean estadoAeronave, /*DateTime fechaBaja,
             DateTime fechaReinicio, DateTime fechaBajaFueraServicio, DateTime fechaAlta,*/ String servicio)
         {
 
@@ -21,22 +20,16 @@ namespace AerolineaFrba.Model
             this.modelo = modelo;
             this.matricula = matricula;
             this.fabricante = fabricante;
-            this.cantidadButacasPasillo = cantidadButacasPasillo;
-            this.cantidadButacasVentanilla = cantidadButacasVentanilla;
+         
             this.kgsEncomiendas = kgsEncomiendas;
             this.estadoAeronave = estadoAeronave;
-            /*   this.fechaBaja = fechaBaja;
-               this.fechaReinicio = fechaReinicio;
-               this.fechaBajaFueraServicio = fechaBajaFueraServicio;
-               this.fechaAlta = fechaAlta; */
             this.servicio = servicio;
         }
         public int numero { get; set; }
         public String modelo { get; set; }
         public String matricula { get; set; }
         public String fabricante { get; set; }
-        public Decimal cantidadButacasPasillo { get; set; }
-        public Decimal cantidadButacasVentanilla { get; set; }
+        public Decimal butacas { get; set; }
         public Decimal kgsEncomiendas { get; set; }
         public Boolean estadoAeronave { get; set; }
         public DateTime fechaBaja { get; set; }
@@ -44,6 +37,17 @@ namespace AerolineaFrba.Model
         public DateTime fechaBajaFueraServicio { get; set; }
         public DateTime fechaAlta { get; set; }
         public String servicio { get; set; }
+
+// DECIDIMOS QUE LOS TIPOS DE BUTACA SI ES IMPAR ES DE PASILLO Y SI ES PAR, ES DE VENTANILLA.
+        public String tipoDeButaca(int numero)
+        {
+            if ((numero % 2) == 0)
+            {
+                return "Pasillo";
+            }
+            return "Ventanilla";
+        }
+
 
 
     }
