@@ -8,6 +8,9 @@ namespace AerolineaFrba.Model
 {
     public class Viaje
     {
+        public decimal encomiendas { get; set; }
+        public string servicio { get; set; }
+        public decimal codigo { get; set; }
         /*    public Aeronave aeronave { get; set; }
             public Ciudad ciudadOrigen { get; set; }
             public Ciudad ciudadDestino { get; set; }
@@ -40,5 +43,30 @@ namespace AerolineaFrba.Model
             this.ciudadDestino = ciudadDestino;
             this.fechaLlegada = fechaLlegada;
         }
+
+        public Viaje(String ciudadOrigen, String ciudadDestino, DateTime fechaSalida, DateTime fechaLlegadaEstimada)
+        {
+            this.matricula = matricula;
+            this.ciudadOrigen = ciudadOrigen;
+            this.ciudadDestino = ciudadDestino;
+            this.fechaSalida = fechaSalida;
+            this.fechaLlegadaEstimada = fechaLlegadaEstimada;
+        }
+
+        public Viaje(Decimal codigo, DateTime fechaSalida, DateTime fechaLlegadaEstimada, String ciudadOrigen, String ciudadDestino, String servicio, 
+            Decimal butacasDisponibles, Decimal encomiendas)
+        {
+            this.codigo = codigo;
+            this.servicio = servicio;
+            this.butacasDisponibles = butacasDisponibles;
+            this.encomiendas = encomiendas;
+            this.matricula = matricula;
+            this.ciudadOrigen = ciudadOrigen;
+            this.ciudadDestino = ciudadDestino;
+            this.fechaSalida = fechaSalida;
+            this.fechaLlegadaEstimada = fechaLlegadaEstimada;
+        }
+
+        public decimal butacasDisponibles { get; set; }
     }
 }

@@ -42,28 +42,26 @@ namespace AerolineaFrba.Compra
             this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
             this.TipoTarjeta = new AerolineaFrba.SuperControls.SuperComboBox();
             this.button2 = new AerolineaFrba.SuperControls.SuperButton();
-            this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dirección = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datosPersonales = new System.Windows.Forms.DataGridView();
             this.button1 = new AerolineaFrba.SuperControls.SuperButton();
             this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.MedioPago = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dirección = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Cuotas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datosPersonales)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.datosPersonales);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.MedioPago);
@@ -106,10 +104,25 @@ namespace AerolineaFrba.Compra
             // 
             this.Cuotas.AccessibleDescription = "Cuotas en las que desee pagarlo";
             this.Cuotas.Location = new System.Drawing.Point(699, 124);
+            this.Cuotas.Maximum = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.Cuotas.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.Cuotas.Name = "Cuotas";
             this.Cuotas.ReadOnly = true;
             this.Cuotas.Size = new System.Drawing.Size(41, 20);
             this.Cuotas.TabIndex = 8;
+            this.Cuotas.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label6
             // 
@@ -157,7 +170,7 @@ namespace AerolineaFrba.Compra
             // FechaExpiracion
             // 
             this.FechaExpiracion.AccessibleDescription = "Fecha de expiración";
-            this.FechaExpiracion.CustomFormat = "mm/yyyy";
+            this.FechaExpiracion.CustomFormat = "MM/yyyy";
             this.FechaExpiracion.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.FechaExpiracion.Location = new System.Drawing.Point(509, 124);
             this.FechaExpiracion.Name = "FechaExpiracion";
@@ -176,7 +189,12 @@ namespace AerolineaFrba.Compra
             // TipoTarjeta
             // 
             this.TipoTarjeta.AccessibleDescription = "Tipo de la tarjeta";
+            this.TipoTarjeta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TipoTarjeta.FormattingEnabled = true;
+            this.TipoTarjeta.Items.AddRange(new object[] {
+            "Mastercard",
+            "American Express",
+            "Visa"});
             this.TipoTarjeta.Location = new System.Drawing.Point(143, 122);
             this.TipoTarjeta.Name = "TipoTarjeta";
             this.TipoTarjeta.Size = new System.Drawing.Size(181, 21);
@@ -191,55 +209,22 @@ namespace AerolineaFrba.Compra
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // datosPersonales
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 103);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Datos personales";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.datosPersonales.AllowUserToAddRows = false;
+            this.datosPersonales.AllowUserToDeleteRows = false;
+            this.datosPersonales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.datosPersonales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datosPersonales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DNI,
             this.Column1,
             this.Column2,
-            this.DNI,
             this.Dirección,
             this.Mail});
-            this.dataGridView1.Location = new System.Drawing.Point(163, 103);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(545, 50);
-            this.dataGridView1.TabIndex = 3;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Nombre";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Apellido";
-            this.Column2.Name = "Column2";
-            // 
-            // DNI
-            // 
-            this.DNI.HeaderText = "DNI";
-            this.DNI.Name = "DNI";
-            // 
-            // Dirección
-            // 
-            this.Dirección.HeaderText = "Dirección";
-            this.Dirección.Name = "Dirección";
-            // 
-            // Mail
-            // 
-            this.Mail.HeaderText = "Mail";
-            this.Mail.Name = "Mail";
+            this.datosPersonales.Location = new System.Drawing.Point(43, 103);
+            this.datosPersonales.Name = "datosPersonales";
+            this.datosPersonales.Size = new System.Drawing.Size(774, 50);
+            this.datosPersonales.TabIndex = 3;
             // 
             // button1
             // 
@@ -263,15 +248,41 @@ namespace AerolineaFrba.Compra
             // MedioPago
             // 
             this.MedioPago.AccessibleDescription = "Elegir un medio de pago";
+            this.MedioPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MedioPago.FormattingEnabled = true;
             this.MedioPago.Items.AddRange(new object[] {
-            "Tarjeta de crédito",
+            "Tarjeta",
             "Efectivo"});
             this.MedioPago.Location = new System.Drawing.Point(163, 53);
             this.MedioPago.Name = "MedioPago";
             this.MedioPago.Size = new System.Drawing.Size(121, 21);
             this.MedioPago.TabIndex = 0;
             this.MedioPago.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // DNI
+            // 
+            this.DNI.HeaderText = "DNI";
+            this.DNI.Name = "DNI";
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Nombre";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Apellido";
+            this.Column2.Name = "Column2";
+            // 
+            // Dirección
+            // 
+            this.Dirección.HeaderText = "Dirección";
+            this.Dirección.Name = "Dirección";
+            // 
+            // Mail
+            // 
+            this.Mail.HeaderText = "Mail";
+            this.Mail.Name = "Mail";
             // 
             // Efectuar_Compra
             // 
@@ -288,7 +299,7 @@ namespace AerolineaFrba.Compra
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Cuotas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datosPersonales)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -296,7 +307,7 @@ namespace AerolineaFrba.Compra
         #endregion
 
         private SuperGroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView datosPersonales;
         private SuperButton button1;
         private SuperLabel label1;
         private SuperComboBox MedioPago;
@@ -310,13 +321,12 @@ namespace AerolineaFrba.Compra
         private SuperLabel label3;
         private SuperComboBox TipoTarjeta;
         private SuperButton button2;
-        private SuperLabel label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Dirección;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
         private SuperLabel label7;
         private SuperNumericUpDown Cuotas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Dirección;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
     }
 }

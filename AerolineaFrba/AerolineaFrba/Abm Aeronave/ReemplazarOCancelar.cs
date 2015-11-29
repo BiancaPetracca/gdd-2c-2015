@@ -33,7 +33,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             if (DAO.DAOAeronave.existeAeronaveQueReemplace(this.matricula) == -1)
             {
-                MessageBox.Show("No existe ninguna aeronave que pueda reemplazarla: Debe dar de alta a otra. \n Recuerde que debe ser del mismo tipo, fabricante y ofrecer el mismo servicio: \n"
+                MessageBox.Show("No existe ninguna aeronave que pueda reemplazarla: Debe dar de alta a otra. \n Recuerde que debe ser del mismo modelo, fabricante y ofrecer el mismo servicio: \n"
                 + this.matricula);
                 
                 this.openInNewWindow(new Abm_Aeronave.Alta());
@@ -44,10 +44,10 @@ namespace AerolineaFrba.Abm_Aeronave
             MessageBox.Show("Se reasignaron los viajes correctamente");
         }
 
-        public void setTipoDeBaja(int tipo, String matricula, DateTime fechaBaja, DateTime fechaReinicio) {
+        public void setTipoDeBaja(int tipo, String matricula, DateTime fechaReinicio) {
             this.tipoDeBaja = tipo;
             this.matricula = matricula;
-            this.fechaBaja = fechaBaja;
+ 
             this.fechaReinicio = fechaReinicio;
         }
     }

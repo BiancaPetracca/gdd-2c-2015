@@ -26,6 +26,7 @@ namespace AerolineaFrba.Compra
             this.compra = compra;
         }
 
+        public Model.Viaje viaje { get; set; }
         private Model.Compra compra;
 
         // setea los datos del vuelo 
@@ -33,29 +34,42 @@ namespace AerolineaFrba.Compra
         {
             if (! this.Pasaje.noRows("No hay ningún pasaje definido"))
             {
-                Elegir_Pasajeros form = new Elegir_Pasajeros(compra.Terminal);
-                form.setFlightData(this.CiudadOrigen.SelectedItem.ToString(), this.CiudadDestino.SelectedItem.ToString(), this.Kgs.Value, this.CantPasaje.Value, this.FechaViaje.Value, this.Kgs.Value);
+                Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros();
+                elegirPasajeros.setFlightData(this.viaje, cant_pasajes.value, encomienda.value);
 
-                this.openIntoParent(form, this.MdiParent);
+                this.openIntoParent(elegirPasajeros, this.MdiParent);
             }
         }
 
         private void ViajeOk_Click(object sender, EventArgs e)
         {
-            this.validateNotNullForAll(this.ElegirViaje.Controls);
+            if (this.validateNotNullForAll(this.ElegirViaje.Controls)) {
+if (!this.validateDomain(Validations.criteriumMessage(()=>fechaSalida.value == fechaLlegada.value,"Las fechas no pueden ser iguales"),
+    Validations.criteriumMessage(()=>CiudadDestino.value == CiudadOrigen.value, "No pueden coincidir las ciudades origen y destino"))){
+      
+    Model.Viaje viaje = new Viaje(CiudadOrigen.value, CiudadDestino.value, this.fechaSalida.value, fechaLlegada.value);
+    if (DAO.DAOCompra.hayViajesDisponibles(viaje))
+    {
+        this.openInNewWindow(new SeleccionarViaje(this, viaje));
+        return;
+    }
+    MessageBox.Show("No hay viajes disponibles con estos datos");
+}
+                }
+            
+            }
               
 
-        }
-
+        
 
         // obtiene los servicios
         public String getValues() { 
             var str  = "";
-            if (this.Kgs.Value != 0)
+            if (this.encomienda.Value != 0)
             {
                 str += "Encomienda; ";
             }
-            if (this.CantPasaje.Value != 0) {
+            if (this.cant_pasajes.Value != 0) {
                 str += "Pasajes";
             }
             return str;
@@ -69,9 +83,10 @@ namespace AerolineaFrba.Compra
                 return;
             }
 
-                if (this.Kgs.valid() || this.CantPasaje.valid())
+                if (this.encomienda.valid() || this.cant_pasajes.valid())
                 {
-                    this.Pasaje.Rows.Add(this.FechaViaje.Value, this.CiudadOrigen.SelectedItem, this.CiudadDestino.SelectedItem, this.getValues(), this.Kgs.Value, this.CantPasaje.Value);
+                     this.Pasaje.Rows[0].Cells["col_butacas"].Value = cant_pasajes.value;
+                     this.Pasaje.Rows[0].Cells["col_encomiendas"].Value = encomienda.value;
                 }
 
         }
@@ -106,7 +121,17 @@ namespace AerolineaFrba.Compra
         {
 
         }
+
+        internal void setViaje(DataGridViewRow dataGridViewRow)
+        {
+            Pasaje.Rows.Add(dataGridViewRow);
         }
+
+        public void setViaje(Model.Viaje viaje) {
+            this.viaje = viaje;
+            Pasaje.Rows.Add(viaje.codigo, viaje.codigo, viaje.fechaSalida, viaje.fechaLlegadaEstimada, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.servicio);
+        }
+    }
 
 
 

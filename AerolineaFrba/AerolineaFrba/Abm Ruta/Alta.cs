@@ -39,25 +39,26 @@ namespace AerolineaFrba.Abm_Ruta
                  Validations.criteriumMessage(() => this.PrecioKG.valid() || this.PrecioPasaje.valid(), "No puede no tener precio para encomiendas ni para pasaje"))) { return; }
 
             Model.Ruta ruta = getRutaIngresada();
-            if (DAO.DAORuta.darDeAlta(ruta))
+            if (DAO.DAORuta.darDeAlta(ruta) != -1)
             {
                 MessageBox.Show("Ruta creada con éxito.");
                 Extensions.cleanAll(this.Controls);
                 launcher.reload();
                 return;
             }
+            MessageBox.Show("Ya existe una ruta con los mismos valores para origen y destino");
 
         }
 
         private void Alta_Load(object sender, EventArgs e)
         {
-            this.Origen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
-            this.Destino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
+            this.Origen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
+            this.Destino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
         }
 
         private Model.Ruta getRutaIngresada()
         {
-            return new Model.Ruta(this.Origen.value, this.Destino.value, true, this.servicio.value, this.PrecioKG.value, this.PrecioPasaje.value);
+            return new Model.Ruta(this.Origen.value, this.Destino.value, true, this.servicios.value, this.PrecioKG.value, this.PrecioPasaje.value);
 
         }
 

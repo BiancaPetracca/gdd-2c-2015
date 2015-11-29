@@ -25,7 +25,22 @@ namespace AerolineaFrba.Consulta_Millas
 
         private void Cerrar_Click(object sender, EventArgs e)
         {
+            millas.clean();
             this.Close();
+        }
+
+        private void dni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowNumericOnly(e);
+        }
+
+        private void consultar_Click(object sender, EventArgs e)
+        {
+            if (tipo_dni.valid() && dni.valid()) {
+                DAO.DAOMillas.get_millas(millas, tipo.value.ToString(), Convert.ToDecimal(dni.value));
+                return;
+            }
+            
         }
 
 

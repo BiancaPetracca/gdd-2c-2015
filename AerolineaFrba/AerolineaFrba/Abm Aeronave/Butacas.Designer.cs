@@ -30,8 +30,8 @@ namespace AerolineaFrba.Abm_Aeronave
         private void InitializeComponent()
         {
             this.grid = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.col_butaca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tipo = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Guardar = new AerolineaFrba.SuperControls.SuperButton();
             this.cancelar = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -39,33 +39,36 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // grid
             // 
+            this.grid.AllowUserToAddRows = false;
             this.grid.AllowUserToDeleteRows = false;
             this.grid.AllowUserToResizeColumns = false;
             this.grid.AllowUserToResizeRows = false;
             this.grid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Tipo});
+            this.col_butaca,
+            this.col_tipo});
             this.grid.Location = new System.Drawing.Point(12, 12);
             this.grid.Name = "grid";
             this.grid.Size = new System.Drawing.Size(243, 409);
             this.grid.TabIndex = 0;
             this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellContentClick);
+            this.grid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.grid_RowsAdded);
+            this.grid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.grid_RowsRemoved);
             // 
-            // Column1
+            // col_butaca
             // 
-            this.Column1.FillWeight = 50F;
-            this.Column1.HeaderText = "Butaca";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            this.col_butaca.FillWeight = 50F;
+            this.col_butaca.HeaderText = "Butaca";
+            this.col_butaca.Name = "col_butaca";
+            this.col_butaca.ReadOnly = true;
             // 
-            // Tipo
+            // col_tipo
             // 
-            this.Tipo.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.Tipo.HeaderText = "Tipo";
-            this.Tipo.Items.AddRange(new object[] {
+            this.col_tipo.HeaderText = "Tipo";
+            this.col_tipo.Items.AddRange(new object[] {
             "Pasillo",
             "Ventanilla"});
-            this.Tipo.Name = "Tipo";
+            this.col_tipo.Name = "col_tipo";
+            this.col_tipo.ReadOnly = true;
             // 
             // Guardar
             // 
@@ -95,6 +98,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Controls.Add(this.cancelar);
             this.Name = "Butacas";
             this.Text = "Butacas";
+            this.Load += new System.EventHandler(this.Butacas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.ResumeLayout(false);
 
@@ -105,7 +109,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private System.Windows.Forms.DataGridView grid;
         private SuperButton Guardar;
         private SuperButton cancelar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_butaca;
+        private System.Windows.Forms.DataGridViewComboBoxColumn col_tipo;
     }
 }

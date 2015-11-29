@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Generics;
 
 namespace AerolineaFrba
 {
@@ -14,6 +15,7 @@ namespace AerolineaFrba
         [STAThread]
         static void Main()
         {
+            Config.SetDateInDB();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            // Application.Run(new Login.Ingreso());

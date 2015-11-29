@@ -42,8 +42,8 @@ namespace AerolineaFrba.Abm_Ruta
             this.PrecioKG = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.PrecioPasaje = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.Modificar = new AerolineaFrba.SuperControls.SuperButton();
-            this.servicio = new AerolineaFrba.SuperControls.SuperComboBox();
             this.datosRuta = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.servicios = new AerolineaFrba.SuperControls.SuperCheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioKG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioPasaje)).BeginInit();
             this.datosRuta.SuspendLayout();
@@ -182,23 +182,10 @@ namespace AerolineaFrba.Abm_Ruta
             this.Modificar.UseVisualStyleBackColor = true;
             this.Modificar.Click += new System.EventHandler(this.Modificar_Click);
             // 
-            // servicio
-            // 
-            this.servicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.servicio.FormattingEnabled = true;
-            this.servicio.Items.AddRange(new object[] {
-            "Turista",
-            "Ejecutivo",
-            "Primera Clase"});
-            this.servicio.Location = new System.Drawing.Point(164, 31);
-            this.servicio.Name = "servicio";
-            this.servicio.Size = new System.Drawing.Size(121, 21);
-            this.servicio.TabIndex = 31;
-            // 
             // datosRuta
             // 
+            this.datosRuta.Controls.Add(this.servicios);
             this.datosRuta.Controls.Add(this.label2);
-            this.datosRuta.Controls.Add(this.servicio);
             this.datosRuta.Controls.Add(this.Origen);
             this.datosRuta.Controls.Add(this.Destino);
             this.datosRuta.Controls.Add(this.label3);
@@ -208,6 +195,20 @@ namespace AerolineaFrba.Abm_Ruta
             this.datosRuta.Size = new System.Drawing.Size(369, 165);
             this.datosRuta.TabIndex = 32;
             this.datosRuta.TabStop = false;
+            // 
+            // servicios
+            // 
+            this.servicios.BackColor = System.Drawing.SystemColors.Control;
+            this.servicios.CheckOnClick = true;
+            this.servicios.FormattingEnabled = true;
+            this.servicios.Items.AddRange(new object[] {
+            "Primera Clase",
+            "Ejecutivo",
+            "Turista"});
+            this.servicios.Location = new System.Drawing.Point(165, 11);
+            this.servicios.Name = "servicios";
+            this.servicios.Size = new System.Drawing.Size(104, 64);
+            this.servicios.TabIndex = 32;
             // 
             // Modificacion
             // 
@@ -250,8 +251,8 @@ namespace AerolineaFrba.Abm_Ruta
         private SuperLabel label6;
         private SuperNumericUpDown PrecioKG;
         private SuperNumericUpDown PrecioPasaje;
-        private SuperComboBox servicio;
         private SuperGroupBox datosRuta;
+        private SuperCheckedListBox servicios;
 
     }
 }

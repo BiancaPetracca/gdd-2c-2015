@@ -12,7 +12,7 @@ namespace AerolineaFrba.Model
         private String origen { get; set; }
         private String destino { get; set; }
         private Boolean habilitada { get; set; }
-        private String servicio { get; set; }
+        private List<String> servicios { get; set; }
         private Decimal precioBaseKg { get; set; }
         private Decimal precioBasePasaje { get; set; }
 
@@ -20,19 +20,30 @@ namespace AerolineaFrba.Model
         public String Origen { get{return origen;} set{origen = value;} }
         public String Destino { get {return destino;} set{destino = value;} }
         public Boolean Habilitada { get {return habilitada;} set{habilitada = value;} }
-        public String Servicio { get {return servicio;} set{servicio = value;} }
+        public List<String> Servicios { get {return servicios;} set{servicios = value;} }
         public Decimal PrecioBaseKg { get {return precioBaseKg;} set{precioBaseKg = value;} }
         public Decimal PrecioBasePasaje { get { return precioBasePasaje; } set { precioBasePasaje = value; } }
 
         public Ruta(){}
 
-        public Ruta(String origen, String destino, Boolean habilitada, String servicio, Decimal precioBaseKg, Decimal precioBasePasaje){
+        public Ruta(String origen, String destino, Boolean habilitada, List<String> servicios, Decimal precioBaseKg, Decimal precioBasePasaje){
         this.origen = origen;
         this.destino = destino;
         this.habilitada = habilitada;
-        this.servicio = servicio;
+        this.servicios = servicios;
         this.precioBaseKg = precioBaseKg;
         this.precioBasePasaje = precioBasePasaje;
+        }
+
+        public Ruta(int codigo, String origen, String destino, Boolean habilitada, List<String> servicios, Decimal precioBaseKg, Decimal precioBasePasaje)
+        {
+            this.codigo = codigo;
+            this.origen = origen;
+            this.destino = destino;
+            this.habilitada = habilitada;
+            this.servicios = servicios;
+            this.precioBaseKg = precioBaseKg;
+            this.precioBasePasaje = precioBasePasaje;
         }
     }
 }

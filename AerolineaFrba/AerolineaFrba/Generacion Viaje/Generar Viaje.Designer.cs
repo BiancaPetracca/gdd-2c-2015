@@ -154,7 +154,7 @@ namespace AerolineaFrba.Generacion_Viaje
             this.fechaSalida.CustomFormat = "dd/MM/yyyy hh:mm:ss";
             this.fechaSalida.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaSalida.Location = new System.Drawing.Point(229, 46);
-            this.fechaSalida.MinDate = new System.DateTime(2015, 11, 15, 0, 0, 0, 0);
+            this.fechaSalida.MinDate = Generics.Config.DateToday;
             this.fechaSalida.Name = "fechaSalida";
             this.fechaSalida.Size = new System.Drawing.Size(162, 20);
             this.fechaSalida.TabIndex = 0;
@@ -166,7 +166,7 @@ namespace AerolineaFrba.Generacion_Viaje
             this.fechaLlegadaEstimada.CustomFormat = "dd/MM/yyyy hh:mm:ss";
             this.fechaLlegadaEstimada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaLlegadaEstimada.Location = new System.Drawing.Point(229, 90);
-            this.fechaLlegadaEstimada.MinDate = new System.DateTime(2015, 11, 15, 0, 0, 0, 0);
+            this.fechaLlegadaEstimada.MinDate = Generics.Config.DateToday;
             this.fechaLlegadaEstimada.Name = "fechaLlegadaEstimada";
             this.fechaLlegadaEstimada.Size = new System.Drawing.Size(162, 20);
             this.fechaLlegadaEstimada.TabIndex = 2;

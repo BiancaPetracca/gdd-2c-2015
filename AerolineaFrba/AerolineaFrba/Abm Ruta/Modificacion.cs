@@ -31,13 +31,14 @@ namespace AerolineaFrba.Abm_Ruta
             if (!this.validateNotNullForAll(this.datosRuta.Controls)) { return; }
             if (!this.validateDomain(Validations.criteriumMessage(() => this.Origen.value != this.Destino.value, "No pueden ser iguales las ciudades"),
                  Validations.criteriumMessage(() => this.PrecioKG.valid() || this.PrecioPasaje.valid(), "No puede no tener precio para encomiendas ni para pasaje"))) { return; }
-            Model.Ruta rutaModificada = new Model.Ruta(Origen.value, Destino.value, ruta.Habilitada, servicio.value, PrecioKG.value, PrecioPasaje.value);
+            Model.Ruta rutaModificada = new Model.Ruta(Convert.ToInt16(this.Codigo.value), Origen.value, Destino.value, ruta.Habilitada, this.servicios.value, PrecioKG.value, PrecioPasaje.value);
 
-            if (DAO.DAORuta.modificarRuta(ruta.Codigo, rutaModificada) == 1) {
+            if (DAO.DAORuta.modificarRuta(ruta, rutaModificada) != -1) {
                 MessageBox.Show("Ruta modificada con éxito.");
                 launcher.reload();
-                this.Close();
+                return;
             }
+            MessageBox.Show("Ya existe una ruta con esos campos para ciudad y origen!");
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
@@ -52,12 +53,12 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Modificacion_Load(object sender, EventArgs e)
         {
-            this.Origen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
-            this.Destino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre_ciudad"));
+            this.Origen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
+            this.Destino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
             this.Codigo.Text = ruta.Codigo.ToString();
             this.Origen.SelectedItem = ruta.Origen;
             this.Destino.SelectedItem = ruta.Destino;
-            this.servicio.SelectedItem = ruta.Servicio;
+            this.servicios.check(ruta.Servicios);
             this.PrecioKG.Value = ruta.PrecioBaseKg;
             this.PrecioPasaje.Value = ruta.PrecioBasePasaje;
             

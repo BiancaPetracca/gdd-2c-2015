@@ -98,7 +98,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperControls.SuperLabel superLabel2;
         private int tipoDeBaja;
         private String matricula;
-        private DateTime fechaBaja;
+        
         private DateTime fechaReinicio;
     }
 }

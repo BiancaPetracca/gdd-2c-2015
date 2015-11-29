@@ -41,7 +41,7 @@ namespace AerolineaFrba.SuperControls
         }
 
         public void clean() {
-            this.SelectedIndex = -1;
+            this.Items.Clear();
         }
 
         public void setItem(String item)

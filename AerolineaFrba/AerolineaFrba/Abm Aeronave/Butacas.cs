@@ -12,14 +12,47 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class Butacas : Form
     {
+        public Decimal CantidadButacas { get; set; }
+        public Abm_Aeronave.Modificacion launcherM = new Modificacion();
+        public Abm_Aeronave.Alta launcherA = new Alta();
 
-        // no sabemos si dejar este form o no y hacerlo de forma que solo me indique el tipo de butaca que es 
-        // y yo solo ingreso el numero
         public Butacas()
         {
             InitializeComponent();
         }
 
+      
+        // ver: 0, alta: 1, modificacion: 2
+        public Butacas(Abm_Aeronave.Modificacion launcherM, int avion, int motivo)
+        {
+            InitializeComponent();
+            this.launcherM = launcherM;
+            this.avion = avion;
+            this.motivo = motivo;
+
+        }
+
+        public Butacas(int avion, int motivo)
+        {
+            InitializeComponent();
+           
+            this.avion = avion;
+            this.motivo = motivo;
+
+        }
+
+        public Butacas(Abm_Aeronave.Alta launcherA, int motivo)
+        {
+            InitializeComponent();
+            this.launcherA = launcherA;
+            
+            this.motivo = motivo;
+
+        }
+        public Boolean letEvents = false;
+        public DataGridView copy_grid = new DataGridView();
+        public int motivo { get; set; }
+        public int avion { get; set; }
         private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -28,23 +61,31 @@ namespace AerolineaFrba.Abm_Aeronave
         private void Guardar_Click(object sender, EventArgs e)
         {
 
-            try { validate(); }
-            catch(Exception exception){
-            MessageBox.Show(exception.Message);
+            if (!validate())
+            {
+                MessageBox.Show("Debe elegir los tipos de las butacas");
+                return;
             }
-          
+            this.mandarDG_launcher();
+            this.Close();
+
+
+
         }
 
-        private void validate() {
+        private Boolean validate()
+        {
+         
+            Boolean valid = true;
             foreach (DataGridViewRow rw in this.grid.Rows)
             {
-                if (rw.Cells["Tipo"].Value == null)
+                if (rw.Cells["col_tipo"].Value == null && !rw.IsNewRow)
                 {
-                    throw new Exception("Debe elegir al menos un tipo de butaca");
-
+                    valid = false;
+                    return valid;
                 }
-
-            }
+             }
+            return valid;
         }
 
         private void grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -52,5 +93,57 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
+        private void Butacas_Load(object sender, EventArgs e)
+        {
+            if (this.motivo != 0) { this.allowUserToModifyRows(); }
+            if (this.motivo != 2) { this.letEvents = true; }
+            if (this.motivo != 1)
+            {
+                DAO.DAOAeronave.getButacas(avion, this.grid);
+                this.letEvents = true;
+                this.copy_grid = this.grid;
+            }
+
+        }
+
+        private void allowUserToModifyRows()
+        {
+            this.grid.AllowUserToAddRows = true;
+            this.grid.AllowUserToDeleteRows = true;
+            this.grid.Columns["col_tipo"].ReadOnly = false;
+
+        }
+
+        private void grid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            reasignar_butacas();
+        }
+
+        private void grid_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            reasignar_butacas();
+        }
+
+        private void reasignar_butacas()
+        {
+            if (this.motivo != 0 && this.letEvents)
+            {
+                foreach (DataGridViewRow row in this.grid.Rows)
+                {
+                        row.Cells["col_butaca"].Value = row.Index;
+                  
+                }
+            }
+
+        }
+
+        private void mandarDG_launcher() {
+            if (this.motivo == 1) {
+                launcherA.setButacasNuevas(this.grid);
+            }
+            if (this.motivo == 2) {
+                launcherM.setButacasModificadas(this.grid);
+            }
+        }
     }
 }

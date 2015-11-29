@@ -13,24 +13,20 @@ namespace AerolineaFrba.Compra
 {
     public partial class Elegir_Pasajeros : Form
     {
-        private int terminal = 0;
+        public Model.Viaje viaje { get; set; }
         public Elegir_Pasajeros()
         {
             InitializeComponent();
         }
 
-        public Elegir_Pasajeros(int terminal)
-        {
-            InitializeComponent();
-            this.terminal = terminal;
-        }
+
         
         // si hay celdas vacias indica que la seleccione
         private void Siguiente_Click(object sender, EventArgs e)
         {
             if (!this.DatosPasajes.anyEmptyCells("NumeroButaca", "Seleccione una butaca"))
             {
-                this.openIntoParent(new Efectuar_Compra(this.terminal), this.MdiParent);
+                this.openIntoParent(new Efectuar_Compra(), this.MdiParent);
             }
             
         }
@@ -64,20 +60,17 @@ namespace AerolineaFrba.Compra
         }
 
         // setea los datos del vuelo
-        public void setFlightData(String origen, String destino, Decimal maximoEncomiendas1, Decimal maximoButacas1, DateTime fecha, Decimal restantes1) {
-            this.origen = origen;
-            this.destino = destino;
-            this.maximoEncomiendas = maximoEncomiendas1;
-            this.maximoButacas = maximoButacas1;
-            this.fecha = fecha;
-            this.restantes = restantes1;
+        public void setFlightData(Model.Viaje viaje, Decimal cant_pasajes, Decimal kgs_encomienda) {
+            this.viaje = viaje;
+            this.cant_pasajes = cant_pasajes;
+            this.kgs_encomienda = kgs_encomienda;
         }
         // añade tantas filas como maximo de butacas hay 
         private void Elegir_Pasajeros_Load(object sender, EventArgs e)
         {
-            int max = (int)(Decimal.Round(this.maximoButacas, 0));
+           
             this.DatosPasajes.Rows.Add();
-            this.DatosPasajes.Rows.AddCopies(0, max);
+            this.DatosPasajes.Rows.AddCopies(0, (int)Decimal.Round(cant_pasajes, 0));
             allowed_sum = true;
         }
 
@@ -99,6 +92,10 @@ namespace AerolineaFrba.Compra
 
         private bool allowed_sum = false;
 
- 
+
+
+        public decimal kgs_encomienda { get; set; }
+
+        public decimal cant_pasajes { get; set; }
     }
 }

@@ -29,31 +29,31 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MillasCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.AcumulacionMillas = new System.Windows.Forms.DataGridView();
-            this.NumeroCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Millas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cerrar = new System.Windows.Forms.Button();
+            this.millas = new System.Windows.Forms.DataGridView();
+            this.limpiar = new System.Windows.Forms.Button();
+            this.consultar = new AerolineaFrba.SuperControls.SuperButton();
+            this.dni = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.col_tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_prod_u_origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cant_o_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_millas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo_dni = new AerolineaFrba.SuperControls.SuperLabel();
+            this.tipo = new AerolineaFrba.SuperControls.SuperComboBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AcumulacionMillas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.millas)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.tipo);
+            this.groupBox1.Controls.Add(this.tipo_dni);
+            this.groupBox1.Controls.Add(this.limpiar);
+            this.groupBox1.Controls.Add(this.superLabel1);
+            this.groupBox1.Controls.Add(this.dni);
+            this.groupBox1.Controls.Add(this.consultar);
+            this.groupBox1.Controls.Add(this.millas);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(864, 411);
@@ -61,130 +61,124 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Consultar millas";
             // 
-            // groupBox3
+            // millas
             // 
-            this.groupBox3.Controls.Add(this.dataGridView2);
-            this.groupBox3.Location = new System.Drawing.Point(7, 235);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(851, 170);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Canjes realizados";
+            this.millas.AllowUserToAddRows = false;
+            this.millas.AllowUserToDeleteRows = false;
+            this.millas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.millas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.millas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_tipo,
+            this.col_fecha,
+            this.col_prod_u_origen,
+            this.col_cant_o_destino,
+            this.col_millas});
+            this.millas.Location = new System.Drawing.Point(24, 76);
+            this.millas.Name = "millas";
+            this.millas.Size = new System.Drawing.Size(807, 310);
+            this.millas.TabIndex = 0;
             // 
-            // dataGridView2
+            // limpiar
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Fecha,
-            this.Producto,
-            this.Cantidad,
-            this.MillasCosto});
-            this.dataGridView2.Location = new System.Drawing.Point(7, 19);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(828, 145);
-            this.dataGridView2.TabIndex = 0;
+            this.limpiar.Location = new System.Drawing.Point(605, 28);
+            this.limpiar.Name = "limpiar";
+            this.limpiar.Size = new System.Drawing.Size(75, 23);
+            this.limpiar.TabIndex = 1;
+            this.limpiar.Text = "Limpiar";
+            this.limpiar.UseVisualStyleBackColor = true;
+            this.limpiar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
-            // Fecha
+            // consultar
             // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
+            this.consultar.Location = new System.Drawing.Point(449, 28);
+            this.consultar.Name = "consultar";
+            this.consultar.Size = new System.Drawing.Size(116, 23);
+            this.consultar.TabIndex = 1;
+            this.consultar.Text = "Consultar millas";
+            this.consultar.UseVisualStyleBackColor = true;
+            this.consultar.Click += new System.EventHandler(this.consultar_Click);
             // 
-            // Producto
+            // dni
             // 
-            this.Producto.HeaderText = "Producto canjeado";
-            this.Producto.Name = "Producto";
+            this.dni.Location = new System.Drawing.Point(296, 30);
+            this.dni.Name = "dni";
+            this.dni.Size = new System.Drawing.Size(100, 20);
+            this.dni.TabIndex = 2;
+            this.dni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dni_KeyPress);
             // 
-            // Cantidad
+            // superLabel1
             // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(227, 33);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(26, 13);
+            this.superLabel1.TabIndex = 3;
+            this.superLabel1.Text = "DNI";
             // 
-            // MillasCosto
+            // col_tipo
             // 
-            this.MillasCosto.HeaderText = "Millas que costó";
-            this.MillasCosto.Name = "MillasCosto";
+            this.col_tipo.HeaderText = "Tipo ";
+            this.col_tipo.Name = "col_tipo";
+            this.col_tipo.ReadOnly = true;
             // 
-            // groupBox2
+            // col_fecha
             // 
-            this.groupBox2.Controls.Add(this.AcumulacionMillas);
-            this.groupBox2.Location = new System.Drawing.Point(7, 20);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(851, 209);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Detalles de la acumulación";
+            this.col_fecha.HeaderText = "Fecha";
+            this.col_fecha.Name = "col_fecha";
+            this.col_fecha.ReadOnly = true;
             // 
-            // AcumulacionMillas
+            // col_prod_u_origen
             // 
-            this.AcumulacionMillas.AllowUserToAddRows = false;
-            this.AcumulacionMillas.AllowUserToDeleteRows = false;
-            this.AcumulacionMillas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.AcumulacionMillas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.AcumulacionMillas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NumeroCompra,
-            this.Tipo,
-            this.Destino,
-            this.Origen,
-            this.Millas});
-            this.AcumulacionMillas.Location = new System.Drawing.Point(7, 20);
-            this.AcumulacionMillas.Name = "AcumulacionMillas";
-            this.AcumulacionMillas.Size = new System.Drawing.Size(828, 183);
-            this.AcumulacionMillas.TabIndex = 0;
+            this.col_prod_u_origen.HeaderText = "Producto / Origen";
+            this.col_prod_u_origen.Name = "col_prod_u_origen";
+            this.col_prod_u_origen.ReadOnly = true;
             // 
-            // NumeroCompra
+            // col_cant_o_destino
             // 
-            this.NumeroCompra.HeaderText = "Número de compra";
-            this.NumeroCompra.Name = "NumeroCompra";
+            this.col_cant_o_destino.HeaderText = "Cantidad / Destino";
+            this.col_cant_o_destino.Name = "col_cant_o_destino";
+            this.col_cant_o_destino.ReadOnly = true;
             // 
-            // Tipo
+            // col_millas
             // 
-            this.Tipo.HeaderText = "Tipo";
-            this.Tipo.Name = "Tipo";
+            this.col_millas.HeaderText = "Millas gastadas / obtenidas";
+            this.col_millas.Name = "col_millas";
             // 
-            // Destino
+            // tipo_dni
             // 
-            this.Destino.HeaderText = "Destino";
-            this.Destino.Name = "Destino";
+            this.tipo_dni.AutoSize = true;
+            this.tipo_dni.Location = new System.Drawing.Point(34, 33);
+            this.tipo_dni.Name = "tipo_dni";
+            this.tipo_dni.Size = new System.Drawing.Size(32, 13);
+            this.tipo_dni.TabIndex = 4;
+            this.tipo_dni.Text = "TIPO";
             // 
-            // Origen
+            // tipo
             // 
-            this.Origen.HeaderText = "Origen";
-            this.Origen.Name = "Origen";
-            // 
-            // Millas
-            // 
-            this.Millas.HeaderText = "Millas";
-            this.Millas.Name = "Millas";
-            // 
-            // Cerrar
-            // 
-            this.Cerrar.Location = new System.Drawing.Point(801, 444);
-            this.Cerrar.Name = "Cerrar";
-            this.Cerrar.Size = new System.Drawing.Size(75, 23);
-            this.Cerrar.TabIndex = 1;
-            this.Cerrar.Text = "Cerrar";
-            this.Cerrar.UseVisualStyleBackColor = true;
-            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
+            this.tipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipo.FormattingEnabled = true;
+            this.tipo.Items.AddRange(new object[] {
+            "DNI",
+            "LC",
+            "LI"});
+            this.tipo.Location = new System.Drawing.Point(89, 28);
+            this.tipo.Name = "tipo";
+            this.tipo.Size = new System.Drawing.Size(85, 21);
+            this.tipo.TabIndex = 5;
             // 
             // Consultar_Millas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(887, 479);
-            this.Controls.Add(this.Cerrar);
+            this.ClientSize = new System.Drawing.Size(902, 462);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Consultar_Millas";
             this.Text = "Consultar millas";
             this.Load += new System.EventHandler(this.Consultar_Millas_Load);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AcumulacionMillas)).EndInit();
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.millas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -192,19 +186,17 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button Cerrar;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView AcumulacionMillas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MillasCosto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroCompra;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Destino;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Origen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Millas;
+        private System.Windows.Forms.Button limpiar;
+        private System.Windows.Forms.DataGridView millas;
+        private SuperControls.SuperLabel superLabel1;
+        private SuperControls.SuperTextBox dni;
+        private SuperControls.SuperButton consultar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_prod_u_origen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cant_o_destino;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_millas;
+        private SuperControls.SuperComboBox tipo;
+        private SuperControls.SuperLabel tipo_dni;
     }
 }

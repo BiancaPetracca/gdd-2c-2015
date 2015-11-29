@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abm Aeronave\AdminModelos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Aeronave\AdminModelos.Designer.cs">
+      <DependentUpon>AdminModelos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Aeronave\Aeronave.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,12 @@
     </Compile>
     <Compile Include="Abm Aeronave\Modificacion.Designer.cs">
       <DependentUpon>Modificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Aeronave\modificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Aeronave\modificar.Designer.cs">
+      <DependentUpon>modificar.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Aeronave\ReemplazarOCancelar.cs">
       <SubType>Form</SubType>
@@ -135,6 +147,14 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\SeleccionarViaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\SeleccionarViaje.Designer.cs">
+      <DependentUpon>SeleccionarViaje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\DAOCliente.cs" />
+    <Compile Include="DAO\DAOMillas.cs" />
     <Compile Include="DAO\DAOProductos.cs" />
     <Compile Include="DAO\DAORol.cs" />
     <Compile Include="DAO\DAOUsuario.cs" />
@@ -326,6 +346,9 @@
     <Compile Include="Registro Llegada Destino\Registro Llegada.Designer.cs">
       <DependentUpon>Registro Llegada.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Aeronave\AdminModelos.resx">
+      <DependentUpon>AdminModelos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Aeronave\Aeronave.resx">
       <DependentUpon>Aeronave.cs</DependentUpon>
     </EmbeddedResource>
@@ -340,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Aeronave\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Aeronave\modificar.resx">
+      <DependentUpon>modificar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Aeronave\ReemplazarOCancelar.resx">
       <DependentUpon>ReemplazarOCancelar.cs</DependentUpon>
@@ -370,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\Ruta.resx">
       <DependentUpon>Ruta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\SeleccionarViaje.resx">
+      <DependentUpon>SeleccionarViaje.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Ingreso.resx">
       <DependentUpon>Ingreso.cs</DependentUpon>

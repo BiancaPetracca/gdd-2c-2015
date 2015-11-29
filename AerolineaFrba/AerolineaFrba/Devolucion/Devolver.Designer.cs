@@ -29,132 +29,48 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.CompraDevolver = new AerolineaFrba.SuperControls.SuperGroupBox();
-            this.superLabel4 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
-            this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.MotivoDevolucion = new AerolineaFrba.SuperControls.SuperTextBox();
-            this.Codigo = new AerolineaFrba.SuperControls.SuperTextBox();
-            this.PNR = new AerolineaFrba.SuperControls.SuperTextBox();
-            this.Fecha = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.Devoluciones = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Motivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealizarDevolucion = new System.Windows.Forms.Button();
             this.Limpiar = new System.Windows.Forms.Button();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.pasajes = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.encomiendas = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.agregarEncomienda = new AerolineaFrba.SuperControls.SuperButton();
+            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.CompraDevolver = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.verCompras = new AerolineaFrba.SuperControls.SuperButton();
+            this.codigoCompra = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.lab_dni = new AerolineaFrba.SuperControls.SuperLabel();
+            this.dni = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.superLabel4 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.MotivoDevolucion = new AerolineaFrba.SuperControls.SuperTextBox();
+            this.AgregarPasaje = new AerolineaFrba.SuperControls.SuperButton();
+            this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.col_compra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_motivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
-            this.CompraDevolver.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).BeginInit();
+            this.CompraDevolver.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pasajes);
+            this.groupBox1.Controls.Add(this.encomiendas);
+            this.groupBox1.Controls.Add(this.agregarEncomienda);
+            this.groupBox1.Controls.Add(this.superLabel1);
             this.groupBox1.Controls.Add(this.CompraDevolver);
+            this.groupBox1.Controls.Add(this.AgregarPasaje);
             this.groupBox1.Controls.Add(this.Devoluciones);
+            this.groupBox1.Controls.Add(this.superLabel3);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(932, 391);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Devolución";
-            // 
-            // CompraDevolver
-            // 
-            this.CompraDevolver.Controls.Add(this.superLabel4);
-            this.CompraDevolver.Controls.Add(this.Agregar);
-            this.CompraDevolver.Controls.Add(this.superLabel3);
-            this.CompraDevolver.Controls.Add(this.superLabel2);
-            this.CompraDevolver.Controls.Add(this.superLabel1);
-            this.CompraDevolver.Controls.Add(this.MotivoDevolucion);
-            this.CompraDevolver.Controls.Add(this.Codigo);
-            this.CompraDevolver.Controls.Add(this.PNR);
-            this.CompraDevolver.Controls.Add(this.Fecha);
-            this.CompraDevolver.Location = new System.Drawing.Point(29, 19);
-            this.CompraDevolver.Name = "CompraDevolver";
-            this.CompraDevolver.Size = new System.Drawing.Size(882, 119);
-            this.CompraDevolver.TabIndex = 1;
-            this.CompraDevolver.TabStop = false;
-            this.CompraDevolver.Text = "Nueva devolución";
-            // 
-            // superLabel4
-            // 
-            this.superLabel4.AutoSize = true;
-            this.superLabel4.Location = new System.Drawing.Point(21, 75);
-            this.superLabel4.Name = "superLabel4";
-            this.superLabel4.Size = new System.Drawing.Size(39, 13);
-            this.superLabel4.TabIndex = 7;
-            this.superLabel4.Text = "Motivo";
-            // 
-            // Agregar
-            // 
-            this.Agregar.Location = new System.Drawing.Point(780, 69);
-            this.Agregar.Name = "Agregar";
-            this.Agregar.Size = new System.Drawing.Size(75, 23);
-            this.Agregar.TabIndex = 3;
-            this.Agregar.Text = "Agregar";
-            this.Agregar.UseVisualStyleBackColor = true;
-            this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
-            // 
-            // superLabel3
-            // 
-            this.superLabel3.AutoSize = true;
-            this.superLabel3.Location = new System.Drawing.Point(512, 30);
-            this.superLabel3.Name = "superLabel3";
-            this.superLabel3.Size = new System.Drawing.Size(159, 13);
-            this.superLabel3.TabIndex = 6;
-            this.superLabel3.Text = "Código de pasaje o encomienda";
-            // 
-            // superLabel2
-            // 
-            this.superLabel2.AutoSize = true;
-            this.superLabel2.Location = new System.Drawing.Point(260, 30);
-            this.superLabel2.Name = "superLabel2";
-            this.superLabel2.Size = new System.Drawing.Size(30, 13);
-            this.superLabel2.TabIndex = 5;
-            this.superLabel2.Text = "PNR";
-            // 
-            // superLabel1
-            // 
-            this.superLabel1.AutoSize = true;
-            this.superLabel1.Location = new System.Drawing.Point(21, 30);
-            this.superLabel1.Name = "superLabel1";
-            this.superLabel1.Size = new System.Drawing.Size(37, 13);
-            this.superLabel1.TabIndex = 4;
-            this.superLabel1.Text = "Fecha";
-            // 
-            // MotivoDevolucion
-            // 
-            this.MotivoDevolucion.Location = new System.Drawing.Point(107, 72);
-            this.MotivoDevolucion.Name = "MotivoDevolucion";
-            this.MotivoDevolucion.Size = new System.Drawing.Size(431, 20);
-            this.MotivoDevolucion.TabIndex = 3;
-            // 
-            // Codigo
-            // 
-            this.Codigo.Location = new System.Drawing.Point(701, 27);
-            this.Codigo.Name = "Codigo";
-            this.Codigo.Size = new System.Drawing.Size(154, 20);
-            this.Codigo.TabIndex = 2;
-            // 
-            // PNR
-            // 
-            this.PNR.Location = new System.Drawing.Point(310, 28);
-            this.PNR.Name = "PNR";
-            this.PNR.Size = new System.Drawing.Size(151, 20);
-            this.PNR.TabIndex = 1;
-            // 
-            // Fecha
-            // 
-            this.Fecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.Fecha.Location = new System.Drawing.Point(129, 28);
-            this.Fecha.Name = "Fecha";
-            this.Fecha.Size = new System.Drawing.Size(88, 20);
-            this.Fecha.TabIndex = 0;
             // 
             // Devoluciones
             // 
@@ -163,39 +79,14 @@
             this.Devoluciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Devoluciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Devoluciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Motivo});
+            this.col_compra,
+            this.col_item,
+            this.col_motivo});
             this.Devoluciones.Location = new System.Drawing.Point(29, 155);
             this.Devoluciones.Name = "Devoluciones";
             this.Devoluciones.ReadOnly = true;
             this.Devoluciones.Size = new System.Drawing.Size(882, 209);
             this.Devoluciones.TabIndex = 0;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Fecha";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "PNR";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Codigo de pasaje / encomienda";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Motivo
-            // 
-            this.Motivo.HeaderText = "Motivo";
-            this.Motivo.Name = "Motivo";
-            this.Motivo.ReadOnly = true;
             // 
             // RealizarDevolucion
             // 
@@ -227,6 +118,163 @@
             this.Cerrar.UseVisualStyleBackColor = true;
             this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
+            // pasajes
+            // 
+            this.pasajes.AccessibleDescription = "Elegir un pasaje";
+            this.pasajes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pasajes.FormattingEnabled = true;
+            this.pasajes.Location = new System.Drawing.Point(636, 49);
+            this.pasajes.Name = "pasajes";
+            this.pasajes.Size = new System.Drawing.Size(121, 21);
+            this.pasajes.TabIndex = 12;
+            // 
+            // encomiendas
+            // 
+            this.encomiendas.AccessibleDescription = "Elegir una encomienda";
+            this.encomiendas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.encomiendas.FormattingEnabled = true;
+            this.encomiendas.Location = new System.Drawing.Point(636, 85);
+            this.encomiendas.Name = "encomiendas";
+            this.encomiendas.Size = new System.Drawing.Size(121, 21);
+            this.encomiendas.TabIndex = 11;
+            // 
+            // agregarEncomienda
+            // 
+            this.agregarEncomienda.Location = new System.Drawing.Point(780, 82);
+            this.agregarEncomienda.Name = "agregarEncomienda";
+            this.agregarEncomienda.Size = new System.Drawing.Size(131, 24);
+            this.agregarEncomienda.TabIndex = 9;
+            this.agregarEncomienda.Text = "Agregar encomienda";
+            this.agregarEncomienda.UseVisualStyleBackColor = true;
+            this.agregarEncomienda.Click += new System.EventHandler(this.agregarEncomienda_Click);
+            // 
+            // superLabel1
+            // 
+            this.superLabel1.AutoSize = true;
+            this.superLabel1.Location = new System.Drawing.Point(565, 89);
+            this.superLabel1.Name = "superLabel1";
+            this.superLabel1.Size = new System.Drawing.Size(71, 13);
+            this.superLabel1.TabIndex = 8;
+            this.superLabel1.Text = "Encomiendas";
+            // 
+            // CompraDevolver
+            // 
+            this.CompraDevolver.Controls.Add(this.verCompras);
+            this.CompraDevolver.Controls.Add(this.codigoCompra);
+            this.CompraDevolver.Controls.Add(this.lab_dni);
+            this.CompraDevolver.Controls.Add(this.dni);
+            this.CompraDevolver.Controls.Add(this.superLabel4);
+            this.CompraDevolver.Controls.Add(this.superLabel2);
+            this.CompraDevolver.Controls.Add(this.MotivoDevolucion);
+            this.CompraDevolver.Location = new System.Drawing.Point(29, 19);
+            this.CompraDevolver.Name = "CompraDevolver";
+            this.CompraDevolver.Size = new System.Drawing.Size(518, 114);
+            this.CompraDevolver.TabIndex = 1;
+            this.CompraDevolver.TabStop = false;
+            this.CompraDevolver.Text = "Nueva devolución";
+            // 
+            // verCompras
+            // 
+            this.verCompras.Location = new System.Drawing.Point(262, 27);
+            this.verCompras.Name = "verCompras";
+            this.verCompras.Size = new System.Drawing.Size(112, 23);
+            this.verCompras.TabIndex = 11;
+            this.verCompras.Text = "Mostrar compras";
+            this.verCompras.UseVisualStyleBackColor = true;
+            this.verCompras.Click += new System.EventHandler(this.verCompras_Click);
+            // 
+            // codigoCompra
+            // 
+            this.codigoCompra.AccessibleDescription = "Código de compra o PNR";
+            this.codigoCompra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codigoCompra.FormattingEnabled = true;
+            this.codigoCompra.Location = new System.Drawing.Point(77, 67);
+            this.codigoCompra.Name = "codigoCompra";
+            this.codigoCompra.Size = new System.Drawing.Size(121, 21);
+            this.codigoCompra.TabIndex = 10;
+            this.codigoCompra.SelectedIndexChanged += new System.EventHandler(this.codigoCompra_SelectedIndexChanged);
+            // 
+            // lab_dni
+            // 
+            this.lab_dni.AutoSize = true;
+            this.lab_dni.Location = new System.Drawing.Point(21, 30);
+            this.lab_dni.Name = "lab_dni";
+            this.lab_dni.Size = new System.Drawing.Size(26, 13);
+            this.lab_dni.TabIndex = 9;
+            this.lab_dni.Text = "DNI";
+            // 
+            // dni
+            // 
+            this.dni.AccessibleDescription = "DNI";
+            this.dni.Location = new System.Drawing.Point(77, 27);
+            this.dni.Name = "dni";
+            this.dni.Size = new System.Drawing.Size(121, 20);
+            this.dni.TabIndex = 8;
+            this.dni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.superTextBox1_KeyPress);
+            // 
+            // superLabel4
+            // 
+            this.superLabel4.AutoSize = true;
+            this.superLabel4.Location = new System.Drawing.Point(259, 74);
+            this.superLabel4.Name = "superLabel4";
+            this.superLabel4.Size = new System.Drawing.Size(39, 13);
+            this.superLabel4.TabIndex = 7;
+            this.superLabel4.Text = "Motivo";
+            // 
+            // superLabel2
+            // 
+            this.superLabel2.AutoSize = true;
+            this.superLabel2.Location = new System.Drawing.Point(21, 74);
+            this.superLabel2.Name = "superLabel2";
+            this.superLabel2.Size = new System.Drawing.Size(30, 13);
+            this.superLabel2.TabIndex = 5;
+            this.superLabel2.Text = "PNR";
+            // 
+            // MotivoDevolucion
+            // 
+            this.MotivoDevolucion.AccessibleDescription = "Elegir un motivo";
+            this.MotivoDevolucion.Location = new System.Drawing.Point(313, 71);
+            this.MotivoDevolucion.Name = "MotivoDevolucion";
+            this.MotivoDevolucion.Size = new System.Drawing.Size(151, 20);
+            this.MotivoDevolucion.TabIndex = 3;
+            // 
+            // AgregarPasaje
+            // 
+            this.AgregarPasaje.Location = new System.Drawing.Point(780, 47);
+            this.AgregarPasaje.Name = "AgregarPasaje";
+            this.AgregarPasaje.Size = new System.Drawing.Size(131, 23);
+            this.AgregarPasaje.TabIndex = 3;
+            this.AgregarPasaje.Text = "Agregar pasaje";
+            this.AgregarPasaje.UseVisualStyleBackColor = true;
+            this.AgregarPasaje.Click += new System.EventHandler(this.Agregar_Click);
+            // 
+            // superLabel3
+            // 
+            this.superLabel3.AutoSize = true;
+            this.superLabel3.Location = new System.Drawing.Point(565, 52);
+            this.superLabel3.Name = "superLabel3";
+            this.superLabel3.Size = new System.Drawing.Size(44, 13);
+            this.superLabel3.TabIndex = 6;
+            this.superLabel3.Text = "Pasajes";
+            // 
+            // col_compra
+            // 
+            this.col_compra.HeaderText = "PNR";
+            this.col_compra.Name = "col_compra";
+            this.col_compra.ReadOnly = true;
+            // 
+            // col_item
+            // 
+            this.col_item.HeaderText = "Codigo de pasaje / encomienda";
+            this.col_item.Name = "col_item";
+            this.col_item.ReadOnly = true;
+            // 
+            // col_motivo
+            // 
+            this.col_motivo.HeaderText = "Motivo";
+            this.col_motivo.Name = "col_motivo";
+            this.col_motivo.ReadOnly = true;
+            // 
             // Devolver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,9 +288,10 @@
             this.Name = "Devolver";
             this.Text = "Devolución";
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).EndInit();
             this.CompraDevolver.ResumeLayout(false);
             this.CompraDevolver.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -253,20 +302,23 @@
         private System.Windows.Forms.DataGridView Devoluciones;
         private System.Windows.Forms.Button RealizarDevolucion;
         private System.Windows.Forms.Button Limpiar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Motivo;
-        private SuperControls.SuperButton Agregar;
+        private SuperControls.SuperButton AgregarPasaje;
         private SuperControls.SuperGroupBox CompraDevolver;
         private SuperControls.SuperTextBox MotivoDevolucion;
-        private SuperControls.SuperTextBox Codigo;
-        private SuperControls.SuperTextBox PNR;
-        private SuperControls.SuperDateTimePicker Fecha;
         private SuperControls.SuperButton Cerrar;
         private SuperControls.SuperLabel superLabel4;
         private SuperControls.SuperLabel superLabel3;
         private SuperControls.SuperLabel superLabel2;
         private SuperControls.SuperLabel superLabel1;
+        private SuperControls.SuperButton agregarEncomienda;
+        private SuperControls.SuperLabel lab_dni;
+        private SuperControls.SuperTextBox dni;
+        private SuperControls.SuperComboBox pasajes;
+        private SuperControls.SuperComboBox encomiendas;
+        private SuperControls.SuperComboBox codigoCompra;
+        private SuperControls.SuperButton verCompras;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_compra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_item;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_motivo;
     }
 }

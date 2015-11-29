@@ -32,15 +32,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.label3 = new AerolineaFrba.SuperControls.SuperLabel();
             this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.matriculaLetras = new AerolineaFrba.SuperControls.SuperTextBox();
-            this.fabricante = new AerolineaFrba.SuperControls.SuperTextBox();
             this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
-            this.butacasVentanilla = new AerolineaFrba.SuperControls.SuperNumericUpDown();
-            this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.butacasPasillo = new AerolineaFrba.SuperControls.SuperNumericUpDown();
             this.lab_matricula = new AerolineaFrba.SuperControls.SuperLabel();
-            this.modelo = new AerolineaFrba.SuperControls.SuperTextBox();
             this.lab_servicio = new AerolineaFrba.SuperControls.SuperLabel();
             this.servicio = new AerolineaFrba.SuperControls.SuperComboBox();
             this.kgsEncomiendas = new AerolineaFrba.SuperControls.SuperNumericUpDown();
@@ -49,8 +44,9 @@ namespace AerolineaFrba.Abm_Aeronave
             this.matriculaNumeros = new AerolineaFrba.SuperControls.SuperTextBox();
             this.label6 = new AerolineaFrba.SuperControls.SuperLabel();
             this.estado = new AerolineaFrba.SuperControls.SuperCheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.butacasVentanilla)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.butacasPasillo)).BeginInit();
+            this.modelo = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.fabricante = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.elegirButacas = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.kgsEncomiendas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +56,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 29);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Butacas de ventanilla";
+            this.label3.Text = "Butacas";
             // 
             // label2
             // 
@@ -81,17 +77,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.matriculaLetras.TabIndex = 0;
             this.matriculaLetras.TextChanged += new System.EventHandler(this.matriculaLetras_TextChanged);
             this.matriculaLetras.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.matriculaLetras_KeyPress);
-            // 
-            // fabricante
-            // 
-            this.fabricante.AccessibleDescription = "Fabricante ";
-            this.fabricante.Location = new System.Drawing.Point(134, 75);
-            this.fabricante.MaxLength = 20;
-            this.fabricante.Name = "fabricante";
-            this.fabricante.Size = new System.Drawing.Size(112, 20);
-            this.fabricante.TabIndex = 1;
-            this.fabricante.TextChanged += new System.EventHandler(this.fabricante_TextChanged);
-            this.fabricante.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fabricante_KeyPress);
             // 
             // label1
             // 
@@ -120,30 +105,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Cancelar.Text = "Cancelar";
             this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
-            // butacasVentanilla
-            // 
-            this.butacasVentanilla.AccessibleDescription = "Cantidad de butacas de ventanilla";
-            this.butacasVentanilla.Location = new System.Drawing.Point(134, 260);
-            this.butacasVentanilla.Name = "butacasVentanilla";
-            this.butacasVentanilla.Size = new System.Drawing.Size(47, 20);
-            this.butacasVentanilla.TabIndex = 13;
-            // 
-            // superLabel1
-            // 
-            this.superLabel1.Location = new System.Drawing.Point(201, 260);
-            this.superLabel1.Name = "superLabel1";
-            this.superLabel1.Size = new System.Drawing.Size(87, 29);
-            this.superLabel1.TabIndex = 16;
-            this.superLabel1.Text = "Butacas de pasillo";
-            // 
-            // butacasPasillo
-            // 
-            this.butacasPasillo.AccessibleDescription = "Cantidad de butacas de pasillo";
-            this.butacasPasillo.Location = new System.Drawing.Point(307, 260);
-            this.butacasPasillo.Name = "butacasPasillo";
-            this.butacasPasillo.Size = new System.Drawing.Size(47, 20);
-            this.butacasPasillo.TabIndex = 17;
-            // 
             // lab_matricula
             // 
             this.lab_matricula.AccessibleDescription = "Matrícula";
@@ -152,16 +113,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.lab_matricula.Size = new System.Drawing.Size(100, 23);
             this.lab_matricula.TabIndex = 19;
             this.lab_matricula.Text = "Matrícula";
-            // 
-            // modelo
-            // 
-            this.modelo.AccessibleDescription = "Modelo";
-            this.modelo.Location = new System.Drawing.Point(134, 32);
-            this.modelo.MaxLength = 20;
-            this.modelo.Name = "modelo";
-            this.modelo.Size = new System.Drawing.Size(112, 20);
-            this.modelo.TabIndex = 18;
-            this.modelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.modelo_KeyPress);
             // 
             // lab_servicio
             // 
@@ -196,6 +147,7 @@ namespace AerolineaFrba.Abm_Aeronave
             0,
             0});
             this.kgsEncomiendas.Name = "kgsEncomiendas";
+            this.kgsEncomiendas.ReadOnly = true;
             this.kgsEncomiendas.Size = new System.Drawing.Size(46, 20);
             this.kgsEncomiendas.TabIndex = 23;
             // 
@@ -239,17 +191,50 @@ namespace AerolineaFrba.Abm_Aeronave
             // estado
             // 
             this.estado.AccessibleDescription = "Especificar habilitación ";
+            this.estado.Enabled = false;
             this.estado.Location = new System.Drawing.Point(134, 307);
             this.estado.Name = "estado";
             this.estado.Size = new System.Drawing.Size(104, 24);
             this.estado.TabIndex = 15;
             this.estado.Visible = false;
             // 
+            // modelo
+            // 
+            this.modelo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.modelo.FormattingEnabled = true;
+            this.modelo.Location = new System.Drawing.Point(134, 32);
+            this.modelo.Name = "modelo";
+            this.modelo.Size = new System.Drawing.Size(121, 21);
+            this.modelo.TabIndex = 27;
+            // 
+            // fabricante
+            // 
+            this.fabricante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fabricante.FormattingEnabled = true;
+            this.fabricante.Location = new System.Drawing.Point(134, 75);
+            this.fabricante.Name = "fabricante";
+            this.fabricante.Size = new System.Drawing.Size(121, 21);
+            this.fabricante.TabIndex = 28;
+            this.fabricante.SelectedIndexChanged += new System.EventHandler(this.fabricante_SelectedIndexChanged);
+            // 
+            // elegirButacas
+            // 
+            this.elegirButacas.Location = new System.Drawing.Point(134, 259);
+            this.elegirButacas.Name = "elegirButacas";
+            this.elegirButacas.Size = new System.Drawing.Size(92, 23);
+            this.elegirButacas.TabIndex = 33;
+            this.elegirButacas.Text = "Elegir butacas";
+            this.elegirButacas.UseVisualStyleBackColor = true;
+            this.elegirButacas.Click += new System.EventHandler(this.elegirButacas_Click);
+            // 
             // Modificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 396);
+            this.Controls.Add(this.elegirButacas);
+            this.Controls.Add(this.fabricante);
+            this.Controls.Add(this.modelo);
             this.Controls.Add(this.matriculaNumeros);
             this.Controls.Add(this.superLabel3);
             this.Controls.Add(this.superLabel2);
@@ -257,25 +242,18 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Controls.Add(this.servicio);
             this.Controls.Add(this.lab_servicio);
             this.Controls.Add(this.lab_matricula);
-            this.Controls.Add(this.modelo);
-            this.Controls.Add(this.superLabel1);
-            this.Controls.Add(this.butacasPasillo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.matriculaLetras);
-            this.Controls.Add(this.fabricante);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.Cancelar);
-            this.Controls.Add(this.butacasVentanilla);
             this.Controls.Add(this.estado);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Modificacion";
             this.Text = "Modificar aeronave";
             this.Load += new System.EventHandler(this.Modificacion_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.butacasVentanilla)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.butacasPasillo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kgsEncomiendas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -285,17 +263,12 @@ namespace AerolineaFrba.Abm_Aeronave
         #endregion
 
         private SuperTextBox matriculaLetras;
-        private SuperTextBox fabricante;
         private SuperLabel label1;
         private SuperLabel label2;
         private SuperLabel label3;
         private SuperButton Aceptar;
         private SuperButton Cancelar;
-        private SuperNumericUpDown butacasVentanilla;
-        private SuperLabel superLabel1;
-        private SuperNumericUpDown butacasPasillo;
         private SuperLabel lab_matricula;
-        private SuperTextBox modelo;
         private SuperLabel lab_servicio;
         private SuperComboBox servicio;
         private SuperNumericUpDown kgsEncomiendas;
@@ -304,5 +277,8 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperTextBox matriculaNumeros;
         private SuperLabel label6;
         private SuperCheckBox estado;
+        private SuperComboBox modelo;
+        private SuperComboBox fabricante;
+        private SuperButton elegirButacas;
     }
 }

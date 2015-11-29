@@ -32,9 +32,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             this.MotivoBajaAeronave = new AerolineaFrba.SuperControls.SuperComboBox();
             this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
-            this.label1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.fechaReinicio = new AerolineaFrba.SuperControls.SuperDateTimePicker();
-            this.fechaBaja = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.label = new AerolineaFrba.SuperControls.SuperLabel();
             this.Aceptar = new AerolineaFrba.SuperControls.SuperButton();
             this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
@@ -55,41 +53,21 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(174, 87);
+            this.label2.Location = new System.Drawing.Point(31, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 23);
             this.label2.TabIndex = 8;
             this.label2.Text = "Fecha de reinicio";
             // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(31, 87);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Fecha de baja";
-            // 
             // fechaReinicio
             // 
             this.fechaReinicio.AccessibleDescription = "Elegir una fecha de reinicio";
             this.fechaReinicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fechaReinicio.Location = new System.Drawing.Point(177, 113);
-            this.fechaReinicio.MinDate = Generics.Config.DateToday;
+            this.fechaReinicio.Location = new System.Drawing.Point(34, 117);
             this.fechaReinicio.Name = "fechaReinicio";
             this.fechaReinicio.Size = new System.Drawing.Size(102, 20);
             this.fechaReinicio.TabIndex = 6;
-          
-            // 
-            // fechaBaja
-            // 
-            this.fechaBaja.AccessibleDescription = "Elegir una fecha de baja";
-            this.fechaBaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fechaBaja.Location = new System.Drawing.Point(34, 113);
-            this.fechaBaja.MinDate = Generics.Config.DateToday;
-            this.fechaBaja.Name = "fechaBaja";
-            this.fechaBaja.Size = new System.Drawing.Size(102, 20);
-            this.fechaBaja.TabIndex = 5;
-            this.fechaBaja.ValueChanged += new System.EventHandler(this.fechaBaja_ValueChanged);
+            this.fechaReinicio.MinDate = Generics.Config.DateToday;
             // 
             // label
             // 
@@ -124,12 +102,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.ClientSize = new System.Drawing.Size(316, 216);
             this.Controls.Add(this.MotivoBajaAeronave);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.fechaReinicio);
             this.Controls.Add(this.label);
             this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.Cancelar);
-            this.Controls.Add(this.fechaBaja);
             this.Name = "Baja";
             this.Text = "Baja";
             this.Load += new System.EventHandler(this.Baja_Load);
@@ -142,9 +118,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperButton Aceptar;
         private SuperButton Cancelar;
         private SuperLabel label;
-        private SuperDateTimePicker fechaBaja;
         private SuperDateTimePicker fechaReinicio;
-        private SuperLabel label1;
         private SuperLabel label2;
         private SuperComboBox MotivoBajaAeronave;
         private string matricula;
