@@ -24,6 +24,7 @@ namespace AerolineaFrba.Compra
 
         public SeleccionarViaje(Compra launcher, Model.Viaje viaje)
         {
+            InitializeComponent();
             this.launcher = launcher;
             this.viaje = viaje;
         }
@@ -49,7 +50,7 @@ namespace AerolineaFrba.Compra
                 Convert.ToString(viajes.cellValue("col_servicio")),
                 Convert.ToDecimal(viajes.cellValue("col_butacas")),
                 Convert.ToDecimal(viajes.cellValue("col_encomiendas")));
-            this.launcher.setViaje(viajes.CurrentRow);
+            this.launcher.setViaje(viajeElegido);
         }
     }
 }

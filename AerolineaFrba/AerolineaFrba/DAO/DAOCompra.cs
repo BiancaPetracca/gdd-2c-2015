@@ -59,12 +59,12 @@ namespace AerolineaFrba.DAO
 
         public static void encontrarViajes(System.Windows.Forms.DataGridView dataGridView, String origen, String destino, DateTime salida, DateTime llegada)
         {
-            SqlConnector.retrieveDT("encontrar_viajes", dataGridView, origen, destino, salida, llegada);
+            SqlConnector.retrieveDT("get_viajes", dataGridView, salida, llegada, origen, destino);
         }
 
         public static bool hayViajesDisponibles(Viaje viaje)
         {
-            return SqlConnector.executeProcedure("hay_viajes_disponibles", viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaSalida, viaje.fechaLlegadaEstimada) == 1 ? true : false;
+            return SqlConnector.executeProcedure("hay_viajes_disponibles", viaje.fechaSalida, viaje.fechaLlegadaEstimada, viaje.ciudadOrigen, viaje.ciudadDestino) == 1 ? true : false;
         }
     }
 }

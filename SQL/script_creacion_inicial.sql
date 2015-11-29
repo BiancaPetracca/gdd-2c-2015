@@ -1491,19 +1491,31 @@ ORDER BY rut_codigo
 END
 GO
 
-CREATE PROCEDURE AWANTA.get_viajes(@fechaSalida date, @fechaLlegada @origen nvarchar(255), @destino nvarchar(255))
+CREATE PROCEDURE AWANTA.hay_viajes_disponibles(@fechaSalida datetime, @fechaLlegada datetime, @origen nvarchar(255), @destino nvarchar(255)) 
 AS
 BEGIN
-	SELECT via_codigo, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino), aero_matricula
+RETURN (CASE WHEN EXISTS(SELECT 1 FROM AWANTA.VIAJE JOIN AWANTA.RUTA_AEREA ON rut_codigo = via_ruta_aerea
+WHERE DATEDIFF(DAY, via_fecha_salida, @fechaSalida) < 1 AND DATEDIFF(DAY, via_fecha_llegada_estimada, @fechaLlegada) < 1 AND
+rut_origen = (SELECT ciu_id FROM AWANTA.CIUDAD WHERE ciu_nombre = @origen) AND
+	 rut_destino = (SELECT ciu_id FROM AWANTA.CIUDAD WHERE ciu_nombre = @destino)) THEN 1 ELSE -1 END)
+END
+GO
+
+ALTER PROCEDURE AWANTA.get_viajes(@fechaSalida datetime, @fechaLlegada datetime, @origen nvarchar(255), @destino nvarchar(255))
+AS
+BEGIN
+	SELECT via_codigo, via_fecha_salida, via_fecha_llegada_estimada, AWANTA.obtenerNombreCiudad(rut_origen), AWANTA.obtenerNombreCiudad(rut_destino),
+	(SELECT serv_nombre FROM AWANTA.SERVICIO WHERE serv_id_servicio = aero_id_servicio), 1, 1
 	
 	FROM AWANTA.VIAJE, AWANTA.RUTA_AEREA, AWANTA.AERONAVE
-	WHERE YEAR(via_fecha_salida) = YEAR(@fecha) AND
-	MONTH(via_fecha_salida) = MONTH(@fecha) AND
-	DAY(via_fecha_salida) = DAY(@fecha) AND
-	via_ruta_aerea = rut_codigo AND
-	rut_origen = AWANTA.getIdCiudad(@origen) AND
-	rut_destino = AWANTA.getIdCiudad(@destino) AND
-	via_avion = aero_numero
+	WHERE (@fechaSalida is null or (YEAR(via_fecha_salida) = YEAR(@fechaSalida) AND
+	MONTH(via_fecha_salida) = MONTH(@fechaSalida) AND
+	DAY(via_fecha_salida) = DAY(@fechaSalida) ))
+	AND (@fechaLlegada is null or (YEAR(via_fecha_llegada_estimada) = YEAR(@fechaLlegada) AND MONTH(via_fecha_llegada_estimada) = MONTH(@fechaLlegada) AND DAY(via_fecha_llegada_estimada) = DAY(@fechaLlegada)))
+	AND via_ruta_aerea = rut_codigo AND aero_numero = via_avion AND 
+	(@origen is null or rut_origen = (SELECT ciu_id FROM AWANTA.CIUDAD WHERE ciu_nombre = @origen) ) AND
+	(@destino is null or rut_destino =(SELECT ciu_id FROM AWANTA.CIUDAD WHERE ciu_nombre = @destino)) AND
+	via_fecha_llegada IS NULL 
 END
 GO
 -- se fija si existe una ruta que es la ruta que le pasamos, que tenga ese servicio (en la asociativa)
@@ -1529,6 +1541,39 @@ BEGIN
 
 GO
 
+CREATE TRIGGER tr_butacas_por_viaje ON AWANTA.VIAJE AFTER INSERT 
+AS
+BEGIN
+DECLARE @avion NUMERIC(18), @viaje NUMERIC(18), @butaca NUMERIC(18)
+SELECT @avion = via_avion, @viaje = via_codigo FROM inserted
+DECLARE butacas CURSOR FOR SELECT but_id FROM AWANTA.BUTACA WHERE but_aeronave = @avion
+OPEN butacas
+FETCH FROM butacas INTO @butaca
+WHILE @@FETCH_STATUS = 0
+BEGIN
+INSERT INTO AWANTA.BUTACAXVIAJE(butxv_butaca, butxv_viaje, butxv_ocupada) VALUES (@butaca, @viaje, 0)
+FETCH FROM butacas INTO @butaca
+END
+CLOSE butacas
+DEALLOCATE butacas
+END
+GO
+SELECT * FROM AWANTA.VIAJE WHERE via_codigo = 8512
+ALTER PROCEDURE AWANTA.set_butaca_ocupada(@viaje NUMERIC(18), @numero NUMERIC(18), @ocupada bit)
+AS
+BEGIN
+UPDATE AWANTA.BUTACAXVIAJE SET butxv_ocupada = @ocupada WHERE butxv_viaje = @viaje AND
+butxv_butaca = (SELECT but_id FROM AWANTA.BUTACA WHERE but_numero = @numero AND but_aeronave = (SELECT via_avion FROM AWANTA.VIAJE WHERE via_codigo = @viaje))
+END
+GO
+
+CREATE PROCEDURE AWANTA.get_butacas_disponibles(@viaje NUMERIC(18))
+AS
+BEGIN
+SELECT but_numero, but_tipo FROM AWANTA.BUTACAXVIAJE JOIN AWANTA.BUTACA ON butxv_butaca = but_id WHERE butxv_ocupada = 0 AND butxv_viaje = @viaje
+ORDER BY but_numero 
+END
+GO
 CREATE PROCEDURE AWANTA.tiene_viajes_asignados(@matricula nvarchar(255))
 AS
 BEGIN
@@ -1627,6 +1672,13 @@ BEGIN
 IF EXISTS(SELECT 1 FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = 'DNI')
 BEGIN RETURN 1 END 
 RETURN -1 END
+GO
+
+CREATE PROCEDURE AWANTA.get_cliente(@tipo_dni CHAR(5), @dni NUMERIC(18))
+AS
+BEGIN
+SELECT cli_tipo_doc, cli_nro_doc, cli_nombre, cli_apellido, cli_direccion, cli_telefono,cli_mail, cli_fecha_nac FROM AWANTA.CLIENTE WHERE @tipo_dni = cli_tipo_doc AND @dni = cli_nro_doc
+END
 GO
 
 CREATE PROCEDURE AWANTA.get_encomiendas(@codigo NUMERIC(18)) AS 

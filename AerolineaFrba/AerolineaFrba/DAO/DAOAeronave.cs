@@ -174,5 +174,15 @@ namespace AerolineaFrba.DAO
         {
             return SqlConnector.executeProcedure("get_estado_aeronave", avion);
         }
+
+        public static int getButacasDisponibles(Model.Viaje viaje, DataGridView dg)
+        {
+            return SqlConnector.retrieveDT("get_butacas_disponibles", dg, viaje.codigo);
+        }
+
+        public static int modificarEstadoButaca(Decimal viaje, Decimal butaca, int estado)
+        {
+            return SqlConnector.executeProcedure("set_butaca_ocupada", viaje, butaca, estado);
+        }
     }
 }

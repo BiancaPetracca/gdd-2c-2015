@@ -1,4 +1,5 @@
-﻿using AerolineaFrba.Properties;
+﻿using AerolineaFrba.Generics;
+using AerolineaFrba.Properties;
 using AerolineaFrba.SuperControls;
 using System;
 namespace AerolineaFrba.Compra
@@ -52,8 +53,8 @@ namespace AerolineaFrba.Compra
             this.fechaSalida = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.label2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.col_codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_estimada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_estimada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -110,8 +111,8 @@ namespace AerolineaFrba.Compra
             this.Pasaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Pasaje.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_codigo,
-            this.col_estimada,
             this.col_salida,
+            this.col_estimada,
             this.col_origen,
             this.col_destino,
             this.col_servicio,
@@ -278,6 +279,7 @@ namespace AerolineaFrba.Compra
             this.fechaSalida.Name = "fechaSalida";
             this.fechaSalida.Size = new System.Drawing.Size(140, 20);
             this.fechaSalida.TabIndex = 0;
+            this.fechaSalida.ValueChanged += new System.EventHandler(this.fechaSalida_ValueChanged);
             // 
             // label2
             // 
@@ -294,16 +296,16 @@ namespace AerolineaFrba.Compra
             this.col_codigo.Name = "col_codigo";
             this.col_codigo.ReadOnly = true;
             // 
-            // col_estimada
-            // 
-            this.col_estimada.HeaderText = "Fecha llegada";
-            this.col_estimada.Name = "col_estimada";
-            // 
             // col_salida
             // 
             this.col_salida.HeaderText = "Fecha salida";
             this.col_salida.Name = "col_salida";
             this.col_salida.ReadOnly = true;
+            // 
+            // col_estimada
+            // 
+            this.col_estimada.HeaderText = "Fecha llegada";
+            this.col_estimada.Name = "col_estimada";
             // 
             // col_origen
             // 
@@ -377,8 +379,8 @@ namespace AerolineaFrba.Compra
         private SuperLabel superLabel1;
         private SuperDateTimePicker fechaLlegada;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_codigo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_estimada;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salida;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_estimada;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_origen;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_destino;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;

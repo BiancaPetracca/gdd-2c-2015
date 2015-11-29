@@ -147,6 +147,12 @@
     <Compile Include="Abm Ruta\Ruta.Designer.cs">
       <DependentUpon>Ruta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\Elegir butacas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\Elegir butacas.Designer.cs">
+      <DependentUpon>Elegir butacas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\SeleccionarViaje.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -396,6 +402,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\Ruta.resx">
       <DependentUpon>Ruta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\Elegir butacas.resx">
+      <DependentUpon>Elegir butacas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\SeleccionarViaje.resx">
       <DependentUpon>SeleccionarViaje.cs</DependentUpon>
