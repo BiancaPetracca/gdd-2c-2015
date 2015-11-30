@@ -20,6 +20,7 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Top5.Refresh();
             this.Close();
         }
 
@@ -52,31 +53,32 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void millasAcumuladas_Click(object sender, EventArgs e)
         {
-           
+            Top5.Refresh();
             DAO.DAOMillas.clientesConMasMillas(fechaInicio(), fechaFin(), Top5);
+          
         }
 
         private void pasajesComprados_Click(object sender, EventArgs e)
         {
-            
+            Top5.Refresh();
             DAO.DAOMillas.destinosConMasPasajesComprados(fechaInicio(), fechaFin(), Top5);
         }
 
         private void pasajesCancelados_Click(object sender, EventArgs e)
         {
-           
+            Top5.Refresh();
             DAO.DAOMillas.destinosConMasPasajesCancelados(fechaInicio(), fechaFin(), Top5);
         }
 
         private void fueraServicio_Click(object sender, EventArgs e)
         {
-           
+            Top5.Refresh();
             DAO.DAOMillas.AeronavesConMasVecesFueraDeServicio(fechaInicio(), fechaFin(), Top5);
         }
 
         private void aeronaves_vacias_Click(object sender, EventArgs e)
         {
-            
+            Top5.Refresh();
             DAO.DAOMillas.destinosConMasAeronavesVacias(fechaInicio(), fechaFin(), Top5);
         }
     }

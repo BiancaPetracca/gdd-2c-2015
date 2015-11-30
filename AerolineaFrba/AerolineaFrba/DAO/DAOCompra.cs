@@ -69,17 +69,40 @@ namespace AerolineaFrba.DAO
             return SqlConnector.executeProcedure("hay_viajes_disponibles", viaje.fechaSalida, viaje.fechaLlegadaEstimada, viaje.ciudadOrigen, viaje.ciudadDestino) == 1 ? true : false;
         }
 
-        internal static int prepararCompra(System.Windows.Forms.DataGridView grid_pasajeros)
+        internal static int prepararCompra(System.Windows.Forms.DataGridView grid_pasajeros, Decimal viaje)
         {
-            int codigoCompra = -1;
+            int codigoCompra = SqlConnector.executeProcedure("crear_compra");
             foreach (DataGridViewRow row in grid_pasajeros.Rows)
             {
-                codigoCompra = SqlConnector.executeProcedure("preparar_compra", row.Cells["col_tipo_doc"], row.Cells["col_dni"],
-                    row.Cells["col_nombre"], row.Cells["col_apellido"], row.Cells["col_direccion"], row.Cells["col_telefono"],
-                    row.Cells["col_mail"],
-                    row.Cells["col_fecha_nac"], row.Cells["col_butaca"], row.Cells["col_tipo"], row.Cells["col_encomienda"]);
+               SqlConnector.executeProcedure("preparar_compra", codigoCompra, row.Cells["col_tipo_doc"].Value, row.Cells["col_dni"].Value 
+                   ,
+                    row.Cells["col_nombre"].Value, row.Cells["col_apellido"].Value, row.Cells["col_direccion"].Value, row.Cells["col_telefono"].Value,
+                    row.Cells["col_mail"].Value,
+                    row.Cells["col_fecha_nac"].Value, row.Cells["col_butaca"].Value, row.Cells["col_tipo"].Value, Convert.ToDecimal(row.Cells["col_encomienda"].Value), viaje);
             }
             return codigoCompra;
+        }
+
+        public static void cancelarCompra(Decimal codigo) {
+
+            SqlConnector.executeProcedure("cancelar_compra", codigo);
+        }
+
+
+        internal static decimal cuotasMaximasTarjeta(string p)
+        {
+           return SqlConnector.executeProcedure("cuotas_maximas_tarjeta", p);
+        }
+
+        internal static int efectuarCompra(Cliente cliente, Decimal codigoCompra, decimal Pago, decimal cuotas)
+        {
+               return SqlConnector.executeProcedure("efectuar_compra", codigoCompra, cliente.Codigo, Pago, cuotas);
+ 
+        }
+
+        internal static decimal getTipoPago(string p)
+        {
+            return SqlConnector.executeProcedure("getTipoPago", p);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace AerolineaFrba.Model
     public class Compra
     {
         public Compra compra { get; set; }
+        public Decimal codigo { get; set; }
         public DateTime fecha { get; set; }
         public String ciudadOrigen { get; set; }
         public String ciudadDestino { get; set; }
@@ -19,9 +20,9 @@ namespace AerolineaFrba.Model
         public Model.Usuario User { get; set; }
 
         public Compra() { }
-        public Compra(int Terminal)
+        public Compra(Decimal Codigo)
         {
-            this.Terminal = Terminal;
+            this.codigo = codigo;
         }
 
 

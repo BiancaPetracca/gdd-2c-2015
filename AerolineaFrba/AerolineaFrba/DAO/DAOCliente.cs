@@ -29,5 +29,24 @@ namespace AerolineaFrba.DAO
                 SqlConnector.executeProcedure("get_millas_encomiendas", tipoDNI, nroDNI) -
                 SqlConnector.executeProcedure("get_millas_canjes", tipoDNI, nroDNI)); */
         }
+
+        internal static Decimal clienteTieneTarjeta(Model.Cliente cliente, String TipoTarjeta, String NumeroTarjeta, String DigitoVerif, DateTime exp)
+        {
+            return SqlConnector.executeProcedure("cliente_tiene_tarjeta", cliente.Codigo, TipoTarjeta, Convert.ToDecimal(NumeroTarjeta),
+                Convert.ToDecimal(DigitoVerif), exp);
+        }
+
+
+        internal static Decimal nuevaTarjeta(Model.Cliente cliente, String TipoTarjeta, String NumeroTarjeta, String DigitoVerif, DateTime exp)
+        {
+            return SqlConnector.executeProcedure("cliente_nueva_tarjeta", cliente.Codigo, TipoTarjeta, Convert.ToDecimal(NumeroTarjeta),
+               Convert.ToDecimal(DigitoVerif), exp);
+        }
+
+        internal static decimal updateCliente(Model.Cliente cliente)
+        {
+            return SqlConnector.executeProcedure("update_cliente_noreturn", cliente.TipoDNI, cliente.DNI, cliente.Nombre, cliente.Apellido, cliente.Direccion, cliente.Telefono, cliente.Mail,
+                cliente.FechaNacimiento);
+        }
     }
 }

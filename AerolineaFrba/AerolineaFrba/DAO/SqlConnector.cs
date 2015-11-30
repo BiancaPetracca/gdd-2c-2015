@@ -125,7 +125,7 @@ namespace AerolineaFrba.DAO
             var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
             cmd.ExecuteNonQuery();
-            return Convert.ToInt16(returnParameter.Value);
+            return (int)returnParameter.Value;
         }
 
 

@@ -41,6 +41,10 @@ IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'TARJETA')
 	DROP TABLE AWANTA.TARJETA
 
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'TIPODEPAGO')
+	DROP TABLE AWANTA.TIPODEPAGO
+
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'AWANTA' AND  TABLE_NAME = 'BUTACAXVIAJE')
 	DROP TABLE AWANTA.BUTACAXVIAJE
 
@@ -103,7 +107,6 @@ GO
 --------------- GET DATE CON FECHA CONFIGURADA  -------------------------
 
 CREATE TABLE AWANTA.CONFIG(
-	
 	date_today DATETIME
 	)
 GO
@@ -116,13 +119,15 @@ INSERT INTO AWANTA.CONFIG(date_today) VALUES(@date)
 END
 GO
 
+DECLARE @date DATETIME
+SET @date = DATETIMEFROMPARTS(2017, 05, 13, 13, 13, 13, 00)
+EXEC AWANTA.set_date @date
 
 alter FUNCTION AWANTA.getDate() RETURNS DATETIME
 AS BEGIN 
 RETURN (SELECT TOP 1 date_today FROM AWANTA.CONFIG) 
 END
 GO
-
 
 
 /*---------------------------CREACION DE TABLAS Y CONSTRAINTS---------------------------*/
@@ -153,18 +158,6 @@ CREATE TABLE AWANTA.RUTA_AEREA
 	rut_precio_base_x_kg numeric(18,2) not null,
 	rut_habilitada bit not null,
 )
-
-CREATE TABLE AWANTA.RUTAS_VIEJAS (
-	rut_codigo numeric(18) identity(1,1) primary key,
-	rut_codigo_original numeric(18),
-	rut_origen numeric(18) not null foreign key
-	references AWANTA.CIUDAD(ciu_id),
-	rut_destino numeric(18) not null foreign key
-	references AWANTA.CIUDAD(ciu_id),
-	rut_precio_base numeric(18,2) not null,
-	rut_precio_base_x_kg numeric(18,2) not null,
-	rut_servicio numeric(18)
-	)
 
 CREATE TABLE AWANTA.SERVICIOXRUTA (
 	servxr_ruta numeric(18) NOT NULL foreign key references AWANTA.RUTA_AEREA(rut_codigo),
@@ -291,22 +284,30 @@ CREATE TABLE AWANTA.BUTACAXVIAJE (
 	PRIMARY KEY (butxv_viaje, butxv_butaca)
 	)
 
-
-CREATE TABLE AWANTA.TARJETA(
-	tarjeta_nro numeric(18) primary key,
-	tarjeta_codigo_seguridad numeric(18),
-	tarjeta_fecha_vencimiento datetime,
-	tarjeta_tipo nvarchar(255),
-	tarjeta_cliente numeric(18) not null references AWANTA.CLIENTE(cli_codigo),
+	-- si tenemos que el tipo de pago es 0, descripcion es efectivo, cuotas 1 (lo persistimos al principio) el resto son tarjetas de diferentes tipos
+CREATE TABLE AWANTA.TIPODEPAGO(
+	tdp_codigo numeric(18) primary key identity(0,1),
+	tdp_descripcion nvarchar(255) not null,
+	tdp_cuotas_maximas nvarchar(255) not null
 )
+CREATE TABLE AWANTA.TARJETA(
+-- el tipo de la tarjeta siempre va a ser distinto de cero (se controla a nivel app) 
+	tarjeta_id numeric(18) primary key identity(1,1),
+	tarjeta_tipo numeric(18) not null foreign key references AWANTA.TIPODEPAGO(tdp_codigo),
+    tarjeta_cliente  numeric(18)  not null foreign key references AWANTA.CLIENTE(cli_codigo),
+	tarjeta_nro numeric(18) not null,
+	tarjeta_codigo_seguridad numeric(18) not null,
+	tarjeta_fecha_vencimiento datetime not null
+	)
 
 CREATE TABLE AWANTA.COMPRA
 (
+-- el cliente puede tener varias tarjetas que hagan referencia a el
 	compra_id numeric(18) identity(1,1) primary key,
 	compra_cliente numeric(18) not null references AWANTA.CLIENTE(cli_codigo),
 	compra_fecha DATETIME,
 	compra_cuotas int,
-	compra_tarjeta numeric(18) references AWANTA.TARJETA(tarjeta_nro)
+	compra_tipo_de_pago numeric(18) not null references AWANTA.TIPODEPAGO(tdp_codigo)
 )
 
 CREATE TABLE AWANTA.PASAJE
@@ -433,7 +434,10 @@ SELECT DISTINCT  Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, Tipo_Servicio FROM gd_
 WHERE Ruta_Precio_BaseKG != 0 
 todas estas queries devuelven 68 filas. 
 notamos que tienen el mismo codigo cuando son ida y vuelta (a veces no coincide igual) pero como significan algo distinto, es decir, no es el mismo origen y el mismo destino,
-las migramos con codigos diferentes. */
+las migramos con codigos diferentes.
+no tuvimos en cuenta el codigo de las rutas para ver si eran distintas porque podiamos hacerlo viendo el resto de los campos. 
+
+ */
 
 CREATE FUNCTION AWANTA.getIdRuta(@origen NUMERIC, @destino NUMERIC) RETURNS NUMERIC
 AS
@@ -475,7 +479,6 @@ CLOSE curs_rutas
 DEALLOCATE curs_rutas
 GO
 
-SELECT * FROM AWANTA.RUTA_AEREA -- 33: 17, 8 (VIENA) , 16: 17 -31 
 -------- marcar las rutas con un numero junto a su par --------------
 DECLARE curs_tuplas CURSOR FOR SELECT rut_origen, rut_destino FROM AWANTA.RUTA_AEREA 
 DECLARE @origen numeric(18), @destino numeric(18), @cod int = 0
@@ -583,21 +586,6 @@ GO
 INSERT INTO AWANTA.FABRICANTE SELECT DISTINCT Aeronave_Fabricante from gd_esquema.Maestra
 GO
 
-CREATE TRIGGER AWANTA.tr_updatear_fabricantes ON AWANTA.FABRICANTE INSTEAD OF UPDATE 
-AS
-BEGIN
-DECLARE @insertado NVARCHAR(255)
-DECLARE @id NUMERIC
-SELECT @insertado = fab_nombre from inserted  
-SELECT @id = fab_id from inserted
-IF (EXISTS(SELECT 1 FROM AWANTA.FABRICANTE where @insertado = fab_nombre))
-BEGIN 
-RAISERROR(50300, -1, -1, 'Repetido el fabricante')
-RETURN
-END
-UPDATE AWANTA.FABRICANTE SET fab_nombre = @insertado WHERE fab_id = @id 
-END
-GO
 
 CREATE FUNCTION AWANTA.getIdFabricante(@fabricante NVARCHAR(255)) RETURNS NUMERIC
 AS BEGIN
@@ -609,7 +597,10 @@ GO
 -- interpretamos que como el modelo forma parte de la aeronave, es un modelo distinto por aeronave. cada fabricante tiene 
 -- el modelo 
 
-INSERT INTO AWANTA.MODELO(mod_fabricante,mod_nombre) SELECT AWANTA.getIdFabricante(Aeronave_Fabricante), Aeronave_Modelo from gd_esquema.Maestra group by Aeronave_Fabricante, Aeronave_Modelo order by AWANTA.getIdFabricante(Aeronave_Fabricante)
+INSERT INTO AWANTA.MODELO(mod_fabricante,mod_nombre) SELECT AWANTA.getIdFabricante(Aeronave_Fabricante), Aeronave_Modelo FROM gd_esquema.Maestra
+GROUP BY Aeronave_Fabricante, Aeronave_Modelo 
+ORDER BY AWANTA.getIdFabricante(Aeronave_Fabricante)
+
 --------- MIGRACION DE LOS MODELOS ----------------
 
 /*------MIGRACION DE LA TABLA AERONAVE------*/
@@ -651,28 +642,42 @@ GO
 /*------MIGRACION DE LA TABLA VIAJE------*/
 
 INSERT INTO AWANTA.VIAJE(via_fecha_salida,via_fecha_llegada,via_fecha_llegada_estimada,via_ruta_aerea,via_avion, via_cancelado)
-SELECT T.FechaSalida, T.FechaLlegada, T.Fecha_LLegada_Estimada, (SELECT TOP 1 rut_codigo FROM AWANTA.RUTA_AEREA 
-			 WHERE AWANTA.getIdCiudad(T.Ruta_Ciudad_Destino) = rut_destino  AND 
-			 AWANTA.getIdCiudad(T.Ruta_Ciudad_Origen) = rut_origen), (SELECT TOP 1 aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = T.Aeronave_Matricula), 0 FROM (SELECT DISTINCT FechaSalida, FechaLlegada, Fecha_LLegada_Estimada,Ruta_Ciudad_Destino, Ruta_Ciudad_Origen, Aeronave_Matricula FROM gd_esquema.Maestra) as T
+SELECT T.FechaSalida, T.FechaLlegada, T.Fecha_LLegada_Estimada,
+(SELECT TOP 1 rut_codigo FROM AWANTA.RUTA_AEREA 
+WHERE AWANTA.getIdCiudad(T.Ruta_Ciudad_Destino) = rut_destino  AND AWANTA.getIdCiudad(T.Ruta_Ciudad_Origen) = rut_origen),
+(SELECT TOP 1 aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = T.Aeronave_Matricula), 0
+FROM (SELECT DISTINCT FechaSalida, FechaLlegada, Fecha_LLegada_Estimada,Ruta_Ciudad_Destino, Ruta_Ciudad_Origen, Aeronave_Matricula
+FROM gd_esquema.Maestra) as T  
 GO
 
+----------- MIGRACION DE BUTACAS POR VIAJE ------------------
+INSERT INTO AWANTA.BUTACAXVIAJE(butxv_butaca, butxv_viaje, butxv_ocupada) 
+(SELECT but_id, via_codigo, 1 FROM AWANTA.VIAJE
+JOIN AWANTA.AERONAVE ON via_avion = aero_numero
+JOIN AWANTA.BUTACA ON aero_numero = but_aeronave) 
 
 ALTER FUNCTION AWANTA.getIdCliente(@tipo_dni char(5), @dni numeric(18)) RETURNS NUMERIC(18) AS
 BEGIN
 RETURN (SELECT top 1 cli_codigo FROM AWANTA.CLIENTE where cli_nro_doc = @dni and cli_tipo_doc = @tipo_dni)
 END
 GO
+--------------- INSERCION DE TARJETAS Y MEDIOS DE PAGO ------------------
+
+INSERT INTO AWANTA.TIPODEPAGO(tdp_cuotas_maximas, tdp_descripcion) VALUES (1, 'Efectivo')
+INSERT INTO AWANTA.TIPODEPAGO(tdp_cuotas_maximas, tdp_descripcion) VALUES (2, 'VISA')
+INSERT INTO AWANTA.TIPODEPAGO(tdp_cuotas_maximas, tdp_descripcion) VALUES (6, 'Mastercard')
+INSERT INTO AWANTA.TIPODEPAGO(tdp_cuotas_maximas, tdp_descripcion) VALUES (24, 'American Express')
 
 ----- MIGRACION COMPRA --------
 --- en este caso hacemos > 1901 porque es la fecha por defecto que pone sql cuando no seleccionamos una fecha. 
 ALTER TABLE AWANTA.COMPRA ADD compra_item NUMERIC(18), compra_monto NUMERIC(18,2) -- si es 0 es paquete si es 1 es pasaje.  
 GO
 
-INSERT INTO AWANTA.COMPRA(compra_cliente, compra_fecha, compra_item, compra_monto)
-SELECT DISTINCT (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE m.Cli_Dni = cli_nro_doc AND m.Cli_Apellido = Cli_Apellido), m.Paquete_FechaCompra, m.Paquete_Codigo, m.Paquete_Precio FROM gd_esquema.Maestra m
+INSERT INTO AWANTA.COMPRA(compra_cliente, compra_fecha, compra_item, compra_monto, compra_tipo_de_pago)
+SELECT DISTINCT (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE m.Cli_Dni = cli_nro_doc AND m.Cli_Apellido = Cli_Apellido), m.Paquete_FechaCompra, m.Paquete_Codigo, m.Paquete_Precio, 0 FROM gd_esquema.Maestra m
 where YEAR(m.Paquete_FechaCompra) > 1901 AND Butaca_Tipo = '0'
-INSERT INTO AWANTA.COMPRA(compra_cliente, compra_fecha, compra_item, compra_monto)
-SELECT DISTINCT (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE m.Cli_Dni = cli_nro_doc AND m.Cli_Apellido = Cli_Apellido), m.Pasaje_FechaCompra, m.Pasaje_Codigo, m.Pasaje_Precio FROM gd_esquema.Maestra m
+INSERT INTO AWANTA.COMPRA(compra_cliente, compra_fecha, compra_item, compra_monto, compra_tipo_de_pago)
+SELECT DISTINCT (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE m.Cli_Dni = cli_nro_doc AND m.Cli_Apellido = Cli_Apellido), m.Pasaje_FechaCompra, m.Pasaje_Codigo, m.Pasaje_Precio, 0 FROM gd_esquema.Maestra m
 where YEAR(m.Pasaje_FechaCompra) > 1901 AND Butaca_Tipo <> '0'
 GO
 
@@ -692,6 +697,7 @@ WHERE (SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Origen)
 (SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Destino) = rut_destino)) FROM gd_esquema.Maestra m
 where m.Pasaje_Codigo != 0 
 SET IDENTITY_INSERT AWANTA.PASAJE OFF
+
 ------------ MIGRACION DE LA ENCOMIENDA ---------------------
 
 --- SELECT DISTINCT Paquete_Codigo from gd_esquema.Maestra : 135659 paquetes (el 1 que sobra es el paquete 0, que no tiene nada)
@@ -1655,6 +1661,40 @@ BEGIN RETURN 1 END
 RETURN -1 END
 GO
 
+CREATE FUNCTION AWANTA.existe_cliente_(@tipo_dni CHAR(5), @dni NUMERIC(18)) RETURNS INT
+AS
+BEGIN
+IF EXISTS(SELECT 1 FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
+BEGIN RETURN (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)  END 
+RETURN -1 END
+GO
+--- crea un cliente si no exsite  y sino lo actualiza
+ALTER PROCEDURE AWANTA.update_cliente(@tipo CHAR(5), @dni NUMERIC(18), @nombre NVARCHAR(255), @apellido NVARCHAR(255), @direccion NVARCHAR(255), @telefono NVARCHAR(255), @mail NVARCHAR(255), @nac DATETIME, @codigo NUMERIC(18) output) AS
+BEGIN
+DECLARE @cli NUMERIC(18)
+SET @cli = AWANTA.existe_cliente_(@tipo, @dni)
+IF (@cli = -1) BEGIN INSERT INTO AWANTA.CLIENTE VALUES(@tipo, @dni, @nombre, @apellido, @direccion, @telefono, @nac, @mail) 
+SET @codigo = SCOPE_IDENTITY() RETURN END
+UPDATE AWANTA.CLIENTE SET  cli_nombre = @nombre, cli_apellido = @apellido, cli_direccion = @direccion, cli_telefono = @telefono, cli_mail = @mail, cli_fecha_nac = @nac
+WHERE cli_codigo = @cli
+SET @codigo = @cli
+RETURN
+END
+GO 
+
+CREATE PROCEDURE AWANTA.update_cliente_noreturn(@tipo CHAR(5), @dni NUMERIC(18), @nombre NVARCHAR(255), @apellido NVARCHAR(255), @direccion NVARCHAR(255), @telefono NVARCHAR(255), @mail NVARCHAR(255), @nac DATETIME) AS
+BEGIN
+DECLARE @cli NUMERIC(18)
+SET @cli = AWANTA.existe_cliente_(@tipo, @dni)
+IF (@cli = -1) BEGIN INSERT INTO AWANTA.CLIENTE VALUES(@tipo, @dni, @nombre, @apellido, @direccion, @telefono, @nac, @mail) 
+RETURN SCOPE_IDENTITY() END
+UPDATE AWANTA.CLIENTE SET  cli_nombre = @nombre, cli_apellido = @apellido, cli_direccion = @direccion, cli_telefono = @telefono, cli_mail = @mail, cli_fecha_nac = @nac
+WHERE cli_codigo = @cli
+RETURN @cli 
+END
+GO 
+
+
 ALTER PROCEDURE AWANTA.get_cliente(@tipo_dni CHAR(5), @dni NUMERIC(18))
 AS
 BEGIN
@@ -1670,36 +1710,101 @@ RETURN SCOPE_IDENTITY()
 END
 GO
 
-
-CREATE PROCEDURE AWANTA.preparar_compra(@codigo NUMERIC(18), @tipo CHAR(5), @dni NUMERIC(18), @nombre NVARCHAR(255), @apellido NVARCHAR(255), @direccion NVARCHAR(255), @telefono NVARCHAR(255),
-@mail NVARCHAR(255), @nac DATETIME, @butaca INT, @tipo_butaca NVARCHAR(255), @encomienda NUMERIC(18,2), @viaje NUMERIC(18))
+CREATE TRIGGER tr_insertar_pasajes ON AWANTA.PASAJE AFTER INSERT
+AS 
+BEGIN
+DECLARE @butaca INT, @viaje NUMERIC(18), @idButaca NUMERIC(18)
+SELECT @butaca = pas_butaca, @viaje = pas_viaje FROM inserted 
+UPDATE AWANTA.BUTACAXVIAJE SET butxv_ocupada = 1 WHERE butxv_butaca = @butaca AND butxv_viaje = @viaje
+END
+GO
+CREATE TRIGGER tr_borrar_pasajes ON AWANTA.PASAJE AFTER DELETE 
+AS
+BEGIN
+DECLARE @butaca INT, @viaje NUMERIC(18), @idButaca NUMERIC(18)
+SELECT @butaca = pas_butaca, @viaje = pas_viaje FROM inserted 
+UPDATE AWANTA.BUTACAXVIAJE SET butxv_ocupada = 0 WHERE butxv_butaca = @butaca AND butxv_viaje = @viaje
+END
+GO
+ 
+ALTER PROCEDURE AWANTA.preparar_compra(@codigoCompra NUMERIC(18), @tipo CHAR(5), @dni NUMERIC(18), @nombre NVARCHAR(255), @apellido NVARCHAR(255), @direccion NVARCHAR(255), @telefono NVARCHAR(255), @mail NVARCHAR(255), @nac DATETIME, @butaca NUMERIC(3), @tipo_butaca NVARCHAR(255), @encomienda NUMERIC(18,2), @viaje NUMERIC(18))
 AS
 BEGIN
 DECLARE @pasajero NUMERIC(18)
-SET @pasajero = AWANTA.getIdCliente(@tipo, @dni)
-UPDATE AWANTA.CLIENTE SET  cli_nombre = @nombre, cli_apellido = @apellido, cli_direccion = @direccion, cli_telefono = @telefono, cli_mail = @mail, cli_fecha_nac = @nac
-IF(@butaca IS NOT NULL) BEGIN 
-INSERT INTO AWANTA.PASAJE(pas_compra, pas_pasajero, pas_butaca, pas_precio, pas_viaje, pas_cancelado) VALUES (@codigo, @pasajero, (SELECT butxv_butaca FROM AWANTA.BUTACAXVIAJE
+EXEC AWANTA.update_cliente @tipo, @dni, @nombre, @apellido, @direccion, @telefono, @mail, @nac, @pasajero output
+IF(@butaca IS NOT NULL OR @butaca <> 0) BEGIN 
+INSERT INTO AWANTA.PASAJE(pas_compra, pas_pasajero, pas_butaca, pas_precio, pas_viaje, pas_cancelado) VALUES (@codigoCompra, @pasajero, (SELECT butxv_butaca FROM AWANTA.BUTACAXVIAJE
 JOIN AWANTA.VIAJE ON via_codigo = @viaje
 JOIN AWANTA.AERONAVE ON aero_numero = via_avion
-JOIN AWANTA.BUTACA ON but_aeronave = aero_numero
+JOIN AWANTA.BUTACA ON but_aeronave = aero_numero AND butxv_butaca = but_id
 WHERE butxv_viaje = @viaje AND but_numero = @butaca AND but_tipo = @tipo_butaca), AWANTA.get_precio_pasaje(@viaje), @viaje, 0)
-RETURN @codigo
+RETURN @codigoCompra
 END
-INSERT INTO AWANTA.ENCOMIENDA(enc_compra, enc_encomendador, enc_kg, enc_precio, enc_viaje, enc_cancelado) VALUES (@codigo, @pasajero, @encomienda, AWANTA.get_precio_encomienda(@viaje, @encomienda), @viaje, 0)
-
+IF (@encomienda <> 0) BEGIN
+INSERT INTO AWANTA.ENCOMIENDA(enc_compra, enc_encomendador, enc_kg, enc_precio, enc_viaje, enc_cancelado) VALUES (@codigoCompra, @pasajero, @encomienda, AWANTA.get_precio_encomienda(@viaje, @encomienda), @viaje, 0)
+END
+RETURN @codigoCompra
 END
 GO
 
-CREATE PROCEDURE AWANTA.cancelar_compra(@tipo CHAR(5), @nro NUMERIC(18))
+
+ALTER PROCEDURE AWANTA.cancelar_compra(@codigoCompra NUMERIC(18))
 AS
 BEGIN
-DECLARE @codigoCompra NUMERIC(18)
+DELETE FROM AWANTA.PASAJE WHERE pas_compra = @codigoCompra
+DELETE FROM AWANTA.ENCOMIENDA WHERE enc_compra = @codigoCompra
 DELETE FROM AWANTA.COMPRA WHERE compra_id = @codigoCompra
 END
 GO
+CREATE PROCEDURE AWANTA.getTipoPago(@tarjeta NVARCHAR(255)) AS BEGIN
+SELECT tdp_codigo FROM AWANTA.TIPODEPAGO WHERE tdp_descripcion = @tarjeta
+END
+GO
+
+ALTER PROCEDURE AWANTA.cuotas_maximas_tarjeta(@tarjeta NVARCHAR(255)) AS 
+BEGIN
+return (SELECT tdp_cuotas_maximas FROM AWANTA.TIPODEPAGO WHERE tdp_descripcion = @tarjeta)
+END
+GO
+ALTER PROCEDURE AWANTA.efectuar_compra(@codigoCompra NUMERIC(18), @codigoCliente NUMERIC(18), @tipoPago NUMERIC(18), @cuotas INT) AS
+BEGIN
+UPDATE AWANTA.COMPRA SET compra_cliente = @codigoCliente, compra_cuotas = @cuotas, compra_tipo_de_pago = @tipoPago  WHERE compra_id = @codigoCompra
+END
+GO
+
+ALTER PROCEDURE AWANTA.cliente_tiene_tarjeta(@codigoCliente NUMERIC(18), @tipoTarjeta NVARCHAR(255),
+@numeroTarjeta NUMERIC(18), @digito_verif NUMERIC(18), @vencimiento DATETIME)AS 
+BEGIN
+RETURN isnull((SELECT tarjeta_id FROM AWANTA.TARJETA
+JOIN AWANTA.TIPODEPAGO ON tarjeta_tipo = tdp_codigo
+WHERE tarjeta_cliente = @codigoCliente AND tarjeta_codigo_seguridad = @digito_verif AND tarjeta_nro = @numeroTarjeta
+AND tarjeta_fecha_vencimiento = @vencimiento AND tdp_descripcion = @tipoTarjeta), -1)
+END
+GO
+
+ALTER PROCEDURE AWANTA.cliente_nueva_tarjeta(@codigoCliente NUMERIC(18), @tipoTarjeta NVARCHAR(255),
+@numeroTarjeta NUMERIC(18), @digito_verif NUMERIC(18), @vencimiento DATETIME) AS
+BEGIN
+DECLARE @tarjeta NUMERIC(18), @tipo NUMERIC(18)
+SELECT @tipo = tdp_codigo FROM AWANTA.TIPODEPAGO WHERE tdp_descripcion = @tipoTarjeta
+SELECT @tarjeta = tarjeta_id FROM AWANTA.TARJETA
+WHERE tarjeta_cliente = @codigoCliente AND tarjeta_codigo_seguridad = @digito_verif AND tarjeta_nro = @numeroTarjeta
+AND tarjeta_fecha_vencimiento = @vencimiento AND @tipo is not null AND @tipo = tarjeta_tipo
+IF (@tarjeta IS NOT NULL) BEGIN
+UPDATE AWANTA.TARJETA SET tarjeta_nro = @numeroTarjeta, tarjeta_codigo_seguridad = @digito_verif, tarjeta_fecha_vencimiento = @vencimiento,
+tarjeta_tipo = @tipo WHERE tarjeta_id = @tarjeta AND tarjeta_cliente = @codigoCliente 
+RETURN @tarjeta
+END
+INSERT INTO AWANTA.TARJETA VALUES(@tipo, @codigoCliente, @numeroTarjeta, @digito_verif, @vencimiento)
+RETURN SCOPE_IDENTITY()
+END
+GO
+declare @d datetime
+set @d = AWANTA.getDate()
+EXEC AWANTA.cliente_nueva_tarjeta 2595, 'Mastercard', 1231231212312222,  231, @d
 
 
+GO
 CREATE PROCEDURE AWANTA.get_encomiendas(@codigo NUMERIC(18)) AS 
 BEGIN
 SELECT enc_codigo FROM AWANTA.ENCOMIENDA WHERE enc_compra = @codigo AND
@@ -1836,6 +1941,7 @@ AND pas_pasajero = (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @d
 END
 GO
 
+
 ALTER PROCEDURE AWANTA.info_encomiendas(@tipo_dni char(5), @dni numeric(18))
 AS
 BEGIN
@@ -1909,15 +2015,26 @@ GO
 ALTER PROCEDURE AWANTA.destinos_pasajes_comprados(@inicio datetime, @fin datetime)
 AS
 BEGIN
-SELECT TOP 5 ciu_nombre FROM AWANTA.PASAJE 
+SELECT TOP 5 ciu_id, ciu_nombre, COUNT(*) FROM AWANTA.PASAJE 
 JOIN AWANTA.VIAJE ON pas_viaje = via_codigo
 JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo
+JOIN AWANTA.COMPRA ON pas_compra = compra_id
 JOIN AWANTA.CIUDAD ON rut_destino = ciu_id
-WHERE @inicio < via_fecha_salida AND via_fecha_salida < @fin  
+WHERE @inicio < compra_fecha AND compra_fecha < @fin  
 GROUP BY ciu_id, ciu_nombre
-ORDER BY COUNT(pas_codigo) DESC
+ORDER BY COUNT(*) DESC
 END
 GO
+
+
+declare @d datetime, @dd datetime
+set @d = SMALLDATETIMEFROMPARTS(2016,01,01,00,00)
+set @dd = SMALLDATETIMEFROMPARTS(2016,07,01,00,00)
+
+SELECT COUNT(1), Ruta_Ciudad_Destino  FROM gd_esquema.Maestra 
+WHERE Paquete_Codigo = 0 AND Pasaje_FechaCompra > @d AND Pasaje_FechaCompra < @dd
+GROUP BY Ruta_Ciudad_Destino
+ORDER BY COUNT(1) desc
 
 ALTER PROCEDURE AWANTA.destinos_aeronaves_mas_vacias(@inicio datetime, @fin datetime)
 AS
@@ -1956,44 +2073,33 @@ ORDER BY COUNT(aero_matricula)
 END 
 GO
 
-CREATE PROCEDURE AWANTA.clientes_con_mas_millas_acumuladas(@inicio datetime, @fin datetime)
+ALTER PROCEDURE AWANTA.clientes_con_mas_millas_acumuladas(@inicio datetime, @fin datetime)
 AS
 BEGIN
-declare @millas_pasajes table (cli_codigo numeric(18), cli_nro_doc numeric(18), cli_nombre varchar(255), cli_apellido varchar(255), millas int)
-INSERT INTO @millas_pasajes(cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, millas) (SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(pas_precio/10) FROM AWANTA.CLIENTE
-	JOIN AWANTA.PASAJE ON pas_pasajero = cli_codigo 
-	JOIN AWANTA.COMPRA ON pas_compra = compra_id  AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 
+DECLARE @date DATETIME
+SET @date = AWANTA.getDate()
+SELECT TOP 5 M.cli_codigo, M.cli_nro_doc, M.cli_nombre, M.cli_apellido, SUM(M.Millas) FROM
+ ((SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(pas_precio/10) as Millas FROM AWANTA.CLIENTE
+	JOIN AWANTA.PASAJE ON pas_codigo = cli_codigo
+	JOIN AWANTA.COMPRA ON pas_compra = compra_id 
+	WHERE @inicio < compra_fecha AND compra_fecha < @fin
+	--WHERE DATEDIFF(YEAR, compra_fecha, (@date)) < 1  
 	AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo)
-	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido)
-
-declare @millas_encomiendas table (cli_codigo numeric(18), cli_nro_doc numeric(18), cli_nombre varchar(255), cli_apellido varchar(255), millas int)
-INSERT INTO @millas_encomiendas(cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, millas) (SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(enc_precio/10) FROM AWANTA.CLIENTE
+	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido) UNION ALL 
+(SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(enc_precio/10) as Millas FROM AWANTA.CLIENTE
 	JOIN AWANTA.ENCOMIENDA ON enc_encomendador = cli_codigo 
-	JOIN AWANTA.COMPRA ON enc_compra = compra_id  AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1
+	JOIN AWANTA.COMPRA ON enc_compra = compra_id 
+	-- AND DATEDIFF(YEAR, compra_fecha,(@date)) < 1
 	AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE enc_codigo = devxp_encomienda)
-	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido)
-
-declare @millas_canjes  table (cli_codigo numeric(18), cli_nro_doc numeric(18), cli_nombre varchar(255), cli_apellido varchar(255), millas int)
-INSERT INTO @millas_canjes(cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, millas)(SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(prod_millas * can_cantidad) FROM AWANTA.CLIENTE
-JOIN AWANTA.CANJE ON can_canjeador = cli_codigo 
-JOIN AWANTA.PRODUCTO ON prod_id = can_producto AND DATEDIFF(YEAR, can_fecha, AWANTA.getDate()) < 1  
-	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido)
-
-	declare @millas table (cli_codigo numeric(18), cli_nro_doc numeric(18), cli_nombre varchar(255), cli_apellido varchar(255), millas int)
-	INSERT INTO @millas (cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, millas)
-	(SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, millas FROM @millas_encomiendas UNION
-	 SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, millas FROM @millas_pasajes)
-
-	declare @millasPositivas table (cli_codigo numeric(18), cli_nro_doc numeric(18), cli_nombre varchar(255), cli_apellido varchar(255), millas int)
-	INSERT INTO @millasPositivas (cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, millas)
-	(SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(millas) FROM @millas 
-	GROUP BY  cli_codigo, cli_nro_doc, cli_nombre, cli_apellido)
-
-	SELECT TOP 5 * FROM @millasPositivas ORDER BY millas DESC
-
+	WHERE @inicio < compra_fecha AND compra_fecha < @fin
+	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido) UNION ALL
+(SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(-prod_millas * can_cantidad) AS Millas FROM AWANTA.CLIENTE
+	JOIN AWANTA.CANJE ON can_canjeador = cli_codigo 
+	JOIN AWANTA.PRODUCTO ON prod_id = can_producto
+	-- AND DATEDIFF(YEAR, can_fecha, (@date)) < 1  
+	WHERE @inicio < can_fecha AND can_fecha < @fin
+	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido)) AS M
+	GROUP BY M.cli_codigo, M.cli_nro_doc, M.cli_nombre, M.cli_apellido
+	ORDER BY SUM(M.Millas) DESC
 END
 GO
-select * from awanta.compra
-declare @d datetime = DATETIMEFROMPARTS(2016,04,30,0,0,0,0)
-declare @dd datetime = awanta.getDate()
-EXEC AWANTA.clientes_con_mas_millas_acumuladas  @d, @dd
