@@ -558,7 +558,7 @@ SELECT @cliente = c1.cli_codigo FROM AWANTA.CLIENTE c1 JOIN AWANTA.CLIENTE c2 ON
 UPDATE AWANTA.CLIENTE SET cli_tipo_doc = 'LC' WHERE cli_codigo = @cliente 
 
 /*------MIGRACION DE LA TABLA PRODUCTO------*/
-
+GO
 CREATE PROCEDURE [AWANTA].insertar_nuevo_producto(@nombreProducto NVARCHAR(255),@puntosNecesarios BIGINT,@stockProducto NUMERIC(18))
 AS	
 	IF NOT EXISTS(SELECT prod_nombre FROM AWANTA.PRODUCTO WHERE prod_nombre=@nombreProducto)
@@ -1558,7 +1558,8 @@ CLOSE butacas
 DEALLOCATE butacas
 END
 GO
-SELECT * FROM AWANTA.VIAJE WHERE via_codigo = 8512
+
+
 ALTER PROCEDURE AWANTA.set_butaca_ocupada(@viaje NUMERIC(18), @numero NUMERIC(18), @ocupada bit)
 AS
 BEGIN
@@ -1606,49 +1607,29 @@ ORDER BY c.ciu_nombre
 END
 GO
 
-CREATE PROCEDURE AWANTA.vender_pasaje (@terminal nvarchar(255), @tipo_doc nvarchar(255), @numero_doc numeric(18), 
-@salida date, @origen nvarchar(255), @destino nvarchar(255), @tipo nvarchar(255), @piso int)
+CREATE FUNCTION AWANTA.get_precio_pasaje(@viaje NUMERIC(18)) RETURNS DECIMAL(12,2)
 AS
 BEGIN
-	INSERT INTO AWANTA.COMPRA(compra_viaje, compra_cliente, compra_terminal)
-	VALUES((SELECT via_codigo 
-	FROM AWANTA.VIAJE, AWANTA.RUTA_AEREA 
-	WHERE via_fecha_salida = @salida AND
-	via_ruta_aerea = rut_codigo AND
-	rut_origen = @origen AND
-	rut_destino = @destino),
-	(SELECT cli_codigo
-	FROM AWANTA.CLIENTE 
-	WHERE cli_tipo_doc = @tipo_doc AND cli_nro_doc = @numero_doc), 
-
-	DECLARE @compra_pasaje numeric(18)
-	SET @compra_pasaje = (SELECT compra_id
-	FROM AWANTA.COMPRA, AWANTA.CLIENTE, AWANTA.VIAJE, AWANTA.RUTA_AEREA
-	WHERE compra_cliente = cli_codigo AND 
-	cli_tipo_doc = @tipo_doc AND
-	cli_nro_doc = @numero_doc AND
-	compra_viaje = via_codigo AND
-	via_fecha_salida = @salida AND
-	via_ruta_aerea = rut_codigo AND
-	rut_origen = @origen AND
-	rut_destino = @destino)
-	
-	DECLARE @butaca_pasaje numeric(18)
-	SET @butaca_pasaje = (SELECT but_id 
-	FROM AWANTA.BUTACA
-	WHERE but_estado = 0 AND
-	but_tipo = @tipo AND
-	but_piso = @piso)
-
-	UPDATE AWANTA.BUTACA
-	SET but_estado = 1
-	WHERE but_id = @butaca_pasaje
-
-	INSERT INTO AWANTA.PASAJE(pas_compra, pas_butaca)
-	VALUES(@compra_pasaje, @butaca_pasaje)
+DECLARE @precio NVARCHAR(255)
+SELECT @precio = rut_precio_base * (SELECT serv_porcentaje_adicional FROM AWANTA.SERVICIO WHERE serv_id_servicio = aero_id_servicio) FROM AWANTA.RUTA_AEREA 
+JOIN AWANTA.VIAJE ON via_ruta_aerea = rut_codigo 
+JOIN AWANTA.AERONAVE ON aero_numero = via_avion
+WHERE via_codigo = @viaje 
+return @precio
 END
 GO
 
+CREATE FUNCTION AWANTA.get_precio_encomienda(@viaje NUMERIC(18), @kg DECIMAL(12,2)) RETURNS DECIMAL(12,2)
+AS
+BEGIN
+DECLARE @precio NVARCHAR(255)
+SELECT @precio =  @kg * rut_precio_base_x_kg * (SELECT serv_porcentaje_adicional FROM AWANTA.SERVICIO WHERE serv_id_servicio = aero_id_servicio) FROM AWANTA.RUTA_AEREA 
+JOIN AWANTA.VIAJE ON via_ruta_aerea = rut_codigo 
+JOIN AWANTA.AERONAVE ON aero_numero = via_avion
+WHERE via_codigo = @viaje 
+return @precio
+END
+GO
 --------------------- DEVOLUCION --------------------------
 -- solo traigo las compras que tienen algun pasaje o encomienda sin devolver y que la fecha del viaje no haya llegado ya. 
 -- (para que devolver una compra que ya paso?)
@@ -1681,6 +1662,44 @@ SELECT cli_nombre, cli_apellido, cli_direccion, cli_telefono, cli_mail, cli_fech
 END
 GO
 
+ALTER PROCEDURE AWANTA.crear_compra 
+AS
+BEGIN
+INSERT INTO AWANTA.COMPRA(compra_fecha, compra_cliente) VALUES(AWANTA.getDate(), -1)
+RETURN SCOPE_IDENTITY()
+END
+GO
+
+
+CREATE PROCEDURE AWANTA.preparar_compra(@codigo NUMERIC(18), @tipo CHAR(5), @dni NUMERIC(18), @nombre NVARCHAR(255), @apellido NVARCHAR(255), @direccion NVARCHAR(255), @telefono NVARCHAR(255),
+@mail NVARCHAR(255), @nac DATETIME, @butaca INT, @tipo_butaca NVARCHAR(255), @encomienda NUMERIC(18,2), @viaje NUMERIC(18))
+AS
+BEGIN
+DECLARE @pasajero NUMERIC(18)
+SET @pasajero = AWANTA.getIdCliente(@tipo, @dni)
+UPDATE AWANTA.CLIENTE SET  cli_nombre = @nombre, cli_apellido = @apellido, cli_direccion = @direccion, cli_telefono = @telefono, cli_mail = @mail, cli_fecha_nac = @nac
+IF(@butaca IS NOT NULL) BEGIN 
+INSERT INTO AWANTA.PASAJE(pas_compra, pas_pasajero, pas_butaca, pas_precio, pas_viaje, pas_cancelado) VALUES (@codigo, @pasajero, (SELECT butxv_butaca FROM AWANTA.BUTACAXVIAJE
+JOIN AWANTA.VIAJE ON via_codigo = @viaje
+JOIN AWANTA.AERONAVE ON aero_numero = via_avion
+JOIN AWANTA.BUTACA ON but_aeronave = aero_numero
+WHERE butxv_viaje = @viaje AND but_numero = @butaca AND but_tipo = @tipo_butaca), AWANTA.get_precio_pasaje(@viaje), @viaje, 0)
+RETURN @codigo
+END
+INSERT INTO AWANTA.ENCOMIENDA(enc_compra, enc_encomendador, enc_kg, enc_precio, enc_viaje, enc_cancelado) VALUES (@codigo, @pasajero, @encomienda, AWANTA.get_precio_encomienda(@viaje, @encomienda), @viaje, 0)
+
+END
+GO
+
+CREATE PROCEDURE AWANTA.cancelar_compra(@tipo CHAR(5), @nro NUMERIC(18))
+AS
+BEGIN
+DECLARE @codigoCompra NUMERIC(18)
+DELETE FROM AWANTA.COMPRA WHERE compra_id = @codigoCompra
+END
+GO
+
+
 CREATE PROCEDURE AWANTA.get_encomiendas(@codigo NUMERIC(18)) AS 
 BEGIN
 SELECT enc_codigo FROM AWANTA.ENCOMIENDA WHERE enc_compra = @codigo AND
@@ -1709,7 +1728,7 @@ RETURN @cod
 END
 GO
 
-go
+
 ALTER PROCEDURE AWANTA.devolver_items(@devolucion NUMERIC(18), @item NUMERIC(18), @motivo NVARCHAR)
 AS
 BEGIN
@@ -1850,7 +1869,7 @@ END
 GO
 EXEC AWANTA.info_millas 'DNI', 1122696
 ---------------- PRODUCTOS
-
+GO
 CREATE FUNCTION AWANTA.get_id_producto(@nombre nvarchar(255)) RETURNS NUMERIC(18)
 AS
 BEGIN

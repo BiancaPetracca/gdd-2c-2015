@@ -28,7 +28,9 @@ namespace AerolineaFrba.Compra
         {
             if (!this.grid_pasajeros.anyEmptyCells())
             {
-                this.openIntoParent(new Efectuar_Compra(), this.MdiParent);
+                Decimal codigoCompra = DAO.DAOCompra.prepararCompra(grid_pasajeros);
+         
+                this.openIntoParent(new Efectuar_Compra(codigoCompra), this.MdiParent);
             }
             MessageBox.Show("Debe completar todos los datos de todas las personas que viajan");
 

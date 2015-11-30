@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using AerolineaFrba.Generics;
 namespace AerolineaFrba.Compra
 {
     public partial class Efectuar_Compra : Form
@@ -16,34 +16,22 @@ namespace AerolineaFrba.Compra
         {
             InitializeComponent();
         }
-        private int terminal = 0;
-        public Efectuar_Compra(int terminal) {
+        public Decimal CodigoCompra { get; set; }
+        public Efectuar_Compra(Decimal CodigoCompra) {
             InitializeComponent();
-            this.terminal = terminal;
-
+            this.CodigoCompra = CodigoCompra;
         }
         private void button1_Click(object sender, EventArgs e)
         {
             if (MedioPago.ValueMember == "Efectivo")
             {
-                Exito_Efectivo exitoEfectivo = new Exito_Efectivo();
-                exitoEfectivo.MdiParent = this.MdiParent;
-                exitoEfectivo.Dock = DockStyle.Fill;
-                exitoEfectivo.WindowState = FormWindowState.Maximized;
-                this.Close();
-                exitoEfectivo.Show();
+                this.openInNewWindow(new Exito_Efectivo());
+                return;
             }
-            else
-            {
-
-                Exito_Tarjeta exitoTarjeta = new Exito_Tarjeta();
-                exitoTarjeta.MdiParent = this.MdiParent;
-                exitoTarjeta.Dock = DockStyle.Fill;
-                exitoTarjeta.WindowState = FormWindowState.Maximized;
-                this.Close();
-                exitoTarjeta.Show();
+            
+                this.openInNewWindow(new Exito_Tarjeta());
             }
-        }
+        
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -52,9 +40,9 @@ namespace AerolineaFrba.Compra
 
         private void Efectuar_Compra_Load(object sender, EventArgs e)
         {
-            if (this.terminal == 1) {
-                this.MedioPago.Visible = false;
+            if (Config.Terminal == 1) {
                 this.MedioPago.SelectedItem = "Tarjeta de Credito";
+                this.MedioPago.Enabled = false;
             }
         }
     }

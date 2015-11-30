@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using AerolineaFrba.Model;
+using System.Windows.Forms;
 
 namespace AerolineaFrba.DAO
 {
@@ -35,10 +36,11 @@ namespace AerolineaFrba.DAO
 
         public static List<String> listarCompras(Object dni)
         {
-           return SqlConnector.retrieveList("get_compras", "compra_id", Convert.ToDecimal(dni));
+            return SqlConnector.retrieveList("get_compras", "compra_id", Convert.ToDecimal(dni));
         }
 
-        public static List<String> listarEncomiendas(Decimal compra) {
+        public static List<String> listarEncomiendas(Decimal compra)
+        {
             return SqlConnector.retrieveList("get_encomiendas", "enc_codigo", compra);
         }
 
@@ -65,6 +67,19 @@ namespace AerolineaFrba.DAO
         public static bool hayViajesDisponibles(Viaje viaje)
         {
             return SqlConnector.executeProcedure("hay_viajes_disponibles", viaje.fechaSalida, viaje.fechaLlegadaEstimada, viaje.ciudadOrigen, viaje.ciudadDestino) == 1 ? true : false;
+        }
+
+        internal static int prepararCompra(System.Windows.Forms.DataGridView grid_pasajeros)
+        {
+            int codigoCompra = -1;
+            foreach (DataGridViewRow row in grid_pasajeros.Rows)
+            {
+                codigoCompra = SqlConnector.executeProcedure("preparar_compra", row.Cells["col_tipo_doc"], row.Cells["col_dni"],
+                    row.Cells["col_nombre"], row.Cells["col_apellido"], row.Cells["col_direccion"], row.Cells["col_telefono"],
+                    row.Cells["col_mail"],
+                    row.Cells["col_fecha_nac"], row.Cells["col_butaca"], row.Cells["col_tipo"], row.Cells["col_encomienda"]);
+            }
+            return codigoCompra;
         }
     }
 }
