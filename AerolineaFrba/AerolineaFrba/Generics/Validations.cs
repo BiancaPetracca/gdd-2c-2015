@@ -22,29 +22,23 @@ namespace AerolineaFrba.Generics
         }
 
         // saber si hay celdas vacias en una dg
-        public static Boolean anyEmptyCells(this DataGridView dg, String columnName, String msg)
+        public static Boolean anyEmptyCells(this DataGridView dg)
         {
-            Boolean val = false;
-            string cell;
+           if (dg.Rows.Count == 0) { return true; }
 
-            try
-            {
-                foreach (DataGridViewRow rw in dg.Rows)
-                {
-                    cell = rw.Cells[dg.Columns[columnName].Index].Value as string;
-                    if (string.IsNullOrEmpty(cell))
-                    {
-                        val = true;
-                        throw new Exception(msg);
+           foreach (DataGridViewRow rw in dg.Rows)
+           {
+               for (int i = 0; i < dg.Columns.Count; i++)
+               {
+                   if (rw.Cells[i].Value == null)
+                   {
+                       return true;
+                   }
+               }
+           }
+           return false;
+
                     }
-                }
-            }
-            catch (Exception excepcion)
-            {
-                MessageBox.Show(excepcion.Message);
-            }
-            return val;
-        }
 
 
         // try catchea una excepcion proviniente de campos vacios
@@ -157,6 +151,27 @@ namespace AerolineaFrba.Generics
         {
 
             e.Handled = (num.Value.ToString().Length >= 4);
+        }
+
+        public static void columnAsTextBox(DataGridView dg, List<int> cols, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (cols.Contains(dg.CurrentCell.ColumnIndex)) //Desired Column
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+
+            }
+        }
+        private static void Column1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 

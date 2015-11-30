@@ -62,8 +62,8 @@ namespace AerolineaFrba.Devolucion
 
         private void verCompras_Click(object sender, EventArgs e)
         {
-            Decimal dni = Convert.ToDecimal(this.dni.value);
-            if (!DAO.DAOCliente.existeCliente(dni)){
+           
+            if (!DAO.DAOCliente.existeCliente(tipo_doc.value, dni.value)){
             MessageBox.Show("No existe cliente con dicho dni");
                 return;
             }

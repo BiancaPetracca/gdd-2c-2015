@@ -30,35 +30,34 @@ namespace AerolineaFrba.Canje_Millas
             try { if (this.ProductosCanjear.Rows.Count == 0) { throw new Exception("Elija algún producto para canjear"); } }
             catch (Exception excepcion) {
                 MessageBox.Show(excepcion.Message);
+                return;
             }
 
-            // LLAMAR AL PROCEDURE QUE GUARDE TODO LO QUE ESTA EN LA GRID 
+            DAO.DAOMillas.canjearProductos(ProductosCanjear, tipoDNI.value, DNI.value);
+            MessageBox.Show("Productos canjeados con éxito");
+            reload();
             
          
         }
 
         private void Cancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            reload();
         }
 
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-           
-            this.ProductosCanjear.Rows.Add(this.NombreProducto.SelectedValue, this.CantidadProducto.Value);
+            if (productosDisponibles.SelectedRows.Count == 0 || productosDisponibles.SelectedCells.Count == 0) {
+                MessageBox.Show("Seleccione un producto");
+                return;
+            }
+           if (((currentStock() > 0) && (Convert.ToDecimal(sumaParcialCanjes.value) + currentMillas() <= Convert.ToDecimal(millasQueTiene.value)))){
+            aumentarYRestar(currentProducto(productosDisponibles, "col_producto"));
+            sumaParcialCanjes.Text = Convert.ToString(Convert.ToDecimal(sumaParcialCanjes.value) + currentMillas());
+            return;
         }
-
-        private void NombreProducto_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // cuando elijo un producto seteo el maximo de la cantidad al maximo stock que hay. cada vez que agrego reload 
-            this.CantidadProducto.Value = 0;
-            this.CantidadProducto.Maximum = DAO.DAOProductos.obtenerCantidadProducto(this.NombreProducto.value);
-        }
-
-        private void Canje_Millas_Load(object sender, EventArgs e)
-        {
-            this.NombreProducto.AddAll(DAO.DAOProductos.listarProductos());
+           MessageBox.Show("No dispone de la cantidad suficiente de millas");
         }
 
         private void FechaCanje_ValueChanged(object sender, EventArgs e)
@@ -67,12 +66,95 @@ namespace AerolineaFrba.Canje_Millas
 
         private void verificar_Click(object sender, EventArgs e)
         {
-            if (DAO.DAOUsuario.elClienteExiste(this.DNI.value) == -1) {
+            if (!this.validateNotNullForAll(this.DatosCanjeador.Controls)){
+            return; 
+            }
+            if (!DAO.DAOCliente.existeCliente(tipoDNI.value, DNI.value)) {
                 MessageBox.Show("El cliente no existe, verifique que ingresó correctamente el dni.");
                 return;
             }
+            millasQueTiene.Text =  Convert.ToString(DAO.DAOCliente.obtenerMillasCliente(tipoDNI.value, DNI.value));
+            tipoDNI.Enabled = false;
+            DNI.ReadOnly = true;
+            Agregar.Enabled = true;
+            Cancelar.Enabled = true;
+            RealizarCanjes.Enabled = true;
+           
         }
 
+        private String currentProducto(DataGridView dg, String col) { 
+          int row =  dg.CurrentRow.Index;
+          return Convert.ToString(dg.Rows[row].Cells[col].Value);
+        }
+
+        private Decimal currentStock()
+        {
+            return Convert.ToDecimal(productosDisponibles.Rows[productosDisponibles.CurrentRow.Index].Cells["col_stock"].Value);
+        }
+
+        private Decimal currentMillas()
+        {
+            return Convert.ToDecimal(productosDisponibles.Rows[productosDisponibles.CurrentRow.Index].Cells["col_millas"].Value);
+        }
+
+        private Boolean contains(String producto){
+        foreach (DataGridViewRow row in ProductosCanjear.Rows){
+        if (row.Cells["col_producto_canjear"].Value.ToString().Equals(producto)){
+        return true;
+        }}
+        return false;
+        }
+
+        private void aumentarYRestar(String producto) {
+
+            productosDisponibles.Rows[indexProducto(productosDisponibles, "col_producto", producto)].Cells["col_stock"].Value =
+                    Convert.ToDecimal(productosDisponibles.Rows[indexProducto(productosDisponibles,"col_producto", producto)].Cells["col_stock"].Value) - 1;
+            if (contains(producto))
+            {
+                ProductosCanjear.Rows[indexProducto(ProductosCanjear, "col_producto_canjear", producto)].Cells["col_cantidad"].Value =
+                    Convert.ToDecimal(ProductosCanjear.Rows[indexProducto(ProductosCanjear, "col_producto_canjear", producto)].Cells["col_cantidad"].Value) + 1;
+                return;
+                    
+            }
+
+            ProductosCanjear.Rows.Add(currentProducto(productosDisponibles, "col_producto"), 1);
+        
+        }
+
+        private int indexProducto(DataGridView dg, String col, String producto) {
+            foreach (DataGridViewRow row in dg.Rows) { 
+            if (row.Cells[col].Value.ToString().Equals(producto)){
+                return row.Index;
+            }
+        
+            }
+            return -1;
+        }
+
+        private void DNI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowNumericOnly(e);
+        }
+
+        private void Canje_Millas_Load(object sender, EventArgs e)
+        {
+            reload();
+        }
+
+        private void reload() {
+
+            tipoDNI.Enabled = true;
+            DNI.ReadOnly = false;
+            tipoDNI.SelectedIndex = -1;
+            DNI.clean();
+            millasQueTiene.Text = "";
+            ProductosCanjear.clean();
+            sumaParcialCanjes.Text = "0";
+            DAO.DAOProductos.getProductos(productosDisponibles);
+            Agregar.Enabled = false;
+            Cancelar.Enabled = false;
+            RealizarCanjes.Enabled = false;
+        }
 
     }
 }

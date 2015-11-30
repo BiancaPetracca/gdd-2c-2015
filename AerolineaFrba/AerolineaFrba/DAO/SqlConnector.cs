@@ -63,6 +63,30 @@ namespace AerolineaFrba.DAO
                             return dt;
                         }
 
+        public static void LoadWithRow(String sp, int dataRowIndex, DataGridView dg, params Object[] values) {
+            DataTable dt = retrieveDTToBeConverted(sp, values);
+
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                int index = indexOfCellWithSuchName(dg, dt.Columns[i].ColumnName);
+                if (index != -1)
+                {
+                    dg.Rows[dataRowIndex].Cells[index].Value = dt.Rows[0].ItemArray[i];
+                }
+            }
+            }
+
+
+        
+        public static int indexOfCellWithSuchName(DataGridView dg, String columnName) {
+            foreach (DataGridViewColumn col in dg.Columns) {
+                if (col.DataPropertyName == columnName) {
+                    return col.Index;
+                }
+            }
+            return -1;
+        
+        }
 
         private static SqlCommand generateCommand(String sp, params Object[] values) {
 
@@ -101,24 +125,29 @@ namespace AerolineaFrba.DAO
             return Convert.ToInt16(returnParameter.Value);
         }
 
-            
 
-        
+        public static DataTable retrieveDT(String sp, params Object[] values) {
+            return retrieveDTToBeConverted(sp, values);
+        }
+
         public static void bindNamesToDataTable(DataTable dt, DataGridView dg) {
 
             for (var i = 0; i < dg.Columns.Count; i++) {
                 dg.Columns[i].DataPropertyName = dt.Columns[i].ColumnName;
             }}
 
-        public static void loadWithDataTable(DataTable dt, DataGridView dg){
-
+        public static int retrieveDTAlreadyBinded(String sp, DataGridView dg, params Object[] values){
+            DataTable dt = retrieveDTToBeConverted(sp, values);
+            if (dt == null)
+            {
+                return -1;
+            }
             dg.DataSource = dt;
+            return 1;
           
         
         }
-        public static DataTable retrieveDT(String sp, params Object[] values) {
-            return retrieveDTToBeConverted(sp, values);
-        }
+  
 
         public static int retrieveDT(String sp, DataGridView dg, params Object[] values)
         {

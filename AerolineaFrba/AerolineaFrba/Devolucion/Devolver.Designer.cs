@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Devoluciones = new System.Windows.Forms.DataGridView();
-            this.RealizarDevolucion = new System.Windows.Forms.Button();
-            this.Limpiar = new System.Windows.Forms.Button();
-            this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
             this.pasajes = new AerolineaFrba.SuperControls.SuperComboBox();
             this.encomiendas = new AerolineaFrba.SuperControls.SuperComboBox();
             this.agregarEncomienda = new AerolineaFrba.SuperControls.SuperButton();
@@ -46,13 +42,18 @@
             this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.MotivoDevolucion = new AerolineaFrba.SuperControls.SuperTextBox();
             this.AgregarPasaje = new AerolineaFrba.SuperControls.SuperButton();
-            this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.Devoluciones = new System.Windows.Forms.DataGridView();
             this.col_compra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_item = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_motivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.superLabel3 = new AerolineaFrba.SuperControls.SuperLabel();
+            this.RealizarDevolucion = new System.Windows.Forms.Button();
+            this.Limpiar = new System.Windows.Forms.Button();
+            this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
+            this.tipo_doc = new AerolineaFrba.SuperControls.SuperComboBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).BeginInit();
             this.CompraDevolver.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -71,52 +72,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Devolución";
-            // 
-            // Devoluciones
-            // 
-            this.Devoluciones.AllowUserToAddRows = false;
-            this.Devoluciones.AllowUserToDeleteRows = false;
-            this.Devoluciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.Devoluciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Devoluciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_compra,
-            this.col_item,
-            this.col_motivo});
-            this.Devoluciones.Location = new System.Drawing.Point(29, 155);
-            this.Devoluciones.Name = "Devoluciones";
-            this.Devoluciones.ReadOnly = true;
-            this.Devoluciones.Size = new System.Drawing.Size(882, 209);
-            this.Devoluciones.TabIndex = 0;
-            // 
-            // RealizarDevolucion
-            // 
-            this.RealizarDevolucion.Location = new System.Drawing.Point(648, 421);
-            this.RealizarDevolucion.Name = "RealizarDevolucion";
-            this.RealizarDevolucion.Size = new System.Drawing.Size(108, 23);
-            this.RealizarDevolucion.TabIndex = 1;
-            this.RealizarDevolucion.Text = "Realizar devolución";
-            this.RealizarDevolucion.UseVisualStyleBackColor = true;
-            this.RealizarDevolucion.Click += new System.EventHandler(this.RealizarDevolucion_Click);
-            // 
-            // Limpiar
-            // 
-            this.Limpiar.Location = new System.Drawing.Point(767, 421);
-            this.Limpiar.Name = "Limpiar";
-            this.Limpiar.Size = new System.Drawing.Size(75, 23);
-            this.Limpiar.TabIndex = 2;
-            this.Limpiar.Text = "Limpiar";
-            this.Limpiar.UseVisualStyleBackColor = true;
-            this.Limpiar.Click += new System.EventHandler(this.Limpiar_Click);
-            // 
-            // Cerrar
-            // 
-            this.Cerrar.Location = new System.Drawing.Point(848, 421);
-            this.Cerrar.Name = "Cerrar";
-            this.Cerrar.Size = new System.Drawing.Size(75, 23);
-            this.Cerrar.TabIndex = 4;
-            this.Cerrar.Text = "Cerrar";
-            this.Cerrar.UseVisualStyleBackColor = true;
-            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
             // 
             // pasajes
             // 
@@ -159,6 +114,7 @@
             // 
             // CompraDevolver
             // 
+            this.CompraDevolver.Controls.Add(this.tipo_doc);
             this.CompraDevolver.Controls.Add(this.verCompras);
             this.CompraDevolver.Controls.Add(this.codigoCompra);
             this.CompraDevolver.Controls.Add(this.lab_dni);
@@ -175,7 +131,7 @@
             // 
             // verCompras
             // 
-            this.verCompras.Location = new System.Drawing.Point(262, 27);
+            this.verCompras.Location = new System.Drawing.Point(280, 26);
             this.verCompras.Name = "verCompras";
             this.verCompras.Size = new System.Drawing.Size(112, 23);
             this.verCompras.TabIndex = 11;
@@ -197,7 +153,7 @@
             // lab_dni
             // 
             this.lab_dni.AutoSize = true;
-            this.lab_dni.Location = new System.Drawing.Point(21, 30);
+            this.lab_dni.Location = new System.Drawing.Point(107, 32);
             this.lab_dni.Name = "lab_dni";
             this.lab_dni.Size = new System.Drawing.Size(26, 13);
             this.lab_dni.TabIndex = 9;
@@ -206,9 +162,9 @@
             // dni
             // 
             this.dni.AccessibleDescription = "DNI";
-            this.dni.Location = new System.Drawing.Point(77, 27);
+            this.dni.Location = new System.Drawing.Point(148, 29);
             this.dni.Name = "dni";
-            this.dni.Size = new System.Drawing.Size(121, 20);
+            this.dni.Size = new System.Drawing.Size(103, 20);
             this.dni.TabIndex = 8;
             this.dni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.superTextBox1_KeyPress);
             // 
@@ -248,14 +204,21 @@
             this.AgregarPasaje.UseVisualStyleBackColor = true;
             this.AgregarPasaje.Click += new System.EventHandler(this.Agregar_Click);
             // 
-            // superLabel3
+            // Devoluciones
             // 
-            this.superLabel3.AutoSize = true;
-            this.superLabel3.Location = new System.Drawing.Point(565, 52);
-            this.superLabel3.Name = "superLabel3";
-            this.superLabel3.Size = new System.Drawing.Size(44, 13);
-            this.superLabel3.TabIndex = 6;
-            this.superLabel3.Text = "Pasajes";
+            this.Devoluciones.AllowUserToAddRows = false;
+            this.Devoluciones.AllowUserToDeleteRows = false;
+            this.Devoluciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.Devoluciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Devoluciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_compra,
+            this.col_item,
+            this.col_motivo});
+            this.Devoluciones.Location = new System.Drawing.Point(29, 155);
+            this.Devoluciones.Name = "Devoluciones";
+            this.Devoluciones.ReadOnly = true;
+            this.Devoluciones.Size = new System.Drawing.Size(882, 209);
+            this.Devoluciones.TabIndex = 0;
             // 
             // col_compra
             // 
@@ -275,6 +238,58 @@
             this.col_motivo.Name = "col_motivo";
             this.col_motivo.ReadOnly = true;
             // 
+            // superLabel3
+            // 
+            this.superLabel3.AutoSize = true;
+            this.superLabel3.Location = new System.Drawing.Point(565, 52);
+            this.superLabel3.Name = "superLabel3";
+            this.superLabel3.Size = new System.Drawing.Size(44, 13);
+            this.superLabel3.TabIndex = 6;
+            this.superLabel3.Text = "Pasajes";
+            // 
+            // RealizarDevolucion
+            // 
+            this.RealizarDevolucion.Location = new System.Drawing.Point(648, 421);
+            this.RealizarDevolucion.Name = "RealizarDevolucion";
+            this.RealizarDevolucion.Size = new System.Drawing.Size(108, 23);
+            this.RealizarDevolucion.TabIndex = 1;
+            this.RealizarDevolucion.Text = "Realizar devolución";
+            this.RealizarDevolucion.UseVisualStyleBackColor = true;
+            this.RealizarDevolucion.Click += new System.EventHandler(this.RealizarDevolucion_Click);
+            // 
+            // Limpiar
+            // 
+            this.Limpiar.Location = new System.Drawing.Point(767, 421);
+            this.Limpiar.Name = "Limpiar";
+            this.Limpiar.Size = new System.Drawing.Size(75, 23);
+            this.Limpiar.TabIndex = 2;
+            this.Limpiar.Text = "Limpiar";
+            this.Limpiar.UseVisualStyleBackColor = true;
+            this.Limpiar.Click += new System.EventHandler(this.Limpiar_Click);
+            // 
+            // Cerrar
+            // 
+            this.Cerrar.Location = new System.Drawing.Point(848, 421);
+            this.Cerrar.Name = "Cerrar";
+            this.Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.Cerrar.TabIndex = 4;
+            this.Cerrar.Text = "Cerrar";
+            this.Cerrar.UseVisualStyleBackColor = true;
+            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
+            // 
+            // tipo_doc
+            // 
+            this.tipo_doc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipo_doc.FormattingEnabled = true;
+            this.tipo_doc.Items.AddRange(new object[] {
+            "DNI",
+            "LI",
+            "LC"});
+            this.tipo_doc.Location = new System.Drawing.Point(24, 30);
+            this.tipo_doc.Name = "tipo_doc";
+            this.tipo_doc.Size = new System.Drawing.Size(67, 21);
+            this.tipo_doc.TabIndex = 12;
+            // 
             // Devolver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,9 +304,9 @@
             this.Text = "Devolución";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).EndInit();
             this.CompraDevolver.ResumeLayout(false);
             this.CompraDevolver.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -320,5 +335,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_compra;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_item;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_motivo;
+        private SuperControls.SuperComboBox tipo_doc;
     }
 }

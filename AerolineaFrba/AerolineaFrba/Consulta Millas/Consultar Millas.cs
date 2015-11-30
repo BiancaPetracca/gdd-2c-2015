@@ -25,7 +25,7 @@ namespace AerolineaFrba.Consulta_Millas
 
         private void Cerrar_Click(object sender, EventArgs e)
         {
-            millas.clean();
+            canjes.clean();
             this.Close();
         }
 
@@ -36,8 +36,10 @@ namespace AerolineaFrba.Consulta_Millas
 
         private void consultar_Click(object sender, EventArgs e)
         {
-            if (tipo_dni.valid() && dni.valid()) {
-                DAO.DAOMillas.get_millas(millas, tipo.value.ToString(), Convert.ToDecimal(dni.value));
+            if (tipo.valid() && dni.valid()) {
+                DAO.DAOMillas.getMillasCanjes(canjes, tipo.value, dni.value);
+                DAO.DAOMillas.getMillasPasajes(pasajes, tipo.value, dni.value);
+                DAO.DAOMillas.getMillasEncomiendas(encomiendas, tipo.value, dni.value);
                 return;
             }
             
