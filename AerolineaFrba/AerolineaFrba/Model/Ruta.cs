@@ -8,7 +8,7 @@ namespace AerolineaFrba.Model
 {
     public class Ruta
     {
-        private int codigo { get; set; }
+        private Decimal codigo { get; set; }
         private String origen { get; set; }
         private String destino { get; set; }
         private Boolean habilitada { get; set; }
@@ -16,7 +16,7 @@ namespace AerolineaFrba.Model
         private Decimal precioBaseKg { get; set; }
         private Decimal precioBasePasaje { get; set; }
 
-        public int Codigo { get { return codigo; } set { codigo = value; } }
+        public Decimal Codigo { get { return codigo; } set { codigo = value; } }
         public String Origen { get{return origen;} set{origen = value;} }
         public String Destino { get {return destino;} set{destino = value;} }
         public Boolean Habilitada { get {return habilitada;} set{habilitada = value;} }
@@ -35,7 +35,7 @@ namespace AerolineaFrba.Model
         this.precioBasePasaje = precioBasePasaje;
         }
 
-        public Ruta(int codigo, String origen, String destino, Boolean habilitada, List<String> servicios, Decimal precioBaseKg, Decimal precioBasePasaje)
+        public Ruta(Decimal codigo, String origen, String destino, Boolean habilitada, List<String> servicios, Decimal precioBaseKg, Decimal precioBasePasaje)
         {
             this.codigo = codigo;
             this.origen = origen;

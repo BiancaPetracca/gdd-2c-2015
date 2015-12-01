@@ -104,6 +104,11 @@ namespace AerolineaFrba
             this.Terminal = 1; 
         }
 
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
 
        

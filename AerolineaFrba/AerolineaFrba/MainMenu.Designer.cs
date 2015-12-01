@@ -34,13 +34,13 @@
             this.rutaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aeronaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroLlegada = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarSesion = new System.Windows.Forms.ToolStripMenuItem();
-            this.salir = new System.Windows.Forms.ToolStripMenuItem();
             this.comprarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devolucionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.canjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verMillasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.estadísticasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarSesion = new System.Windows.Forms.ToolStripMenuItem();
+            this.salir = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,20 +101,6 @@
             this.registroLlegada.Text = "Registro de llegada";
             this.registroLlegada.Click += new System.EventHandler(this.registroDeLlegadaToolStripMenuItem_Click);
             // 
-            // cerrarSesion
-            // 
-            this.cerrarSesion.Name = "cerrarSesion";
-            this.cerrarSesion.Size = new System.Drawing.Size(87, 20);
-            this.cerrarSesion.Text = "Cerrar sesión";
-            this.cerrarSesion.Click += new System.EventHandler(this.cerrarSesion_Click);
-            // 
-            // salir
-            // 
-            this.salir.Name = "salir";
-            this.salir.Size = new System.Drawing.Size(41, 20);
-            this.salir.Text = "Salir";
-            this.salir.Click += new System.EventHandler(this.salir_Click);
-            // 
             // comprarToolStripMenuItem
             // 
             this.comprarToolStripMenuItem.Name = "comprarToolStripMenuItem";
@@ -150,6 +136,20 @@
             this.estadísticasToolStripMenuItem.Text = "Estadísticas";
             this.estadísticasToolStripMenuItem.Click += new System.EventHandler(this.verListadoEstadísticoToolStripMenuItem_Click);
             // 
+            // cerrarSesion
+            // 
+            this.cerrarSesion.Name = "cerrarSesion";
+            this.cerrarSesion.Size = new System.Drawing.Size(87, 20);
+            this.cerrarSesion.Text = "Cerrar sesión";
+            this.cerrarSesion.Click += new System.EventHandler(this.cerrarSesion_Click);
+            // 
+            // salir
+            // 
+            this.salir.Name = "salir";
+            this.salir.Size = new System.Drawing.Size(41, 20);
+            this.salir.Text = "Salir";
+            this.salir.Click += new System.EventHandler(this.salir_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,6 +163,7 @@
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Aerolinea";
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

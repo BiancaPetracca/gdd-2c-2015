@@ -37,5 +37,10 @@ namespace AerolineaFrba.Login
             
         }
 
+        private void Ingreso_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

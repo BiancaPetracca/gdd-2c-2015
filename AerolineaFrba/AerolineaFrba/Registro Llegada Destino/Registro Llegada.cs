@@ -17,6 +17,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         public RegistroLlegadaAeronave()
         {
             InitializeComponent();
+            fechaLlegada.MinDate = Config.DateToday;
 
         }
 

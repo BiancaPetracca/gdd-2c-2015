@@ -40,6 +40,7 @@
             this.pasajesComprados = new AerolineaFrba.SuperControls.SuperButton();
             this.semestre = new AerolineaFrba.SuperControls.SuperComboBox();
             this.anio = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.superButton1 = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.Top5)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,6 +64,11 @@
             // 
             // Top5
             // 
+            this.Top5.AllowUserToAddRows = false;
+            this.Top5.AllowUserToDeleteRows = false;
+            this.Top5.AllowUserToResizeColumns = false;
+            this.Top5.AllowUserToResizeRows = false;
+            this.Top5.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Top5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Top5.Location = new System.Drawing.Point(40, 101);
             this.Top5.Name = "Top5";
@@ -149,6 +155,7 @@
             this.semestre.Name = "semestre";
             this.semestre.Size = new System.Drawing.Size(45, 21);
             this.semestre.TabIndex = 14;
+            this.semestre.SelectedIndexChanged += new System.EventHandler(this.semestre_SelectedIndexChanged);
             // 
             // anio
             // 
@@ -163,12 +170,24 @@
             this.anio.Name = "anio";
             this.anio.Size = new System.Drawing.Size(67, 21);
             this.anio.TabIndex = 15;
+            this.anio.SelectedIndexChanged += new System.EventHandler(this.anio_SelectedIndexChanged);
+            // 
+            // superButton1
+            // 
+            this.superButton1.Location = new System.Drawing.Point(532, 342);
+            this.superButton1.Name = "superButton1";
+            this.superButton1.Size = new System.Drawing.Size(75, 23);
+            this.superButton1.TabIndex = 16;
+            this.superButton1.Text = "Limpiar";
+            this.superButton1.UseVisualStyleBackColor = true;
+            this.superButton1.Click += new System.EventHandler(this.superButton1_Click);
             // 
             // Listado_Estadisticas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 442);
+            this.Controls.Add(this.superButton1);
             this.Controls.Add(this.anio);
             this.Controls.Add(this.semestre);
             this.Controls.Add(this.pasajesComprados);
@@ -205,5 +224,6 @@
         private SuperControls.SuperButton pasajesComprados;
         private SuperControls.SuperComboBox semestre;
         private SuperControls.SuperComboBox anio;
+        private SuperControls.SuperButton superButton1;
     }
 }

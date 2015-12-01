@@ -50,6 +50,7 @@ namespace AerolineaFrba.Compra
                 Convert.ToString(viajes.cellValue("col_servicio")),
                 Convert.ToDecimal(viajes.cellValue("col_butacas")),
                 Convert.ToDecimal(viajes.cellValue("col_encomiendas")));
+          
             launcher.setViaje(viajeElegido);
         }
     }

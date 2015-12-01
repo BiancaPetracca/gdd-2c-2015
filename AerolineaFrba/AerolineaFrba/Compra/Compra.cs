@@ -126,12 +126,18 @@ namespace AerolineaFrba.Compra
 
         public void setViaje(Model.Viaje viaje) {
             this.viaje = viaje;
+            Pasaje.Refresh();
             Pasaje.Rows.Add(viaje.codigo, viaje.fechaSalida, viaje.fechaLlegadaEstimada, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.servicio);
         }
 
         private void fechaSalida_ValueChanged(object sender, EventArgs e)
         {
             this.fechaLlegada.MinDate = fechaSalida.value;
+        }
+
+        private void ComprarPasaje_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 

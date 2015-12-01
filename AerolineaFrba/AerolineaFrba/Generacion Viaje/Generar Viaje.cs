@@ -19,7 +19,8 @@ namespace AerolineaFrba.Generacion_Viaje
         public Generar_Viaje()
         {
             InitializeComponent();
-            //  ciudades = DAORuta.getAllCiudad("get_all_cities");
+            this.fechaSalida.MinDate = Config.DateToday;
+            this.fechaLlegadaEstimada.MinDate = Config.DateToday;
         }
 
         private void fechaLlegadaEstimada_ValueChanged(object sender, EventArgs e)
@@ -35,7 +36,7 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if (this.validateNotNullForAll(this.viaje.Controls))
+            if (this.validateNotNullForAll(this.viaje.Controls) && !rutas.anyEmptyCells())
             {
                 if (DAO.DAOGenerarViaje.generarViaje(this.NombreAeronave.value, 
                     this.fechaLlegadaEstimada.value,
@@ -45,7 +46,10 @@ namespace AerolineaFrba.Generacion_Viaje
                     return;
                 }
                 MessageBox.Show("Viaje generado con éxito!");
+                reload();
+                
             }
+            
            
         }
 
@@ -63,8 +67,15 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void Generar_Viaje_Load(object sender, EventArgs e)
         {
-        //    this.Origen.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre_ciudad"));
-          //  this.Destino.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre_ciudad"));
+            reload();
+        }
+
+        private void reload() {
+            Extensions.cleanAll(viaje.Controls);
+            rutas.clean();
+         this.Origen.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre"));
+         this.Destino.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre"));
+        
         }
 
         private void fechaSalida_ValueChanged(object sender, EventArgs e)
@@ -79,28 +90,29 @@ namespace AerolineaFrba.Generacion_Viaje
             bool tmspan = tardaMenosDe24HsEnLlegar();
 
             bool valid = this.validateDomain(Validations.criteriumMessage(() => !eqlDates, "Las fechas no pueden ser iguales"),
-            Validations.criteriumMessage(() => tmspan, "No puede tardar mas de 24 hs en llegar"));
+            Validations.criteriumMessage(() => tmspan, "No puede tardar mas de 24 hs en llegar"), Validations.criteriumMessage(() => Destino.value != Origen.value, "Ciudad origen y destino no pueden ser iguales"));
             if (valid)
             {
-                this.NombreAeronave.AddAll(DAO.DAOGenerarViaje.getAeronavesDisponibles(this.fechaSalida.Value, this.fechaLlegadaEstimada.Value));
+                if (DAO.DAOGenerarViaje.getRutas(Origen.value, Destino.value, fechaSalida.value, fechaLlegadaEstimada.value, rutas) == -1) {
+
+                    MessageBox.Show("No hay rutas con este recorrido");
+                 
+                    return;
+                }
+
+                this.NombreAeronave.AddAll(DAO.DAOGenerarViaje.getAeronavesCompatibles(Convert.ToDecimal(rutas.Rows[0].Cells["col_codigo"].Value), fechaSalida.value, fechaLlegadaEstimada.value));
 
                 if (this.NombreAeronave.Items.Count == 0)
                 {
-                    MessageBox.Show("No hay aeronaves disponibles en esas fechas");
+                    MessageBox.Show("No hay aeronaves disponibles en esas fechas, con ese recorrido y los servicios que ofrece el mismo");
+                    rutas.Refresh();
                     return;
                 }
-                MessageBox.Show("Aeronaves disponibles cargadas con éxito.");
+
+             
             }
         }
 
-        private void NombreAeronave_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (DAO.DAOGenerarViaje.getRutas(this.NombreAeronave.value, this.rutas) == -1) {
-                MessageBox.Show("No hay rutas que cumplan con los requisitos. Seleccione otra aeronave.");
-                return;
-            }
-            MessageBox.Show("Rutas cargadas con éxito. Seleccione una.");
-        }
 
     }
 }

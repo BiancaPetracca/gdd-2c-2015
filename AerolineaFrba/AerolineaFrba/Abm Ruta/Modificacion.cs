@@ -31,14 +31,14 @@ namespace AerolineaFrba.Abm_Ruta
             if (!this.validateNotNullForAll(this.datosRuta.Controls)) { return; }
             if (!this.validateDomain(Validations.criteriumMessage(() => this.Origen.value != this.Destino.value, "No pueden ser iguales las ciudades"),
                  Validations.criteriumMessage(() => this.PrecioKG.valid() || this.PrecioPasaje.valid(), "No puede no tener precio para encomiendas ni para pasaje"))) { return; }
-            Model.Ruta rutaModificada = new Model.Ruta(Convert.ToInt16(this.Codigo.value), Origen.value, Destino.value, ruta.Habilitada, this.servicios.value, PrecioKG.value, PrecioPasaje.value);
+            Model.Ruta rutaModificada = new Model.Ruta(Convert.ToDecimal(this.Codigo.value), Origen.value, Destino.value, ruta.Habilitada, this.servicios.value, PrecioKG.value, PrecioPasaje.value);
 
             if (DAO.DAORuta.modificarRuta(ruta, rutaModificada) != -1) {
                 MessageBox.Show("Ruta modificada con éxito.");
                 launcher.reload();
                 return;
             }
-            MessageBox.Show("Ya existe una ruta con esos campos para ciudad y origen!");
+            MessageBox.Show("Ya existe una ruta con esos campos para ciudad, origen y servicios");
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
