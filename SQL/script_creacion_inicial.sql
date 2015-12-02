@@ -782,11 +782,11 @@ END
 GO
 
 -- registramos dos usuarios --
-EXEC AWANTA.registrar_usuario 'user1', 'w23e', 1
+EXEC AWANTA.registrar_usuario 'user1', 'w23e', 0
 go
-EXEC AWANTA.registrar_usuario 'admin666', 'w23e', 1
+EXEC AWANTA.registrar_usuario 'admin666', 'w23e', 0
 go
-EXEC AWANTA.registrar_usuario 'user2', 'w23e', 1
+EXEC AWANTA.registrar_usuario 'user2', 'w23e', 0
 GO
 
 
@@ -864,7 +864,7 @@ CREATE PROCEDURE AWANTA.get_rol(@username NVARCHAR(255))
 AS 
 SELECT rol_nombre FROM AWANTA.USUARIO
 JOIN AWANTA.ROL ON usu_rol = rol_id 
-WHERE usu_username = @username AND usu_rol = 1
+WHERE usu_username = @username AND usu_rol = 0
 GO
 
 
@@ -942,7 +942,6 @@ BEGIN
 END
 GO
 
-
 CREATE PROCEDURE AWANTA.bajar_rol(@id numeric(18))
 AS
 BEGIN
@@ -950,9 +949,6 @@ BEGIN
 	SET rol_estado = 0
 	WHERE rol_id = @id
 
-	UPDATE AWANTA.USUARIO
-	SET usu_rol = NULL 
-	WHERE usu_rol = @id
 END
 GO
 
