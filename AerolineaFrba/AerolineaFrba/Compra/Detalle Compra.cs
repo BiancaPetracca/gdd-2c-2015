@@ -47,5 +47,10 @@ namespace AerolineaFrba.Compra
         {
 
         }
+
+        private void compra_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -51,6 +51,7 @@
             this.compra.Name = "compra";
             this.compra.Size = new System.Drawing.Size(743, 213);
             this.compra.TabIndex = 2;
+            this.compra.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.compra_CellContentClick);
             // 
             // Detalle_Compra
             // 

@@ -2220,10 +2220,10 @@ GO
 
 CREATE PROCEDURE AWANTA.detalle_compra(@codigo NUMERIC(18))
 AS
-SELECT compra_id AS Codigo, cli_tipo_doc AS Documento, cli_nro_doc AS Numero, SUM(pas_precio + enc_precio) AS Monto FROM AWANTA.COMPRA 
+SELECT compra_id AS Codigo, cli_tipo_doc AS Documento, cli_nro_doc AS Numero, SUM(coalesce(pas_precio,0) + coalesce(enc_precio,0)) AS Monto FROM AWANTA.COMPRA 
 JOIN AWANTA.CLIENTE ON compra_cliente = cli_codigo
-JOIN AWANTA.PASAJE ON compra_id = pas_compra
-JOIN AWANTA.ENCOMIENDA ON compra_id = enc_compra
+LEFT JOIN AWANTA.PASAJE ON compra_id = pas_compra
+LEFT JOIN AWANTA.ENCOMIENDA ON compra_id = enc_compra
 WHERE compra_id = @codigo
 GROUP BY compra_id, cli_tipo_doc, cli_nro_doc
 GO
