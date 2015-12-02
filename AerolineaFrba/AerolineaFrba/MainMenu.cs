@@ -132,7 +132,7 @@ namespace AerolineaFrba
 
         private void item_ciudades_Click(object sender, EventArgs e)
         {
-            this.openIntoParent(new Abm_Ciudad.Ciudad(), this);
+            //this.openIntoParent(new Abm_Ciudad.Ciudad(), this);
         }
 
     }

@@ -34,12 +34,13 @@ namespace AerolineaFrba.Compra
         {
             if (! this.Pasaje.noRows("No hay ningún pasaje definido"))
             {
-                if (cant_pasajes.valid() && encomienda.valid())
+                if (cant_pasajes.valid() || encomienda.valid())
                 {
                     Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros(compra);
                     elegirPasajeros.setFlightData(this.viaje, cant_pasajes.value, encomienda.value);
 
                     this.openIntoParent(elegirPasajeros, this.MdiParent);
+                    return;
                 }
                 MessageBox.Show("Seleccione kgs para encomiendas o pasajes");
             }
