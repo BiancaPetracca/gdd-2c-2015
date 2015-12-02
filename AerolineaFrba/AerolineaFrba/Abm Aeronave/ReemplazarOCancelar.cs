@@ -16,14 +16,25 @@ namespace AerolineaFrba.Abm_Aeronave
     {
         private Abm_Aeronave.Aeronave bajaLauncher { get; set; }
         public Abm_Aeronave.Aeronave BajaLauncher { get { return bajaLauncher; } set { bajaLauncher = value; } }
-        public ReemplazarOCancelar()
+        public Decimal numero;
+        public ReemplazarOCancelar(Decimal numero)
         {
             InitializeComponent();
+            this.numero = numero;
         }
 
         private void CancelarViajes_Click(object sender, EventArgs e)
         {
-            DAOAeronave.bajaDeAeronave(this.tipoDeBaja, 0, this.matricula, this.fechaReinicio);
+
+            if (tipoDeBaja == 0)
+            {
+                String fechaDefault = "01/01/1800 12:00:00";
+                DAOAeronave.cancelarViajesAeronave(numero, fechaBaja,Convert.ToDateTime(fechaDefault));
+            }
+            else
+            {
+                DAOAeronave.cancelarViajesAeronave(numero, fechaBaja, fechaReinicio);
+            }
             MessageBox.Show("Se dio de baja la aeronave: " + this.matricula);
             this.BajaLauncher.reload();
             this.Close();
@@ -31,24 +42,31 @@ namespace AerolineaFrba.Abm_Aeronave
         }
         private void ReasignarViajes_Click(object sender, EventArgs e)
         {
-            if (DAO.DAOAeronave.existeAeronaveQueReemplace(this.matricula) == -1)
-            {
+            String fechaDefault = "01/01/1800 12:00:00";
+            int reemplazo;
+               if (tipoDeBaja == 0) {
+              reemplazo =  DAOAeronave.reemplazarViajes(numero, fechaBaja, Convert.ToDateTime(fechaDefault));
+            }
+               else {
+             reemplazo = DAO.DAOAeronave.reemplazarViajes(numero, fechaBaja, fechaReinicio);
+               }
+            if(reemplazo == -1){
                 MessageBox.Show("No existe ninguna aeronave que pueda reemplazarla: Debe dar de alta a otra. \n Recuerde que debe ser del mismo modelo, fabricante y ofrecer el mismo servicio: \n"
                 + this.matricula);
                 
                 this.openInNewWindow(new Abm_Aeronave.Alta());
                 return;
-            }
-            DAOAeronave.bajaDeAeronave(this.tipoDeBaja, 1, this.matricula, this.fechaReinicio);
+            }  
             this.BajaLauncher.reload();
             MessageBox.Show("Se reasignaron los viajes correctamente");
         }
 
-        public void setTipoDeBaja(int tipo, String matricula, DateTime fechaReinicio) {
+        public void setTipoDeBaja(int tipo, String matricula, DateTime fechaBaja, DateTime fechaReinicio) {
             this.tipoDeBaja = tipo;
             this.matricula = matricula;
- 
+            this.fechaBaja = fechaBaja;
             this.fechaReinicio = fechaReinicio;
         }
+
     }
 }

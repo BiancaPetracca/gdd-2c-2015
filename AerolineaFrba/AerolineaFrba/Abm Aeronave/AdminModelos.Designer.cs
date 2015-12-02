@@ -61,11 +61,13 @@
             // 
             this.modelos.AllowUserToAddRows = false;
             this.modelos.AllowUserToDeleteRows = false;
+            this.modelos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.modelos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.modelos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modelo});
             this.modelos.Location = new System.Drawing.Point(30, 78);
             this.modelos.Name = "modelos";
+            this.modelos.ReadOnly = true;
             this.modelos.Size = new System.Drawing.Size(239, 223);
             this.modelos.TabIndex = 2;
             // 
@@ -73,6 +75,7 @@
             // 
             this.Modelo.HeaderText = "Modelo";
             this.Modelo.Name = "Modelo";
+            this.Modelo.ReadOnly = true;
             // 
             // Agregar
             // 

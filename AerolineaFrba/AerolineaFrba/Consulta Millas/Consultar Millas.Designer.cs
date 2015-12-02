@@ -29,6 +29,16 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pasajes = new System.Windows.Forms.DataGridView();
+            this.col_fecha_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_origen_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_destino_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_millas_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.encomiendas = new System.Windows.Forms.DataGridView();
+            this.col_fecha_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_origen_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_destino_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_millas_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipo = new AerolineaFrba.SuperControls.SuperComboBox();
             this.tipo_dni = new AerolineaFrba.SuperControls.SuperLabel();
             this.limpiar = new System.Windows.Forms.Button();
@@ -36,24 +46,14 @@
             this.dni = new AerolineaFrba.SuperControls.SuperTextBox();
             this.consultar = new AerolineaFrba.SuperControls.SuperButton();
             this.canjes = new System.Windows.Forms.DataGridView();
-            this.encomiendas = new System.Windows.Forms.DataGridView();
-            this.pasajes = new System.Windows.Forms.DataGridView();
             this.col_fecha_canje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_millas_gastadas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_fecha_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_origen_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_destino_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_millas_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_fecha_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_origen_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_destino_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_millas_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.canjes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encomiendas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pasajes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encomiendas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.canjes)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -73,6 +73,84 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Consultar millas";
+            // 
+            // pasajes
+            // 
+            this.pasajes.AllowUserToAddRows = false;
+            this.pasajes.AllowUserToDeleteRows = false;
+            this.pasajes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.pasajes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.pasajes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_fecha_pasaje,
+            this.col_origen_pasaje,
+            this.col_destino_pasaje,
+            this.col_millas_pasaje});
+            this.pasajes.Location = new System.Drawing.Point(561, 56);
+            this.pasajes.Name = "pasajes";
+            this.pasajes.Size = new System.Drawing.Size(423, 179);
+            this.pasajes.TabIndex = 7;
+            // 
+            // col_fecha_pasaje
+            // 
+            this.col_fecha_pasaje.HeaderText = "Fecha";
+            this.col_fecha_pasaje.Name = "col_fecha_pasaje";
+            this.col_fecha_pasaje.ReadOnly = true;
+            // 
+            // col_origen_pasaje
+            // 
+            this.col_origen_pasaje.HeaderText = "Origen";
+            this.col_origen_pasaje.Name = "col_origen_pasaje";
+            this.col_origen_pasaje.ReadOnly = true;
+            // 
+            // col_destino_pasaje
+            // 
+            this.col_destino_pasaje.HeaderText = "Destino";
+            this.col_destino_pasaje.Name = "col_destino_pasaje";
+            this.col_destino_pasaje.ReadOnly = true;
+            // 
+            // col_millas_pasaje
+            // 
+            this.col_millas_pasaje.HeaderText = "Millas obtenidas";
+            this.col_millas_pasaje.Name = "col_millas_pasaje";
+            // 
+            // encomiendas
+            // 
+            this.encomiendas.AllowUserToAddRows = false;
+            this.encomiendas.AllowUserToDeleteRows = false;
+            this.encomiendas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.encomiendas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.encomiendas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_fecha_encomienda,
+            this.col_origen_encomienda,
+            this.col_destino_encomienda,
+            this.col_millas_encomienda});
+            this.encomiendas.Location = new System.Drawing.Point(561, 254);
+            this.encomiendas.Name = "encomiendas";
+            this.encomiendas.Size = new System.Drawing.Size(423, 179);
+            this.encomiendas.TabIndex = 6;
+            // 
+            // col_fecha_encomienda
+            // 
+            this.col_fecha_encomienda.HeaderText = "Fecha";
+            this.col_fecha_encomienda.Name = "col_fecha_encomienda";
+            this.col_fecha_encomienda.ReadOnly = true;
+            // 
+            // col_origen_encomienda
+            // 
+            this.col_origen_encomienda.HeaderText = "Origen";
+            this.col_origen_encomienda.Name = "col_origen_encomienda";
+            this.col_origen_encomienda.ReadOnly = true;
+            // 
+            // col_destino_encomienda
+            // 
+            this.col_destino_encomienda.HeaderText = "Destino";
+            this.col_destino_encomienda.Name = "col_destino_encomienda";
+            this.col_destino_encomienda.ReadOnly = true;
+            // 
+            // col_millas_encomienda
+            // 
+            this.col_millas_encomienda.HeaderText = "Millas obtenidas";
+            this.col_millas_encomienda.Name = "col_millas_encomienda";
             // 
             // tipo
             // 
@@ -104,7 +182,7 @@
             this.limpiar.TabIndex = 1;
             this.limpiar.Text = "Limpiar";
             this.limpiar.UseVisualStyleBackColor = true;
-            this.limpiar.Click += new System.EventHandler(this.Cerrar_Click);
+            this.limpiar.Click += new System.EventHandler(this.Limpiar_Click);
             // 
             // superLabel1
             // 
@@ -149,38 +227,6 @@
             this.canjes.Size = new System.Drawing.Size(442, 252);
             this.canjes.TabIndex = 0;
             // 
-            // encomiendas
-            // 
-            this.encomiendas.AllowUserToAddRows = false;
-            this.encomiendas.AllowUserToDeleteRows = false;
-            this.encomiendas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.encomiendas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.encomiendas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_fecha_encomienda,
-            this.col_origen_encomienda,
-            this.col_destino_encomienda,
-            this.col_millas_encomienda});
-            this.encomiendas.Location = new System.Drawing.Point(561, 254);
-            this.encomiendas.Name = "encomiendas";
-            this.encomiendas.Size = new System.Drawing.Size(423, 179);
-            this.encomiendas.TabIndex = 6;
-            // 
-            // pasajes
-            // 
-            this.pasajes.AllowUserToAddRows = false;
-            this.pasajes.AllowUserToDeleteRows = false;
-            this.pasajes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.pasajes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.pasajes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_fecha_pasaje,
-            this.col_origen_pasaje,
-            this.col_destino_pasaje,
-            this.col_millas_pasaje});
-            this.pasajes.Location = new System.Drawing.Point(561, 56);
-            this.pasajes.Name = "pasajes";
-            this.pasajes.Size = new System.Drawing.Size(423, 179);
-            this.pasajes.TabIndex = 7;
-            // 
             // col_fecha_canje
             // 
             this.col_fecha_canje.HeaderText = "Fecha";
@@ -204,52 +250,6 @@
             this.col_millas_gastadas.HeaderText = "Millas gastadas";
             this.col_millas_gastadas.Name = "col_millas_gastadas";
             // 
-            // col_fecha_pasaje
-            // 
-            this.col_fecha_pasaje.HeaderText = "Fecha";
-            this.col_fecha_pasaje.Name = "col_fecha_pasaje";
-            this.col_fecha_pasaje.ReadOnly = true;
-            // 
-            // col_origen_pasaje
-            // 
-            this.col_origen_pasaje.HeaderText = "Origen";
-            this.col_origen_pasaje.Name = "col_origen_pasaje";
-            this.col_origen_pasaje.ReadOnly = true;
-            // 
-            // col_destino_pasaje
-            // 
-            this.col_destino_pasaje.HeaderText = "Destino";
-            this.col_destino_pasaje.Name = "col_destino_pasaje";
-            this.col_destino_pasaje.ReadOnly = true;
-            // 
-            // col_millas_pasaje
-            // 
-            this.col_millas_pasaje.HeaderText = "Millas obtenidas";
-            this.col_millas_pasaje.Name = "col_millas_pasaje";
-            // 
-            // col_fecha_encomienda
-            // 
-            this.col_fecha_encomienda.HeaderText = "Fecha";
-            this.col_fecha_encomienda.Name = "col_fecha_encomienda";
-            this.col_fecha_encomienda.ReadOnly = true;
-            // 
-            // col_origen_encomienda
-            // 
-            this.col_origen_encomienda.HeaderText = "Origen";
-            this.col_origen_encomienda.Name = "col_origen_encomienda";
-            this.col_origen_encomienda.ReadOnly = true;
-            // 
-            // col_destino_encomienda
-            // 
-            this.col_destino_encomienda.HeaderText = "Destino";
-            this.col_destino_encomienda.Name = "col_destino_encomienda";
-            this.col_destino_encomienda.ReadOnly = true;
-            // 
-            // col_millas_encomienda
-            // 
-            this.col_millas_encomienda.HeaderText = "Millas obtenidas";
-            this.col_millas_encomienda.Name = "col_millas_encomienda";
-            // 
             // Consultar_Millas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,9 +262,9 @@
             this.Load += new System.EventHandler(this.Consultar_Millas_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.canjes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encomiendas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pasajes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encomiendas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.canjes)).EndInit();
             this.ResumeLayout(false);
 
         }

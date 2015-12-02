@@ -31,8 +31,6 @@
             this.Estado = new AerolineaFrba.SuperControls.SuperCheckBox();
             this.Nombre = new AerolineaFrba.SuperControls.SuperTextBox();
             this.FuncionalidadesRol = new System.Windows.Forms.DataGridView();
-            this.rol_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
@@ -41,6 +39,8 @@
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.eliminar = new AerolineaFrba.SuperControls.SuperButton();
             this.cambiarNombre = new AerolineaFrba.SuperControls.SuperButton();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.FuncionalidadesRol)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +58,7 @@
             // Nombre
             // 
             this.Nombre.Location = new System.Drawing.Point(132, 33);
+            this.Nombre.MaxLength = 25;
             this.Nombre.Name = "Nombre";
             this.Nombre.Size = new System.Drawing.Size(191, 20);
             this.Nombre.TabIndex = 1;
@@ -70,22 +71,12 @@
             this.FuncionalidadesRol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FuncionalidadesRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FuncionalidadesRol.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.rol_id,
+            this.col_id,
             this.col_funcionalidades});
             this.FuncionalidadesRol.Location = new System.Drawing.Point(50, 158);
             this.FuncionalidadesRol.Name = "FuncionalidadesRol";
             this.FuncionalidadesRol.Size = new System.Drawing.Size(390, 251);
             this.FuncionalidadesRol.TabIndex = 2;
-            // 
-            // rol_id
-            // 
-            this.rol_id.HeaderText = "ID";
-            this.rol_id.Name = "rol_id";
-            // 
-            // col_funcionalidades
-            // 
-            this.col_funcionalidades.HeaderText = "Funcionalidades";
-            this.col_funcionalidades.Name = "col_funcionalidades";
             // 
             // superLabel1
             // 
@@ -163,6 +154,16 @@
             this.cambiarNombre.UseVisualStyleBackColor = true;
             this.cambiarNombre.Click += new System.EventHandler(this.cambiarNombre_Click);
             // 
+            // col_id
+            // 
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            // 
+            // col_funcionalidades
+            // 
+            this.col_funcionalidades.HeaderText = "Funcionalidades";
+            this.col_funcionalidades.Name = "col_funcionalidades";
+            // 
             // Modificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,9 +201,9 @@
         private SuperControls.SuperLabel superLabel3;
         private SuperControls.SuperButton Agregar;
         private SuperControls.SuperButton eliminar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rol_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_funcionalidades;
         private SuperControls.SuperButton cambiarNombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_funcionalidades;
 
     }
 }

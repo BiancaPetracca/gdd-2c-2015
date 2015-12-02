@@ -44,7 +44,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         }
 
         private void Agregar_Click_1(object sender, EventArgs e)
-        {// cuando agrego una aeronave al a data grid tengo que validar que tenia que llegar a ese lugar en esa fecha aproximada
+        {// cuando agrego una aeronave tengo que validar que tenia que llegar a ese lugar en esa fecha aproximada
             if (!this.validateNotNullForAll(this.aeronaveLlegada.Controls)) { return;  }
             Model.Viaje viaje = new Model.Viaje(this.matricula.value, this.AeropuertoOrigen.value, this.AeropuertoDestino.value, this.fechaLlegada.value);
             if (DAO.DAOGenerarViaje.aeronaveYaRegistrada(viaje) == 1)

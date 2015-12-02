@@ -23,12 +23,6 @@ namespace AerolineaFrba.Consulta_Millas
 
         }
 
-        private void Cerrar_Click(object sender, EventArgs e)
-        {
-            canjes.clean();
-            this.Close();
-        }
-
         private void dni_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowNumericOnly(e);
@@ -42,9 +36,22 @@ namespace AerolineaFrba.Consulta_Millas
                 DAO.DAOMillas.getMillasEncomiendas(encomiendas, tipo.value, dni.value);
                 return;
             }
+
+            MessageBox.Show("Por favor, ingrese su tipo y número de documento");
             
         }
 
+        private void Limpiar_Click(object sender, EventArgs e)
+        {
+
+            canjes.clearBindedDT();
+            encomiendas.clearBindedDT();
+            pasajes.clearBindedDT();
+            dni.clean();
+            tipo.SelectedIndex = -1;
+        }
+
+        
 
        
     }

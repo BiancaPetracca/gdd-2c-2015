@@ -8,6 +8,7 @@ namespace AerolineaFrba.Model
 {
     public class Compra
     {
+        public AerolineaFrba.MainMenu menu { get; set; }
         public Compra compra { get; set; }
         public Decimal codigo { get; set; }
         public DateTime fecha { get; set; }
@@ -24,6 +25,8 @@ namespace AerolineaFrba.Model
         {
             this.codigo = codigo;
         }
+
+
 
 
     }

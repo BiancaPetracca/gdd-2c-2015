@@ -40,6 +40,7 @@ namespace AerolineaFrba.Abm_Rol
                 MessageBox.Show("Rol creado con éxito!");
                 Extensions.cleanAll(this.datosRol.Controls);
                 this.FuncionalidadesRol.Rows.Clear();
+                launcher.reload();
             
         }
 

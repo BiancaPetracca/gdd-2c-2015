@@ -17,9 +17,10 @@ namespace AerolineaFrba.Compra
     {
         public Model.Viaje viaje { get; set; }
         public Model.Compra compra { get; set; }
-        public Elegir_Pasajeros()
+        public Elegir_Pasajeros(Model.Compra compra)
         {
             InitializeComponent();
+            this.compra = compra;
         }
 
 
@@ -28,16 +29,14 @@ namespace AerolineaFrba.Compra
         // si hay celdas vacias indica que la seleccione
         private void Siguiente_Click(object sender, EventArgs e)
         {
-            if (!this.grid_pasajeros.anyEmptyCells())
-            {
+            if (grid_pasajeros.anyEmptyCells()) { MessageBox.Show("Debe completar todos los datos de todas las personas que viajan"); return; }
+            if (superaElLimiteDeEncomiendas()) { MessageBox.Show("Los kgs de las encomiendas superan al límite que figura arriba"); return; }
                 compra.codigo = DAO.DAOCompra.prepararCompra(grid_pasajeros, viaje.codigo);
-         
-                this.openIntoParent(new Efectuar_Compra(compra), this.MdiParent);
+                this.openIntoParentBlocking(new Efectuar_Compra(compra), this.MdiParent);
                 return;
             }
-            MessageBox.Show("Debe completar todos los datos de todas las personas que viajan");
 
-        }
+
 
 
         private void Cancelar_Click(object sender, EventArgs e)
@@ -55,7 +54,7 @@ namespace AerolineaFrba.Compra
         // setea los datos del vuelo
         public void setFlightData(Model.Viaje viaje, Decimal cant_pasajes, Decimal kgs_encomienda)
         {
-            this.compra = new Model.Compra();
+            
             this.viaje = viaje;
             this.cant_pasajes = cant_pasajes;
             this.kgs_encomienda = kgs_encomienda;
@@ -64,17 +63,17 @@ namespace AerolineaFrba.Compra
         private void Elegir_Pasajeros_Load(object sender, EventArgs e)
         {
             KgsRestantes.Text += kgs_encomienda + "kg.";
-            this.grid_pasajeros.Rows.Add((int)Decimal.Round(cant_pasajes, 0));
-            allowed_sum = true;
+            this.grid_pasajeros.Rows.Add(Decimal.Round(cant_pasajes, 0));
+          
         }
 
         // suma todos los valores de las encomiendas que fue agregando el usuario
         private Decimal sumNumerics()
         {
-            int sum = 0;
+            Decimal sum = 0;
             foreach (DataGridViewRow row in this.grid_pasajeros.Rows)
             {
-                sum = sum + (int)row.Cells["col_encomiendas"].Value;
+                sum = sum + Convert.ToDecimal(row.Cells["col_encomiendas"].Value);
             }
             this.restantes = viaje.encomiendas - sum;
             return sum;
@@ -111,9 +110,13 @@ namespace AerolineaFrba.Compra
 
         }
 
-        private bool allowed_sum = false;
-
-
+        private Boolean superaElLimiteDeEncomiendas(){
+            Decimal encomiendas = 0;
+            foreach(DataGridViewRow row in grid_pasajeros.Rows) {
+                Decimal value = row.Cells["col_encomienda"].Value == null ? 0 : Convert.ToDecimal(row.Cells["col_encomienda"].Value);
+                encomiendas += value;  }
+            return encomiendas > viaje.encomiendas;
+        }
 
         public decimal kgs_encomienda { get; set; }
 

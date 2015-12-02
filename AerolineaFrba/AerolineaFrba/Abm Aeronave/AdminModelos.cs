@@ -25,6 +25,9 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Modificar_Click(object sender, EventArgs e)
         {
+            if (modelos.SelectedRows.Count == 0 || modelos.SelectedCells.Count == 0) {
+                MessageBox.Show("Seleccione un modelo");
+            }
             this.openInNewWindow(new modificar(this.modelos.CurrentCell.Value.ToString(), 0, this.Fabricante.value, this));
         }
 

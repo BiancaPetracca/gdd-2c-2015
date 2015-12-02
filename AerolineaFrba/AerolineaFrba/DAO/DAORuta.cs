@@ -17,8 +17,8 @@ namespace AerolineaFrba.DAO
 
         public static int modificarRuta(Model.Ruta rutaVieja, Model.Ruta rutaModificada)
         {
-            int habil = rutaModificada.Habilitada ? 1 : 0;
-            if (SqlConnector.executeProcedure("modificar_ruta", rutaVieja.Codigo, rutaModificada.Origen, rutaModificada.Destino, habil,
+         
+            if (SqlConnector.executeProcedure("modificar_ruta", rutaVieja.Codigo, rutaModificada.Origen, rutaModificada.Destino,
                 rutaModificada.PrecioBaseKg, rutaModificada.PrecioBasePasaje) == -1) { return -1; };
             rutaVieja.Servicios.ForEach(servicio => { if (!rutaModificada.Servicios.Contains(servicio)) { borrarServicio(servicio, rutaModificada.Codigo); } });
             rutaModificada.Servicios.ForEach(servicio => { if (!rutaVieja.Servicios.Contains(servicio)) { agregarServicio(servicio, rutaModificada.Codigo); } });
@@ -27,7 +27,7 @@ namespace AerolineaFrba.DAO
 
         public static int darDeBaja(Model.Ruta ruta)
         {
-            return SqlConnector.executeProcedure("bajaRutaAerea", ruta.Codigo);
+            return SqlConnector.executeProcedure("baja_ruta", ruta.Codigo);
 
         }
 
@@ -52,8 +52,9 @@ namespace AerolineaFrba.DAO
             return SqlConnector.retrieveList("get_servicios_rutas", "serv_nombre", codigo);
         }
 
-        public static Decimal existeRutaConServicios(Decimal codigo) { 
-        
-        return 1;}
+        internal static bool tieneViajesAsignados(Decimal codigo)
+        {
+            return SqlConnector.executeProcedure("tiene_viajes_ruta", codigo) == 1 ? true : false;
+        }
     }
 }

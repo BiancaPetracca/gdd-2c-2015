@@ -16,10 +16,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private Abm_Aeronave.Aeronave launcherBaja;
         public Abm_Aeronave.Aeronave LauncherBaja { get { return launcherBaja; } set { launcherBaja = value; } }
-
-
-        public Baja()
+        public Decimal numero { get; set; }
+        public String matricula { get; set; }
+        public Baja(Decimal numero, String matricula)
         {
+            this.numero = numero;
+            this.matricula = matricula;
             InitializeComponent();
         }
 
@@ -37,17 +39,30 @@ namespace AerolineaFrba.Abm_Aeronave
         private void aceptar_Click(object sender, EventArgs e)
         {
             this.validateNotNullForAll(this.Controls);
+            String fechaDefault = "01/01/1800 12:00:00";
             // Si tiene viajes asignados posteriores, hay que asignarselos a otra aeronave. 
-            if (DAO.DAOAeronave.tieneViajesAsignados(this.matricula) == 1)
-            {
-                ReemplazarOCancelar form = new ReemplazarOCancelar();
+            int asignados;
+            if (this.MotivoBajaAeronave.SelectedIndex == 0) {
+                asignados = DAO.DAOAeronave.tieneViajesAsignados(this.numero, this.fechaBaja.value, Convert.ToDateTime(fechaDefault));
+            }
+            else{
+             asignados = DAO.DAOAeronave.tieneViajesAsignados(this.numero, this.fechaBaja.value, this.fechaReinicio.value);
+            }
+            if(asignados == 1){
+                ReemplazarOCancelar form = new ReemplazarOCancelar(numero);
                 form.BajaLauncher = this.LauncherBaja;
-                form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaReinicio.Value);
+                form.setTipoDeBaja(this.MotivoBajaAeronave.SelectedIndex, this.matricula, this.fechaBaja.value, this.fechaReinicio.Value);
                 this.openInNewWindow(form);
             }
             else
             { // Si no tiene viajes asignados, entonces directamente se da de baja a la aeronave y listo. 
-                DAO.DAOAeronave.bajaDeAeronave(this.MotivoBajaAeronave.SelectedIndex, 0, this.matricula, this.fechaReinicio.Value);
+                if (MotivoBajaAeronave.value == "Mantenimiento")
+                {
+                    DAO.DAOAeronave.bajaDeAeronave(this.numero, this.fechaBaja.value, this.fechaReinicio.Value);
+                }
+                else {
+                    DAO.DAOAeronave.bajaDeAeronave(this.numero, this.fechaBaja.value, Convert.ToDateTime(fechaDefault));
+                }
                 MessageBox.Show("Se dio de baja exitosamente la aeronave:" + this.matricula);
                 this.LauncherBaja.reload();
             }
@@ -64,10 +79,10 @@ namespace AerolineaFrba.Abm_Aeronave
             Show(new MonthCalendar());
         }
 
-        public void setBajaAeronave(String matricula)
+        public void setBajaAeronave(Decimal numero)
         {
 
-            this.matricula = matricula;
+            this.numero = numero;
         }
 
         private void MotivoBajaAeronave_SelectedIndexChanged(object sender, EventArgs e)

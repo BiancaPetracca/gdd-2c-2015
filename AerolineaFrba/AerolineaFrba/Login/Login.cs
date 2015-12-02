@@ -24,40 +24,42 @@ namespace AerolineaFrba.Login
         }
 
         private void IniciarSesion_Click(object sender, EventArgs e)
-        {
-            if (user.Username != this.Usuario.Text)
-            {
-                user.Intentos = 0;
-                user.Username = this.Usuario.Text;
-                user.Password = this.pass.Text;
-                user.Estado = DAO.DAOLogin.getEstado(user);
-                user.Rol = (DAO.DAOLogin.obtenerRolUsuario(user) == 1)? "Administrativo" : "Cliente";
-                if (user.Estado == -1)
+        { 
+            if(!DAO.DAOLogin.existeUsuario(Usuario.value)){
+            MessageBox.Show("El usuario no es válido");
+                return;
+            }
+
+
+
+            Model.Usuario user = new Model.Usuario(Usuario.value, pass.value);
+                user.Intentos = DAO.DAOLogin.getIntentos(user);
+                user.Estado = user.Intentos >= 3 ? false : true;
+                user.Rol = DAO.DAOLogin.obtenerRolUsuario(user);
+                user.IDRol = DAO.DAOLogin.obtenerIDRolUsuario(user);
+
+
+                if (!user.Estado)
                 {
                     MessageBox.Show("El usuario está inhabilitado!");
                     Extensions.cleanAll(this.Controls);
                     return;
                 }
-            }
-            if (user.Intentos >= 3)
-            {
-                DAO.DAOLogin.inhabilitarUsuario(user);
-                MessageBox.Show("Usuario inhabilitado");
-                return;
-            }
+ 
 
-            if (this.validateNotNullForAll(this.Controls))
+            if (this.validateNotNullForAll(this.Controls) && user.Estado)
             {
-                if (puedeAcceder(user.Rol) && (DAO.DAOLogin.validarUsername(user.Username, user.Password, this.Rol.value) == 1))
+                if (DAO.DAOLogin.validarUsername(user.Username, user.Password) == 1)
                 {
-                    user.Intentos = 0;
-
-                    this.openInNewWindow(new MainMenu());
+                    user.Intentos = DAO.DAOLogin.vaciarIntentos(user);
+                    List<Decimal> funcionalidades = DAO.DAORol.getIdFuncionalidades(user.IDRol);
+                    this.openInNewWindow(new MainMenu(funcionalidades, user.IDRol));
                     this.Close();
                     return;
                 }
-                
-                    user.Intentos++;
+
+                user.Intentos = DAO.DAOLogin.aumentarIntentos(user);
+                if (user.Intentos == 3) { MessageBox.Show("Usuario inhabilitado!"); return; }
                     MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - user.Intentos));
                 
 
@@ -78,11 +80,10 @@ namespace AerolineaFrba.Login
 
         private Model.Usuario user;
 
-
-        private Boolean puedeAcceder(String rol)
+        private void Usuario_TextChanged(object sender, EventArgs e)
         {
-            if (rol == "Administrativo") { return true; }
-            return (this.Rol.SelectedItem.ToString() == "Cliente");
+
         }
+
     }
 }

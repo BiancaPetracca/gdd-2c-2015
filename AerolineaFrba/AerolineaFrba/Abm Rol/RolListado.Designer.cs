@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox_SeleccionarRol = new System.Windows.Forms.GroupBox();
-            this.button_Cerrar = new System.Windows.Forms.Button();
+            this.modificar = new AerolineaFrba.SuperControls.SuperButton();
             this.ListadoRoles = new System.Windows.Forms.DataGridView();
             this.agregar = new System.Windows.Forms.Button();
+            this.button_Cerrar = new System.Windows.Forms.Button();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_habilitado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modificar = new AerolineaFrba.SuperControls.SuperButton();
             this.groupBox_SeleccionarRol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListadoRoles)).BeginInit();
             this.SuspendLayout();
@@ -52,15 +53,15 @@
             this.groupBox_SeleccionarRol.TabStop = false;
             this.groupBox_SeleccionarRol.Text = "Roles";
             // 
-            // button_Cerrar
+            // modificar
             // 
-            this.button_Cerrar.Location = new System.Drawing.Point(768, 348);
-            this.button_Cerrar.Name = "button_Cerrar";
-            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
-            this.button_Cerrar.TabIndex = 1;
-            this.button_Cerrar.Text = "Cerrar";
-            this.button_Cerrar.UseVisualStyleBackColor = true;
-            this.button_Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
+            this.modificar.Location = new System.Drawing.Point(576, 348);
+            this.modificar.Name = "modificar";
+            this.modificar.Size = new System.Drawing.Size(75, 23);
+            this.modificar.TabIndex = 23;
+            this.modificar.Text = "Modificar";
+            this.modificar.UseVisualStyleBackColor = true;
+            this.modificar.Click += new System.EventHandler(this.modificar_Click);
             // 
             // ListadoRoles
             // 
@@ -72,13 +73,13 @@
             this.ListadoRoles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.ListadoRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ListadoRoles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_id,
             this.col_rol,
             this.col_habilitado});
             this.ListadoRoles.Location = new System.Drawing.Point(115, 36);
             this.ListadoRoles.Name = "ListadoRoles";
             this.ListadoRoles.Size = new System.Drawing.Size(346, 335);
             this.ListadoRoles.TabIndex = 0;
-          
             // 
             // agregar
             // 
@@ -88,6 +89,21 @@
             this.agregar.TabIndex = 22;
             this.agregar.Text = "Agregar";
             this.agregar.Click += new System.EventHandler(this.Agregar_Click);
+            // 
+            // button_Cerrar
+            // 
+            this.button_Cerrar.Location = new System.Drawing.Point(768, 348);
+            this.button_Cerrar.Name = "button_Cerrar";
+            this.button_Cerrar.Size = new System.Drawing.Size(75, 23);
+            this.button_Cerrar.TabIndex = 1;
+            this.button_Cerrar.Text = "Cerrar";
+            this.button_Cerrar.UseVisualStyleBackColor = true;
+            this.button_Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
+            // 
+            // col_id
+            // 
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
             // 
             // col_rol
             // 
@@ -99,16 +115,6 @@
             // 
             this.col_habilitado.HeaderText = "Habilitado";
             this.col_habilitado.Name = "col_habilitado";
-            // 
-            // modificar
-            // 
-            this.modificar.Location = new System.Drawing.Point(576, 348);
-            this.modificar.Name = "modificar";
-            this.modificar.Size = new System.Drawing.Size(75, 23);
-            this.modificar.TabIndex = 23;
-            this.modificar.Text = "Modificar";
-            this.modificar.UseVisualStyleBackColor = true;
-            this.modificar.Click += new System.EventHandler(this.modificar_Click);
             // 
             // RolListado
             // 
@@ -139,6 +145,7 @@
         private System.Windows.Forms.Button button_Cerrar;
         private System.Windows.Forms.Button agregar;
         private SuperControls.SuperButton modificar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rol;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_habilitado;
 

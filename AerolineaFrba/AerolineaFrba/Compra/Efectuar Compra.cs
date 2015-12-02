@@ -30,6 +30,7 @@ namespace AerolineaFrba.Compra
 
         private void Efectuar_Compra_Load(object sender, EventArgs e)
         {
+
             datosPersonales.Rows.Add();
 
             if (Config.Terminal == 1)
@@ -114,7 +115,7 @@ namespace AerolineaFrba.Compra
                 this.openInNewWindow(new Exito_Efectivo());
                 return;
             }
-            Decimal tipoPago;
+         
             TarjetaID = DAO.DAOCliente.clienteTieneTarjeta(cliente, TipoTarjeta.value, NumeroTarjeta.value, CodigoSeguridad.value,
                 FechaExpiracion.value);
             if(TarjetaID != -1)

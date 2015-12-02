@@ -14,8 +14,11 @@ using AerolineaFrba.Model;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
+
+   
     public partial class Aeronave : Form
     {
+        public int funcionalidad { get { return 1; } }
         private String filtro { get; set; }
         public Aeronave()
         {
@@ -113,7 +116,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Borrar_Click(object sender, EventArgs e)
         {
-            if (this.lista.SelectedCells.Count == 0 && this.lista.SelectedRows.Count == 0)
+            if (!lista.anySelectedCells())
             {
                 MessageBox.Show("Tiene que seleccionar alguna aeronave para poder darla de baja");
                 return;
@@ -121,10 +124,10 @@ namespace AerolineaFrba.Abm_Aeronave
             Model.Aeronave aeronave = this.getCurrentAeronave();
             if (DAO.DAOAeronave.estaHabilitada(aeronave.numero) == 1)
             {
-                Baja baja = new Baja();
+                Baja baja = new Baja(aeronave.numero, aeronave.matricula);
                 baja.LauncherBaja = this;
                 String nombre_aeronave = this.lista.CurrentRow.Cells["col_matricula"].Value.ToString();
-                baja.setBajaAeronave(nombre_aeronave);
+               
                 this.openInNewWindow(baja);
                 return;
             }
@@ -153,9 +156,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void verButacas_Click_1(object sender, EventArgs e)
         {
-            Model.Aeronave aero = getCurrentAeronave();
-            aero.numero = DAO.DAOAeronave.getNumeroAeronave(aero.matricula);
-            this.openInNewWindow(new Butacas(aero.numero, 0));
+            if (lista.anySelectedCells())
+            {
+
+                Model.Aeronave aero = getCurrentAeronave();
+                aero.numero = DAO.DAOAeronave.getNumeroAeronave(aero.matricula);
+                this.openInNewWindow(new Butacas(aero.numero, 0));
+            }
         }
 
 

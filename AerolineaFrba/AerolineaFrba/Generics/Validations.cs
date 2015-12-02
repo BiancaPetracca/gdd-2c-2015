@@ -173,6 +173,11 @@ namespace AerolineaFrba.Generics
                 e.Handled = true;
             }
         }
+
+        public static Boolean anySelectedCells(this DataGridView dg) {
+            if (dg.Rows.Count == 0) { return false; }
+            return (dg.SelectedCells.Count != 0 || dg.SelectedRows.Count != 0);
+        }
     }
 
 

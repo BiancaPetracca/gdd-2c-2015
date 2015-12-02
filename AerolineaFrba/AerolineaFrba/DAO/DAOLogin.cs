@@ -14,24 +14,45 @@ namespace AerolineaFrba.DAO
    
 
         // valida que coincida  el usuario con contraseña del mismo
-        public static int validarUsername(String username, string password, String rol)
+        public static int validarUsername(String username, string password)
         {
             
-            return SqlConnector.executeProcedure("validar_usuario", username, Crypto.getSHA256(password), rol);
+            return SqlConnector.executeProcedure("validar_usuario", username, Crypto.getSHA256(password));
         }
 
 
-        public static int inhabilitarUsuario(Model.Usuario usuario)
+        public static String obtenerRolUsuario(Model.Usuario usuario) {
+            return SqlConnector.retrieveList("get_rol", "rol_nombre", usuario.Username).First();
+        }
+
+        internal static int aumentarIntentos(Model.Usuario user)
         {
-            return SqlConnector.executeProcedure("inhabilitar_usuario", usuario.Username);
+            return SqlConnector.executeProcedure("aumentar_intentos", user.Username);
         }
 
-        public static int obtenerRolUsuario(Model.Usuario usuario) {
-            return SqlConnector.executeProcedure("get_rol_usuario", usuario.Username);
+        internal static int vaciarIntentos(Model.Usuario user)
+        {
+            return SqlConnector.executeProcedure("vaciar_intentos", user.Username);
         }
 
-        public static int getEstado(Model.Usuario usuario) {
-            return SqlConnector.executeProcedure("get_estado_usuario", usuario.Username);
+        internal static int getIntentos(Model.Usuario user)
+        {
+           return SqlConnector.executeProcedure("get_intentos", user.Username);
+        }
+
+        internal static Boolean existeUsuario(String username)
+        {
+            return SqlConnector.executeProcedure("existe_usuario", username) == 1 ? true : false;
+        }
+
+        internal static List<short> getFuncionalidades(int p)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static int obtenerIDRolUsuario(Model.Usuario user)
+        {
+            return SqlConnector.executeProcedure("get_id_rol_usuario", user.Username);
         }
     }
 }
