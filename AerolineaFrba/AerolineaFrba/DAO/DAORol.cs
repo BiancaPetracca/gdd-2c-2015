@@ -82,5 +82,10 @@ namespace AerolineaFrba.DAO
 
 
         }
+
+        public static int validar_habilitado(int p)
+        {
+            return SqlConnector.executeProcedure("get_if_rol_habilitado", p);
+        }
     }
 }

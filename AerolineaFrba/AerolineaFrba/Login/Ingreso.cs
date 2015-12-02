@@ -21,6 +21,7 @@ namespace AerolineaFrba.Login
         private void but_admin_Click(object sender, EventArgs e)
         {
             Config.Terminal = 0; // estamos en una terminal aerolinea 
+            if (DAO.DAORol.validar_habilitado(0) == 0) { MessageBox.Show("El rol administrador se encuentra inhabilitado"); return; }
             this.openInNewWindow(new Login());
             this.Close();
         }
@@ -30,6 +31,7 @@ namespace AerolineaFrba.Login
 
             /* el cliente no puede ver: rol, ruta, aeronave, generar viaje, registro llegada, cancelacion, canje*/
             // le paso las funcionalidades del cliente 
+            if (DAO.DAORol.validar_habilitado(1) == 0) { MessageBox.Show("El rol cliente se encuentra inhabilitado"); return; }
             List<Decimal> funcionalidadesCliente = DAO.DAORol.getIdFuncionalidades(1); 
 
             // le indico que es el rol1, el cliente.

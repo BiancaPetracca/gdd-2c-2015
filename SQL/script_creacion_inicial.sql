@@ -890,6 +890,17 @@ END
 END
 GO
 /*------ABM DE ROL------*/
+CREATE PROCEDURE AWANTA.get_if_rol_habilitado(@rol numeric(18))
+AS
+BEGIN
+	IF EXISTS(SELECT 1 FROM AWANTA.ROL WHERE rol_id=@rol AND rol_estado = 1)
+		BEGIN
+			RETURN 1
+		END
+	RETURN 0
+END
+GO
+
 CREATE PROCEDURE AWANTA.get_funcionalidades(@rol numeric(18))
 AS
 BEGIN
