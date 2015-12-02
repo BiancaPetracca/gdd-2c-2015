@@ -26,7 +26,7 @@ namespace AerolineaFrba.Compra
             InitializeComponent();
             this.compra = compra;
         }
-
+        
 
         private void Efectuar_Compra_Load(object sender, EventArgs e)
         {
@@ -109,10 +109,10 @@ namespace AerolineaFrba.Compra
        cliente.Codigo = DAO.DAOCliente.updateCliente(cliente);
       
             Decimal TarjetaID;
-            if (MedioPago.ValueMember == "Efectivo")
+            if (MedioPago.value == "Efectivo")
             {
                 DAO.DAOCompra.efectuarCompra(cliente, compra.codigo, 0, 1);
-                this.openInNewWindow(new Exito_Efectivo());
+                this.openInNewWindow(new Exito_Efectivo(compra.codigo, this));
                 return;
             }
          
@@ -122,16 +122,16 @@ namespace AerolineaFrba.Compra
             {
                 
                 DAO.DAOCompra.efectuarCompra(cliente, compra.codigo, DAO.DAOCompra.getTipoPago(TipoTarjeta.value), Cuotas.value);
-                this.openInNewWindow(new Exito_Tarjeta());
+                this.openInNewWindow(new Exito_Tarjeta(compra.codigo, this));
                 return;
             }
             if (MessageBox.Show("Los datos de la tarjeta no coinciden. Desea registrar esta tarjeta a su nombre?", "Confirmar tarjeta", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 TarjetaID = DAO.DAOCliente.nuevaTarjeta(cliente, TipoTarjeta.value, NumeroTarjeta.value, CodigoSeguridad.value, FechaExpiracion.value);
-              
+             
                 DAO.DAOCompra.efectuarCompra(cliente, compra.codigo, DAO.DAOCompra.getTipoPago(TipoTarjeta.value), Cuotas.value);
-                this.openInNewWindow(new Exito_Tarjeta());
+                this.openInNewWindow(new Exito_Tarjeta(compra.codigo, this));
                 return;
             }
 

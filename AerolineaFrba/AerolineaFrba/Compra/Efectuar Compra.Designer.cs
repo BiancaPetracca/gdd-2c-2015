@@ -238,9 +238,7 @@ namespace AerolineaFrba.Compra
             this.datosPersonales.Name = "datosPersonales";
             this.datosPersonales.Size = new System.Drawing.Size(1010, 86);
             this.datosPersonales.TabIndex = 3;
-           
             this.datosPersonales.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.datosPersonales_CellValueChanged);
-         
             // 
             // col_tipo_doc
             // 
@@ -336,6 +334,7 @@ namespace AerolineaFrba.Compra
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Efectuar_Compra";
             this.Text = "Efectuar_Compra";
+      
             this.Load += new System.EventHandler(this.Efectuar_Compra_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

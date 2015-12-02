@@ -32,7 +32,7 @@ namespace AerolineaFrba.Compra
             if (grid_pasajeros.anyEmptyCells()) { MessageBox.Show("Debe completar todos los datos de todas las personas que viajan"); return; }
             if (superaElLimiteDeEncomiendas()) { MessageBox.Show("Los kgs de las encomiendas superan al límite que figura arriba"); return; }
                 compra.codigo = DAO.DAOCompra.prepararCompra(grid_pasajeros, viaje.codigo);
-                this.openIntoParentBlocking(new Efectuar_Compra(compra), this.MdiParent);
+                this.openIntoParent(new Efectuar_Compra(compra), this.MdiParent);
                 return;
             }
 
@@ -63,7 +63,9 @@ namespace AerolineaFrba.Compra
         private void Elegir_Pasajeros_Load(object sender, EventArgs e)
         {
             KgsRestantes.Text += kgs_encomienda + "kg.";
-            this.grid_pasajeros.Rows.Add(Decimal.Round(cant_pasajes, 0));
+            int pasajes = (int)Decimal.Round(cant_pasajes, 0);
+            if (pasajes == 0) { this.grid_pasajeros.Rows.Add(1); return; }
+            this.grid_pasajeros.Rows.Add((int)Decimal.Round(cant_pasajes, 0));
           
         }
 
@@ -126,7 +128,7 @@ namespace AerolineaFrba.Compra
         {
             if (grid_pasajeros.SelectedCells.Count != 0 || grid_pasajeros.SelectedRows.Count != 0)
             {
-                this.openInNewWindow(new Elegir_butacas(this));
+                this.openInNewWindow(new Elegir_butacas(this, grid_pasajeros));
                 return;
             }
             MessageBox.Show("Seleccione un pasajero");

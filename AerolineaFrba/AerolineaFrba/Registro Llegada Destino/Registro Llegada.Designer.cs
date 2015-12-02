@@ -155,6 +155,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             // 
             // matricula
             // 
+            this.matricula.AccessibleDescription = "Matrícula";
             this.matricula.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.matricula.FormattingEnabled = true;
             this.matricula.Location = new System.Drawing.Point(164, 29);
@@ -183,6 +184,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             // 
             // AeropuertoDestino
             // 
+            this.AeropuertoDestino.AccessibleDescription = "Destino";
             this.AeropuertoDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AeropuertoDestino.FormattingEnabled = true;
             this.AeropuertoDestino.Location = new System.Drawing.Point(468, 63);
@@ -192,6 +194,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             // 
             // AeropuertoOrigen
             // 
+            this.AeropuertoOrigen.AccessibleDescription = "Origen";
             this.AeropuertoOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AeropuertoOrigen.FormattingEnabled = true;
             this.AeropuertoOrigen.Location = new System.Drawing.Point(468, 26);

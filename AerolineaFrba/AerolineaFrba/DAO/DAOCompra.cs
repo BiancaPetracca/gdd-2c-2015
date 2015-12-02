@@ -104,5 +104,20 @@ namespace AerolineaFrba.DAO
         {
             return SqlConnector.executeProcedure("getTipoPago", p);
         }
+
+        internal static void getEncomiendas(decimal codigo, DataGridView compra)
+        {
+            SqlConnector.retrieveDT("detalle_encomiendas", compra, codigo);
+        }
+
+        internal static void getPasajes(decimal codigo, DataGridView compra)
+        {
+            SqlConnector.retrieveDT("detalle_pasajes", compra, codigo);
+        }
+
+        internal static void getCompra(decimal codigo, DataGridView compra)
+        {
+            SqlConnector.retrieveDT("detalle_compra", compra, codigo);
+        }
     }
 }

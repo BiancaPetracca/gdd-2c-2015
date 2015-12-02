@@ -63,6 +63,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         private void guardar_Click(object sender, EventArgs e)
         {
+            if (registros.Rows.Count == 0) { MessageBox.Show("Seleccione al menos un viaje para registrar"); return; }
+
             foreach (DataGridViewRow row in this.registros.Rows) {
                
                 Model.Viaje viaje = new Model.Viaje((String)row.Cells["col_matricula"].Value,

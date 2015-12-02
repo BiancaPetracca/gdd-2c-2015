@@ -77,13 +77,13 @@ namespace AerolineaFrba.Generics
                 dg.Rows.RemoveAt(i);
             }
         } 
-
+        // activar todos los controles 
         public static void enableAll(this Form aForm, Boolean value, params Control[] controls){
             foreach (Control control in controls) {
                 control.Enabled = value;
  }
     }
-
+        // limpiar una grid que esta bindeada a una data table
         public static void clearBindedDT(this DataGridView dg) {
 
             DataTable DT = (DataTable)dg.DataSource;

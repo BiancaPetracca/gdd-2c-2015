@@ -32,18 +32,19 @@ namespace AerolineaFrba.Listado_Estadistico
         private DateTime fechaInicio() {
             if (semestre.value.Equals("1"))
             {
-                return Convert.ToDateTime(anio.value + "-01-01");
+
+                return Convert.ToDateTime(anio.value.Year.ToString() + "-01-01");
             }
-                return Convert.ToDateTime(anio.value + "-07-01");
+                return Convert.ToDateTime(anio.value.Year.ToString() + "-07-01");
         }
 
         private DateTime fechaFin()
         {
             if (semestre.value.Equals("1"))
             {
-                return Convert.ToDateTime(anio.value + "-06-30");
+                return Convert.ToDateTime(anio.value.Year.ToString() + "-06-30");
             }
-            return Convert.ToDateTime(anio.value + "-12-31");
+            return Convert.ToDateTime(anio.value.Year.ToString() + "-12-31");
         }
 
 
@@ -101,7 +102,7 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void semestre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (semestre.SelectedIndex != -1 && anio.SelectedIndex != -1)
+            if (semestre.SelectedIndex != -1 )
             {
                 enableAll(true);
                 return;
@@ -110,7 +111,7 @@ namespace AerolineaFrba.Listado_Estadistico
         }
         private void anio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (semestre.SelectedIndex != -1 && anio.SelectedIndex != -1) {
+            if (semestre.SelectedIndex != -1 ) {
             enableAll(true);
                 return;
             }

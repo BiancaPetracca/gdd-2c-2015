@@ -34,10 +34,14 @@ namespace AerolineaFrba.Compra
         {
             if (! this.Pasaje.noRows("No hay ningún pasaje definido"))
             {
-                Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros(compra);
-                elegirPasajeros.setFlightData(this.viaje, cant_pasajes.value, encomienda.value);
+                if (cant_pasajes.valid() && encomienda.valid())
+                {
+                    Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros(compra);
+                    elegirPasajeros.setFlightData(this.viaje, cant_pasajes.value, encomienda.value);
 
-                this.openIntoParent(elegirPasajeros, this.MdiParent);
+                    this.openIntoParent(elegirPasajeros, this.MdiParent);
+                }
+                MessageBox.Show("Seleccione kgs para encomiendas o pasajes");
             }
         }
 
@@ -86,6 +90,8 @@ namespace AerolineaFrba.Compra
 
                 if ((this.encomienda.valid() || this.cant_pasajes.valid()) && Pasaje.Rows.Count > 0)
                 {
+                   
+
                      this.Pasaje.Rows[0].Cells["col_pasajes"].Value = cant_pasajes.value;
                      this.Pasaje.Rows[0].Cells["col_encomiendas"].Value = encomienda.value;
                 }

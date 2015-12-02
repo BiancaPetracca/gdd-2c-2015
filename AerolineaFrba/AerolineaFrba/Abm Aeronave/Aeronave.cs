@@ -163,6 +163,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 aero.numero = DAO.DAOAeronave.getNumeroAeronave(aero.matricula);
                 this.openInNewWindow(new Butacas(aero.numero, 0));
             }
+            MessageBox.Show("Seleccione una aeronave");
         }
 
 

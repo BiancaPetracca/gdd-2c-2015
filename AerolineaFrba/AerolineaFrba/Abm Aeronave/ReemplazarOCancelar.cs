@@ -27,7 +27,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
 
             if (tipoDeBaja == 0)
-            {
+            {// fecha default para no mandarle null a la base de datos
                 String fechaDefault = "01/01/1800 12:00:00";
                 DAOAeronave.cancelarViajesAeronave(numero, fechaBaja,Convert.ToDateTime(fechaDefault));
             }

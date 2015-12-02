@@ -11,13 +11,13 @@ using AerolineaFrba.DAO;
 namespace AerolineaFrba.Generics
 {
     public static class Config
-    {
+    {// fecha del sistema
         public static DateTime DateToday { get { return Convert.ToDateTime(ConfigurationManager.AppSettings.Get("dateToday")); } }
 
 
         public static String[] Funcionalidades = {"abm_ruta", "abm_aeronave", "canje_millas", "compra", "consulta_millas", "devolucion"
                                          , "generar_viaje", "estadisticas", "login", "registro_llegada", "registro_usuario"};
-
+        // se corre cuando inicia el mprograma
         public static void SetDateInDB(){
             SqlConnector.executeProcedure("set_date", DateToday);
 
