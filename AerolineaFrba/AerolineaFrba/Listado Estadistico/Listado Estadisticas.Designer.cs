@@ -39,7 +39,8 @@
             this.fueraServicio = new AerolineaFrba.SuperControls.SuperButton();
             this.pasajesComprados = new AerolineaFrba.SuperControls.SuperButton();
             this.semestre = new AerolineaFrba.SuperControls.SuperComboBox();
-            this.anio = new AerolineaFrba.SuperControls.SuperComboBox();
+            this.superButton1 = new AerolineaFrba.SuperControls.SuperButton();
+            this.anio = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.Top5)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,6 +64,11 @@
             // 
             // Top5
             // 
+            this.Top5.AllowUserToAddRows = false;
+            this.Top5.AllowUserToDeleteRows = false;
+            this.Top5.AllowUserToResizeColumns = false;
+            this.Top5.AllowUserToResizeRows = false;
+            this.Top5.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Top5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Top5.Location = new System.Drawing.Point(40, 101);
             this.Top5.Name = "Top5";
@@ -149,20 +155,28 @@
             this.semestre.Name = "semestre";
             this.semestre.Size = new System.Drawing.Size(45, 21);
             this.semestre.TabIndex = 14;
+            this.semestre.SelectedIndexChanged += new System.EventHandler(this.semestre_SelectedIndexChanged);
+            // 
+            // superButton1
+            // 
+            this.superButton1.Location = new System.Drawing.Point(532, 342);
+            this.superButton1.Name = "superButton1";
+            this.superButton1.Size = new System.Drawing.Size(75, 23);
+            this.superButton1.TabIndex = 16;
+            this.superButton1.Text = "Limpiar";
+            this.superButton1.UseVisualStyleBackColor = true;
+            this.superButton1.Click += new System.EventHandler(this.superButton1_Click);
             // 
             // anio
             // 
-            this.anio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.anio.FormattingEnabled = true;
-            this.anio.Items.AddRange(new object[] {
-            "2015",
-            "2016",
-            "2017",
-            "2018"});
-            this.anio.Location = new System.Drawing.Point(199, 32);
+            this.anio.CustomFormat = "yyyy";
+            this.anio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.anio.Location = new System.Drawing.Point(199, 34);
+            this.anio.MaxDate = new System.DateTime(2030, 12, 31, 0, 0, 0, 0);
+            this.anio.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.anio.Name = "anio";
-            this.anio.Size = new System.Drawing.Size(67, 21);
-            this.anio.TabIndex = 15;
+            this.anio.Size = new System.Drawing.Size(69, 20);
+            this.anio.TabIndex = 17;
             // 
             // Listado_Estadisticas
             // 
@@ -170,6 +184,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 442);
             this.Controls.Add(this.anio);
+            this.Controls.Add(this.superButton1);
             this.Controls.Add(this.semestre);
             this.Controls.Add(this.pasajesComprados);
             this.Controls.Add(this.fueraServicio);
@@ -204,6 +219,7 @@
         private SuperControls.SuperButton fueraServicio;
         private SuperControls.SuperButton pasajesComprados;
         private SuperControls.SuperComboBox semestre;
-        private SuperControls.SuperComboBox anio;
+        private SuperControls.SuperButton superButton1;
+        private SuperControls.SuperDateTimePicker anio;
     }
 }

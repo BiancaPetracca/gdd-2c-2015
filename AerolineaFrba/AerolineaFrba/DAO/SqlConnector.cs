@@ -63,6 +63,9 @@ namespace AerolineaFrba.DAO
                             return dt;
                         }
 
+
+        // metodo que permite cargar una sola fila en el indice especificado de la grilla, si es que las columnas coinciden con 
+        // el property name: hacer coincidir el nombre de property de las columnas interesadas con las columnas de la base. 
         public static void LoadWithRow(String sp, int dataRowIndex, DataGridView dg, params Object[] values) {
             DataTable dt = retrieveDTToBeConverted(sp, values);
 
@@ -122,7 +125,7 @@ namespace AerolineaFrba.DAO
             var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
             cmd.ExecuteNonQuery();
-            return Convert.ToInt16(returnParameter.Value);
+            return (int)returnParameter.Value;
         }
 
 

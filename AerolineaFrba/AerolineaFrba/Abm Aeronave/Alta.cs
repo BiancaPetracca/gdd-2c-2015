@@ -65,7 +65,7 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 Aeronave = new Model.Aeronave(0,
                      modelo.value, matriculaLetras.value + "-" + matriculaNumeros.value, fabricante.value,
-                     kgsEncomiendas.value, estado.value, servicio.value);
+                     kgsEncomiendas.value, true, servicio.value);
                 
                 if (DAO.DAOAeronave.altaDeAeronave(Aeronave, dgButacas) == -1)
                 {

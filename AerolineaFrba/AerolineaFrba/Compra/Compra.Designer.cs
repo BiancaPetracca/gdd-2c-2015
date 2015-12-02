@@ -82,6 +82,7 @@ namespace AerolineaFrba.Compra
             this.ComprarPasaje.TabIndex = 0;
             this.ComprarPasaje.TabStop = false;
             this.ComprarPasaje.Text = "Comprar Pasaje";
+            this.ComprarPasaje.Enter += new System.EventHandler(this.ComprarPasaje_Enter);
             // 
             // Cancelar
             // 
@@ -120,6 +121,7 @@ namespace AerolineaFrba.Compra
             this.col_pasajes});
             this.Pasaje.Location = new System.Drawing.Point(189, 235);
             this.Pasaje.Name = "Pasaje";
+            this.Pasaje.ReadOnly = true;
             this.Pasaje.Size = new System.Drawing.Size(853, 72);
             this.Pasaje.TabIndex = 15;
             this.Pasaje.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Pasaje_CellContentClick);
@@ -140,16 +142,19 @@ namespace AerolineaFrba.Compra
             // 
             this.col_estimada.HeaderText = "Fecha llegada";
             this.col_estimada.Name = "col_estimada";
+            this.col_estimada.ReadOnly = true;
             // 
             // col_origen
             // 
             this.col_origen.HeaderText = "Ciudad origen";
             this.col_origen.Name = "col_origen";
+            this.col_origen.ReadOnly = true;
             // 
             // col_destino
             // 
             this.col_destino.HeaderText = "Ciudad destino";
             this.col_destino.Name = "col_destino";
+            this.col_destino.ReadOnly = true;
             // 
             // col_servicio
             // 
@@ -162,11 +167,13 @@ namespace AerolineaFrba.Compra
             // 
             this.col_encomiendas.HeaderText = "Kgs. Encomienda";
             this.col_encomiendas.Name = "col_encomiendas";
+            this.col_encomiendas.ReadOnly = true;
             // 
             // col_pasajes
             // 
             this.col_pasajes.HeaderText = "Número de pasajes";
             this.col_pasajes.Name = "col_pasajes";
+            this.col_pasajes.ReadOnly = true;
             // 
             // Opciones
             // 
@@ -259,7 +266,7 @@ namespace AerolineaFrba.Compra
             // fechaLlegada
             // 
             this.fechaLlegada.AccessibleDescription = "Fecha del viaje";
-            this.fechaLlegada.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.fechaLlegada.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.fechaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaLlegada.Location = new System.Drawing.Point(416, 41);
             this.fechaLlegada.Name = "fechaLlegada";
@@ -317,7 +324,7 @@ namespace AerolineaFrba.Compra
             // fechaSalida
             // 
             this.fechaSalida.AccessibleDescription = "Fecha del viaje";
-            this.fechaSalida.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.fechaSalida.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.fechaSalida.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fechaSalida.Location = new System.Drawing.Point(130, 41);
             this.fechaSalida.Name = "fechaSalida";

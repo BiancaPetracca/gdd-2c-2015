@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace AerolineaFrba.Generics
 {
     class Crypto
-    {
+    {// algoritmos apra encriptar la contrasenia
         public static byte[] getSHA256(string input)
         {
 

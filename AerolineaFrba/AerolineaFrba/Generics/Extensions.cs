@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.SuperControls;
 using System.Reflection;
+using System.Data;
 
 namespace AerolineaFrba.Generics
 {
@@ -21,6 +22,18 @@ namespace AerolineaFrba.Generics
             form.Dock = DockStyle.Fill;
             form.WindowState = FormWindowState.Maximized;
             form.Show();
+        }
+
+
+        public static void openIntoParentBlocking(this Form aForm, Form form, Form parentForm)
+        {
+
+            if (parentForm.ActiveMdiChild != null) { parentForm.ActiveMdiChild.Close(); }
+            form.MdiParent = parentForm;
+            form.Dock = DockStyle.Fill;
+            form.WindowState = FormWindowState.Maximized;
+            form.ShowDialog();
+
         }
         // abre en una nueva ventana la form indicada
         public static void openInNewWindow(this Form aForm, Form form)
@@ -64,6 +77,19 @@ namespace AerolineaFrba.Generics
                 dg.Rows.RemoveAt(i);
             }
         } 
+        // activar todos los controles 
+        public static void enableAll(this Form aForm, Boolean value, params Control[] controls){
+            foreach (Control control in controls) {
+                control.Enabled = value;
+ }
+    }
+        // limpiar una grid que esta bindeada a una data table
+        public static void clearBindedDT(this DataGridView dg) {
+
+            DataTable DT = (DataTable)dg.DataSource;
+            if (DT != null)
+                DT.Clear();
+        }
 
   
     }

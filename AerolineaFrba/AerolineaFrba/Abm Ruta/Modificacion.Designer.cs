@@ -44,6 +44,7 @@ namespace AerolineaFrba.Abm_Ruta
             this.Modificar = new AerolineaFrba.SuperControls.SuperButton();
             this.datosRuta = new AerolineaFrba.SuperControls.SuperGroupBox();
             this.servicios = new AerolineaFrba.SuperControls.SuperCheckedListBox();
+            this.Baja = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioKG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrecioPasaje)).BeginInit();
             this.datosRuta.SuspendLayout();
@@ -210,11 +211,22 @@ namespace AerolineaFrba.Abm_Ruta
             this.servicios.Size = new System.Drawing.Size(104, 64);
             this.servicios.TabIndex = 32;
             // 
+            // Baja
+            // 
+            this.Baja.Location = new System.Drawing.Point(142, 362);
+            this.Baja.Name = "Baja";
+            this.Baja.Size = new System.Drawing.Size(75, 23);
+            this.Baja.TabIndex = 33;
+            this.Baja.Text = "Dar de baja";
+            this.Baja.UseVisualStyleBackColor = true;
+           
+            // 
             // Modificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 412);
+            this.Controls.Add(this.Baja);
             this.Controls.Add(this.datosRuta);
             this.Controls.Add(this.PrecioPasaje);
             this.Controls.Add(this.PrecioKG);
@@ -253,6 +265,7 @@ namespace AerolineaFrba.Abm_Ruta
         private SuperNumericUpDown PrecioPasaje;
         private SuperGroupBox datosRuta;
         private SuperCheckedListBox servicios;
+        private SuperButton Baja;
 
     }
 }

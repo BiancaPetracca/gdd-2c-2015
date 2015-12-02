@@ -174,6 +174,7 @@
     </Compile>
     <Compile Include="Model\Aeronave.cs" />
     <Compile Include="Model\Ciudad.cs" />
+    <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Compra.cs" />
     <Compile Include="DAO\DAOAeronave.cs" />
     <Compile Include="DAO\DAOCompra.cs" />
@@ -459,6 +460,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\Efectuar Compra.resx">
       <DependentUpon>Efectuar Compra.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\Elegir Pasajeros.resx">
       <DependentUpon>Elegir Pasajeros.cs</DependentUpon>

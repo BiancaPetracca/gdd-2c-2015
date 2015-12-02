@@ -8,6 +8,7 @@ namespace AerolineaFrba.Model
 {
     public class Rol
     {
+        public Decimal id { get; set; }
         public String nombre { get; set; }
         public Boolean habilitado { get; set; }
         public List<String> funcionalidades;
@@ -20,8 +21,14 @@ namespace AerolineaFrba.Model
 
         }
 
-        public Rol(String nombre, Boolean habilitado)
+        public Rol(String nombre, Boolean habilitado) {
+            this.nombre = nombre;
+            this.habilitado = habilitado;
+        }
+
+        public Rol(Decimal id, String nombre, Boolean habilitado)
         {
+            this.id = id;
             this.nombre = nombre;
             this.habilitado = habilitado;
             

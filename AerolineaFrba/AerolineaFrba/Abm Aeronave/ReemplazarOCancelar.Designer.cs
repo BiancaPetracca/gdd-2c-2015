@@ -85,6 +85,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ReemplazarOCancelar";
             this.Text = "Elija una acción";
+      
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,7 +99,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private SuperControls.SuperLabel superLabel2;
         private int tipoDeBaja;
         private String matricula;
-        
+        private DateTime fechaBaja;
         private DateTime fechaReinicio;
     }
 }

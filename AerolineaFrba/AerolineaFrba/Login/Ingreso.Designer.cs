@@ -62,6 +62,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Ingreso";
             this.Text = "Indicar lugar de ingreso";
+            this.Load += new System.EventHandler(this.Ingreso_Load);
             this.ResumeLayout(false);
 
         }

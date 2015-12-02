@@ -31,13 +31,6 @@ namespace AerolineaFrba.Compra
         private void InitializeComponent()
         {
             this.grid_pasajeros = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.quitar = new AerolineaFrba.SuperControls.SuperButton();
-            this.elegirButaca = new AerolineaFrba.SuperControls.SuperButton();
-            this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
-            this.Siguiente = new AerolineaFrba.SuperControls.SuperButton();
-            this.KgsRestantes = new AerolineaFrba.SuperControls.SuperLabel();
-            this.cellDateTimePicker = new AerolineaFrba.SuperControls.SuperDateTimePicker();
             this.col_tipo_doc = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.col_dni = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,8 +42,13 @@ namespace AerolineaFrba.Compra
             this.col_butaca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.KgsRestantes = new AerolineaFrba.SuperControls.SuperLabel();
+            this.quitar = new AerolineaFrba.SuperControls.SuperButton();
+            this.elegirButaca = new AerolineaFrba.SuperControls.SuperButton();
+            this.Cancelar = new AerolineaFrba.SuperControls.SuperButton();
+            this.Siguiente = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.grid_pasajeros)).BeginInit();
-            this.grid_pasajeros.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,86 +70,12 @@ namespace AerolineaFrba.Compra
             this.col_butaca,
             this.col_tipo,
             this.col_encomienda});
-            this.grid_pasajeros.Controls.Add(this.cellDateTimePicker);
             this.grid_pasajeros.Location = new System.Drawing.Point(19, 65);
             this.grid_pasajeros.Name = "grid_pasajeros";
             this.grid_pasajeros.Size = new System.Drawing.Size(1147, 287);
             this.grid_pasajeros.TabIndex = 0;
-            this.grid_pasajeros.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.pasajeros_CellBeginEdit);
-            this.grid_pasajeros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pasajeros_CellContentClick);
+            this.grid_pasajeros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_pasajeros_CellContentClick);
             this.grid_pasajeros.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatosPasajes_CellValueChanged);
-            this.grid_pasajeros.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.pasajeros_EditingControlShowing);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.KgsRestantes);
-            this.groupBox1.Controls.Add(this.grid_pasajeros);
-            this.groupBox1.Location = new System.Drawing.Point(12, 22);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1190, 383);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Elegir Pasajeros / Datos Encomienda";
-            // 
-            // quitar
-            // 
-            this.quitar.Location = new System.Drawing.Point(773, 422);
-            this.quitar.Name = "quitar";
-            this.quitar.Size = new System.Drawing.Size(75, 23);
-            this.quitar.TabIndex = 5;
-            this.quitar.Text = "Quitar butaca";
-            this.quitar.UseVisualStyleBackColor = true;
-            this.quitar.Click += new System.EventHandler(this.quitar_Click);
-            // 
-            // elegirButaca
-            // 
-            this.elegirButaca.Location = new System.Drawing.Point(872, 422);
-            this.elegirButaca.Name = "elegirButaca";
-            this.elegirButaca.Size = new System.Drawing.Size(91, 23);
-            this.elegirButaca.TabIndex = 4;
-            this.elegirButaca.Text = "Elegir butaca";
-            this.elegirButaca.UseVisualStyleBackColor = true;
-            this.elegirButaca.Click += new System.EventHandler(this.elegirButaca_Click);
-            // 
-            // Cancelar
-            // 
-            this.Cancelar.Location = new System.Drawing.Point(993, 422);
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.Size = new System.Drawing.Size(75, 23);
-            this.Cancelar.TabIndex = 3;
-            this.Cancelar.Text = "Cancelar";
-            this.Cancelar.UseVisualStyleBackColor = true;
-            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
-            // 
-            // Siguiente
-            // 
-            this.Siguiente.Location = new System.Drawing.Point(1103, 422);
-            this.Siguiente.Name = "Siguiente";
-            this.Siguiente.Size = new System.Drawing.Size(75, 23);
-            this.Siguiente.TabIndex = 2;
-            this.Siguiente.Text = "Siguiente";
-            this.Siguiente.UseVisualStyleBackColor = true;
-            this.Siguiente.Click += new System.EventHandler(this.Siguiente_Click);
-            // 
-            // KgsRestantes
-            // 
-            this.KgsRestantes.AutoSize = true;
-            this.KgsRestantes.Location = new System.Drawing.Point(54, 36);
-            this.KgsRestantes.Name = "KgsRestantes";
-            this.KgsRestantes.Size = new System.Drawing.Size(318, 13);
-            this.KgsRestantes.TabIndex = 1;
-            this.KgsRestantes.Text = "RECUERDE: El límite de kgs para las encomiendas en total es de";
-            // 
-            // cellDateTimePicker
-            // 
-            this.cellDateTimePicker.CustomFormat = "dd/MM/yyyy";
-            this.cellDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.cellDateTimePicker.Location = new System.Drawing.Point(0, 0);
-            this.cellDateTimePicker.Name = "cellDateTimePicker";
-            this.cellDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.cellDateTimePicker.TabIndex = 2;
-            this.cellDateTimePicker.Visible = false;
-            this.cellDateTimePicker.ValueChanged += new System.EventHandler(this.cellDateTimePickerValueChanged);
             // 
             // col_tipo_doc
             // 
@@ -220,6 +144,66 @@ namespace AerolineaFrba.Compra
             this.col_encomienda.HeaderText = "Kgs. Encomienda";
             this.col_encomienda.Name = "col_encomienda";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.KgsRestantes);
+            this.groupBox1.Controls.Add(this.grid_pasajeros);
+            this.groupBox1.Location = new System.Drawing.Point(12, 22);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1190, 383);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Elegir Pasajeros / Datos Encomienda";
+            // 
+            // KgsRestantes
+            // 
+            this.KgsRestantes.AutoSize = true;
+            this.KgsRestantes.Location = new System.Drawing.Point(54, 36);
+            this.KgsRestantes.Name = "KgsRestantes";
+            this.KgsRestantes.Size = new System.Drawing.Size(318, 13);
+            this.KgsRestantes.TabIndex = 1;
+            this.KgsRestantes.Text = "RECUERDE: El límite de kgs para las encomiendas en total es de";
+            // 
+            // quitar
+            // 
+            this.quitar.Location = new System.Drawing.Point(773, 422);
+            this.quitar.Name = "quitar";
+            this.quitar.Size = new System.Drawing.Size(75, 23);
+            this.quitar.TabIndex = 5;
+            this.quitar.Text = "Quitar butaca";
+            this.quitar.UseVisualStyleBackColor = true;
+            this.quitar.Click += new System.EventHandler(this.quitar_Click);
+            // 
+            // elegirButaca
+            // 
+            this.elegirButaca.Location = new System.Drawing.Point(872, 422);
+            this.elegirButaca.Name = "elegirButaca";
+            this.elegirButaca.Size = new System.Drawing.Size(91, 23);
+            this.elegirButaca.TabIndex = 4;
+            this.elegirButaca.Text = "Elegir butaca";
+            this.elegirButaca.UseVisualStyleBackColor = true;
+            this.elegirButaca.Click += new System.EventHandler(this.elegirButaca_Click);
+            // 
+            // Cancelar
+            // 
+            this.Cancelar.Location = new System.Drawing.Point(993, 422);
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.Size = new System.Drawing.Size(75, 23);
+            this.Cancelar.TabIndex = 3;
+            this.Cancelar.Text = "Cancelar";
+            this.Cancelar.UseVisualStyleBackColor = true;
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
+            // 
+            // Siguiente
+            // 
+            this.Siguiente.Location = new System.Drawing.Point(1103, 422);
+            this.Siguiente.Name = "Siguiente";
+            this.Siguiente.Size = new System.Drawing.Size(75, 23);
+            this.Siguiente.TabIndex = 2;
+            this.Siguiente.Text = "Siguiente";
+            this.Siguiente.UseVisualStyleBackColor = true;
+            this.Siguiente.Click += new System.EventHandler(this.Siguiente_Click);
+            // 
             // Elegir_Pasajeros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,7 +219,6 @@ namespace AerolineaFrba.Compra
             this.Text = "Elegir Pasajeros";
             this.Load += new System.EventHandler(this.Elegir_Pasajeros_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid_pasajeros)).EndInit();
-            this.grid_pasajeros.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -246,12 +229,11 @@ namespace AerolineaFrba.Compra
 
         #endregion
 
-        private SuperDateTimePicker cellDateTimePicker;
         private System.Windows.Forms.DataGridView grid_pasajeros;
         private System.Windows.Forms.GroupBox groupBox1;
         private SuperButton Siguiente;
         private SuperButton Cancelar;
-        private System.Collections.Generic.List<int> dateColumnsIndexes;
+
         private Decimal restantes;
         private SuperLabel KgsRestantes;
         private SuperButton elegirButaca;

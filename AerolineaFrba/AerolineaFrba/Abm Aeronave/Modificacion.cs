@@ -90,7 +90,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.servicio.setItem(aeronave.servicio);
        
             this.kgsEncomiendas.Value = aeronave.kgsEncomiendas;
-            if (DAO.DAOAeronave.tieneViajesAsignados(Aeronave.matricula) == 1) {
+            if (DAO.DAOAeronave.tieneViajesAsignados(Aeronave.numero) == 1) {
                 MessageBox.Show("La aeronave tiene viajes asignados, por lo tanto sólo puede cambiar la matrícula");
                 this.fabricante.Enabled = false;
                 this.modelo.Enabled = false;

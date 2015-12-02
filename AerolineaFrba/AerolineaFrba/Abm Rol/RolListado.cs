@@ -13,10 +13,14 @@ namespace AerolineaFrba.Abm_Rol
 {
     public partial class RolListado : Form
     {
-        public RolListado()
+        public RolListado(Decimal rol)
         {
+           
             InitializeComponent();
+            this.rol = rol;
         }
+
+        public Decimal rol { get; set; }
 
         private void Agregar_Click(object sender, EventArgs e)
         {
@@ -40,8 +44,10 @@ namespace AerolineaFrba.Abm_Rol
             this.openInNewWindow(new Abm_Rol.Modificacion(this, getCurrentRol()));
 
         }
-    private Model.Rol getCurrentRol(){
-        return new Model.Rol((String)Extensions.cellValue(this.ListadoRoles, "col_rol"), Convert.ToBoolean(Extensions.cellValue(this.ListadoRoles, "col_habilitado")));
+    public Model.Rol getCurrentRol(){
+        return new Model.Rol(Convert.ToDecimal(Extensions.cellValue(ListadoRoles, "col_id")),
+            Convert.ToString(Extensions.cellValue(this.ListadoRoles, "col_rol")),
+            Convert.ToBoolean(Extensions.cellValue(this.ListadoRoles, "col_habilitado")));
     }
 
     public void reload() {

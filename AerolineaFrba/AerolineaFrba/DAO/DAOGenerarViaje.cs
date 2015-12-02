@@ -12,18 +12,18 @@ namespace AerolineaFrba.DAO
     public static class DAOGenerarViaje
     {
         // metodo para obtener las matriculas de las aeronaves disponbibles
-        public static List<String> getAeronavesDisponibles(DateTime salida, DateTime llegada)
+        public static List<String> getAeronavesDisponibles(DateTime salida, DateTime llegada, String origen, String destino)
         {
             List<String> aeronaves = new List<String>();
-            aeronaves = SqlConnector.retrieveDT("get_aeronaves_disponibles", salida, llegada).AsEnumerable().ToList().ConvertAll(x => x.Field<String>("aero_matricula"));
+            aeronaves = SqlConnector.retrieveDT("get_aeronaves_disponibles", salida, llegada, origen, destino).AsEnumerable().ToList().ConvertAll(x => x.Field<String>("aero_matricula"));
             return aeronaves;
         }
 
-        public static int getRutas(String aeronave, DataGridView dg)
-        {
-           return SqlConnector.retrieveDT("get_rutas", dg, aeronave);
+        public static List<String> getAeronavesCompatibles(Decimal ruta, DateTime salida, DateTime llegada) { 
+        List<String> aeronaves = new List<String>();
+        aeronaves = SqlConnector.retrieveList("get_aeronaves_compatibles", "aero_matricula", ruta, salida, llegada);
+        return aeronaves;
         }
-
 
         public static int generarViaje(String matricula, DateTime llegada, DateTime salida, String codigoRuta)
         {
@@ -33,7 +33,7 @@ namespace AerolineaFrba.DAO
         public static List<String> getAllAeronaves()
         {
             List<String> aeronaves = new List<String>();
-            aeronaves = SqlConnector.retrieveDT("get_all_aeronaves").AsEnumerable().ToList().ConvertAll(x => x.Field<String>("aero_matricula"));
+            aeronaves = SqlConnector.retrieveList("get_aeronaves","aero_matricula");
             return aeronaves;
         }
 
@@ -50,6 +50,15 @@ namespace AerolineaFrba.DAO
         public static int aeronaveYaRegistrada(Viaje viaje)
         {
             return SqlConnector.executeProcedure("aeronave_ya_registrada", viaje.matricula, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaLlegada);
+        }
+
+        internal static int getRutas(String origen, String destino, DateTime salida, DateTime llegada, DataGridView rutas)
+        {
+            if (SqlConnector.executeProcedure("hay_rutas", origen, destino) == 1){
+       //     return SqlConnector.retrieveDTAlreadyBinded("get_rutas", rutas, origen, destino);
+                return SqlConnector.retrieveDT("get_rutas", rutas, origen, destino, salida, llegada);
+            }
+            return -1;
         }
     }
 

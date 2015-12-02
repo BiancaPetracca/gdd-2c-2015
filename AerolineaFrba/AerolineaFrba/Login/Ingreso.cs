@@ -29,12 +29,20 @@ namespace AerolineaFrba.Login
         {
 
             /* el cliente no puede ver: rol, ruta, aeronave, generar viaje, registro llegada, cancelacion, canje*/
-            MainMenu menu = new MainMenu();
-            Config.Terminal = 1;  // le indico que estamos en la terminal kiosco 
-            menu.visibilidadCliente();
+            // le paso las funcionalidades del cliente 
+            List<Decimal> funcionalidadesCliente = DAO.DAORol.getIdFuncionalidades(1); 
+
+            // le indico que es el rol1, el cliente.
+            MainMenu menu = new MainMenu(funcionalidadesCliente, 1);
+            Config.Terminal = 1;  //indico que estamos en la terminal kiosco esto es para las compras luego
             this.openInNewWindow(menu);
             this.Close();
             
+        }
+
+        private void Ingreso_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

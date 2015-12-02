@@ -19,7 +19,7 @@ namespace AerolineaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login.Ingreso());
-           // Application.Run(new MainMenu());
+         //   Application.Run(new MainMenu());
             Application.Exit();
         }
     }

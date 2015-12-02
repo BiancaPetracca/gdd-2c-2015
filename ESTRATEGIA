@@ -1,0 +1,60 @@
+ESTRATEGIA
+
+Sobre la migración:
+Había un  número de documento repetido, el cual se supuso que como la persona era mayor no era de tipo DNI sino de tipo LC. 
+
+En las rutas, las mismas repetían código y no tenían el resto de valores iguales en muchos casos. Lo que se hizo fue no tener en cuenta este código, distinguiéndolas por el resto de los campos. Dentro de los mismos destinos y origen, el precio base de las rutas a veces era 0 en pasaje o en encomienda, esto era porque las compras habían sido de esos tipos de items. Entonces se migró de forma tal que si tenian el precio en 0 se buscaba en la maestra una ruta con todos los mismos valores que esta, con el valor 0 en el otro campo, y se le agregaba el valor que faltaba. 
+
+Por ejemplo una ruta tokio - nueva york tenía 0 en precio base de pasaje, 100 en precio base de encomienda, y encontramos una igual con los precios 30 en pasaje y 0 en encomienda, el resultado final es ruta tokio -  nueva york - 30 - 100. 
+
+Se consideró que cada una de las filas que figuraban en la tabla maestra, sin repetidos, eran compras que hizo cada uno del os clientes que figuran ahí. Como no podemos saber si el cliente era el mismo que viajó o el mismo que mandó la encomienda, suponemos que corresponden a pasajes, a encomiendas, y a compras. (cada compra de un pasaje, es un pasaje con la misma persona que lo compró, con las encomiendas igual).
+
+Sobre los modelos que hay, todos se llaman "modelo", pero los separamos por fabricante. Entonces por ahora cada fabricante tiene un solo modelo que se llama modelo, pero se puede modificar mediante el administrador de modelos, botón que figura en el ABM aeronave. También se pueden agregar nuevos modelos.
+
+
+Aplicación:
+
+En las bajas de aeronaves se supone que la baja se hace en el momento. 
+
+El código de una ruta no es modificable, ya que corresponde a su Primary Key y no es conveniente hacer modificaciones sobre estos. 
+La matrícula de una aeronave puede modificarse, no así su código porque pasa lo mismo que en el caso anterior. 
+En el listado de rutas, se pueden visualizar las rutas y si ofrecen varios servicios aparecerá una debajo de la otra. Cuando se intente modificar una, obviamente se realizará sobre la misma ruta.
+
+Se cuenta con tablas de devolucion por encomienda y de devolucion por pasaje, las mismas son asociativas, esto permite no tener devoluciones con campos en null.
+
+Sobre las tarjetas del cliente, cuando realiza una compra y el cliente ya tenía una tarjeta, le avisamos que no se corresponden los campos y preguntamos si la quiere cambiar por esa otra. Si dice que no, cuando ingrese bien el código de seguridad y el número, se hace efectiva la compra.
+No tenemos forma de validar si un numero de tarjeta corresponde a un codigo de seguridad, así que suponemos que se van a corresponder a partir de que se cree la tarjeta para ese cliente. 
+
+
+Las rutas pueden modificar su precio cuando tienen pasajes vendidos porque el precio de un pasaje esta puesto sobre el pasaje tambien, no solo sobre la ruta justamente por esto.
+
+Modificar ese precio no va a modificar al precio del pasaje o encomienda vendido. 
+
+
+
+Sobre las millas, se calculan de forma tal que:
+- encomiendas: para viajes llegados en ese período, sobre encomiendas no devueltas.
+- pasajes: lo mismo.
+- canjes: para canjes realizados entre ese período, ya que al momento de ver las millas disponibles cuando el usuario quería realizar el canje, 
+se utilizó el mismo criterio que antes.
+
+
+Sobre los usuarios:
+
+Sobre las compras:
+En una compra pueden haber varias encomiendas que corresponden al usuario que diga ahí, validando que la suma de los kgs. no superen el limite que el que compró decidió.
+Se crearon algunos tipos de tarjeta con distintos límites en las cuotas.
+
+Sobre los roles: 
+Un usuario tiene un solo rol.
+
+
+
+
+
+
+
+
+
+
+

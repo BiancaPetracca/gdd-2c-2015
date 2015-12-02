@@ -30,9 +30,14 @@ namespace AerolineaFrba.Abm_Rol
 
         private void Agregar_Click(object sender, EventArgs e)
         {
+            if (FuncionalidadSeleccion.valid())
+            {
                 DAO.DAORol.agregarFuncionalidad(rol, FuncionalidadSeleccion.SelectedItem.ToString());
                 this.reload();
-            
+                reloadMenu();
+                
+
+            }
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
@@ -58,12 +63,30 @@ namespace AerolineaFrba.Abm_Rol
 
         private void eliminar_Click(object sender, EventArgs e)
         {
-            DAO.DAORol.eliminarFuncionalidad(rol, (String)Extensions.cellValue(this.FuncionalidadesRol, "col_funcionalidades"));
-            this.reload();
+            if (FuncionalidadesRol.SelectedRows.Count != 0 || FuncionalidadesRol.SelectedCells.Count != 0)
+            {
+                Decimal idFuncionalidad = Convert.ToDecimal(Extensions.cellValue(FuncionalidadesRol, "col_id"));
+                if (idFuncionalidad == 1 && rol.id == launcher.rol) { MessageBox.Show("No puede eliminar la funcionalidad de ABM de rol porque se encuentra en ella, y en su propio rol"); return; }
+
+                DAO.DAORol.eliminarFuncionalidad(rol, (String)Extensions.cellValue(this.FuncionalidadesRol, "col_funcionalidades"));
+                this.reload();
+                reloadMenu();
+                return;
+            }
+            MessageBox.Show("Seleccione una funcionalidad");
+
         }
 
+        private void reloadMenu() {
+            MainMenu menu = (MainMenu)launcher.MdiParent;
+            menu.funcionalidades = DAO.DAORol.getIdFuncionalidades(launcher.rol);
+            menu.reload();
+        }
         private void Estado_CheckedChanged(object sender, EventArgs e)
         {
+            Decimal idFuncionalidad = Convert.ToDecimal(Extensions.cellValue(FuncionalidadesRol, "col_id"));
+            if (idFuncionalidad == 1 && rol.id == launcher.rol) { MessageBox.Show("No puede inhabilitarse a sí mismo!"); return; }
+
             rol.habilitado = this.Estado.Checked;
             DAO.DAORol.cambiarEstadoRol(rol);
         }

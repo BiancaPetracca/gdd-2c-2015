@@ -18,14 +18,22 @@ namespace AerolineaFrba
             InitializeComponent();
         }
 
-        private int terminal {get; set;}  // 0 para Aerolinea, 1 para terminal kiosco. 
-        public int Terminal { get { return terminal; } set { terminal = value; } }
+        public MainMenu(List<Decimal> funcionalidades, Decimal rol)
+        {
+            InitializeComponent();
+            this.funcionalidades = funcionalidades;
+            this.rol = rol;
+
+        }
+
+        public List<Decimal> funcionalidades { get; set; }
+        private Decimal rol {get; set;}  // 0 para admin, 1 para cliente, etc 
 
         /********* CADA PESTAÑA DEL MENU HACE LO MISMO, ABRIR ESE FORM EN EL ********/
 
         private void rolABM_Click(object sender, EventArgs e)
         {
-           this.openIntoParent(new Abm_Rol.RolListado(), this);
+           this.openIntoParent(new Abm_Rol.RolListado(rol), this);
 
         }
 
@@ -58,7 +66,9 @@ namespace AerolineaFrba
 
         private void pasajeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.openIntoParent(new Compra.Compra(new Model.Compra(this.Terminal)), this);
+            Model.Compra compra = new Model.Compra();
+            compra.menu = this;
+            this.openIntoParent(new Compra.Compra(compra), this);
         }
 
         private void devolucionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,20 +103,34 @@ namespace AerolineaFrba
             this.Hide();
         }
         /* el cliente no puede ver: rol, ruta, aeronave, generar viaje, registro llegada, cancelacion, canje*/
-        public void visibilidadCliente() {
-            this.rolToolStripMenuItem.Visible = false;
-            this.rutaToolStripMenuItem.Visible = false;
-            this.aeronaveToolStripMenuItem.Visible = false;
-            this.generarToolStripMenuItem.Visible = false;
-            this.registroLlegada.Visible = false;
-            this.cerrarSesion.Visible = false;
-            this.devolucionToolStripMenuItem1.Visible = false;
-            this.Terminal = 1; 
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+            changeVisibilityItems(funcionalidades, false);
+        }
+
+        private void changeVisibilityItems(List<Decimal> criteria, Boolean value) {
+            foreach (ToolStripMenuItem item in this.items.Items) { 
+                    if (!criteria.Contains(Convert.ToInt16(item.Tag))){
+                    item.Enabled = value;
+                    }
+            }
+        }
+
+        private void enableAll() {
+            foreach (ToolStripMenuItem item in this.items.Items) {
+
+                item.Enabled = true;
+            }
+        }
+
+        public void reload() {
+            enableAll();
+            changeVisibilityItems(funcionalidades, false);
+            salir.Enabled = true;
         }
 
 
-
-       
 
     }
 }

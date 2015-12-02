@@ -9,15 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
 using AerolineaFrba.DAO;
+using System.Globalization;
 
 namespace AerolineaFrba.Compra
 {
     public partial class Elegir_Pasajeros : Form
     {
         public Model.Viaje viaje { get; set; }
-        public Elegir_Pasajeros()
+        public Model.Compra compra { get; set; }
+        public Elegir_Pasajeros(Model.Compra compra)
         {
             InitializeComponent();
+            this.compra = compra;
         }
 
 
@@ -26,18 +29,20 @@ namespace AerolineaFrba.Compra
         // si hay celdas vacias indica que la seleccione
         private void Siguiente_Click(object sender, EventArgs e)
         {
-            if (!this.grid_pasajeros.anyEmptyCells())
-            {
-                this.openIntoParent(new Efectuar_Compra(), this.MdiParent);
+            if (grid_pasajeros.anyEmptyCells()) { MessageBox.Show("Debe completar todos los datos de todas las personas que viajan"); return; }
+            if (superaElLimiteDeEncomiendas()) { MessageBox.Show("Los kgs de las encomiendas superan al límite que figura arriba"); return; }
+                compra.codigo = DAO.DAOCompra.prepararCompra(grid_pasajeros, viaje.codigo);
+                this.openIntoParent(new Efectuar_Compra(compra), this.MdiParent);
+                return;
             }
-            MessageBox.Show("Debe completar todos los datos de todas las personas que viajan");
 
-        }
+
 
 
         private void Cancelar_Click(object sender, EventArgs e)
         {
-            // TODO borrar todo lo que habia hecho antes
+          
+            MessageBox.Show("Compra cancelada!");
             this.Close();
         }
 
@@ -49,6 +54,7 @@ namespace AerolineaFrba.Compra
         // setea los datos del vuelo
         public void setFlightData(Model.Viaje viaje, Decimal cant_pasajes, Decimal kgs_encomienda)
         {
+            
             this.viaje = viaje;
             this.cant_pasajes = cant_pasajes;
             this.kgs_encomienda = kgs_encomienda;
@@ -57,17 +63,19 @@ namespace AerolineaFrba.Compra
         private void Elegir_Pasajeros_Load(object sender, EventArgs e)
         {
             KgsRestantes.Text += kgs_encomienda + "kg.";
+            int pasajes = (int)Decimal.Round(cant_pasajes, 0);
+            if (pasajes == 0) { this.grid_pasajeros.Rows.Add(1); return; }
             this.grid_pasajeros.Rows.Add((int)Decimal.Round(cant_pasajes, 0));
-            allowed_sum = true;
+          
         }
 
         // suma todos los valores de las encomiendas que fue agregando el usuario
         private Decimal sumNumerics()
         {
-            int sum = 0;
+            Decimal sum = 0;
             foreach (DataGridViewRow row in this.grid_pasajeros.Rows)
             {
-                sum = sum + (int)row.Cells["col_encomiendas"].Value;
+                sum = sum + Convert.ToDecimal(row.Cells["col_encomiendas"].Value);
             }
             this.restantes = viaje.encomiendas - sum;
             return sum;
@@ -82,17 +90,35 @@ namespace AerolineaFrba.Compra
                     String dni = grid_pasajeros.cellValue("col_dni").ToString();
                     String tipoDNI = grid_pasajeros.cellValue("col_tipo_doc").ToString();
                     if (e.ColumnIndex == 1 && DAO.DAOCliente.existeCliente(tipoDNI, dni))
+                 
                         DAO.DAOCliente.completarDatos(tipoDNI, dni, grid_pasajeros);
                     }
+                if(grid_pasajeros.CurrentRow.Cells["col_fecha_nac"] != null && e.ColumnIndex == grid_pasajeros.CurrentRow.Cells["col_fecha_nac"].ColumnIndex){
+                    DateTime date;
+                   
+                    
+                if (!DateTime.TryParse(Convert.ToString(grid_pasajeros.CurrentRow.Cells["col_fecha_nac"].Value), out date)){
+                    MessageBox.Show("no es un formato valido");
+                    return;
+                }
+                grid_pasajeros.CurrentRow.Cells["col_fecha_nac"].Value = date.ToShortDateString();
+
+
+                
+                }
                 }
             
             else { return; }
 
         }
 
-        private bool allowed_sum = false;
-
-
+        private Boolean superaElLimiteDeEncomiendas(){
+            Decimal encomiendas = 0;
+            foreach(DataGridViewRow row in grid_pasajeros.Rows) {
+                Decimal value = row.Cells["col_encomienda"].Value == null ? 0 : Convert.ToDecimal(row.Cells["col_encomienda"].Value);
+                encomiendas += value;  }
+            return encomiendas > viaje.encomiendas;
+        }
 
         public decimal kgs_encomienda { get; set; }
 
@@ -102,7 +128,7 @@ namespace AerolineaFrba.Compra
         {
             if (grid_pasajeros.SelectedCells.Count != 0 || grid_pasajeros.SelectedRows.Count != 0)
             {
-                this.openInNewWindow(new Elegir_butacas(this));
+                this.openInNewWindow(new Elegir_butacas(this, grid_pasajeros));
                 return;
             }
             MessageBox.Show("Seleccione un pasajero");
@@ -130,64 +156,11 @@ namespace AerolineaFrba.Compra
             MessageBox.Show("Seleccione un pasajero");
         }
 
-        private void pasajeros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void grid_pasajeros_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void pasajeros_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        { 
-
-
-            if (e.ColumnIndex == grid_pasajeros.Rows[0].Cells["col_fecha_nac"].ColumnIndex)
-            {
-                    Rectangle tempRect = this.grid_pasajeros.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                    cellDateTimePicker.Location = tempRect.Location;
-                    cellDateTimePicker.Width = tempRect.Width;
-                    try
-                    {
-                        cellDateTimePicker.Value = DateTime.Parse(grid_pasajeros.CurrentCell.Value.ToString());
-                    }
-                    catch
-                    {
-                        cellDateTimePicker.Value = Config.DateToday;
-                    }
-                    cellDateTimePicker.Visible = true;
-                }
-            if (onlyNumbers.Contains(e.ColumnIndex)){
-            } 
-            
-        }
-        void cellDateTimePickerValueChanged(object sender, EventArgs e)
-        {
-            grid_pasajeros.CurrentCell.Value = cellDateTimePicker.Value.ToString("dd/MM/yyyy");
-            cellDateTimePicker.Visible = false;
-        }
-
-        private void AddCalendars(DataGridView dtgv)
-        {
-            dateColumnsIndexes = new List<int>();
-            var l = dtgv.Columns.Count;
-            string[] dateColumns = { "date_received", "date_of_birth" };
-            for (var i = 0; i < l; ++i)
-            {
-                if (dateColumns.Any(dtgv.Columns[i].HeaderText.Contains))
-                {
-                    dateColumnsIndexes.Add(i);
-                }
-            }
-
-
-
-        }
-
-        private void pasajeros_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-                Validations.columnAsTextBox(grid_pasajeros, onlyNumbers, e);
-           
-        }
-    
-         private List<int> onlyNumbers =  new List<int>(new int[] {1,5,10});
-
+       
 }
 }

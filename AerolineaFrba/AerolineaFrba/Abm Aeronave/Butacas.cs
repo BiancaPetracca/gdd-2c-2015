@@ -23,7 +23,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
       
         // ver: 0, alta: 1, modificacion: 2
-        public Butacas(Abm_Aeronave.Modificacion launcherM, int avion, int motivo)
+        public Butacas(Abm_Aeronave.Modificacion launcherM, Decimal avion, int motivo)
         {
             InitializeComponent();
             this.launcherM = launcherM;
@@ -32,7 +32,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
-        public Butacas(int avion, int motivo)
+        public Butacas(Decimal avion, int motivo)
         {
             InitializeComponent();
            
@@ -52,7 +52,7 @@ namespace AerolineaFrba.Abm_Aeronave
         public Boolean letEvents = false;
         public DataGridView copy_grid = new DataGridView();
         public int motivo { get; set; }
-        public int avion { get; set; }
+        public Decimal avion { get; set; }
         private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();

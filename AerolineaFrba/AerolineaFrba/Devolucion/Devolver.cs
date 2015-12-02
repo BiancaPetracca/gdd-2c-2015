@@ -68,7 +68,7 @@ namespace AerolineaFrba.Devolucion
                 return;
             }
             this.codigoCompra.clean();
-            this.codigoCompra.AddAll(DAO.DAOCompra.listarCompras(dni));
+            this.codigoCompra.AddAll(DAO.DAOCompra.listarCompras(dni.value));
         }
 
         private void codigoCompra_SelectedIndexChanged(object sender, EventArgs e)

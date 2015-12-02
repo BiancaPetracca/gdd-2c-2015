@@ -87,6 +87,7 @@
             // 
             this.Nombre.AccessibleDescription = "Nombre del rol";
             this.Nombre.Location = new System.Drawing.Point(136, 26);
+            this.Nombre.MaxLength = 25;
             this.Nombre.Name = "Nombre";
             this.Nombre.Size = new System.Drawing.Size(159, 20);
             this.Nombre.TabIndex = 9;
