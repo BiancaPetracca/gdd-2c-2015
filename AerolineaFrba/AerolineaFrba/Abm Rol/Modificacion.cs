@@ -15,6 +15,7 @@ namespace AerolineaFrba.Abm_Rol
     {
         public Model.Rol rol { get; set;}
         public Abm_Rol.RolListado launcher { get; set; }
+        public Int16 flag { get; set; }
 
         public Modificacion()
         {
@@ -23,9 +24,11 @@ namespace AerolineaFrba.Abm_Rol
 
         public Modificacion(Abm_Rol.RolListado launcher, Model.Rol rol)
         {
+            flag = 0;
             InitializeComponent();
             this.launcher = launcher;
             this.rol = rol;
+            DAO.DAORol.getFuncionalidadesRol(rol, this.FuncionalidadesRol);
         }
 
         private void Agregar_Click(object sender, EventArgs e)
@@ -85,8 +88,7 @@ namespace AerolineaFrba.Abm_Rol
         private void Estado_CheckedChanged(object sender, EventArgs e)
         {
             Decimal idFuncionalidad = Convert.ToDecimal(Extensions.cellValue(FuncionalidadesRol, "col_id"));
-            if (idFuncionalidad == 1 && rol.id == launcher.rol) { MessageBox.Show("No puede inhabilitarse a sí mismo!"); return; }
-
+            if (flag == 1 && idFuncionalidad == 1 && rol.id == launcher.rol) { MessageBox.Show("No puede inhabilitarse a sí mismo!"); return; } else { flag = 1; }
             rol.habilitado = this.Estado.Checked;
             DAO.DAORol.cambiarEstadoRol(rol);
         }

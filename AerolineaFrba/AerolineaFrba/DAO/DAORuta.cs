@@ -56,5 +56,10 @@ namespace AerolineaFrba.DAO
         {
             return SqlConnector.executeProcedure("tiene_viajes_ruta", codigo) == 1 ? true : false;
         }
+        internal static void filtrarRutas(String origen, String destino, DataGridView dg)
+        {
+
+            SqlConnector.retrieveDT("get_all_rutas", dg, origen, destino);
+        }
     }
 }

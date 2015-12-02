@@ -130,7 +130,10 @@ namespace AerolineaFrba
             salir.Enabled = true;
         }
 
-
+        private void item_ciudades_Click(object sender, EventArgs e)
+        {
+            this.openIntoParent(new Abm_Ciudad.Ciudad(), this);
+        }
 
     }
 }

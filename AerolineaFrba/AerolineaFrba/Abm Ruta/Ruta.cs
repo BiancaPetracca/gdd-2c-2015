@@ -95,12 +95,30 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void buscar_Click(object sender, EventArgs e)
         {
-
+            this.reloadNew();
         }
 
         private void buscar_Enter(object sender, EventArgs e)
         {
+            
+        }
 
+        private void reloadNew()
+        {
+            String o;
+            String d;
+            try
+            {
+                o = this.origen.value;
+                d = this.destino.value;
+            }
+            catch
+            {
+                MessageBox.Show("Seleccione un origen y destino");
+                return;
+            }
+
+            DAO.DAORuta.filtrarRutas(o, d, this.lista);
         }
     }
 }

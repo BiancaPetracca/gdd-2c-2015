@@ -80,6 +80,7 @@
             this.item_ciudades.Size = new System.Drawing.Size(97, 20);
             this.item_ciudades.Tag = "3";
             this.item_ciudades.Text = "ABM Ciudades";
+            this.item_ciudades.Click += new System.EventHandler(this.item_ciudades_Click);
             // 
             // item_ruta
             // 
