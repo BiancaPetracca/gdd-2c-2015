@@ -72,7 +72,7 @@ namespace AerolineaFrba.DAO
         //    return aero;
         //}
 
-        public static int tieneViajesAsignados(Decimal numero, DateTime fechaBaja, DateTime fechaReinicio)
+        public static int tieneViajesAsignados(Decimal numero, DateTime fechaBaja, Nullable<DateTime> fechaReinicio)
         {
             return SqlConnector.executeProcedure("tiene_viajes_asignados", numero, fechaBaja, fechaReinicio);
         }

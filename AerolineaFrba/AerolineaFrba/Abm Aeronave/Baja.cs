@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Generics;
+using System.Data.SqlTypes;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
@@ -27,6 +28,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Baja_Load(object sender, EventArgs e)
         {
+            fechaBaja.MinDate = Config.DateToday;
+            fechaReinicio.MinDate = Config.DateToday;
             this.label2.Hide();
             this.fechaReinicio.Hide();
         }
@@ -97,6 +100,16 @@ namespace AerolineaFrba.Abm_Aeronave
                 this.label2.Hide();
                 this.fechaReinicio.Hide();
             }
+        }
+
+        private void fechaReinicio_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fechaBaja_ValueChanged(object sender, EventArgs e)
+        {
+            fechaReinicio.MinDate = fechaBaja.Value;
         }
 
 

@@ -69,6 +69,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.fechaReinicio.Name = "fechaReinicio";
             this.fechaReinicio.Size = new System.Drawing.Size(102, 20);
             this.fechaReinicio.TabIndex = 6;
+            this.fechaReinicio.ValueChanged += new System.EventHandler(this.fechaReinicio_ValueChanged);
             // 
             // label
             // 
@@ -104,6 +105,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.fechaBaja.Name = "fechaBaja";
             this.fechaBaja.Size = new System.Drawing.Size(102, 20);
             this.fechaBaja.TabIndex = 10;
+            this.fechaBaja.ValueChanged += new System.EventHandler(this.fechaBaja_ValueChanged);
             // 
             // superLabel1
             // 

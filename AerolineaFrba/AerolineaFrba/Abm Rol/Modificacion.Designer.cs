@@ -31,6 +31,8 @@
             this.Estado = new AerolineaFrba.SuperControls.SuperCheckBox();
             this.Nombre = new AerolineaFrba.SuperControls.SuperTextBox();
             this.FuncionalidadesRol = new System.Windows.Forms.DataGridView();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.superLabel2 = new AerolineaFrba.SuperControls.SuperLabel();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
@@ -39,8 +41,6 @@
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.eliminar = new AerolineaFrba.SuperControls.SuperButton();
             this.cambiarNombre = new AerolineaFrba.SuperControls.SuperButton();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_funcionalidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.FuncionalidadesRol)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,6 +57,7 @@
             // 
             // Nombre
             // 
+            this.Nombre.AccessibleDescription = "Nombre del rol";
             this.Nombre.Location = new System.Drawing.Point(132, 33);
             this.Nombre.MaxLength = 25;
             this.Nombre.Name = "Nombre";
@@ -66,6 +67,7 @@
             // 
             // FuncionalidadesRol
             // 
+            this.FuncionalidadesRol.AccessibleDescription = "Funcionalidades";
             this.FuncionalidadesRol.AllowUserToAddRows = false;
             this.FuncionalidadesRol.AllowUserToDeleteRows = false;
             this.FuncionalidadesRol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -77,6 +79,16 @@
             this.FuncionalidadesRol.Name = "FuncionalidadesRol";
             this.FuncionalidadesRol.Size = new System.Drawing.Size(390, 251);
             this.FuncionalidadesRol.TabIndex = 2;
+            // 
+            // col_id
+            // 
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            // 
+            // col_funcionalidades
+            // 
+            this.col_funcionalidades.HeaderText = "Funcionalidades";
+            this.col_funcionalidades.Name = "col_funcionalidades";
             // 
             // superLabel1
             // 
@@ -108,6 +120,7 @@
             // 
             // FuncionalidadSeleccion
             // 
+            this.FuncionalidadSeleccion.AccessibleDescription = "Funcionalidad ";
             this.FuncionalidadSeleccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FuncionalidadSeleccion.FormattingEnabled = true;
             this.FuncionalidadSeleccion.Location = new System.Drawing.Point(132, 106);
@@ -153,16 +166,6 @@
             this.cambiarNombre.Text = "Cambiar";
             this.cambiarNombre.UseVisualStyleBackColor = true;
             this.cambiarNombre.Click += new System.EventHandler(this.cambiarNombre_Click);
-            // 
-            // col_id
-            // 
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            // 
-            // col_funcionalidades
-            // 
-            this.col_funcionalidades.HeaderText = "Funcionalidades";
-            this.col_funcionalidades.Name = "col_funcionalidades";
             // 
             // Modificacion
             // 

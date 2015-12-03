@@ -1385,7 +1385,7 @@ UPDATE AWANTA.PASAJE SET pas_butaca = (SELECT TOP 1 but_id FROM AWANTA.BUTACA JO
 (SELECT p.pas_butaca FROM AWANTA.PASAJE p WHERE p.pas_cancelado = 0))
 WHERE pas_viaje IN (SELECT via_codigo FROM AWANTA.VIAJE WHERE pas_cancelado = 0 AND (via_fecha_salida BETWEEN @fechaBaja AND @fechaReinicio) OR (via_fecha_llegada_estimada BETWEEN @fechaBaja AND @fechaReinicio))
 UPDATE AWANTA.VIAJE SET via_avion = @aero_reemplazo WHERE via_avion = @numero AND ((via_fecha_salida BETWEEN @fechaBaja AND @fechaReinicio) OR (via_fecha_llegada_estimada BETWEEN @fechaBaja AND @fechaReinicio))
-INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo) VALUES (@numero, @fechaBaja, 0)
+INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo, baja_reinicio) VALUES (@numero, @fechaBaja, 1, @fechaReinicio)
 END
 RETURN isnull(@aero_reemplazo, -1)
 END
@@ -1416,10 +1416,10 @@ INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo) VALUES (
 END
 RETURN isnull(@aero_reemplazo, -1)
 GO 
-
+ 
 
 --------------- cancela todos los viajes por mantenimiento o vida util ----------------
-CREATE PROCEDURE AWANTA.cancelarViajesAeronave(@numero NUMERIC(18), @fechaBaja DATETIME, @fechaReinicio DATETIME) AS 
+ALTER PROCEDURE AWANTA.cancelarViajesAeronave(@numero NUMERIC(18), @fechaBaja DATETIME, @fechaReinicio DATETIME) AS 
 IF (YEAR(@fechaReinicio) > 2000)
 BEGIN
 DECLARE @viajes table(viaje numeric(18))
@@ -1451,11 +1451,12 @@ JOIN DEVOLUCION ON dev_compra = compra_e
 INSERT INTO DEVOLUCIONXPASAJE(devxp_devolucion, devxp_pasaje, devxp_motivo) SELECT dev_codigo, dev_compra, 'baja aeronave' FROM @pasajes
 JOIN DEVOLUCION ON dev_compra = compra_p
 END
+INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo, baja_reinicio) VALUES (@numero, @fechaBaja, 1, @fechaReinicio)
 ---------------- si la fecha de reinicio era null, reemplazo todos los futuros --------------
 
 BEGIN
 DECLARE @viajes_futuros table(viaje numeric(18))
-INSERT INTO @viajes SELECT via_codigo FROM AWANTA.VIAJE where via_avion = @numero AND via_fecha_salida > @fechaBaja  OR via_fecha_llegada_estimada > @fechaBaja AND via_fecha_llegada IS NULL
+INSERT INTO @viajes_futuros SELECT via_codigo FROM AWANTA.VIAJE where via_avion = @numero AND via_fecha_salida >= @fechaBaja  OR via_fecha_llegada_estimada >= @fechaBaja AND via_fecha_llegada IS NULL
 AND via_cancelado = 0
 DECLARE @pasajes_futuros table(pasaje numeric(18), compra_p numeric(18)) 
 DECLARE @encomiendas_futuros table(encomienda numeric(18), compra_e numeric(18))
@@ -1481,6 +1482,7 @@ INSERT INTO DEVOLUCIONXENCOMIENDA(devxp_devolucion, devxp_encomienda, devxe_moti
 JOIN DEVOLUCION ON dev_compra = compra_e
 INSERT INTO DEVOLUCIONXPASAJE(devxp_devolucion, devxp_pasaje, devxp_motivo) SELECT dev_codigo, dev_compra, 'baja aeronave' FROM @pasajes_futuros
 JOIN DEVOLUCION ON dev_compra = compra_p
+INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo) VALUES (@numero, @fechaBaja, 0)
 END
 
 GO
@@ -1576,12 +1578,14 @@ SELECT fab_nombre FROM AWANTA.FABRICANTE
 END
 GO
 
-CREATE PROCEDURE AWANTA.bajaSinViajes(@aeronave NUMERIC(18), @fechaBaja DATETIME, @fechaReinicio DATETIME)
+ALTER PROCEDURE AWANTA.bajaSinViajes(@aeronave NUMERIC(18), @fechaBaja DATETIME, @fechaReinicio DATETIME)
 AS
-DECLARE @motivo BIT
-IF @fechaReinicio IS NULL BEGIN SET @motivo = 0 END ELSE BEGIN SET @motivo = 1 END
-INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo, baja_reinicio) 
-VALUES (@aeronave, @fechaBaja,@motivo, @fechaReinicio)
+IF (@fechaReinicio <2000) BEGIN
+INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo) 
+VALUES (@aeronave, @fechaBaja,0)
+RETURN END
+INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo, baja_reinicio) VALUES
+(@aeronave, @fechaBaja, 1, @fechaReinicio)
 GO
 
 
@@ -1726,15 +1730,15 @@ GO
 
 
 -- se fija si existe una ruta que es la ruta que le pasamos, que tenga ese servicio (en la asociativa)
-CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada DATETIME, @salida DATETIME, @ruta numeric)
+ALTER PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada DATETIME, @salida DATETIME, @ruta numeric)
 AS
 BEGIN
 	DECLARE @serv_avion numeric(18), @numero_avion numeric(18)
 	SELECT @serv_avion = aero_id_servicio, @numero_avion = aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = @avion
 	IF NOT EXISTS(SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = (SELECT aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = @avion)
 	AND via_fecha_llegada_estimada = @llegada_estimada AND via_fecha_salida = @salida AND via_ruta_aerea = @ruta)
-			INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea)
-			VALUES(@numero_avion, @llegada_estimada, @salida, @ruta)
+			INSERT INTO AWANTA.VIAJE(via_avion, via_fecha_llegada_estimada, via_fecha_salida, via_ruta_aerea, via_cancelado)
+			VALUES(@numero_avion, @llegada_estimada, @salida, @ruta, 0)
 
 		END
 

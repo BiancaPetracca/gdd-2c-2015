@@ -102,6 +102,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 DAO.DAOAeronave.getButacas(avion, this.grid);
                 this.letEvents = true;
                 this.copy_grid = this.grid;
+                if (motivo == 0) { Guardar.Hide(); cancelar.Hide(); }
             }
 
         }

@@ -50,6 +50,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_estado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_kgs = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scroll_ = new System.Windows.Forms.ScrollableControl();
+            this.col_fecha_alta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox.SuspendLayout();
             this.filtros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lista)).BeginInit();
@@ -212,7 +213,8 @@ namespace AerolineaFrba.Abm_Aeronave
             this.col_fabricante,
             this.col_servicio,
             this.col_estado,
-            this.col_kgs});
+            this.col_kgs,
+            this.col_fecha_alta});
             this.lista.Controls.Add(this.scroll_);
             this.lista.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.lista.Location = new System.Drawing.Point(16, 112);
@@ -272,6 +274,12 @@ namespace AerolineaFrba.Abm_Aeronave
             this.scroll_.Size = new System.Drawing.Size(0, 0);
             this.scroll_.TabIndex = 2;
             // 
+            // col_fecha_alta
+            // 
+            this.col_fecha_alta.HeaderText = "Fecha de alta";
+            this.col_fecha_alta.Name = "col_fecha_alta";
+            this.col_fecha_alta.ReadOnly = true;
+            // 
             // Aeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -322,6 +330,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_estado;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kgs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_fecha_alta;
 
     }
 }

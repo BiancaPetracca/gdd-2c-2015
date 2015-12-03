@@ -33,30 +33,38 @@ namespace AerolineaFrba.Abm_Rol
 
         private void Aceptar_Click(object sender, EventArgs e)
         {
-            Model.Rol rol = new Model.Rol(this.Nombre.value, this.Estado.value);
-            if (!this.validateNotNullForAll(this.datosRol.Controls)) { return; }
-            if (this.FuncionalidadesRol.Rows.Count == 0) { MessageBox.Show("El rol debe tener al menos una funcionalidad"); return; }
-                DAO.DAORol.crearNuevoRol(rol, this.FuncionalidadesRol); 
+           
+            if (Nombre.isValid())
+            { Model.Rol rol = new Model.Rol(this.Nombre.value, this.Estado.value);
+                if (this.FuncionalidadesRol.Rows.Count == 0) { MessageBox.Show("El rol debe tener al menos una funcionalidad"); return; }
+                DAO.DAORol.crearNuevoRol(rol, this.FuncionalidadesRol);
                 MessageBox.Show("Rol creado con éxito!");
-                Extensions.cleanAll(this.datosRol.Controls);
+                Nombre.clean(); Estado.clean(); Funcionalidad.Refresh();
                 this.FuncionalidadesRol.Rows.Clear();
                 launcher.reload();
-            
+
+            }
         }
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            String func = Funcionalidad.SelectedItem.ToString();
-            if (DAO.DAORol.yaExisteRol(this.Nombre.value) == 1) { MessageBox.Show("Ya existe un rol con ese nombre"); return; }
-            foreach(DataGridViewRow row in this.FuncionalidadesRol.Rows) {
-                if (row.Cells["col_funcionalidades"].Value.ToString() == func) {
-                    MessageBox.Show("Ya agregó esa funcionalidad!");
-                    return;
+            if (Funcionalidad.isValid())
+            {
+                String func = Funcionalidad.SelectedItem.ToString();
+                if (DAO.DAORol.yaExisteRol(this.Nombre.value) == 1) { MessageBox.Show("Ya existe un rol con ese nombre"); return; }
+                foreach (DataGridViewRow row in this.FuncionalidadesRol.Rows)
+                {
+                    if (row.Cells["col_funcionalidades"].Value.ToString() == func)
+                    {
+                        MessageBox.Show("Ya agregó esa funcionalidad!");
+                        return;
+                    }
                 }
+
+                FuncionalidadesRol.Rows.Add(func);
+
+                Funcionalidad.ResetText();
             }
-            FuncionalidadesRol.Rows.Add(func);
-            
-            Funcionalidad.ResetText();
         }
 
         private void FuncionalidadesRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -71,7 +79,10 @@ namespace AerolineaFrba.Abm_Rol
 
         private void quitar_Click(object sender, EventArgs e)
         {
-            this.FuncionalidadesRol.Rows.RemoveAt(this.FuncionalidadesRol.CurrentRow.Index);
+            if (FuncionalidadesRol.anySelected("una funcionalidad"))
+            {
+                this.FuncionalidadesRol.Rows.RemoveAt(this.FuncionalidadesRol.CurrentRow.Index);
+            }
         }
 
         private void Nombre_KeyPress(object sender, KeyPressEventArgs e)

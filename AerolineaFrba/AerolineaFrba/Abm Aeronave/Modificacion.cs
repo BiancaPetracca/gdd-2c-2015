@@ -54,7 +54,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             AeronaveModificada = new Model.Aeronave(this.Aeronave.numero,
                 modelo.value, matriculaLetras.value+"-"+matriculaNumeros.value, fabricante.value,
-      kgsEncomiendas.value, estado.value, servicio.value);
+      kgsEncomiendas.value, servicio.value);
             if (this.validateNotNullForAll(this.Controls))
             {
                 if (!Aeronave.Equals(AeronaveModificada)) // TODO QUE SE COMPARE BIEN
@@ -97,7 +97,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 this.servicio.Enabled = false;
                 this.elegirButacas.Enabled = false;
                 this.kgsEncomiendas.ReadOnly = true;
-                this.estado.Enabled = false;
+             
             };
          
 

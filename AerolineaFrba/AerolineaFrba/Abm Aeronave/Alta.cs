@@ -65,11 +65,11 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 Aeronave = new Model.Aeronave(0,
                      modelo.value, matriculaLetras.value + "-" + matriculaNumeros.value, fabricante.value,
-                     kgsEncomiendas.value, true, servicio.value);
+                     kgsEncomiendas.value, servicio.value);
                 
                 if (DAO.DAOAeronave.altaDeAeronave(Aeronave, dgButacas) == -1)
                 {
-                    MessageBox.Show("No se pudo insertar la aeronave, ingrese otra matrícula diferente");
+                    MessageBox.Show("La matrícula está repetida, ingrese otra matrícula diferente");
                     return;
                 }
                 MessageBox.Show("Éxito en el alta de aeronave.");

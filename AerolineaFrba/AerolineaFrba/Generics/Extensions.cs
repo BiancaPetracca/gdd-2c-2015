@@ -91,6 +91,18 @@ namespace AerolineaFrba.Generics
                 DT.Clear();
         }
 
+        // saber si hay alguna fila de la datagridview que este seleccionada, y le agrego algo descriptivo
+        public static Boolean anySelected(this DataGridView dg, String addon) {
+            if (dg.CurrentRow == null) {
+                MessageBox.Show("Debe seleccionar al menos " + addon);
+            
+            }
+            return dg.CurrentRow != null;
+        }
+
+        public static Boolean anySelected(this DataGridView dg)
+        {            return dg.CurrentRow != null;
+        }
   
     }
 

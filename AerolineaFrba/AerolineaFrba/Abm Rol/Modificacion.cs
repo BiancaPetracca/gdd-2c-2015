@@ -33,7 +33,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (FuncionalidadSeleccion.valid())
+            if (FuncionalidadSeleccion.isValid())
             {
                 DAO.DAORol.agregarFuncionalidad(rol, FuncionalidadSeleccion.SelectedItem.ToString());
                 this.reload();
@@ -66,7 +66,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void eliminar_Click(object sender, EventArgs e)
         {
-            if (FuncionalidadesRol.SelectedRows.Count != 0 || FuncionalidadesRol.SelectedCells.Count != 0)
+            if (!FuncionalidadesRol.anySelected("una funcionalidad"))
             {
                 Decimal idFuncionalidad = Convert.ToDecimal(Extensions.cellValue(FuncionalidadesRol, "col_id"));
                 if (idFuncionalidad == 1 && rol.id == launcher.rol) { MessageBox.Show("No puede eliminar la funcionalidad de ABM de rol porque se encuentra en ella, y en su propio rol"); return; }
@@ -76,7 +76,7 @@ namespace AerolineaFrba.Abm_Rol
                 reloadMenu();
                 return;
             }
-            MessageBox.Show("Seleccione una funcionalidad");
+          
 
         }
 
@@ -95,9 +95,12 @@ namespace AerolineaFrba.Abm_Rol
 
         private void cambiarNombre_Click(object sender, EventArgs e)
         {
-            if (DAO.DAORol.yaExisteRol(this.Nombre.Text) == 1) { MessageBox.Show("El nombre del rol ya existe, elija otro"); return; }
-            DAO.DAORol.modificarNombreRol(rol, this.Nombre.Text);
-            rol.nombre = this.Nombre.Text;
+            if (this.Nombre.valid())
+            {
+                if (DAO.DAORol.yaExisteRol(this.Nombre.Text) == 1) { MessageBox.Show("El nombre del rol ya existe, elija otro"); return; }
+                DAO.DAORol.modificarNombreRol(rol, this.Nombre.Text);
+                rol.nombre = this.Nombre.Text;
+            }
         }
 
         private void Nombre_KeyPress(object sender, KeyPressEventArgs e)

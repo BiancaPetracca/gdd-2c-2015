@@ -40,15 +40,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            if (this.lista.SelectedCells.Count == 0 && this.lista.SelectedRows.Count == 0) {
-                MessageBox.Show("Tiene que seleccionar alguna aeronave para modificarla");
-                return;
-            }
-            Model.Aeronave aeronave = getCurrentAeronave();
+                Model.Aeronave aeronave = getCurrentAeronave();
 
-            // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
-            this.openInNewWindow(new Modificacion(aeronave, this));
+                // abro una form de modificacion y mando a este form para que pueda hacer un reload luego cuando modifica
+                this.openInNewWindow(new Modificacion(aeronave, this));
 
+            
         }
 
         public Model.Aeronave getCurrentAeronave() {
@@ -60,7 +57,7 @@ namespace AerolineaFrba.Abm_Aeronave
             (String)Extensions.cellValue(this.lista, "col_fabricante"),
 
             Convert.ToDecimal(Extensions.cellValue(this.lista, "col_kgs")),
-            Convert.ToBoolean(Extensions.cellValue(this.lista, "col_estado")),
+          //  Convert.ToBoolean(Extensions.cellValue(this.lista, "col_estado")),
             (String)Extensions.cellValue(this.lista, "col_servicio"));
             
         }
@@ -85,7 +82,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void limpiar_Click(object sender, EventArgs e)
         {
-            Extensions.cleanAll(this.filtros.Controls);
+            HabilitadasFiltro.clean(); ServicioFiltro.Refresh();
             DAO.DAOAeronave.listarAeronaves(this.lista);
         }
 
@@ -116,22 +113,19 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Borrar_Click(object sender, EventArgs e)
         {
-            if (!lista.anySelectedCells())
-            {
-                MessageBox.Show("Tiene que seleccionar alguna aeronave para poder darla de baja");
-                return;
-            }
-            Model.Aeronave aeronave = this.getCurrentAeronave();
-            if (DAO.DAOAeronave.estaHabilitada(aeronave.numero) == 1)
-            {
-                Baja baja = new Baja(aeronave.numero, aeronave.matricula);
-                baja.LauncherBaja = this;
-                String nombre_aeronave = this.lista.CurrentRow.Cells["col_matricula"].Value.ToString();
-               
-                this.openInNewWindow(baja);
-                return;
-            }
-            MessageBox.Show("La aeronave que intenta dar de baja ya se encuentra inhabilitada");
+
+                Model.Aeronave aeronave = this.getCurrentAeronave();
+                if (DAO.DAOAeronave.estaHabilitada(aeronave.numero) == 1)
+                {
+                    Baja baja = new Baja(aeronave.numero, aeronave.matricula);
+                    baja.LauncherBaja = this;
+                    String nombre_aeronave = this.lista.CurrentRow.Cells["col_matricula"].Value.ToString();
+
+                    this.openInNewWindow(baja);
+                    return;
+                }
+                MessageBox.Show("La aeronave que intenta dar de baja ya se encuentra inhabilitada");
+            
         }
 
         public void reload()
@@ -156,14 +150,11 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void verButacas_Click_1(object sender, EventArgs e)
         {
-            if (lista.anySelectedCells())
-            {
-
                 Model.Aeronave aero = getCurrentAeronave();
                 aero.numero = DAO.DAOAeronave.getNumeroAeronave(aero.matricula);
                 this.openInNewWindow(new Butacas(aero.numero, 0));
-            }
-            MessageBox.Show("Seleccione una aeronave");
+            
+         
         }
 
 

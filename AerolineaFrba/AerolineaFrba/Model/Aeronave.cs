@@ -12,7 +12,7 @@ namespace AerolineaFrba.Model
         public Aeronave(String matricula) {
             this.matricula = matricula;
         }
-        public Aeronave(Decimal numero, String modelo, String matricula, String fabricante, Decimal kgsEncomiendas, Boolean estadoAeronave, /*DateTime fechaBaja,
+        public Aeronave(Decimal numero, String modelo, String matricula, String fabricante, Decimal kgsEncomiendas,  /*DateTime fechaBaja,
             DateTime fechaReinicio, DateTime fechaBajaFueraServicio, DateTime fechaAlta,*/ String servicio)
         {
 
@@ -22,7 +22,7 @@ namespace AerolineaFrba.Model
             this.fabricante = fabricante;
          
             this.kgsEncomiendas = kgsEncomiendas;
-            this.estadoAeronave = estadoAeronave;
+    
             this.servicio = servicio;
         }
         public Decimal numero { get; set; }

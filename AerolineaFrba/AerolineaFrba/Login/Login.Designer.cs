@@ -83,19 +83,23 @@
             // 
             this.pass.AccessibleDescription = "Contraseña ";
             this.pass.Location = new System.Drawing.Point(154, 147);
+            this.pass.MaxLength = 25;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
             this.pass.Size = new System.Drawing.Size(202, 20);
             this.pass.TabIndex = 1;
+            this.pass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pass_KeyPress);
             // 
             // Usuario
             // 
             this.Usuario.AccessibleDescription = "Nombre de usuario";
             this.Usuario.Location = new System.Drawing.Point(154, 112);
+            this.Usuario.MaxLength = 25;
             this.Usuario.Name = "Usuario";
             this.Usuario.Size = new System.Drawing.Size(202, 20);
             this.Usuario.TabIndex = 0;
             this.Usuario.TextChanged += new System.EventHandler(this.Usuario_TextChanged);
+            this.Usuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Usuario_KeyPress);
             // 
             // label_Usuario
             // 

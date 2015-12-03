@@ -85,5 +85,15 @@ namespace AerolineaFrba.Login
 
         }
 
+        private void Usuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericOnly(e);
+        }
+
+        private void pass_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericOnly(e);
+        }
+
     }
 }

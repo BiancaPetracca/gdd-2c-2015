@@ -10,6 +10,7 @@ namespace AerolineaFrba.Generics
 {
     public static class Validations
     {
+
         /******** VALIDACIONES PARA CAMPOS NO NULOS ********/
         public static String validate(this ISuperControls control)
         {
@@ -39,6 +40,11 @@ namespace AerolineaFrba.Generics
            return false;
 
                     }
+
+        public static Boolean isValid(this Control control) {
+            if (!((ISuperControls)control).valid()) { MessageBox.Show("Falta especificar" + control.AccessibleDescription);}
+            return ((ISuperControls)control).valid();
+        }
 
 
         // try catchea una excepcion proviniente de campos vacios

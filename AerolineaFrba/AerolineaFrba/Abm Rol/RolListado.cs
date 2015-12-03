@@ -40,7 +40,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void modificar_Click(object sender, EventArgs e){
 
-
+            if(!ListadoRoles.anySelected("un rol"))
             this.openInNewWindow(new Abm_Rol.Modificacion(this, getCurrentRol()));
 
         }
@@ -51,7 +51,7 @@ namespace AerolineaFrba.Abm_Rol
     }
 
     public void reload() {
-        DAO.DAORol.getAllRoles(this.ListadoRoles);
+        DAO.DAORol.getAllRoles(ListadoRoles);
     }
      }
 }
