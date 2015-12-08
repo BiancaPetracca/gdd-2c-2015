@@ -66,12 +66,19 @@ namespace AerolineaFrba.Generics
 
         }
 
-        public static Object cellValue(this DataGridView dg, String column) {
-            return dg.CurrentRow.Cells[column].Value;
+        public static String rowValue(this DataGridView dg, String col, int index) {
+            try { return dg.Rows[index].Cells[col].Value.ToString(); }
+            catch { return null; }
+        }
+
+        public static String cellValue(this DataGridView dg, String column) {
+            try { return dg.CurrentRow.Cells[column].Value.ToString(); }
+            catch { return null; }
         }
 
 
         public static void clean(this DataGridView dg){
+            
             for (int i = 0; i < dg.Rows.Count; i++ )
             {
                 dg.Rows.RemoveAt(i);

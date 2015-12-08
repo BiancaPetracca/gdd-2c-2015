@@ -27,51 +27,6 @@ namespace AerolineaFrba.DAO
         }
 
 
-
-
-        //private static Aeronave convertirAeronave(DataRow dataRow, Aeronave aero)
-        //{
-
-        //    aero.matricula = dataRow["aero_matricula"].ToString();
-        //    aero.fabricante = dataRow["aero_fabricante"].ToString();
-        //    aero.cantidadButacas = Convert.ToInt32(dataRow["aero_cantidad_butacas_ventanilla"]) + Convert.ToInt32(dataRow["aero_cantidad_butacas_pasillo"]);
-        //    aero.kgsEncomiendas = Convert.ToInt32(dataRow["aero_kgs_disponibles_encomiendas"]);
-
-        //    if ((dataRow["aero_fecha_baja_definitiva"] == (System.DBNull.Value)))
-        //    {
-        //        aero.fechaBaja = null;
-        //    }
-        //    else
-        //    {
-        //        aero.fechaBaja = Convert.ToDateTime(dataRow["aero_fecha_baja_definitiva"]);
-        //    };
-
-        //    if ((dataRow["aero_fecha_de_alta"]) == (System.DBNull.Value))
-        //    {
-        //        aero.fechaAlta = null;
-        //    }
-        //    else
-        //    {
-        //        aero.fechaAlta = Convert.ToDateTime(dataRow["aero_fecha_de_alta"]);
-        //    };
-
-
-
-        //    if (Convert.ToInt32(dataRow["aero_estado"]) == 1)
-        //    {
-        //        aero.estadoAeronave = "Habilitada";
-        //    }
-        //    else
-        //    {
-        //        aero.estadoAeronave = "Deshabilitada";
-        //    }
-        //    // aero.fechaBaja = Convert.ToDateTime(dataRow["aero_baja_fuera_de_servicio"]);
-        //    // aero.fechaReinicio = Convert.ToDateTime(dataRow["aero_fecha_reinicio_servicio"]);
-        //    //aero.servicio = Convert.ToInt32(dataRow["serv_id_servicio"]);
-
-        //    return aero;
-        //}
-
         public static int tieneViajesAsignados(Decimal numero, DateTime fechaBaja, Nullable<DateTime> fechaReinicio)
         {
             return SqlConnector.executeProcedure("tiene_viajes_asignados", numero, fechaBaja, fechaReinicio);
@@ -90,7 +45,10 @@ namespace AerolineaFrba.DAO
         {
             int r = SqlConnector.executeProcedure("modificarAeronave", aeronave.numero, aeronave.matricula, aeronave.modelo, aeronave.fabricante,
                 aeronave.servicio, aeronave.kgsEncomiendas, aeronave.estadoAeronave ? 1 : 0);
-            modificarButacas(dgButacas, aeronave.numero);
+            if (r != -1)
+            {
+                modificarButacas(dgButacas, aeronave.numero);
+            }
             return r;
         }
 
@@ -107,7 +65,10 @@ namespace AerolineaFrba.DAO
         public static int altaDeAeronave(Model.Aeronave aeronave, DataGridView dgButacas)
         { int numeroAeronave = SqlConnector.executeProcedure("altaDeAeronave", aeronave.matricula, aeronave.modelo, aeronave.fabricante,
                 aeronave.servicio, aeronave.kgsEncomiendas);
-        modificarButacas(dgButacas, numeroAeronave);
+        if (numeroAeronave != -1)
+        {
+            modificarButacas(dgButacas, numeroAeronave);
+        }
         return numeroAeronave;
             
         }
@@ -117,7 +78,7 @@ namespace AerolineaFrba.DAO
         {
             foreach (DataGridViewRow row in dg.Rows)
             {
-                if (row.Index < dg.Rows.Count -1)
+                if (!row.IsNewRow)
                 {
                      SqlConnector.executeProcedure("set_butacas", numeroAeronave, Convert.ToDecimal(row.Cells["col_butaca"].Value), Convert.ToString(row.Cells["col_tipo"].Value));
                 }
@@ -174,14 +135,24 @@ namespace AerolineaFrba.DAO
             return SqlConnector.executeProcedure("set_butaca_ocupada", viaje, butaca, estado);
         }
 
-        internal static int cancelarViajesAeronave(decimal numero, DateTime baja, DateTime reinicio)
+        internal static int cancelarViajesAeronavePorVidaUtil(decimal numero, DateTime baja)
         {
-            return SqlConnector.executeProcedure("cancelarViajesAeronave", numero, baja, reinicio);
+            return SqlConnector.executeProcedure("cancelarViajesAeronavePorVidaUtil", numero, baja);
         }
 
-        internal static int reemplazarViajes(decimal numero, DateTime baja, DateTime reinicio)
+        internal static int reemplazarViajesPorVidaUtil(decimal numero, DateTime baja)
         {
-           return SqlConnector.executeProcedure("reemplazarAeronave", numero, baja, reinicio);
+           return SqlConnector.executeProcedure("reemplazarAeronavePorVidaUtil", numero, baja);
+        }
+
+        internal static int cancelarViajesAeronavePorMantenimiento(decimal numero, DateTime baja, DateTime reinicio)
+        {
+            return SqlConnector.executeProcedure("cancelarViajesAeronavePorMantenimiento", numero, baja, reinicio);
+        }
+
+        internal static int reemplazarViajesPorMantenimiento(decimal numero, DateTime baja, DateTime reinicio)
+        {
+            return SqlConnector.executeProcedure("reemplazarAeronavePorMantenimiento", numero, baja, reinicio);
         }
 
         internal static int bajaDeAeronave(decimal numero, DateTime baja, DateTime reinicio)

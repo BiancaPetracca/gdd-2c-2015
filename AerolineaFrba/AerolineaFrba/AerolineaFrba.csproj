@@ -184,6 +184,7 @@
     <Compile Include="DAO\SqlConnector.cs" />
     <Compile Include="Generics\Extensions.cs" />
     <Compile Include="Generics\Validations.cs" />
+    <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Rol.cs" />
     <Compile Include="Model\Ruta.cs" />
     <Compile Include="Model\Usuario.cs" />

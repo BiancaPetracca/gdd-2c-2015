@@ -31,16 +31,11 @@ namespace AerolineaFrba.Compra
 
         private void SeleccionarViaje_Load(object sender, EventArgs e)
         {
-            DAO.DAOCompra.encontrarViajes(this.viajes, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaSalida, viaje.fechaLlegadaEstimada);
+            DAO.DAOCompra.encontrarViajes(viajes, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaSalida, viaje.fechaLlegadaEstimada);
         }
 
         private void seleccionar_viaje_Click(object sender, EventArgs e)
         {
-            if (this.viajes.SelectedRows.Count == 0 || this.viajes.SelectedCells.Count == 0) {
-
-                MessageBox.Show("Seleccione un viaje");
-                return;
-            }
             Model.Viaje viajeElegido = new Model.Viaje(
                 Convert.ToDecimal(viajes.cellValue("col_codigo")),
                 Convert.ToDateTime(viajes.cellValue("col_salida")),

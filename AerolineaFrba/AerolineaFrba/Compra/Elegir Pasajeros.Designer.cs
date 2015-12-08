@@ -71,14 +71,17 @@ namespace AerolineaFrba.Compra
             this.col_tipo,
             this.col_encomienda});
             this.grid_pasajeros.Location = new System.Drawing.Point(19, 65);
+            this.grid_pasajeros.MultiSelect = false;
             this.grid_pasajeros.Name = "grid_pasajeros";
-            this.grid_pasajeros.Size = new System.Drawing.Size(1147, 287);
+            this.grid_pasajeros.Size = new System.Drawing.Size(1147, 297);
             this.grid_pasajeros.TabIndex = 0;
             this.grid_pasajeros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_pasajeros_CellContentClick);
             this.grid_pasajeros.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatosPasajes_CellValueChanged);
+            this.grid_pasajeros.CurrentCellDirtyStateChanged += new System.EventHandler(this.grid_pasajeros_CurrentCellDirtyStateChanged);
             // 
             // col_tipo_doc
             // 
+            this.col_tipo_doc.DataPropertyName = "cli_tipo_doc";
             this.col_tipo_doc.HeaderText = "Tipo";
             this.col_tipo_doc.Items.AddRange(new object[] {
             "DNI",
@@ -88,6 +91,7 @@ namespace AerolineaFrba.Compra
             // 
             // col_dni
             // 
+            this.col_dni.DataPropertyName = "cli_nro_doc";
             this.col_dni.HeaderText = "DNI";
             this.col_dni.Name = "col_dni";
             // 
@@ -141,12 +145,11 @@ namespace AerolineaFrba.Compra
             // 
             // col_encomienda
             // 
-            this.col_encomienda.HeaderText = "Kgs. Encomienda";
+            this.col_encomienda.HeaderText = "Kgs. encomiendas";
             this.col_encomienda.Name = "col_encomienda";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.KgsRestantes);
             this.groupBox1.Controls.Add(this.grid_pasajeros);
             this.groupBox1.Location = new System.Drawing.Point(12, 22);
             this.groupBox1.Name = "groupBox1";
@@ -154,6 +157,7 @@ namespace AerolineaFrba.Compra
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Elegir Pasajeros / Datos Encomienda";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // KgsRestantes
             // 
@@ -220,7 +224,6 @@ namespace AerolineaFrba.Compra
             this.Load += new System.EventHandler(this.Elegir_Pasajeros_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid_pasajeros)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -229,7 +232,6 @@ namespace AerolineaFrba.Compra
 
         #endregion
 
-        private System.Windows.Forms.DataGridView grid_pasajeros;
         private System.Windows.Forms.GroupBox groupBox1;
         private SuperButton Siguiente;
         private SuperButton Cancelar;
@@ -249,6 +251,7 @@ namespace AerolineaFrba.Compra
         private System.Windows.Forms.DataGridViewTextBoxColumn col_butaca;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_encomienda;
+        public System.Windows.Forms.DataGridView grid_pasajeros;
         
 
     }

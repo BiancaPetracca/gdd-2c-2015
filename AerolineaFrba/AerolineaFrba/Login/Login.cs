@@ -24,19 +24,24 @@ namespace AerolineaFrba.Login
         }
 
         private void IniciarSesion_Click(object sender, EventArgs e)
-        { 
-            if(!DAO.DAOLogin.existeUsuario(Usuario.value)){
-            MessageBox.Show("El usuario no es válido");
-                return;
-            }
+        {
+            if (this.validateNotNullForAll(Controls))
+            {
+                if (!DAO.DAOLogin.existeUsuario(Usuario.value))
+                {
+                    MessageBox.Show("El usuario no es válido");
+                    return;
+                }
 
 
 
-            Model.Usuario user = new Model.Usuario(Usuario.value, pass.value);
+                Model.Usuario user = new Model.Usuario(Usuario.value, pass.value);
                 user.Intentos = DAO.DAOLogin.getIntentos(user);
                 user.Estado = user.Intentos >= 3 ? false : true;
                 user.Rol = DAO.DAOLogin.obtenerRolUsuario(user);
                 user.IDRol = DAO.DAOLogin.obtenerIDRolUsuario(user);
+
+               
 
 
                 if (!user.Estado)
@@ -45,10 +50,13 @@ namespace AerolineaFrba.Login
                     Extensions.cleanAll(this.Controls);
                     return;
                 }
- 
 
-            if (this.validateNotNullForAll(this.Controls) && user.Estado)
-            {
+                if (user.IDRol != 0) {
+                    MessageBox.Show("El usuario no es administrativo, por lo tanto no puede loguearse");
+                    return;
+                }
+
+
                 if (DAO.DAOLogin.validarUsername(user.Username, user.Password) == 1)
                 {
                     user.Intentos = DAO.DAOLogin.vaciarIntentos(user);
@@ -60,8 +68,9 @@ namespace AerolineaFrba.Login
 
                 user.Intentos = DAO.DAOLogin.aumentarIntentos(user);
                 if (user.Intentos == 3) { MessageBox.Show("Usuario inhabilitado!"); return; }
-                    MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - user.Intentos));
-                
+                MessageBox.Show("Usuario o password incorrecto. Vuelva a intentar. Intentos restantes: " + (3 - user.Intentos));
+
+
 
             }
         }

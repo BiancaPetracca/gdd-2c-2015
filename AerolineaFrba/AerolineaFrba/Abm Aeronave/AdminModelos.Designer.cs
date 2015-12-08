@@ -31,14 +31,15 @@
             this.Fabricante = new AerolineaFrba.SuperControls.SuperComboBox();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.modelos = new System.Windows.Forms.DataGridView();
-            this.Modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Agregar = new AerolineaFrba.SuperControls.SuperButton();
             this.Modificar = new AerolineaFrba.SuperControls.SuperButton();
+            this.col_modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.modelos)).BeginInit();
             this.SuspendLayout();
             // 
             // Fabricante
             // 
+            this.Fabricante.AccessibleDescription = "Fabricante a modificar";
             this.Fabricante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Fabricante.FormattingEnabled = true;
             this.Fabricante.Location = new System.Drawing.Point(108, 31);
@@ -64,18 +65,12 @@
             this.modelos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.modelos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.modelos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Modelo});
+            this.col_modelo});
             this.modelos.Location = new System.Drawing.Point(30, 78);
             this.modelos.Name = "modelos";
             this.modelos.ReadOnly = true;
             this.modelos.Size = new System.Drawing.Size(239, 223);
             this.modelos.TabIndex = 2;
-            // 
-            // Modelo
-            // 
-            this.Modelo.HeaderText = "Modelo";
-            this.Modelo.Name = "Modelo";
-            this.Modelo.ReadOnly = true;
             // 
             // Agregar
             // 
@@ -96,6 +91,12 @@
             this.Modificar.Text = "Modificar";
             this.Modificar.UseVisualStyleBackColor = true;
             this.Modificar.Click += new System.EventHandler(this.Modificar_Click);
+            // 
+            // col_modelo
+            // 
+            this.col_modelo.HeaderText = "Modelo";
+            this.col_modelo.Name = "col_modelo";
+            this.col_modelo.ReadOnly = true;
             // 
             // AdminModelos
             // 
@@ -121,8 +122,8 @@
         private SuperControls.SuperComboBox Fabricante;
         private SuperControls.SuperLabel superLabel1;
         private System.Windows.Forms.DataGridView modelos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Modelo;
         private SuperControls.SuperButton Agregar;
         private SuperControls.SuperButton Modificar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_modelo;
     }
 }

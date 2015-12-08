@@ -48,7 +48,7 @@ namespace AerolineaFrba.Consulta_Millas
             encomiendas.clearBindedDT();
             pasajes.clearBindedDT();
             dni.clean();
-            tipo.SelectedIndex = -1;
+            tipo.clearSelection();
         }
 
         

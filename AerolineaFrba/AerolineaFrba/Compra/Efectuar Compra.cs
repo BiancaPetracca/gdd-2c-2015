@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AerolineaFrba.Generics;
 using AerolineaFrba.DAO;
 using AerolineaFrba.SuperControls;
+using AerolineaFrba.Model;
 
 namespace AerolineaFrba.Compra
 {
@@ -21,16 +22,24 @@ namespace AerolineaFrba.Compra
         }
         public Model.Compra compra { get; set; }
         public Model.Cliente cliente { get; set; }
+        public List<Item> items { get; set; }
         public Efectuar_Compra(Model.Compra compra)
         {
             InitializeComponent();
             this.compra = compra;
         }
+
+        public Efectuar_Compra(Model.Compra compra, List<Item> items)
+        {
+            InitializeComponent();
+            this.compra = compra;
+            this.items = items;
+        }
         
 
         private void Efectuar_Compra_Load(object sender, EventArgs e)
         {
-
+            FechaExpiracion.MinDate = Config.DateToday;
             datosPersonales.Rows.Add();
 
             if (Config.Terminal == 1)
@@ -111,16 +120,18 @@ namespace AerolineaFrba.Compra
             Decimal TarjetaID;
             if (MedioPago.value == "Efectivo")
             {
+                compra.codigo = DAO.DAOCompra.prepararCompra(items, compra.codigoViaje);
                 DAO.DAOCompra.efectuarCompra(cliente, compra.codigo, 0, 1);
                 this.openInNewWindow(new Exito_Efectivo(compra.codigo, this));
                 return;
             }
+            if (!this.validateNotNullForAll(datosTarjeta.Controls)) { return; }
          
             TarjetaID = DAO.DAOCliente.clienteTieneTarjeta(cliente, TipoTarjeta.value, NumeroTarjeta.value, CodigoSeguridad.value,
                 FechaExpiracion.value);
             if(TarjetaID != -1)
             {
-                
+                compra.codigo = DAO.DAOCompra.prepararCompra(items, compra.codigoViaje);
                 DAO.DAOCompra.efectuarCompra(cliente, compra.codigo, DAO.DAOCompra.getTipoPago(TipoTarjeta.value), Cuotas.value);
                 this.openInNewWindow(new Exito_Tarjeta(compra.codigo, this));
                 return;
@@ -129,7 +140,7 @@ namespace AerolineaFrba.Compra
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 TarjetaID = DAO.DAOCliente.nuevaTarjeta(cliente, TipoTarjeta.value, NumeroTarjeta.value, CodigoSeguridad.value, FechaExpiracion.value);
-             
+                compra.codigo = DAO.DAOCompra.prepararCompra(items, compra.codigoViaje);
                 DAO.DAOCompra.efectuarCompra(cliente, compra.codigo, DAO.DAOCompra.getTipoPago(TipoTarjeta.value), Cuotas.value);
                 this.openInNewWindow(new Exito_Tarjeta(compra.codigo, this));
                 return;

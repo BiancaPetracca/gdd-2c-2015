@@ -17,7 +17,7 @@ namespace AerolineaFrba.SuperControls
             InitializeComponent();
         }
 
-
+        public Boolean isValid { get { return valid(); } }
         public Decimal value
         {
             get { return this.Value; }

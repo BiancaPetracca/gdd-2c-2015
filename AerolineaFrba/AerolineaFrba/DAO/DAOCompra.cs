@@ -34,9 +34,9 @@ namespace AerolineaFrba.DAO
             return ciudades;
         }
 
-        public static List<String> listarCompras(Object dni)
+        public static List<String> listarCompras(String tipo, Object doc)
         {
-            return SqlConnector.retrieveList("get_compras", "compra_id", Convert.ToDecimal(dni));
+            return SqlConnector.retrieveList("get_compras", "compra_id", tipo, Convert.ToDecimal(doc));
         }
 
         public static List<String> listarEncomiendas(Decimal compra)
@@ -69,17 +69,13 @@ namespace AerolineaFrba.DAO
             return SqlConnector.executeProcedure("hay_viajes_disponibles", viaje.fechaSalida, viaje.fechaLlegadaEstimada, viaje.ciudadOrigen, viaje.ciudadDestino) == 1 ? true : false;
         }
 
-        internal static int prepararCompra(System.Windows.Forms.DataGridView grid_pasajeros, Decimal viaje)
+        internal static int prepararCompra(List<Item> items, Decimal viaje)
         {
             int codigoCompra = SqlConnector.executeProcedure("crear_compra");
-            foreach (DataGridViewRow row in grid_pasajeros.Rows)
-            {
-               SqlConnector.executeProcedure("preparar_compra", codigoCompra, row.Cells["col_tipo_doc"].Value, row.Cells["col_dni"].Value 
-                   ,
-                    row.Cells["col_nombre"].Value, row.Cells["col_apellido"].Value, row.Cells["col_direccion"].Value, row.Cells["col_telefono"].Value,
-                    row.Cells["col_mail"].Value,
-                    row.Cells["col_fecha_nac"].Value, row.Cells["col_butaca"].Value, row.Cells["col_tipo"].Value, Convert.ToDecimal(row.Cells["col_encomienda"].Value), viaje);
-            }
+            items.ForEach(item =>
+               SqlConnector.executeProcedure("preparar_compra", codigoCompra, item.tipoDoc, item.nroDoc, 
+                  item.nombre, item.apellido, item.direccion, item.telefono, item.mail, item.fechaNacimiento, item.butaca, item.tipoButaca, item.kgsEncomienda, viaje));
+            
             return codigoCompra;
         }
 
@@ -118,6 +114,11 @@ namespace AerolineaFrba.DAO
         internal static void getCompra(decimal codigo, DataGridView compra)
         {
             SqlConnector.retrieveDT("detalle_compra", compra, codigo);
+        }
+
+        internal static Boolean clienteYaTienePasaje(DateTime salida, DateTime llegada, String tipoDoc, String nroDoc)
+        {
+            return SqlConnector.executeProcedure("ya_tiene_pasaje", salida, llegada, tipoDoc, Convert.ToDecimal(nroDoc)) == 1? true : false;
         }
     }
 }

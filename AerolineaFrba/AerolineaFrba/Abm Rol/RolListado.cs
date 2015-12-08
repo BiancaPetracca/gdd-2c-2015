@@ -39,10 +39,10 @@ namespace AerolineaFrba.Abm_Rol
         }
 
         private void modificar_Click(object sender, EventArgs e){
-
-            if(!ListadoRoles.anySelected("un rol"))
-            this.openInNewWindow(new Abm_Rol.Modificacion(this, getCurrentRol()));
-
+            if (ListadoRoles.Rows.Count > 0)
+            {
+                this.openInNewWindow(new Abm_Rol.Modificacion(this, getCurrentRol()));
+            }
         }
     public Model.Rol getCurrentRol(){
         return new Model.Rol(Convert.ToDecimal(Extensions.cellValue(ListadoRoles, "col_id")),

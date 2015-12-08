@@ -21,9 +21,16 @@ namespace AerolineaFrba.SuperControls
         {
             get
             {
-                return this.SelectedItem.ToString();
+                try
+                {
+                    return this.SelectedItem.ToString();
+                }
+                catch { return null; }
             }
         }
+
+        public Boolean isValid { get { return valid(); } }
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -47,6 +54,10 @@ namespace AerolineaFrba.SuperControls
         public void setItem(String item)
         {
             this.SelectedIndex = this.FindString(item);
+        }
+
+        public void clearSelection() {
+           this.SelectedIndex = -1;
         }
 
     }

@@ -67,7 +67,7 @@ namespace AerolineaFrba.Abm_Aeronave
                     DAO.DAOAeronave.bajaDeAeronave(this.numero, this.fechaBaja.value, Convert.ToDateTime(fechaDefault));
                 }
                 MessageBox.Show("Se dio de baja exitosamente la aeronave:" + this.matricula);
-                this.LauncherBaja.reload();
+                this.LauncherBaja.listarAeronaves();
             }
             this.Close();
         }

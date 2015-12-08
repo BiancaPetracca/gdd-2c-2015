@@ -17,9 +17,11 @@ namespace AerolineaFrba.DAO
 
         public static int modificarRuta(Model.Ruta rutaVieja, Model.Ruta rutaModificada)
         {
+            /* se fija las diferencias entre servicios que tiene, si la ruta ahora tiene servicios que la original no tenia,
+            entonces lo que tiene que hacer es agregar. si es al reves, tiene que quitar */
          
             if (SqlConnector.executeProcedure("modificar_ruta", rutaVieja.Codigo, rutaModificada.Origen, rutaModificada.Destino,
-                rutaModificada.PrecioBaseKg, rutaModificada.PrecioBasePasaje) == -1) { return -1; };
+                rutaModificada.PrecioBaseKg, rutaModificada.PrecioBasePasaje) == -1) { return -1; }
             rutaVieja.Servicios.ForEach(servicio => { if (!rutaModificada.Servicios.Contains(servicio)) { borrarServicio(servicio, rutaModificada.Codigo); } });
             rutaModificada.Servicios.ForEach(servicio => { if (!rutaVieja.Servicios.Contains(servicio)) { agregarServicio(servicio, rutaModificada.Codigo); } });
             return 1;
@@ -33,8 +35,10 @@ namespace AerolineaFrba.DAO
 
         public static Decimal darDeAlta(Model.Ruta ruta)
         {  
+            // primero le da de alta a la ruta
             ruta.Codigo = SqlConnector.executeProcedure("altaRutaAerea", ruta.Origen, ruta.Destino, ruta.PrecioBasePasaje, ruta.PrecioBaseKg, ruta.Habilitada ? 1 : 0);
-            if (ruta.Codigo == -1) { return ruta.Codigo; }
+            if (ruta.Codigo == -1) { return -1; }
+            // luego le agrega los servicios especificados a la misma
             ruta.Servicios.ForEach(servicio => agregarServicio(servicio, ruta.Codigo));
             return ruta.Codigo;
         }

@@ -37,6 +37,8 @@
             this.col_origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_precio_pasaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_precio_encomienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_butacas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_encomiendas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.viajes)).BeginInit();
@@ -55,11 +57,14 @@
             this.col_origen,
             this.col_destino,
             this.col_servicio,
+            this.col_precio_pasaje,
+            this.col_precio_encomienda,
             this.col_butacas,
             this.col_encomiendas});
             this.viajes.Location = new System.Drawing.Point(32, 70);
+            this.viajes.MultiSelect = false;
             this.viajes.Name = "viajes";
-            this.viajes.Size = new System.Drawing.Size(805, 168);
+            this.viajes.Size = new System.Drawing.Size(932, 165);
             this.viajes.TabIndex = 0;
             // 
             // info_viaje
@@ -74,7 +79,7 @@
             // 
             // seleccionar_viaje
             // 
-            this.seleccionar_viaje.Location = new System.Drawing.Point(669, 271);
+            this.seleccionar_viaje.Location = new System.Drawing.Point(822, 268);
             this.seleccionar_viaje.Name = "seleccionar_viaje";
             this.seleccionar_viaje.Size = new System.Drawing.Size(142, 23);
             this.seleccionar_viaje.TabIndex = 2;
@@ -117,6 +122,18 @@
             this.col_servicio.Name = "col_servicio";
             this.col_servicio.ReadOnly = true;
             // 
+            // col_precio_pasaje
+            // 
+            this.col_precio_pasaje.HeaderText = "Precio del pasaje";
+            this.col_precio_pasaje.Name = "col_precio_pasaje";
+            this.col_precio_pasaje.ReadOnly = true;
+            // 
+            // col_precio_encomienda
+            // 
+            this.col_precio_encomienda.HeaderText = "Precio por kg. encomienda";
+            this.col_precio_encomienda.Name = "col_precio_encomienda";
+            this.col_precio_encomienda.ReadOnly = true;
+            // 
             // col_butacas
             // 
             this.col_butacas.HeaderText = "Butacas disponibles";
@@ -133,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 317);
+            this.ClientSize = new System.Drawing.Size(989, 328);
             this.Controls.Add(this.seleccionar_viaje);
             this.Controls.Add(this.info_viaje);
             this.Controls.Add(this.viajes);
@@ -158,6 +175,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_origen;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_destino;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_servicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_precio_pasaje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_precio_encomienda;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_butacas;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_encomiendas;
     }

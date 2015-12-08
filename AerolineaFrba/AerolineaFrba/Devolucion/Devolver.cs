@@ -22,7 +22,7 @@ namespace AerolineaFrba.Devolucion
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (this.pasajes.valid())
+            if (pasajes.isValid)
             {
                 if (validarSinRepetido(this.pasajes))
                 {
@@ -34,20 +34,23 @@ namespace AerolineaFrba.Devolucion
 
         private void RealizarDevolucion_Click(object sender, EventArgs e)
         {
+            if (Devoluciones.noRows("No hay nada que devolver")) { return; }
            Decimal devolucion = DAO.DAOCompra.crearDevolucion(Convert.ToDecimal(codigoCompra.value));
             foreach (DataGridViewRow row in Devoluciones.Rows) {
                DAO.DAOCompra.devolverItems(devolucion, Convert.ToDecimal(row.Cells["col_item"].Value), Convert.ToString(row.Cells["col_motivo"].Value));
             
             }
             MessageBox.Show("Devolucion realizada, código de devolucion: " + devolucion.ToString());
-            this.codigoCompra.Enabled = true;
-            this.Devoluciones.clean();
+            codigoCompra.Enabled = true;
+            codigoCompra.clearSelection();
+            pasajes.clean(); encomiendas.clean();
+            Devoluciones.clean();
 
 
         }
         private void Limpiar_Click(object sender, EventArgs e)
         {
-            this.Devoluciones.Rows.Clear();
+            Devoluciones.Rows.Clear(); 
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
@@ -62,13 +65,13 @@ namespace AerolineaFrba.Devolucion
 
         private void verCompras_Click(object sender, EventArgs e)
         {
-           
+            if (!tipo_doc.isValid || !dni.isValid) { MessageBox.Show("Ingrese tipo y número de documento"); return; }
             if (!DAO.DAOCliente.existeCliente(tipo_doc.value, dni.value)){
             MessageBox.Show("No existe cliente con dicho dni");
                 return;
             }
             this.codigoCompra.clean();
-            this.codigoCompra.AddAll(DAO.DAOCompra.listarCompras(dni.value));
+            this.codigoCompra.AddAll(DAO.DAOCompra.listarCompras(tipo_doc.value, dni.value));
         }
 
         private void codigoCompra_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,7 +85,7 @@ namespace AerolineaFrba.Devolucion
 
         private void agregarEncomienda_Click(object sender, EventArgs e)
         {
-            if (this.encomiendas.valid())
+            if (encomiendas.isValid)
             {
                 if (validarSinRepetido(this.encomiendas))
                 {
@@ -108,6 +111,11 @@ namespace AerolineaFrba.Devolucion
                 
             }
             return true;
+        }
+
+        private void MotivoDevolucion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphaOnly(e);
         }
     }
 }

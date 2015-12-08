@@ -19,6 +19,7 @@ namespace AerolineaFrba.Model
         public int pasajes { get; set; }
         public int Terminal { get; set; }
         public Model.Usuario User { get; set; }
+        public Decimal codigoViaje { get; set; }
 
         public Compra() { }
         public Compra(Decimal Codigo)

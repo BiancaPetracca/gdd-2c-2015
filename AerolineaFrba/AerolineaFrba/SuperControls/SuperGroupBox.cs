@@ -16,6 +16,7 @@ namespace AerolineaFrba.SuperControls
         {
             InitializeComponent();
         }
+        public Boolean isValid { get { return valid(); } }
 
         protected override void OnPaint(PaintEventArgs pe)
         {

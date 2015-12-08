@@ -19,6 +19,10 @@ namespace AerolineaFrba.DAO
             return aeronaves;
         }
 
+        public static Boolean hayAeronavesDisponibles(String origen, String destino, DateTime salida, DateTime llegada) {
+            return SqlConnector.executeProcedure("hay_aeronaves_compatibles", origen, destino, salida, llegada) == 1 ? true : false;
+        }
+
         public static List<String> getAeronavesCompatibles(Decimal ruta, DateTime salida, DateTime llegada) { 
         List<String> aeronaves = new List<String>();
         aeronaves = SqlConnector.retrieveList("get_aeronaves_compatibles", "aero_matricula", ruta, salida, llegada);
@@ -54,11 +58,14 @@ namespace AerolineaFrba.DAO
 
         internal static int getRutas(String origen, String destino, DateTime salida, DateTime llegada, DataGridView rutas)
         {
-            if (SqlConnector.executeProcedure("hay_rutas", origen, destino) == 1){
-       //     return SqlConnector.retrieveDTAlreadyBinded("get_rutas", rutas, origen, destino);
+            if (hayRutas(origen, destino)){
                 return SqlConnector.retrieveDT("get_rutas", rutas, origen, destino, salida, llegada);
             }
             return -1;
+        }
+
+        internal static Boolean hayRutas(String origen, String destino) {
+            return SqlConnector.executeProcedure("hay_rutas", origen, destino) == 1 ? true : false;
         }
     }
 

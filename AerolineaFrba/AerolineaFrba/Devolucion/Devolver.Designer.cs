@@ -34,6 +34,7 @@
             this.agregarEncomienda = new AerolineaFrba.SuperControls.SuperButton();
             this.superLabel1 = new AerolineaFrba.SuperControls.SuperLabel();
             this.CompraDevolver = new AerolineaFrba.SuperControls.SuperGroupBox();
+            this.tipo_doc = new AerolineaFrba.SuperControls.SuperComboBox();
             this.verCompras = new AerolineaFrba.SuperControls.SuperButton();
             this.codigoCompra = new AerolineaFrba.SuperControls.SuperComboBox();
             this.lab_dni = new AerolineaFrba.SuperControls.SuperLabel();
@@ -50,7 +51,6 @@
             this.RealizarDevolucion = new System.Windows.Forms.Button();
             this.Limpiar = new System.Windows.Forms.Button();
             this.Cerrar = new AerolineaFrba.SuperControls.SuperButton();
-            this.tipo_doc = new AerolineaFrba.SuperControls.SuperComboBox();
             this.groupBox1.SuspendLayout();
             this.CompraDevolver.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Devoluciones)).BeginInit();
@@ -129,6 +129,19 @@
             this.CompraDevolver.TabStop = false;
             this.CompraDevolver.Text = "Nueva devolución";
             // 
+            // tipo_doc
+            // 
+            this.tipo_doc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipo_doc.FormattingEnabled = true;
+            this.tipo_doc.Items.AddRange(new object[] {
+            "DNI",
+            "LI",
+            "LC"});
+            this.tipo_doc.Location = new System.Drawing.Point(24, 30);
+            this.tipo_doc.Name = "tipo_doc";
+            this.tipo_doc.Size = new System.Drawing.Size(67, 21);
+            this.tipo_doc.TabIndex = 12;
+            // 
             // verCompras
             // 
             this.verCompras.Location = new System.Drawing.Point(280, 26);
@@ -163,6 +176,7 @@
             // 
             this.dni.AccessibleDescription = "DNI";
             this.dni.Location = new System.Drawing.Point(148, 29);
+            this.dni.MaxLength = 8;
             this.dni.Name = "dni";
             this.dni.Size = new System.Drawing.Size(103, 20);
             this.dni.TabIndex = 8;
@@ -190,9 +204,11 @@
             // 
             this.MotivoDevolucion.AccessibleDescription = "Elegir un motivo";
             this.MotivoDevolucion.Location = new System.Drawing.Point(313, 71);
+            this.MotivoDevolucion.MaxLength = 30;
             this.MotivoDevolucion.Name = "MotivoDevolucion";
             this.MotivoDevolucion.Size = new System.Drawing.Size(151, 20);
             this.MotivoDevolucion.TabIndex = 3;
+            this.MotivoDevolucion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MotivoDevolucion_KeyPress);
             // 
             // AgregarPasaje
             // 
@@ -276,19 +292,6 @@
             this.Cerrar.Text = "Cerrar";
             this.Cerrar.UseVisualStyleBackColor = true;
             this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
-            // 
-            // tipo_doc
-            // 
-            this.tipo_doc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tipo_doc.FormattingEnabled = true;
-            this.tipo_doc.Items.AddRange(new object[] {
-            "DNI",
-            "LI",
-            "LC"});
-            this.tipo_doc.Location = new System.Drawing.Point(24, 30);
-            this.tipo_doc.Name = "tipo_doc";
-            this.tipo_doc.Size = new System.Drawing.Size(67, 21);
-            this.tipo_doc.TabIndex = 12;
             // 
             // Devolver
             // 

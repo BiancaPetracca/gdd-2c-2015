@@ -32,28 +32,26 @@ namespace AerolineaFrba.Compra
         // setea los datos del vuelo 
         private void Siguiente_Click(object sender, EventArgs e)
         {
-            if (! this.Pasaje.noRows("No hay ningún pasaje definido"))
+            if (! Pasaje.noRows("No hay ningún pasaje definido"))
             {
-                if (cant_pasajes.valid() || encomienda.valid())
-                {
+                Decimal pasajes = Pasaje.Rows[0].Cells["col_pasajes"].Value == null? 0: Convert.ToDecimal(Pasaje.Rows[0].Cells["col_pasajes"].Value);
+                Decimal encomiendas = Pasaje.Rows[0].Cells["col_encomiendas"].Value == null ? 0 : Convert.ToDecimal(Pasaje.Rows[0].Cells["col_encomiendas"].Value);
                     Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros(compra);
-                    elegirPasajeros.setFlightData(this.viaje, cant_pasajes.value, encomienda.value);
+                    elegirPasajeros.setFlightData(viaje, pasajes, encomiendas);
 
-                    this.openIntoParent(elegirPasajeros, this.MdiParent);
-                    return;
-                }
-                MessageBox.Show("Seleccione kgs para encomiendas o pasajes");
+                    this.openIntoParent(elegirPasajeros, MdiParent);
+    
             }
         }
 
         private void ViajeOk_Click(object sender, EventArgs e)
         {
-            if (this.validateNotNullForAll(this.ElegirViaje.Controls)) {
+            if (this.validateNotNullForAll(ElegirViaje.Controls)) {
             if (this.validateDomain(
                 Validations.criteriumMessage(()=>fechaSalida.value != fechaLlegada.value,"Las fechas no pueden ser iguales"),
                 Validations.criteriumMessage(()=>CiudadDestino.value != CiudadOrigen.value, "No pueden coincidir las ciudades origen y destino"))){
                     encomienda.clean(); cant_pasajes.clean(); Pasaje.Refresh();
-             Model.Viaje viaje = new Viaje(CiudadOrigen.value, CiudadDestino.value, this.fechaSalida.value, fechaLlegada.value);
+             Model.Viaje viaje = new Viaje(CiudadOrigen.value, CiudadDestino.value, fechaSalida.value, fechaLlegada.value);
             if (DAO.DAOCompra.hayViajesDisponibles(viaje))
          {
              this.openInNewWindow(new SeleccionarViaje(this, viaje));
@@ -71,11 +69,11 @@ namespace AerolineaFrba.Compra
         // obtiene los servicios
         public String getValues() { 
             var str  = "";
-            if (this.encomienda.Value != 0)
+            if (encomienda.Value != 0)
             {
                 str += "Encomienda; ";
             }
-            if (this.cant_pasajes.Value != 0) {
+            if (cant_pasajes.Value != 0) {
                 str += "Pasajes";
             }
             return str;
@@ -84,12 +82,12 @@ namespace AerolineaFrba.Compra
         // valida que no haya nada vacio
         private void OpcionesOk_Click(object sender, EventArgs e)
         {
-            if (!this.validateNotNullForAll(this.ElegirViaje.Controls))
+            if (!this.validateNotNullForAll(ElegirViaje.Controls))
             {
                 return;
             }
 
-                if ((this.encomienda.valid() || this.cant_pasajes.valid()) && Pasaje.Rows.Count > 0)
+                if ((encomienda.valid() || cant_pasajes.valid()) && Pasaje.Rows.Count > 0)
                 {
                    
 

@@ -61,7 +61,7 @@ namespace AerolineaFrba.Abm_Ruta
         private void darDeBaja_Click(object sender, EventArgs e)
         {
             DAO.DAORuta.darDeBaja(this.getCurrentRuta());
-            MessageBox.Show("Se dio de baja a la ruta");
+            MessageBox.Show("Se dio de baja a la ruta correctamente");
             this.reload();
 
         }
@@ -79,7 +79,7 @@ namespace AerolineaFrba.Abm_Ruta
             return new Model.Ruta(Convert.ToUInt16(Extensions.cellValue(this.lista, "col_codigo")),
                 (String)Extensions.cellValue(this.lista, "col_origen"),
              (String)Extensions.cellValue(this.lista, "col_destino"),
-             (Boolean)Extensions.cellValue(this.lista, "col_habilitada"),
+             Convert.ToBoolean(Extensions.cellValue(this.lista, "col_habilitada")),
              DAO.DAORuta.getServicios(Convert.ToInt16(Extensions.cellValue(this.lista, "col_codigo"))),
              Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_kg")),
              Convert.ToDecimal(Extensions.cellValue(this.lista, "col_pb_pasaje")));
@@ -90,7 +90,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void limpiar_Click_1(object sender, EventArgs e)
         {
-            Extensions.cleanAll(this.filtros.Controls);
+            origen.clearSelection(); destino.clearSelection(); DAO.DAORuta.getRutas(lista);
         }
 
         private void buscar_Click(object sender, EventArgs e)
@@ -105,20 +105,9 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void reloadNew()
         {
-            String o;
-            String d;
-            try
-            {
-                o = this.origen.value;
-                d = this.destino.value;
-            }
-            catch
-            {
-                MessageBox.Show("Seleccione un origen y destino");
-                return;
-            }
 
-            DAO.DAORuta.filtrarRutas(o, d, this.lista);
+                DAO.DAORuta.filtrarRutas(origen.value, destino.value, lista);
+
         }
     }
 }

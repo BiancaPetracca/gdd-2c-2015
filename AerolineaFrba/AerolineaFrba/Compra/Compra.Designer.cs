@@ -78,7 +78,7 @@ namespace AerolineaFrba.Compra
             this.ComprarPasaje.Controls.Add(this.ElegirViaje);
             this.ComprarPasaje.Location = new System.Drawing.Point(24, 12);
             this.ComprarPasaje.Name = "ComprarPasaje";
-            this.ComprarPasaje.Size = new System.Drawing.Size(1171, 417);
+            this.ComprarPasaje.Size = new System.Drawing.Size(1003, 412);
             this.ComprarPasaje.TabIndex = 0;
             this.ComprarPasaje.TabStop = false;
             this.ComprarPasaje.Text = "Comprar Pasaje";
@@ -86,7 +86,7 @@ namespace AerolineaFrba.Compra
             // 
             // Cancelar
             // 
-            this.Cancelar.Location = new System.Drawing.Point(848, 365);
+            this.Cancelar.Location = new System.Drawing.Point(734, 345);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(75, 23);
             this.Cancelar.TabIndex = 16;
@@ -96,7 +96,7 @@ namespace AerolineaFrba.Compra
             // 
             // IngresarDatos
             // 
-            this.IngresarDatos.Location = new System.Drawing.Point(973, 365);
+            this.IngresarDatos.Location = new System.Drawing.Point(824, 345);
             this.IngresarDatos.Name = "IngresarDatos";
             this.IngresarDatos.Size = new System.Drawing.Size(122, 23);
             this.IngresarDatos.TabIndex = 15;
@@ -119,7 +119,7 @@ namespace AerolineaFrba.Compra
             this.col_servicio,
             this.col_encomiendas,
             this.col_pasajes});
-            this.Pasaje.Location = new System.Drawing.Point(189, 235);
+            this.Pasaje.Location = new System.Drawing.Point(93, 219);
             this.Pasaje.Name = "Pasaje";
             this.Pasaje.ReadOnly = true;
             this.Pasaje.Size = new System.Drawing.Size(853, 72);
@@ -182,16 +182,16 @@ namespace AerolineaFrba.Compra
             this.Opciones.Controls.Add(this.Pasajes);
             this.Opciones.Controls.Add(this.label5);
             this.Opciones.Controls.Add(this.encomienda);
-            this.Opciones.Location = new System.Drawing.Point(783, 36);
+            this.Opciones.Location = new System.Drawing.Point(661, 36);
             this.Opciones.Name = "Opciones";
-            this.Opciones.Size = new System.Drawing.Size(364, 150);
+            this.Opciones.Size = new System.Drawing.Size(285, 150);
             this.Opciones.TabIndex = 14;
             this.Opciones.TabStop = false;
             this.Opciones.Text = "Elegir servicio";
             // 
             // OpcionesOk
             // 
-            this.OpcionesOk.Location = new System.Drawing.Point(278, 65);
+            this.OpcionesOk.Location = new System.Drawing.Point(221, 65);
             this.OpcionesOk.Name = "OpcionesOk";
             this.OpcionesOk.Size = new System.Drawing.Size(47, 23);
             this.OpcionesOk.TabIndex = 14;
@@ -202,7 +202,7 @@ namespace AerolineaFrba.Compra
             // cant_pasajes
             // 
             this.cant_pasajes.AccessibleDescription = "Cantidad de pasajes";
-            this.cant_pasajes.Location = new System.Drawing.Point(178, 93);
+            this.cant_pasajes.Location = new System.Drawing.Point(158, 94);
             this.cant_pasajes.Name = "cant_pasajes";
             this.cant_pasajes.ReadOnly = true;
             this.cant_pasajes.Size = new System.Drawing.Size(55, 20);
@@ -229,7 +229,7 @@ namespace AerolineaFrba.Compra
             // encomienda
             // 
             this.encomienda.AccessibleDescription = "Peso de la encomienda";
-            this.encomienda.Location = new System.Drawing.Point(178, 31);
+            this.encomienda.Location = new System.Drawing.Point(158, 31);
             this.encomienda.Name = "encomienda";
             this.encomienda.ReadOnly = true;
             this.encomienda.Size = new System.Drawing.Size(55, 20);
@@ -249,7 +249,7 @@ namespace AerolineaFrba.Compra
             this.ElegirViaje.Controls.Add(this.label2);
             this.ElegirViaje.Location = new System.Drawing.Point(18, 36);
             this.ElegirViaje.Name = "ElegirViaje";
-            this.ElegirViaje.Size = new System.Drawing.Size(733, 150);
+            this.ElegirViaje.Size = new System.Drawing.Size(636, 150);
             this.ElegirViaje.TabIndex = 6;
             this.ElegirViaje.TabStop = false;
             this.ElegirViaje.Text = "Elegir viaje";
@@ -275,7 +275,7 @@ namespace AerolineaFrba.Compra
             // 
             // ViajeOk
             // 
-            this.ViajeOk.Location = new System.Drawing.Point(606, 65);
+            this.ViajeOk.Location = new System.Drawing.Point(566, 65);
             this.ViajeOk.Name = "ViajeOk";
             this.ViajeOk.Size = new System.Drawing.Size(45, 23);
             this.ViajeOk.TabIndex = 6;
@@ -345,7 +345,7 @@ namespace AerolineaFrba.Compra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1224, 495);
+            this.ClientSize = new System.Drawing.Size(1049, 463);
             this.Controls.Add(this.ComprarPasaje);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Compra";

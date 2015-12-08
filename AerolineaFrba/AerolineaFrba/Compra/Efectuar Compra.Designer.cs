@@ -1,4 +1,5 @@
-﻿using AerolineaFrba.SuperControls;
+﻿using AerolineaFrba.Generics;
+using AerolineaFrba.SuperControls;
 namespace AerolineaFrba.Compra
 {
     partial class Efectuar_Compra
@@ -181,6 +182,8 @@ namespace AerolineaFrba.Compra
             this.FechaExpiracion.CustomFormat = "MM/yyyy";
             this.FechaExpiracion.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.FechaExpiracion.Location = new System.Drawing.Point(509, 124);
+            this.FechaExpiracion.MinDate = Config.DateToday;
+            this.FechaExpiracion.MaxDate = new System.DateTime(2030, 12, 31, 0, 0, 0, 0);
             this.FechaExpiracion.Name = "FechaExpiracion";
             this.FechaExpiracion.Size = new System.Drawing.Size(86, 20);
             this.FechaExpiracion.TabIndex = 2;
@@ -334,7 +337,6 @@ namespace AerolineaFrba.Compra
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Efectuar_Compra";
             this.Text = "Efectuar_Compra";
-      
             this.Load += new System.EventHandler(this.Efectuar_Compra_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -89,7 +89,7 @@ namespace AerolineaFrba.Canje_Millas
             // 
             // DatosCanjeador
             // 
-            this.DatosCanjeador.AccessibleDescription = "DNI";
+            this.DatosCanjeador.AccessibleDescription = "Documento";
             this.DatosCanjeador.Controls.Add(this.tipoDNI);
             this.DatosCanjeador.Controls.Add(this.DNI);
             this.DatosCanjeador.Location = new System.Drawing.Point(21, 12);
@@ -97,10 +97,11 @@ namespace AerolineaFrba.Canje_Millas
             this.DatosCanjeador.Size = new System.Drawing.Size(243, 40);
             this.DatosCanjeador.TabIndex = 12;
             this.DatosCanjeador.TabStop = false;
-            this.DatosCanjeador.Text = "DNI del cliente";
+            this.DatosCanjeador.Text = "Documento del cliente";
             // 
             // tipoDNI
             // 
+            this.tipoDNI.AccessibleDescription = "Tipo de documento";
             this.tipoDNI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoDNI.FormattingEnabled = true;
             this.tipoDNI.Items.AddRange(new object[] {
@@ -114,7 +115,7 @@ namespace AerolineaFrba.Canje_Millas
             // 
             // DNI
             // 
-            this.DNI.AccessibleDescription = "DNI del beneficiario";
+            this.DNI.AccessibleDescription = "Documento del beneficiario";
             this.DNI.Location = new System.Drawing.Point(113, 13);
             this.DNI.MaxLength = 8;
             this.DNI.Name = "DNI";

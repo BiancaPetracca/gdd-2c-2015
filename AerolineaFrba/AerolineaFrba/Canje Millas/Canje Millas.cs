@@ -48,10 +48,6 @@ namespace AerolineaFrba.Canje_Millas
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (productosDisponibles.SelectedRows.Count == 0 || productosDisponibles.SelectedCells.Count == 0) {
-                MessageBox.Show("Seleccione un producto");
-                return;
-            }
            if (((currentStock() > 0) && (Convert.ToDecimal(sumaParcialCanjes.value) + currentMillas() <= Convert.ToDecimal(millasQueTiene.value)))){
             aumentarYRestar(currentProducto(productosDisponibles, "col_producto"));
             sumaParcialCanjes.Text = Convert.ToString(Convert.ToDecimal(sumaParcialCanjes.value) + currentMillas());

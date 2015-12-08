@@ -29,7 +29,6 @@ namespace AerolineaFrba.Abm_Aeronave
             this.launcher = launcher;
             if (ModificarOAgregar == 0)
             {
-
                 this.viejoNombre = viejoNombre;
             }
 
@@ -48,11 +47,10 @@ namespace AerolineaFrba.Abm_Aeronave
             if (ModificarOAgregar == 0) {
                 if (String.Equals(this.viejoNombre,this.nuevoNombre)) { MessageBox.Show("Elija un nombre distinto al que quiere modificar!"); return;}
                 if (DAO.DAOAeronave.modificarModelo(this.viejoNombre, this.nuevoNombre.value, this.Fabricante) == -1) {
-                    MessageBox.Show("Ya existe ese nombre, elija otro");
-                    return;
-                }
-                
-            }
+                    MessageBox.Show("Ya existe ese nombre, elija otro"); return; }
+                return;}
+
+
             if (DAO.DAOAeronave.agregarModelo(this.nuevoNombre.value, this.Fabricante) == -1) {
                 MessageBox.Show("Ya existe ese nombre, elija otro");
                 return;

@@ -38,6 +38,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         private void RegistroLlegadaAeronave_Load(object sender, EventArgs e)
         {
+            this.fechaLlegada.MaxDate = Config.DateToday;
+            this.fechaLlegada.MinDate = System.Convert.ToDateTime("01/02/2017 00:00:00"); 
             this.matricula.AddAll(DAO.DAOGenerarViaje.getAllAeronaves());
             this.AeropuertoOrigen.AddAll(DAO.DAOCompra.listarCiudades());
             this.AeropuertoDestino.AddAll(DAO.DAOCompra.listarCiudades());

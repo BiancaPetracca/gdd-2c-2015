@@ -25,7 +25,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            this.openInNewWindow(new modificar(this.modelos.CurrentCell.Value.ToString(), 0, this.Fabricante.value, this));
+            if (Fabricante.isValid())
+            {
+                this.openInNewWindow(new modificar(modelos.cellValue("col_modelo"), 0, Fabricante.value, this));
+            }
         }
 
         private void Fabricante_SelectedIndexChanged(object sender, EventArgs e)

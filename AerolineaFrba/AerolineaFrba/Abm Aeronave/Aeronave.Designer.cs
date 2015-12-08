@@ -161,7 +161,7 @@ namespace AerolineaFrba.Abm_Aeronave
             this.ServicioFiltro.Name = "ServicioFiltro";
             this.ServicioFiltro.Size = new System.Drawing.Size(219, 21);
             this.ServicioFiltro.TabIndex = 5;
-            this.ServicioFiltro.SelectedIndexChanged += new System.EventHandler(this.ServicioFiltro_SelectedIndexChanged);
+      
             // 
             // limpiar
             // 

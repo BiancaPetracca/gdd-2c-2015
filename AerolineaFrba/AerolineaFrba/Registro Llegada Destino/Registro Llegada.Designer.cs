@@ -181,6 +181,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.fechaLlegada.Name = "fechaLlegada";
             this.fechaLlegada.Size = new System.Drawing.Size(141, 20);
             this.fechaLlegada.TabIndex = 15;
+        
             // 
             // AeropuertoDestino
             // 

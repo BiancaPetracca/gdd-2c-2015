@@ -28,27 +28,27 @@ namespace AerolineaFrba.Abm_Aeronave
 
             if (tipoDeBaja == 0)
             {// fecha default para no mandarle null a la base de datos
-                String fechaDefault = "01/01/1800 12:00:00";
-                DAOAeronave.cancelarViajesAeronave(numero, fechaBaja,Convert.ToDateTime(fechaDefault));
+               // String fechaDefault = "01/01/1800 12:00:00";
+                DAOAeronave.cancelarViajesAeronavePorVidaUtil(numero, fechaBaja);
             }
             else
             {
-                DAOAeronave.cancelarViajesAeronave(numero, fechaBaja, fechaReinicio);
+                DAOAeronave.cancelarViajesAeronavePorMantenimiento(numero, fechaBaja, fechaReinicio);
             }
             MessageBox.Show("Se dio de baja la aeronave: " + this.matricula);
-            this.BajaLauncher.reload();
+            BajaLauncher.listarAeronaves();
             this.Close();
             
         }
         private void ReasignarViajes_Click(object sender, EventArgs e)
         {
-            String fechaDefault = "01/01/1800 12:00:00";
+           // String fechaDefault = "01/01/1800 12:00:00";
             int reemplazo;
                if (tipoDeBaja == 0) {
-              reemplazo =  DAOAeronave.reemplazarViajes(numero, fechaBaja, Convert.ToDateTime(fechaDefault));
+              reemplazo =  DAOAeronave.reemplazarViajesPorVidaUtil(numero, fechaBaja);
             }
                else {
-             reemplazo = DAO.DAOAeronave.reemplazarViajes(numero, fechaBaja, fechaReinicio);
+             reemplazo = DAO.DAOAeronave.reemplazarViajesPorMantenimiento(numero, fechaBaja, fechaReinicio);
                }
             if(reemplazo == -1){
                 MessageBox.Show("No existe ninguna aeronave que pueda reemplazarla: Debe dar de alta a otra. \n Recuerde que debe ser del mismo modelo, fabricante y ofrecer el mismo servicio: \n"
@@ -57,7 +57,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 this.openInNewWindow(new Abm_Aeronave.Alta());
                 return;
             }  
-            this.BajaLauncher.reload();
+            BajaLauncher.listarAeronaves();
             MessageBox.Show("Se reasignaron los viajes correctamente");
         }
 

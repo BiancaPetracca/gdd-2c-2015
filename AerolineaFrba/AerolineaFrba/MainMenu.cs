@@ -112,7 +112,7 @@ namespace AerolineaFrba
         private void changeVisibilityItems(List<Decimal> criteria, Boolean value) {
             foreach (ToolStripMenuItem item in this.items.Items) { 
                     if (!criteria.Contains(Convert.ToInt16(item.Tag))){
-                    item.Enabled = value;
+                    item.Visible = value;
                     }
             }
         }
@@ -120,14 +120,14 @@ namespace AerolineaFrba
         private void enableAll() {
             foreach (ToolStripMenuItem item in this.items.Items) {
 
-                item.Enabled = true;
+                item.Visible = true;
             }
         }
 
         public void reload() {
             enableAll();
             changeVisibilityItems(funcionalidades, false);
-            salir.Enabled = true;
+            salir.Visible = true;
         }
 
         private void item_ciudades_Click(object sender, EventArgs e)

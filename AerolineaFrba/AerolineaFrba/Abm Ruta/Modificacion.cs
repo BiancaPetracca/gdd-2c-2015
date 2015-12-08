@@ -46,11 +46,11 @@ namespace AerolineaFrba.Abm_Ruta
 
             if (DAO.DAORuta.modificarRuta(ruta, rutaModificada) != -1)
             {
-                MessageBox.Show("Ruta modificada con éxito.");
+                MessageBox.Show("Ruta modificada con éxito!");
                 launcher.reload();
                 return;
             }
-            MessageBox.Show("Ya existe una ruta con esos campos para ciudad y origen");
+            MessageBox.Show("Ya existe una ruta con el mismo origen y destino que intenta ingresar");
         }
 
         private void Cerrar_Click(object sender, EventArgs e)

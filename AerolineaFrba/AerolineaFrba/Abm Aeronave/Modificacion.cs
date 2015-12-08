@@ -66,7 +66,8 @@ namespace AerolineaFrba.Abm_Aeronave
                         return;
                     }
                     MessageBox.Show("La aeronave fue actualizada con éxito.");
-                    launcher.reload();
+
+                    launcher.listarAeronaves();
                     this.Close();
                     return;
 

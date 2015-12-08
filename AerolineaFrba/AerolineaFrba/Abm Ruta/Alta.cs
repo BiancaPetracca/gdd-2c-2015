@@ -41,12 +41,12 @@ namespace AerolineaFrba.Abm_Ruta
             Model.Ruta ruta = getRutaIngresada();
             if (DAO.DAORuta.darDeAlta(ruta) != -1)
             {
-                MessageBox.Show("Ruta creada con éxito.");
+                MessageBox.Show("Ruta creada con éxito!");
                 Extensions.cleanAll(this.Controls);
                 launcher.reload();
                 return;
             }
-            MessageBox.Show("Ya existe una ruta con los mismos valores para origen y destino");
+            MessageBox.Show("Ya existe una ruta con el mismo origen y destino. Si lo que desea es quitarle o agregarle un servicio, abra la pestaña modificación.");
 
         }
 

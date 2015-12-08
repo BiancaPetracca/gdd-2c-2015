@@ -82,7 +82,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void limpiar_Click(object sender, EventArgs e)
         {
-            HabilitadasFiltro.clean(); ServicioFiltro.Refresh();
+            HabilitadasFiltro.clean(); ServicioFiltro.clearSelection();
             DAO.DAOAeronave.listarAeronaves(this.lista);
         }
 
@@ -97,13 +97,18 @@ namespace AerolineaFrba.Abm_Aeronave
         // LISTAR LAS AERONAVES
         private void Aeronave_Load(object sender, EventArgs e)
         {
+            listarAeronaves();
+        }
+
+        public void listarAeronaves()
+        {
             DAO.DAOAeronave.listarAeronaves(this.lista);
         }
 
         // FILTRAR LAS AERONAVES SEGUN LO QUE HAYA SELECCIONADO EL USUARIO
         private void buscar_Click(object sender, EventArgs e)
         {
-            this.reload();
+            buscarAeronaves();
         }
 
         private void HabilitadasFiltro_CheckedChanged(object sender, EventArgs e)
@@ -119,7 +124,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 {
                     Baja baja = new Baja(aeronave.numero, aeronave.matricula);
                     baja.LauncherBaja = this;
-                    String nombre_aeronave = this.lista.CurrentRow.Cells["col_matricula"].Value.ToString();
+                    String nombre_aeronave = lista.CurrentRow.Cells["col_matricula"].Value.ToString();
 
                     this.openInNewWindow(baja);
                     return;
@@ -128,14 +133,9 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
-        public void reload()
+        public void buscarAeronaves()
         {
-            DAO.DAOAeronave.filtrarAeronaves(this.lista, this.HabilitadasFiltro.Checked, filtro);
-        }
-
-        private void ServicioFiltro_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            filtro = this.ServicioFiltro.SelectedIndex != -1 ? this.ServicioFiltro.SelectedItem.ToString() : null;
+            DAO.DAOAeronave.filtrarAeronaves(lista, HabilitadasFiltro.value, ServicioFiltro.value);
         }
 
         private void groupBox_Enter(object sender, EventArgs e)

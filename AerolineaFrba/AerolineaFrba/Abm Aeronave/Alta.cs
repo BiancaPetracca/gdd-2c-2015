@@ -66,14 +66,14 @@ namespace AerolineaFrba.Abm_Aeronave
                 Aeronave = new Model.Aeronave(0,
                      modelo.value, matriculaLetras.value + "-" + matriculaNumeros.value, fabricante.value,
                      kgsEncomiendas.value, servicio.value);
-                
+                if (!butacasElegidas) { MessageBox.Show("Debe elegir las butacas junto a su tipo"); return; }
                 if (DAO.DAOAeronave.altaDeAeronave(Aeronave, dgButacas) == -1)
                 {
                     MessageBox.Show("La matrícula está repetida, ingrese otra matrícula diferente");
                     return;
                 }
                 MessageBox.Show("Éxito en el alta de aeronave.");
-                Launcher.reload();
+                Launcher.listarAeronaves();
                 this.Close();
 
 

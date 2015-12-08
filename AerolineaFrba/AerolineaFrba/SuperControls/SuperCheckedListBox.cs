@@ -34,6 +34,7 @@ namespace AerolineaFrba.SuperControls
             base.OnPaint(pe);
         }
 
+        public Boolean isValid { get { return valid(); } }
         public Boolean valid() { return this.CheckedItems.Count != 0; }
 
         public void clean()

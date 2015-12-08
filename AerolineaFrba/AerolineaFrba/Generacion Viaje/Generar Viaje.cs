@@ -36,19 +36,19 @@ namespace AerolineaFrba.Generacion_Viaje
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if (this.validateNotNullForAll(this.viaje.Controls) && !rutas.anyEmptyCells())
-            {
+            if (rutas.anyEmptyCells()) {MessageBox.Show("Debe tener un viaje armado"); return; }
+            if (NombreAeronave.value == null) { MessageBox.Show("Ingrese una aeronave"); return; }
                 if (DAO.DAOGenerarViaje.generarViaje(this.NombreAeronave.value, 
                     this.fechaLlegadaEstimada.value,
                     this.fechaSalida.value,
                     this.rutas.CurrentRow.Cells[0].Value.ToString()) == -1) {
-                    MessageBox.Show("Todos los campos son iguales, no puede ingresar un viaje repetido.");
+                    MessageBox.Show("El viaje ya existe");
                     return;
                 }
                 MessageBox.Show("Viaje generado con éxito!");
                 reload();
                 
-            }
+            
             
            
         }
@@ -73,8 +73,9 @@ namespace AerolineaFrba.Generacion_Viaje
         private void reload() {
             Extensions.cleanAll(viaje.Controls);
             rutas.clean();
+            NombreAeronave.clean();
          this.Origen.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre"));
-         this.Destino.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre"));
+        this.Destino.AddAll(Extensions.listToStr(DAOCompra.listCiudades(), "nombre"));
         
         }
 
@@ -88,30 +89,27 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             bool eqlDates = this.fechaSalida.Value.ToString() == this.fechaLlegadaEstimada.Value.ToString();
             bool tmspan = tardaMenosDe24HsEnLlegar();
-
+            if (!this.validateNotNullForAll(viaje.Controls)) { return; }
             bool valid = this.validateDomain(Validations.criteriumMessage(() => !eqlDates, "Las fechas no pueden ser iguales"),
             Validations.criteriumMessage(() => tmspan, "No puede tardar mas de 24 hs en llegar"), Validations.criteriumMessage(() => Destino.value != Origen.value, "Ciudad origen y destino no pueden ser iguales"));
             if (valid)
             {
-                if (DAO.DAOGenerarViaje.getRutas(Origen.value, Destino.value, fechaSalida.value, fechaLlegadaEstimada.value, rutas) == -1) {
-
-                    MessageBox.Show("No hay rutas con este recorrido");
-                 
-                    return;
+                if (!DAO.DAOGenerarViaje.hayRutas(Origen.value, Destino.value))
+                {
+                    MessageBox.Show("No hay rutas con ese recorrido"); return;
                 }
+                if (!DAO.DAOGenerarViaje.hayAeronavesDisponibles(Origen.value, Destino.value, fechaSalida.value, fechaLlegadaEstimada.value))
+                {
+                    MessageBox.Show("No hay aeronaves disponibles con ese recorrido");
 
+                }
+                DAO.DAOGenerarViaje.getRutas(Origen.value, Destino.value, fechaSalida.value, fechaLlegadaEstimada.value, rutas);
                 this.NombreAeronave.AddAll(DAO.DAOGenerarViaje.getAeronavesCompatibles(Convert.ToDecimal(rutas.Rows[0].Cells["col_codigo"].Value), fechaSalida.value, fechaLlegadaEstimada.value));
 
-                if (this.NombreAeronave.Items.Count == 0)
-                {
-                    MessageBox.Show("No hay aeronaves disponibles en esas fechas, con ese recorrido y los servicios que ofrece el mismo");
-                    rutas.Refresh();
-                    return;
-                }
-
-             
             }
         }
+
+
 
 
     }

@@ -60,6 +60,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Guardar_Click(object sender, EventArgs e)
         {
+            if (grid.Rows.Count <=1) { MessageBox.Show("La aeronave debe tener por lo menos una butaca"); return; }
 
             if (!validate())
             {
@@ -139,11 +140,16 @@ namespace AerolineaFrba.Abm_Aeronave
         }
 
         private void mandarDG_launcher() {
+           
+            // para que no se mande la fila que se crea nueva
+            DataGridView dg = grid;
             if (this.motivo == 1) {
-                launcherA.setButacasNuevas(this.grid);
+                launcherA.setButacasNuevas(dg);
+                launcherA.butacasElegidas = true;
             }
             if (this.motivo == 2) {
-                launcherM.setButacasModificadas(this.grid);
+                launcherM.setButacasModificadas(dg);
+               
             }
         }
     }
