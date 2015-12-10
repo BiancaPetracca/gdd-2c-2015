@@ -209,6 +209,7 @@ namespace AerolineaFrba.Compra
             0,
             0});
             this.cant_pasajes.Name = "cant_pasajes";
+            this.cant_pasajes.ReadOnly = true;
             this.cant_pasajes.Size = new System.Drawing.Size(55, 20);
             this.cant_pasajes.TabIndex = 13;
             // 

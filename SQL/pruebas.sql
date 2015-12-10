@@ -29,11 +29,19 @@ FETCH FROM butacas_reemplazar INTO @butacaReemplazar, @viaje
 END
 CLOSE butacas_reemplazar
 DEALLOCATE butacas_reemplazar
-select * from awanta.aeronave where aero_numero = 40
-select * from awanta.pasaje where pas_viaje = 8520
-select * from awanta.viaje where via_codigo = 8521
-select  * from awanta.HISTORICO_BAJAS where baja_avion = 36
+select * from awanta.aeronave where aero_numero = 37
+select * from awanta.BUTACA where but_aeronave = 33
+select * from awanta.pasaje where pas_viaje = 1
+select * from awanta.DEVOLUCIONXPASAJE
+select * from awanta.ruta_aerea
+ join awanta.ciudad o on rut_origen = o.ciu_id join awanta.ciudad d on rut_destino = d.ciu_id
+ where rut_codigo = 47
+
+select * from awanta.viaje where via_avion = 37
+select  * from awanta.HISTORICO_BAJAS where baja_avion = 37
 delete from awanta.HISTORICO_BAJAS where baja_avion = 38
 update awanta.pasaje set pas_butaca = 1349 where pas_butaca = 1353 and pas_viaje = 8520
 update awanta.pasaje set pas_butaca = 1350 where pas_butaca = 1354 and pas_viaje = 8520
 update awanta.pasaje set pas_butaca = 1351 where pas_butaca = 1355 and pas_viaje = 8520
+
+select * from awanta.pasaje where pas_viaje = 8510

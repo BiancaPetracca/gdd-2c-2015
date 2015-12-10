@@ -105,7 +105,7 @@ namespace AerolineaFrba.Compra
         private void Compra_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
-
+            encomienda.ReadOnly = false;
             this.fechaSalida.MinDate = Config.DateToday;
             this.fechaLlegada.MinDate = this.fechaSalida.Value;
            this.CiudadOrigen.AddAll(DAO.DAOCompra.listarCiudades());

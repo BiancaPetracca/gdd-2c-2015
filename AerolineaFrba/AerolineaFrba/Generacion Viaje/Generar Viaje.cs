@@ -104,7 +104,8 @@ namespace AerolineaFrba.Generacion_Viaje
 
                 }
                 DAO.DAOGenerarViaje.getRutas(Origen.value, Destino.value, fechaSalida.value, fechaLlegadaEstimada.value, rutas);
-                this.NombreAeronave.AddAll(DAO.DAOGenerarViaje.getAeronavesCompatibles(Convert.ToDecimal(rutas.Rows[0].Cells["col_codigo"].Value), fechaSalida.value, fechaLlegadaEstimada.value));
+                NombreAeronave.clean();
+                NombreAeronave.AddAll(DAO.DAOGenerarViaje.getAeronavesCompatibles(Convert.ToDecimal(rutas.Rows[0].Cells["col_codigo"].Value), fechaSalida.value, fechaLlegadaEstimada.value));
 
             }
         }

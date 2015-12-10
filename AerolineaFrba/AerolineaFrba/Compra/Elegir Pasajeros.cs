@@ -33,6 +33,7 @@ namespace AerolineaFrba.Compra
         {
             if (validarEncomiendasSinPasajes() || validarPasajesSinEncomiendas() || validarPasajesYEncomiendas())
             {
+                if (hayButacasRepetidas()) { MessageBox.Show("Modifique las butacas que se repiten"); return; }
 
                 //   if (superaElLimiteDeEncomiendas()) { MessageBox.Show("Los kgs de las encomiendas superan al límite que figura arriba"); return; }
                 //  compra.codigo = DAO.DAOCompra.prepararCompra(grid_pasajeros, viaje.codigo);
@@ -100,9 +101,12 @@ namespace AerolineaFrba.Compra
                     String dni = grid_pasajeros.cellValue("col_dni").ToString();
                     String tipoDNI = grid_pasajeros.cellValue("col_tipo_doc").ToString();
                     Boolean esPasaje = String.Equals(grid_pasajeros.cellValue("col_encomienda"), "0") ? true : false;
-                    if (e.ColumnIndex == 1 && DAO.DAOCliente.existeCliente(tipoDNI, dni))
+                    if ((e.ColumnIndex == 1 || e.ColumnIndex == 0) && DAO.DAOCliente.existeCliente(tipoDNI, dni))
                     {
-
+                        if (hayPasajerosRepetidos()) {
+                            MessageBox.Show("Ya ingreso ese pasajero");
+                            grid_pasajeros.CurrentRow.Cells["col_dni"].Value = null; 
+                            return; }
                         if (esPasaje && DAO.DAOCompra.clienteYaTienePasaje(viaje.fechaSalida, viaje.fechaLlegadaEstimada, tipoDNI, dni))
                         {
                             MessageBox.Show("El cliente tiene ya un pasaje en esa misma fecha");
@@ -335,8 +339,42 @@ namespace AerolineaFrba.Compra
         
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private Boolean hayPasajerosRepetidos() {
+
+            List<Model.Item> items = new List<Model.Item>();
+            foreach (DataGridViewRow row in grid_pasajeros.Rows)
+            {
+                if (Convert.ToDecimal(row.Cells["col_encomienda"].Value) == 0)
+                {
+                    items.Add(getItem(row.Index));
+                }
+            }
+            if (items.GroupBy(i => new { i.tipoDoc, i.nroDoc }).Count() != items.Count)
+            {
+                return true;
+            }
+            return false;
+        
+
+        }
+        private Boolean hayButacasRepetidas()
         {
+
+            List<Model.Item> items = new List<Model.Item>();
+            foreach (DataGridViewRow row in grid_pasajeros.Rows)
+            {
+                if (row.Cells["col_butaca"].Value != null && row.Cells["col_tipo"].Value != null)
+                {
+                    items.Add(getItem(row.Index));
+                }
+            }
+            
+            if (items.GroupBy(i=> new {i.tipoButaca, i.butaca}).Count() != items.Count)
+            {
+                return true;
+            }
+            return false;
+
 
         }
 
