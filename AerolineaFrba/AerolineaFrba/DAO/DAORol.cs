@@ -74,10 +74,10 @@ namespace AerolineaFrba.DAO
         public static void crearNuevoRol(Model.Rol rol, DataGridView dg)
         {
 
-            SqlConnector.executeProcedure("crear_rol", rol.nombre, rol.habilitado? 1 : 0);
+          rol.id =  SqlConnector.executeProcedure("crear_rol", rol.nombre, rol.habilitado? 1 : 0);
             foreach (DataGridViewRow row in dg.Rows)
             {
-                agregarFuncionalidad(rol, (String)row.Cells["col_funcionalidades"].Value);
+                agregarFuncionalidad(rol, Convert.ToString(row.Cells["col_funcionalidades"].Value));
             }
 
 

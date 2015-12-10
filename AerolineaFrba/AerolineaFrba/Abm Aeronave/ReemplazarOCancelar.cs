@@ -35,7 +35,7 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 DAOAeronave.cancelarViajesAeronavePorMantenimiento(numero, fechaBaja, fechaReinicio);
             }
-            MessageBox.Show("Se dio de baja la aeronave: " + this.matricula);
+            MessageBox.Show("Se dio de baja la aeronave: " + matricula);
             BajaLauncher.listarAeronaves();
             this.Close();
             
@@ -44,6 +44,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
            // String fechaDefault = "01/01/1800 12:00:00";
             int reemplazo;
+           
                if (tipoDeBaja == 0) {
               reemplazo =  DAOAeronave.reemplazarViajesPorVidaUtil(numero, fechaBaja);
             }
@@ -51,18 +52,18 @@ namespace AerolineaFrba.Abm_Aeronave
              reemplazo = DAO.DAOAeronave.reemplazarViajesPorMantenimiento(numero, fechaBaja, fechaReinicio);
                }
             if(reemplazo == -1){
-                MessageBox.Show("No existe ninguna aeronave que pueda reemplazarla: Debe dar de alta a otra. \n Recuerde que debe ser del mismo modelo, fabricante y ofrecer el mismo servicio: \n"
-                + this.matricula);
+                MessageBox.Show("No existe ninguna aeronave que pueda reemplazarla: Debe dar de alta a otra. \n Recuerde que debe ser del mismo modelo, fabricante y ofrecer el mismo servicio que la aeronave: \n"
+                + matricula);
                 
                 this.openInNewWindow(new Abm_Aeronave.Alta());
                 return;
             }  
             BajaLauncher.listarAeronaves();
-            MessageBox.Show("Se reasignaron los viajes correctamente");
+            MessageBox.Show("Se reasignaron los viajes correctamente! La aeronave que lo reemplaza es:" + DAO.DAOAeronave.getMatricula(reemplazo));
         }
 
-        public void setTipoDeBaja(int tipo, String matricula, DateTime fechaBaja, DateTime fechaReinicio) {
-            this.tipoDeBaja = tipo;
+        public void setTipoDeBaja(int tipoDeBaja, String matricula, DateTime fechaBaja, DateTime fechaReinicio) {
+            this.tipoDeBaja = tipoDeBaja;
             this.matricula = matricula;
             this.fechaBaja = fechaBaja;
             this.fechaReinicio = fechaReinicio;

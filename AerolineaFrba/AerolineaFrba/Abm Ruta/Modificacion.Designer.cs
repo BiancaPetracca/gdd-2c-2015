@@ -148,12 +148,11 @@ namespace AerolineaFrba.Abm_Ruta
             this.PrecioKG.DecimalPlaces = 2;
             this.PrecioKG.Location = new System.Drawing.Point(190, 274);
             this.PrecioKG.Maximum = new decimal(new int[] {
-            2000,
+            9999,
             0,
             0,
             0});
             this.PrecioKG.Name = "PrecioKG";
-            this.PrecioKG.ReadOnly = true;
             this.PrecioKG.Size = new System.Drawing.Size(120, 20);
             this.PrecioKG.TabIndex = 29;
             // 
@@ -163,12 +162,11 @@ namespace AerolineaFrba.Abm_Ruta
             this.PrecioPasaje.DecimalPlaces = 2;
             this.PrecioPasaje.Location = new System.Drawing.Point(190, 311);
             this.PrecioPasaje.Maximum = new decimal(new int[] {
-            2000,
+            9999,
             0,
             0,
             0});
             this.PrecioPasaje.Name = "PrecioPasaje";
-            this.PrecioPasaje.ReadOnly = true;
             this.PrecioPasaje.Size = new System.Drawing.Size(120, 20);
             this.PrecioPasaje.TabIndex = 30;
             // 

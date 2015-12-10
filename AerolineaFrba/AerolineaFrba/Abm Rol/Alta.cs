@@ -37,12 +37,12 @@ namespace AerolineaFrba.Abm_Rol
             if (Nombre.isValid())
             { Model.Rol rol = new Model.Rol(this.Nombre.value, this.Estado.value);
                 if (this.FuncionalidadesRol.Rows.Count == 0) { MessageBox.Show("El rol debe tener al menos una funcionalidad"); return; }
-                DAO.DAORol.crearNuevoRol(rol, this.FuncionalidadesRol);
+                DAO.DAORol.crearNuevoRol(rol, FuncionalidadesRol);
                 MessageBox.Show("Rol creado con éxito!");
-                Nombre.clean(); Estado.clean(); Funcionalidad.Refresh();
-                this.FuncionalidadesRol.Rows.Clear();
+               // Nombre.clean(); Estado.clean(); Funcionalidad.Refresh();
+                //this.FuncionalidadesRol.Rows.Clear();
                 launcher.reload();
-
+                this.Close();
             }
         }
 

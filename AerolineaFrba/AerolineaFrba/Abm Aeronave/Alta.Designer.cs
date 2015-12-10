@@ -121,12 +121,11 @@ namespace AerolineaFrba.Abm_Aeronave
             this.kgsEncomiendas.AccessibleDescription = "Límite de encomiendas";
             this.kgsEncomiendas.Location = new System.Drawing.Point(135, 198);
             this.kgsEncomiendas.Maximum = new decimal(new int[] {
-            700,
+            9999,
             0,
             0,
             0});
             this.kgsEncomiendas.Name = "kgsEncomiendas";
-            this.kgsEncomiendas.ReadOnly = true;
             this.kgsEncomiendas.Size = new System.Drawing.Size(46, 20);
             this.kgsEncomiendas.TabIndex = 25;
             this.kgsEncomiendas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kgsEncomiendas_KeyPress);

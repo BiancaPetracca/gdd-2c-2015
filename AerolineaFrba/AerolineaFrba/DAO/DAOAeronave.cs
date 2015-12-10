@@ -143,6 +143,7 @@ namespace AerolineaFrba.DAO
         internal static int reemplazarViajesPorVidaUtil(decimal numero, DateTime baja)
         {
            return SqlConnector.executeProcedure("reemplazarAeronavePorVidaUtil", numero, baja);
+          
         }
 
         internal static int cancelarViajesAeronavePorMantenimiento(decimal numero, DateTime baja, DateTime reinicio)
@@ -153,11 +154,16 @@ namespace AerolineaFrba.DAO
         internal static int reemplazarViajesPorMantenimiento(decimal numero, DateTime baja, DateTime reinicio)
         {
             return SqlConnector.executeProcedure("reemplazarAeronavePorMantenimiento", numero, baja, reinicio);
+           
         }
 
         internal static int bajaDeAeronave(decimal numero, DateTime baja, DateTime reinicio)
         {
             return SqlConnector.executeProcedure("bajaSinViajes", numero, baja, reinicio);
+        }
+
+        internal static String getMatricula(int numero) {
+           return SqlConnector.retrieveList("get_matricula", "aero_matricula", numero).First();
         }
     }
 }

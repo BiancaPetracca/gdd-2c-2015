@@ -203,8 +203,12 @@ namespace AerolineaFrba.Compra
             // 
             this.cant_pasajes.AccessibleDescription = "Cantidad de pasajes";
             this.cant_pasajes.Location = new System.Drawing.Point(158, 94);
+            this.cant_pasajes.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.cant_pasajes.Name = "cant_pasajes";
-            this.cant_pasajes.ReadOnly = true;
             this.cant_pasajes.Size = new System.Drawing.Size(55, 20);
             this.cant_pasajes.TabIndex = 13;
             // 
@@ -229,9 +233,14 @@ namespace AerolineaFrba.Compra
             // encomienda
             // 
             this.encomienda.AccessibleDescription = "Peso de la encomienda";
+            this.encomienda.DecimalPlaces = 2;
             this.encomienda.Location = new System.Drawing.Point(158, 31);
+            this.encomienda.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.encomienda.Name = "encomienda";
-            this.encomienda.ReadOnly = true;
             this.encomienda.Size = new System.Drawing.Size(55, 20);
             this.encomienda.TabIndex = 10;
             this.encomienda.ValueChanged += new System.EventHandler(this.Kgs_ValueChanged);

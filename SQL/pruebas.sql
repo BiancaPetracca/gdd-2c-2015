@@ -1,41 +1,39 @@
 -------- PRUEBAS -----------
-DECLARE @modelo NUMERIC(18), @fabricante NUMERIC(18), @servicio NUMERIC(18), @butacas NUMERIC(18,2), @kgs NUMERIC(18,2)
-SELECT @modelo =  mod_id, @fabricante = fab_id, @servicio = aero_id_servicio FROM AWANTA.AERONAVE 
-JOIN AWANTA.MODELO ON mod_id = aero_modelo 
-JOIN AWANTA.FABRICANTE ON mod_fabricante = fab_id 
-WHERE aero_numero = 33
-GROUP BY aero_numero, mod_id, fab_id, aero_id_servicio
-
-SET @butacas = (SELECT COUNT(pas_butaca) FROM AWANTA.PASAJE JOIN AWANTA.VIAJE ON pas_viaje = via_codigo 
-WHERE via_avion = 33 AND (via_cancelado IS NULL or via_cancelado = 0) AND pas_cancelado = 0)
-SET @kgs = isnull((SELECT SUM(enc_kg) FROM AWANTA.ENCOMIENDA JOIN AWANTA.VIAJE ON enc_viaje = via_codigo WHERE via_avion = 33
-AND (via_cancelado IS NULL OR via_cancelado = 0) AND enc_cancelado = 0),0)
-
-DECLARE @aero_reemplazo NUMERIC(18)
-
-DECLARE @fechaBaja DATETIME, @fechaReinicio DATETIME
-set @fechaBaja = AWANTA.getDate()
+DECLARE @fechaBaja DATETIME, @fechaReinicio DATETIME,  @numero NUMERIC(18)
+--set @fechaBaja = AWANTA.getDate()
+set @fechaBaja = DATETIMEFROMPARTS(2017, 06, 13, 13, 13, 13, 00) 
 set @fechaReinicio = DATETIMEFROMPARTS(2019, 03, 03, 00,00,00,00)
+set @numero = 36
 
-SELECT Aeronaves.aero_numero as Numero,
-(SELECT COUNT(pas_butaca) FROM AWANTA.PASAJE JOIN AWANTA.VIAJE ON pas_viaje = via_codigo 
-WHERE via_avion = Aeronaves.aero_numero AND (via_cancelado IS NULL or via_cancelado = 0) AND pas_cancelado = 0) AS ButacasOcupadas,
-isnull((SELECT SUM(enc_kg) FROM AWANTA.ENCOMIENDA JOIN AWANTA.VIAJE ON enc_viaje = via_codigo WHERE via_avion = Aeronaves.aero_numero
-AND (via_cancelado IS NULL OR via_cancelado = 0) AND enc_cancelado = 0),0) AS KgsOcupados,
-(SELECT COUNT(but_id) FROM AWANTA.BUTACA WHERE but_aeronave = Aeronaves.aero_numero) AS ButacasTotales,
-Aeronaves.aero_kgs_disponibles_encomiendas as KgsTotales
- FROM (SELECT aero_numero, aero_kgs_disponibles_encomiendas FROM AWANTA.AERONAVE
-JOIN AWANTA.MODELO ON mod_id = aero_modelo
-JOIN AWANTA.FABRICANTE ON fab_id = mod_fabricante
-WHERE aero_numero NOT IN (SELECT via_avion FROM AWANTA.VIAJE WHERE (via_fecha_salida BETWEEN @fechaBaja AND @fechaReinicio) OR (via_fecha_llegada_estimada BETWEEN @fechaBaja AND @fechaReinicio))
-AND aero_numero NOT IN (SELECT baja_avion FROM AWANTA.HISTORICO_BAJAS WHERE baja_motivo = 0 OR (baja_fecha BETWEEN @fechaBaja AND @fechaReinicio) OR
-(baja_reinicio BETWEEN @fechaBaja AND @fechaReinicio)) AND aero_id_servicio = @servicio AND mod_id = @modelo AND  fab_id = @fabricante
-AND aero_numero <> 33) AS Aeronaves
-GROUP BY Aeronaves.aero_numero, Aeronaves.aero_kgs_disponibles_encomiendas
+ SELECT via_codigo FROM AWANTA.VIAJE where via_avion = 38-- @numero 
+AND (via_fecha_salida >= @fechaBaja  OR via_fecha_llegada_estimada >= @fechaBaja) AND via_fecha_llegada IS NULL
+AND via_cancelado = 0
 
 
-select * from awanta.DEVOLUCIONXENCOMIENDA
-select * from awanta.DEVOLUCIONXPASAJE
+EXEC AWANTA.encontrarReemplazosMantenimiento @numero, @fechaBaja, @fechaReinicio
 
-select * from awanta.pasaje where pas_pasajero = 2595
-select * from awanta.encomienda where enc_encomendador = 2595
+EXEC AWANTA.encontrarReemplazosVidaUtil @numero, @fechaBaja 
+
+DECLARE @butacaReemplazar NUMERIC(18), @viaje NUMERIC(18)
+DECLARE butacas_reemplazar CURSOR FOR SELECT pas_butaca, via_codigo FROM AWANTA.VIAJE JOIN AWANTA.PASAJE ON pas_viaje = via_codigo 
+WHERE via_avion = @numero AND ((via_fecha_salida BETWEEN @fechaBaja AND @fechaReinicio) OR (via_fecha_llegada_estimada BETWEEN @fechaBaja AND @fechaReinicio))
+AND via_cancelado = 0
+OPEN butacas_reemplazar
+FETCH FROM butacas_reemplazar INTO @butacaReemplazar, @viaje
+WHILE @@FETCH_STATUS = 0
+BEGIN
+UPDATE AWANTA.PASAJE SET pas_butaca = (SELECT TOP 1 but_id FROM AWANTA.BUTACA WHERE but_aeronave = 37 AND
+but_id NOT IN(SELECT p.pas_butaca FROM AWANTA.PASAJE p WHERE p.pas_viaje = @viaje))
+WHERE pas_butaca = @butacaReemplazar AND pas_viaje = @viaje 
+FETCH FROM butacas_reemplazar INTO @butacaReemplazar, @viaje
+END
+CLOSE butacas_reemplazar
+DEALLOCATE butacas_reemplazar
+select * from awanta.aeronave where aero_numero = 40
+select * from awanta.pasaje where pas_viaje = 8520
+select * from awanta.viaje where via_codigo = 8521
+select  * from awanta.HISTORICO_BAJAS where baja_avion = 36
+delete from awanta.HISTORICO_BAJAS where baja_avion = 38
+update awanta.pasaje set pas_butaca = 1349 where pas_butaca = 1353 and pas_viaje = 8520
+update awanta.pasaje set pas_butaca = 1350 where pas_butaca = 1354 and pas_viaje = 8520
+update awanta.pasaje set pas_butaca = 1351 where pas_butaca = 1355 and pas_viaje = 8520

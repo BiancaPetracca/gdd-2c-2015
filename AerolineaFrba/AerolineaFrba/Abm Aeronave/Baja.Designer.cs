@@ -55,7 +55,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(31, 91);
+            this.label2.Location = new System.Drawing.Point(158, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 23);
             this.label2.TabIndex = 8;
@@ -65,7 +65,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             this.fechaReinicio.AccessibleDescription = "Elegir una fecha de reinicio";
             this.fechaReinicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fechaReinicio.Location = new System.Drawing.Point(34, 117);
+            this.fechaReinicio.Location = new System.Drawing.Point(161, 113);
             this.fechaReinicio.Name = "fechaReinicio";
             this.fechaReinicio.Size = new System.Drawing.Size(102, 20);
             this.fechaReinicio.TabIndex = 6;
@@ -81,7 +81,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // Aceptar
             // 
-            this.Aceptar.Location = new System.Drawing.Point(204, 159);
+            this.Aceptar.Location = new System.Drawing.Point(168, 160);
             this.Aceptar.Name = "Aceptar";
             this.Aceptar.Size = new System.Drawing.Size(75, 23);
             this.Aceptar.TabIndex = 0;
@@ -90,7 +90,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             // Cancelar
             // 
-            this.Cancelar.Location = new System.Drawing.Point(116, 159);
+            this.Cancelar.Location = new System.Drawing.Point(80, 160);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(75, 23);
             this.Cancelar.TabIndex = 0;
@@ -101,7 +101,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             this.fechaBaja.AccessibleDescription = "Elegir una fecha de reinicio";
             this.fechaBaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fechaBaja.Location = new System.Drawing.Point(158, 117);
+            this.fechaBaja.Location = new System.Drawing.Point(30, 113);
             this.fechaBaja.Name = "fechaBaja";
             this.fechaBaja.Size = new System.Drawing.Size(102, 20);
             this.fechaBaja.TabIndex = 10;
@@ -110,7 +110,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // superLabel1
             // 
             this.superLabel1.AutoSize = true;
-            this.superLabel1.Location = new System.Drawing.Point(159, 91);
+            this.superLabel1.Location = new System.Drawing.Point(31, 87);
             this.superLabel1.Name = "superLabel1";
             this.superLabel1.Size = new System.Drawing.Size(75, 13);
             this.superLabel1.TabIndex = 11;
@@ -120,7 +120,7 @@ namespace AerolineaFrba.Abm_Aeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 216);
+            this.ClientSize = new System.Drawing.Size(306, 217);
             this.Controls.Add(this.superLabel1);
             this.Controls.Add(this.fechaBaja);
             this.Controls.Add(this.MotivoBajaAeronave);
