@@ -790,8 +790,6 @@ go
 EXEC AWANTA.registrar_usuario 'user2', 'w23e', 0
 GO
 
-EXEC AWANTA.registrar_usuario 'sudo', 'w23e', 2 
-GO
 
 
 CREATE TRIGGER AWANTA.username_repetido ON AWANTA.USUARIO INSTEAD OF INSERT
@@ -1141,7 +1139,7 @@ RETURN -1
 GO
 
 
-ALTER PROCEDURE AWANTA.baja_ruta(@ruta NUMERIC(18)) 
+CREATE PROCEDURE AWANTA.baja_ruta(@ruta NUMERIC(18)) 
 AS
 	UPDATE AWANTA.PASAJE SET pas_cancelado = 1 WHERE  pas_viaje IN (SELECT via_codigo FROM AWANTA.VIAJE WHERE via_ruta_aerea = @ruta AND via_fecha_llegada IS NULL 
 	AND via_cancelado = 0) 
@@ -1719,7 +1717,7 @@ IF(EXISTS(SELECT 1 FROM AWANTA.AERONAVE
 JOIN AWANTA.VIAJE ON via_avion = aero_numero
 JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.getIdCiudad(@origen)
  AND rut_destino = AWANTA.getIdCiudad(@destino) WHERE aero_matricula = @matricula 
- AND (AWANTA.es_aprox_esa_fecha(@llegada, via_fecha_llegada_estimada) = 1)))
+ AND (AWANTA.es_aprox_esa_fecha(@llegada, via_fecha_llegada_estimada) = 1) AND via_cancelado = 0 AND via_fecha_llegada IS NULL))
  BEGIN 
  RETURN 1 END 
  RETURN -1
@@ -1789,7 +1787,7 @@ AND baja_reinicio >= @fechaLlegada))))) BEGIN RETURN 1 END RETURN -1
 GO
 
 
-ALTER PROCEDURE AWANTA.get_aeronaves_compatibles(@ruta NUMERIC(18), @fechaSalida DATETIME, @fechaLlegada DATETIME) 
+CREATE PROCEDURE AWANTA.get_aeronaves_compatibles(@ruta NUMERIC(18), @fechaSalida DATETIME, @fechaLlegada DATETIME) 
 AS
 BEGIN
 SELECT aero_matricula FROM AWANTA.AERONAVE 
@@ -1802,6 +1800,7 @@ AND via_cancelado = 0
 AND NOT EXISTS (SELECT 1 FROM AWANTA.HISTORICO_BAJAS WHERE baja_avion = aero_numero AND
 (baja_motivo = 0) OR (baja_motivo = 1 AND (baja_fecha BETWEEN @fechaSalida AND @fechaLlegada
 AND baja_reinicio >= @fechaLlegada)))
+ORDER BY aero_matricula
 END
 GO
 
@@ -1840,7 +1839,7 @@ END
 GO
 
 
-ALTER PROCEDURE AWANTA.hay_viajes_disponibles(@fechaSalida datetime, @fechaLlegada datetime, @origen nvarchar(255), @destino nvarchar(255)) 
+CREATE PROCEDURE AWANTA.hay_viajes_disponibles(@fechaSalida datetime, @fechaLlegada datetime, @origen nvarchar(255), @destino nvarchar(255)) 
 AS
 BEGIN
 RETURN (CASE WHEN EXISTS(SELECT 1 FROM AWANTA.VIAJE JOIN AWANTA.RUTA_AEREA ON rut_codigo = via_ruta_aerea
@@ -1888,7 +1887,7 @@ CREATE PROCEDURE AWANTA.create_viaje(@avion nvarchar(255), @llegada_estimada DAT
 AS
 	DECLARE @serv_avion numeric(18), @numero_avion numeric(18)
 	SELECT @serv_avion = aero_id_servicio, @numero_avion = aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = @avion
-	IF NOT EXISTS(SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = (SELECT aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = @avion)
+	IF NOT EXISTS(SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = @numero_avion
 	AND ((via_fecha_llegada_estimada = @llegada_estimada AND via_fecha_salida = @salida AND via_ruta_aerea = @ruta AND via_cancelado = 0)
 	OR (EXISTS(SELECT 1 FROM AWANTA.VIAJE v WHERE v.via_avion = @numero_avion AND (v.via_fecha_salida BETWEEN @salida AND @llegada_estimada OR
 	v.via_fecha_llegada_estimada BETWEEN @salida AND @llegada_estimada) AND v.via_cancelado = 0 AND v.via_fecha_llegada_estimada IS NULL))))

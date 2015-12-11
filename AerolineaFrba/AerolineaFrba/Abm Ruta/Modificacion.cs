@@ -71,9 +71,12 @@ namespace AerolineaFrba.Abm_Ruta
             this.Origen.SelectedItem = ruta.Origen;
             this.Destino.SelectedItem = ruta.Destino;
             this.servicios.check(ruta.Servicios);
+            
+            PrecioKG.ReadOnly = false;
+            PrecioPasaje.ReadOnly = false;
+
             this.PrecioKG.Value = ruta.PrecioBaseKg;
             this.PrecioPasaje.Value = ruta.PrecioBasePasaje;
-
 
             if (DAO.DAORuta.tieneViajesAsignados(ruta.Codigo))
             {

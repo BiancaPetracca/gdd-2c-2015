@@ -52,8 +52,10 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void Alta_Load(object sender, EventArgs e)
         {
-            this.Origen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
-            this.Destino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
+            PrecioKG.ReadOnly = false;
+            PrecioPasaje.ReadOnly = false;
+            Origen.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
+            Destino.AddAll(Extensions.listToStr(DAO.DAOCompra.listCiudades(), "nombre"));
         }
 
         private Model.Ruta getRutaIngresada()
