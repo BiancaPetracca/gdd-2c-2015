@@ -1,60 +1,246 @@
 ESTRATEGIA
-
-Sobre la migración:
-Había un  número de documento repetido, el cual se supuso que como la persona era mayor no era de tipo DNI sino de tipo LC. 
-
-En las rutas, las mismas repetían código y no tenían el resto de valores iguales en muchos casos. Lo que se hizo fue no tener en cuenta este código, distinguiéndolas por el resto de los campos. Dentro de los mismos destinos y origen, el precio base de las rutas a veces era 0 en pasaje o en encomienda, esto era porque las compras habían sido de esos tipos de items. Entonces se migró de forma tal que si tenian el precio en 0 se buscaba en la maestra una ruta con todos los mismos valores que esta, con el valor 0 en el otro campo, y se le agregaba el valor que faltaba. 
-
-Por ejemplo una ruta tokio - nueva york tenía 0 en precio base de pasaje, 100 en precio base de encomienda, y encontramos una igual con los precios 30 en pasaje y 0 en encomienda, el resultado final es ruta tokio -  nueva york - 30 - 100. 
-
-Se consideró que cada una de las filas que figuraban en la tabla maestra, sin repetidos, eran compras que hizo cada uno del os clientes que figuran ahí. Como no podemos saber si el cliente era el mismo que viajó o el mismo que mandó la encomienda, suponemos que corresponden a pasajes, a encomiendas, y a compras. (cada compra de un pasaje, es un pasaje con la misma persona que lo compró, con las encomiendas igual).
-
-Sobre los modelos que hay, todos se llaman "modelo", pero los separamos por fabricante. Entonces por ahora cada fabricante tiene un solo modelo que se llama modelo, pero se puede modificar mediante el administrador de modelos, botón que figura en el ABM aeronave. También se pueden agregar nuevos modelos.
+GESTION DE DATOS 2C 2015
+GRUPO: 42 � AWANTA
 
 
-Aplicación:
-
-En las bajas de aeronaves se supone que la baja se hace en el momento. 
-
-El código de una ruta no es modificable, ya que corresponde a su Primary Key y no es conveniente hacer modificaciones sobre estos. 
-La matrícula de una aeronave puede modificarse, no así su código porque pasa lo mismo que en el caso anterior. 
-En el listado de rutas, se pueden visualizar las rutas y si ofrecen varios servicios aparecerá una debajo de la otra. Cuando se intente modificar una, obviamente se realizará sobre la misma ruta.
-
-Se cuenta con tablas de devolucion por encomienda y de devolucion por pasaje, las mismas son asociativas, esto permite no tener devoluciones con campos en null.
-
-Sobre las tarjetas del cliente, cuando realiza una compra y el cliente ya tenía una tarjeta, le avisamos que no se corresponden los campos y preguntamos si la quiere cambiar por esa otra. Si dice que no, cuando ingrese bien el código de seguridad y el número, se hace efectiva la compra.
-No tenemos forma de validar si un numero de tarjeta corresponde a un codigo de seguridad, así que suponemos que se van a corresponder a partir de que se cree la tarjeta para ese cliente. 
+Indice
+SET DE USUARIOS �...............................................................................................................  3
+MIGRACION �........................................................................................................................... 4
+MODELO �................................................................................................................................. 5
+TRIGGERS / PROCEDURES / FUNCIONES �........................................................................ 6
 
 
-Las rutas pueden modificar su precio cuando tienen pasajes vendidos porque el precio de un pasaje esta puesto sobre el pasaje tambien, no solo sobre la ruta justamente por esto.
+SET DE USUARIOS
+admin666
+user1
+user2
+(todos tienen perfil administrativo)
 
-Modificar ese precio no va a modificar al precio del pasaje o encomienda vendido. 
+
+MIGRACION
+Habia un numero de documento repetido, el cual se supuso que como la persona era mayor no era de tipo DNI sino de
+tipo LC.
+En las rutas, las mismas repetian codigo y no tenian el resto de valores iguales en muchos casos. Lo que se hizo fue no
+tener en cuenta este codigo, distinguiendolas por el resto de los campos. Dentro de los mismos destinos y origen, el
+precio base de las rutas a veces era 0 en pasaje o en encomienda, esto era porque las compras habian sido de esos
+tipos de items. Entonces se migro de forma tal que si tenian el precio en 0 se buscaba en la maestra una ruta con todos
+los mismos valores que esta, con el valor 0 en el otro campo, y se le agregaba el valor que faltaba.
+Por ejemplo una ruta tokio - nueva york tenia 0 en precio base de pasaje, 100 en precio base de encomienda, y
+encontramos una igual con los precios 30 en pasaje y 0 en encomienda, el resultado final es ruta tokio - nueva york - 30
+- 100.
+Se considero que cada una de las filas que figuraban en la tabla maestra, sin repetidos, eran compras que hizo cada
+uno del os clientes que figuran ahi. Como no podemos saber si el cliente era el mismo que viajo o el mismo que mando
+la encomienda, suponemos que corresponden a pasajes, a encomiendas, y a compras. (cada compra de un pasaje, es
+un pasaje con la misma persona que lo compro, con las encomiendas igual).
+Sobre los modelos que hay, todos se llaman "modelo", pero los separamos por fabricante. Entonces por ahora cada
+fabricante tiene un solo modelo que se llama modelo, pero se puede modificar mediante el administrador de modelos,
+boton que figura en el ABM aeronave. Tambien se pueden agregar nuevos modelos.
+Para la alta de aeronaves, se considero la minima fecha que figura en las compras que corresponden a un viaje de esa
+aeronave. Como en la migracion teniamos que 1 compra ? 1 viaje, o 1 encomienda, con esa relacion 1-1 podiamos
+suponerlo. Luego las compras no corresponden a un viaje o a una encomienda sola, pero en la migracion si.
 
 
+ENTIDADES
 
+MODELO
+Aeronave: las aeronaves se identifican por id, no por matricula aunque validamos que sea unica, ya que permite
+modificarlas.
+Butaca: son las butacas una aeronave.
+Compra: se compone por el cliente, las cuotas que posee, fecha.
+Pasajes y encomiendas: conocen a una compra para poder hacer devolucuones parciales.
+Devolucion � devolucionxencomienda � devolucionxpasaje: sirven para lo mismo que en el caso anterior.
+Tipo de pago: si es 0, es porque es efectivo, si es otro numero es una tarjeta. Una tarjeta de un cliente hace referencia
+a esta tabla.
+Tarjeta: tarjetas de un cliente
+Seteamos todas las fechas a la del sistema, y cada vez que corre la aplicacion se setea esta fecha en una tabla
+CONFIG de la base de datos. De esta forma la base de datos entiende la misma fecha que la aplicacion. En la app, se
+encuentra en app.config, y su getter en Generics.Config.
+El codigo de una ruta no es modificable, ya que corresponde a su Primary Key y no es conveniente hacer
+modificaciones sobre estos.
+La matricula de una aeronave puede modificarse, no asi su codigo porque pasa lo mismo que en el caso anterior.
+En el listado de rutas, se pueden visualizar las rutas y si ofrecen varios servicios aparecera una debajo de la otra. Es la
+misma ruta, pero se muestra con el otro servicio. Cuando se intente modificar una, obviamente se realizara sobre la
+misma ruta, sin importar que fila se seleccione (mientras sea el mismo codigo).
+Se cuenta con tablas de devolucion por encomienda y de devolucion por pasaje, las mismas son asociativas, esto
+permite no tener devoluciones con campos en null.
+Sobre las tarjetas del cliente, cuando realiza una compra y el cliente ya tenia una tarjeta, le avisamos que no se
+corresponden los campos y preguntamos si la quiere cambiar por esa otra. Si dice que no, cuando ingrese bien el
+codigo de seguridad y el numero, se hace efectiva la compra.
+No tenemos forma de validar si un numero de tarjeta corresponde a un codigo de seguridad, asi que suponemos que se
+van a corresponder a partir de que se cree la tarjeta para ese cliente.
+Las rutas pueden modificar su precio cuando tienen pasajes vendidos porque el precio de un pasaje esta puesto sobre
+el pasaje tambien, no solo sobre la ruta justamente por esto.
+Modificar ese precio no va a modificar al precio del pasaje o encomienda vendido.
 Sobre las millas, se calculan de forma tal que:
-- encomiendas: para viajes llegados en ese período, sobre encomiendas no devueltas.
+- encomiendas: para viajes llegados en ese periodo, sobre encomiendas no devueltas.
 - pasajes: lo mismo.
-- canjes: para canjes realizados entre ese período, ya que al momento de ver las millas disponibles cuando el usuario quería realizar el canje, 
-se utilizó el mismo criterio que antes.
-
-
-Sobre los usuarios:
-
+- canjes: para canjes realizados entre ese periodo, ya que al momento de ver las millas disponibles cuando el usuario
+queria realizar el canje,
+se utilizo el mismo criterio que antes.
+Sobre los usuarios: suponemos que los usuarios tienen un solo rol, y que si el usuario quiere dar de baja el rol que esta
+usando, o deshabilitar Abm ROL no va a poder si es sobre el mismo rol que tiene.
 Sobre las compras:
-En una compra pueden haber varias encomiendas que corresponden al usuario que diga ahí, validando que la suma de los kgs. no superen el limite que el que compró decidió.
-Se crearon algunos tipos de tarjeta con distintos límites en las cuotas.
+En una compra pueden haber varias encomiendas que corresponden a distintos usuarios, validando que la suma de los
+kgs. no superen el limite que el que compro decidio.
+Se crearon algunos tipos de tarjeta con distintos limites en las cuotas. Ej: American Express, Mastercard, Visa.
 
-Sobre los roles: 
-Un usuario tiene un solo rol.
+Sobre la forma de acceso:
+Si ingresa desde terminal kiosco, se setea en Config un atributo estatico que se llama Terminal, al que tienen acceso
+todos, y sirve especialmente para la compra, ya que si accedemos desde la terminal kiosco es distinta la forma de pago.
+La mayoria de las validaciones las hacemos a nivel aplicacion ya que es mas rapido.
 
-
-
-
-
-
-
+Al registrar un viaje, chequea por fecha los viajes para esa aeronave, y permite elegir cual era (enel caso de que la aeronave en el mismo dia tuvo dos viajes al mismo lugar en horarios diferentes, por ejemplo uno a la ma�ana, otro a la noche)
 
 
+SOBRE LOS TRIGGERS:
+- inhabilitar usuario: cuando el usuario tiene 3 intentos
+- para usuarios repetidos: si se quisira crear un usuario con un username que ya existe
+
+SOBRE LOS PROCEDURES:
+Stored Procedure: aeronave_coincide_registro: utilizado en el registro de llegada, para saber si coincide con esos datos
+la llegada de la aeronave.
+Stored Procedure: aeronave_ya_registrada: indica que la aeronave si correspondia con esos datos, pero ya se registro
+su llegada.
+Stored Procedure: aeronaves_mas_fuera_de_servicio: parte del top5.
+Stored Procedure: agregar_funcionalidad: agregar funcionalidades.
+Stored Procedure: agregar_servicio: agregar un servicio a una ruta.
+Stored Procedure: agregarModelo: utilizado desde el administrador de modelos para agregar un modelo a una
+aeronave.
+Stored Procedure: altaDeAeronave: para dar de alta a una aeronave.
+Stored Procedure: altaRutaAerea: idem para una ruta.
+Stored Procedure: asignar_funcionalidad_a_rol: asignar funcionalidades desde el abm de rol.
+Stored Procedure: aumentar_intentos: cuando el usuario ingresa una contrasena incorrecta.
+Stored Procedure: baja_ciudad: dar de baja ciudades � da de baja a todas las rutas que la contienen. No esta en la
+aplicacion pero si en el script.
+Stored Procedure: baja_ruta: dar de baja una ruta, da de baja a todos los viajes asociados y realiza la devolucion de
+pasajes y encomiendas.
+Stored Procedure: bajar_rol: dar de baja a un rol
+Stored Procedure: bajaSinViajes: dar de baja a una aeronave cuando no posee viajes asignados, solo se registra en el
+historico y listo.
+Stored Procedure: borrar_funcionalidad: elimina una funcionalidad de un rol.
+Stored Procedure: borrar_servicio: borra un servicio de una ruta.
+Stored Procedure: cancelar_compra: cancela una compra, se utiliza cuando el usuario esta en el proceso de compra y
+quiere cancelarla.
+Stored Procedure: cancelarViajesAeronave: cancela todos los viajes pasajes y encomiendas que corresponden a la
+aeronave, registrandolos en devoluciones, si el empresario determino que habia que cancelarlos y no reemplazarlos.
+Stored Procedure: canjear_productos: para canjear productos por las millas que tiene el usuario.
+Stored Procedure: cliente_nueva_tarjeta: crear una nueva tarjeta para el cliente, si el cliente ingreso una que no era
+valida y era porque era otra tarjeta nueva. O bien deseaba cambiar los datos.
+Stored Procedure: cliente_tiene_tarjeta: saber si el cliente posee esa tarjeta pero no puede ingresar porque no coincide.
+Stored Procedure: clientes_con_mas_millas_acumuladas: top5
+Stored Procedure: crear_compra: crear una compra vacia, para poder prepararla (ver el preparar_compra)
+Stored Procedure: crear_devolucion: crea una devolucion para insertarle los pasajes y encomiendas que va a devolver
+Stored Procedure: crear_rol: crea un rol nuevo
+Stored Procedure: create_viaje: crea un viaje, en la funcionalidad generar viaje.
+Stored Procedure: cuotas_maximas_tarjeta: getter de las cuotas
+Stored Procedure: destinos_aeronaves_mas_vacias: top5
+Stored Procedure: destinos_con_mas_pasajes_cancelados: top5
+Stored Procedure: destinos_pasajes_comprados: top5
+Stored Procedure: detalle_compra
+Stored Procedure: detalle_encomiendas
+Stored Procedure: detalle_pasajes
+los detalles traen campos respectivos a cada cosa cuando el cliente termino de comprar
+Stored Procedure: devolver_items: devolver los items que compro.
+Stored Procedure: efectuar_compra
+Stored Procedure: existe_cliente
+Stored Procedure: existe_rol
+Stored Procedure: existe_usuario
+Stored Procedure: existeAeronaveQueReemplace
+Stored Procedure: get_aeronaves
+Stored Procedure: get_aeronaves_compatibles
+Stored Procedure: get_aeronaves_disponibles
+Stored Procedure: get_aeronaves_filtradas
+Stored Procedure: get_all_cities
+Stored Procedure: get_all_funcionalidades
+Stored Procedure: get_all_rutas
+Stored Procedure: get_butacas
+Stored Procedure: get_butacas_disponibles
+Stored Procedure: get_ciudades
+Stored Procedure: get_cliente
+Stored Procedure: get_compras (que correspondan a un cliente, para poder hacer la devolucion)
+Stored Procedure: get_encomiendas
+Stored Procedure: get_estado_aeronave: habilitada o no
+Stored Procedure: get_funcionalidad
+Stored Procedure: get_funcionalidades
+Stored Procedure: get_funcionalidades_que_no_tiene
+Stored Procedure: get_id_aeronave
+Stored Procedure: get_id_funcionalidad
+Stored Procedure: get_id_rol_usuario
+Stored Procedure: get_intentos
+Stored Procedure: get_millas_cliente
+Stored Procedure: get_pasajes
+Stored Procedure: get_productos_disponibles
+Stored Procedure: get_rol
+Stored Procedure: get_roles
+Stored Procedure: get_rutas
+Stored Procedure: get_servicios_rutas
+Stored Procedure: get_viajes
+Stored Procedure: getFabricantes
+Stored Procedure: getModelos
+Stored Procedure: getTipoPago
+Stored Procedure: habilitar_rol
+Stored Procedure: hay_rutas (si hay rutas que correspondan a esas tuplas de ciudades)
+Stored Procedure: hay_viajes_disponibles
+Stored Procedure: info_canjes
+Stored Procedure: info_encomiendas
+Stored Procedure: info_pasajes
+los info son para que el cliente vea las millas y los detalles.
+Stored Procedure: inhabilitar_usuario
+Stored Procedure: insertar_nuevo_producto
+Stored Procedure: llegada_a_destino: registrar la llegada de la aeronave
+Stored Procedure: modificar_nombre_rol
+Stored Procedure: modificar_ruta
+Stored Procedure: modificarAeronave
+Stored Procedure: modificarModelo
+modificar, utilizados en los abm. El modelo en el admin de modelos.
+Stored Procedure: obtenerCodigoAeronave
+Stored Procedure: preparar_compra: inserta los items (encomiendas o pasajes) en la compra.
+Stored Procedure: reemplazarAeronave
+Stored Procedure: registrar_llegada_viaje
+Stored Procedure: registrar_usuario
+Stored Procedure: set_butacas
+Stored Procedure: set_date
+Stored Procedure: set_estado_usuario
+
+Stored Procedure: set_funcionalidades_x_rol
+Stored Procedure: tiene_viajes_asignados: saber si tiene viajes asignados en determinada fecha, o sea entre las
+fechasde baja y de reinicio si es que hay, o posteriores a las de baja
+Stored Procedure: tiene_viajes_ruta: si la ruta posee viajes asignados.
+Stored Procedure: update_cliente: se utiliza para actualizar los datos del cliente cuando en la compra cambia sus datos.
+Stored Procedure: update_cliente_noreturn
+Stored Procedure: vaciar_intentos: setea intentos en 0 cuando ingresa correctamete.
+Stored Procedure: validar_usuario: valida, con el algoritmo SHA2_256 que coincidan el user con la pass.
+
+SOBRE LAS FUNCIONES
+Function: cant_butacas_disponibles: mira en el viaje las butacas que no estan siendo utilizadas de una aeronave.
+Function: cant_kgs_disponibles: los kgs no utilizados.
+Function: compararCiudades: saber si son la misma.
+Function: es_aeronave_disponible: si la aeronave puede hacer viajes en determinada fecha.
+Function: es_aprox_esa_fecha: para saber si se corresponde un viaje con una llegada, miramos si es aproximada
+mente esa fecha (o sea si pasaron 10 minutos o faltan 10 minutos para la llegada estimada)
+Function: existe_cliente_
+Function: get_estado
+Function: get_id_producto
+Function: get_millas
+Function: get_millas_canjes
+Function: get_millas_encomiendas
+Function: get_millas_pasajes
+Function: get_precio_encomienda
+Function: get_precio_pasaje
+Function: getDate
+Function: getIdCiudad
+Function: getIdCliente
+Function: getIdFabricante
+Function: getIdModelo
+Function: getIdRol
+Function: getIdRuta
+Function: getIdServicio
+Function: hay_aeronaves_disponibles
+Function: obtenerButacasDeAeronave
+Function: obtenerCodigoRuta
+Function: obtenerNombreCiudad
+Function: porcentajeDadoUnServicio (para calcular los porcentajes de los servicios, en base a la tabla maestra �
+cuando se hace la migracion - )
+Function: tieneViajesAsignados
 
 

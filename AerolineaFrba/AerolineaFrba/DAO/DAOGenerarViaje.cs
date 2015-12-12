@@ -48,7 +48,11 @@ namespace AerolineaFrba.DAO
 
         public static int agregarRegistroLlegada(Viaje viaje)
         {
-            return SqlConnector.executeProcedure("registrar_llegada_viaje", viaje.matricula, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaLlegada);
+            return SqlConnector.executeProcedure("registrar_llegada_viaje", viaje.codigo, viaje.fechaLlegada);
+        }
+
+        public static int getPosiblesLlegadas(Viaje viaje, DataGridView dg) {
+            return SqlConnector.retrieveDT("get_posibles_llegadas", dg, viaje.matricula, viaje.ciudadOrigen, viaje.ciudadDestino, viaje.fechaLlegada);
         }
 
         public static int aeronaveYaRegistrada(Viaje viaje)

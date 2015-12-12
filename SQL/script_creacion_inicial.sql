@@ -1,14 +1,12 @@
 USE [GD2C2015]
 GO
 
-
 ----------- CREACION DEL SCHEMA --------------------
 IF (NOT EXISTS ( SELECT  1 FROM sys.schemas WHERE name = 'AWANTA' )) 
 	BEGIN 
     EXEC('CREATE SCHEMA [AWANTA] AUTHORIZATION [gd]')
 	END
 GO
-
 
 /*---------------------------DROP DE LAS TABLAS---------------------------*/
 
@@ -279,7 +277,7 @@ CREATE TABLE AWANTA.AERONAVE
 	aero_id_servicio numeric(18) not null foreign key
 	references AWANTA.SERVICIO (serv_id_servicio),
 	aero_fecha_de_alta datetime not null,
-	aero_kgs_disponibles_encomiendas int not null,
+	aero_kgs_disponibles_encomiendas numeric(18,2) not null,
 
 )
 
@@ -349,7 +347,7 @@ CREATE TABLE AWANTA.PASAJE
 CREATE TABLE AWANTA.ENCOMIENDA
 (
 	enc_codigo numeric(18) identity(1,1) primary key,
-	enc_kg int not null,
+	enc_kg numeric(18,2) not null,
 	enc_viaje numeric(18) not null foreign key references AWANTA.VIAJE(via_codigo),
 	enc_encomendador numeric(18) not null foreign key references AWANTA.CLIENTE(cli_codigo),
 	enc_compra numeric(18) not null foreign key references AWANTA.COMPRA(compra_id),
@@ -716,7 +714,7 @@ GO
 -- mediante queries vimos que no estaban repetidos los pasajes (los codigos) 
 -- SELECT DISTINCT Pasaje_Codigo from gd_esquema.Maestra : 265647 (el 1 que sobra es el pasaje 0 que no tiene nada)
 SET IDENTITY_INSERT AWANTA.PASAJE ON
-INSERT INTO AWANTA.PASAJE(pas_codigo, pas_pasajero, pas_compra, pas_precio, pas_butaca,  pas_viaje)
+INSERT INTO AWANTA.PASAJE(pas_codigo, pas_pasajero, pas_compra, pas_precio, pas_butaca,  pas_viaje, pas_cancelado)
 -- aca elegimos la butaca que pertenece a ese viaje 
 SELECT m.Pasaje_Codigo, (SELECT compra_cliente FROM AWANTA.COMPRA WHERE compra_item = m.Pasaje_Codigo),(SELECT compra_id FROM AWANTA.COMPRA WHERE compra_item = m.Pasaje_Codigo) ,
 (SELECT compra_monto FROM AWANTA.COMPRA WHERE compra_item = m.Pasaje_Codigo),
@@ -725,7 +723,7 @@ AND but_piso = m.Butaca_Piso AND but_numero = m.Butaca_Nro AND m.Butaca_Tipo = b
 (SELECT via_codigo FROM AWANTA.VIAJE WHERE via_avion = (SELECT aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = m.Aeronave_Matricula) AND via_fecha_llegada = m.FechaLLegada AND
  via_fecha_llegada_estimada = m.Fecha_LLegada_Estimada AND via_fecha_salida = m.FechaSalida and via_ruta_aerea = (SELECT rut_codigo FROM AWANTA.RUTA_AEREA 
 WHERE (SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Origen) = rut_origen AND 
-(SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Destino) = rut_destino)) FROM gd_esquema.Maestra m
+(SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Destino) = rut_destino)), 0 FROM gd_esquema.Maestra m
 where m.Pasaje_Codigo != 0 
 SET IDENTITY_INSERT AWANTA.PASAJE OFF
 
@@ -733,14 +731,14 @@ SET IDENTITY_INSERT AWANTA.PASAJE OFF
 
 --- SELECT DISTINCT Paquete_Codigo from gd_esquema.Maestra : 135659 paquetes (el 1 que sobra es el paquete 0, que no tiene nada)
 SET IDENTITY_INSERT AWANTA.ENCOMIENDA ON 
-INSERT INTO AWANTA.ENCOMIENDA(enc_codigo, enc_encomendador, enc_compra, enc_precio, enc_kg, enc_viaje)
+INSERT INTO AWANTA.ENCOMIENDA(enc_codigo, enc_encomendador, enc_compra, enc_precio, enc_kg, enc_viaje, enc_cancelado)
 SELECT m.Paquete_Codigo, (SELECT compra_cliente FROM AWANTA.COMPRA WHERE compra_item = m.Paquete_Codigo), 
 (SELECT compra_id FROM AWANTA.COMPRA WHERE compra_item = m.Paquete_Codigo),
 (SELECT compra_monto FROM AWANTA.COMPRA WHERE compra_item = m.Paquete_Codigo), m.Paquete_KG,
 (SELECT via_codigo FROM AWANTA.VIAJE WHERE via_avion = (SELECT aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = m.Aeronave_Matricula) AND via_fecha_llegada = m.FechaLLegada AND
  via_fecha_llegada_estimada = m.Fecha_LLegada_Estimada AND via_fecha_salida = m.FechaSalida and via_ruta_aerea = (SELECT rut_codigo FROM AWANTA.RUTA_AEREA 
 WHERE (SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Origen) = rut_origen AND 
-(SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Destino) = rut_destino)) FROM gd_esquema.Maestra m
+(SELECT ciu_id FROM AWANTA.CIUDAD where ciu_nombre = m.Ruta_Ciudad_Destino) = rut_destino)), 0 FROM gd_esquema.Maestra m
 where m.Pasaje_Codigo = 0 
 SET IDENTITY_INSERT AWANTA.ENCOMIENDA OFF
 
@@ -1217,16 +1215,18 @@ GO
 CREATE PROCEDURE AWANTA.get_estado_aeronave(@codigo NUMERIC(18))
 AS
 BEGIN
-DECLARE @bajaM DATETIME, @bajaU DATETIME, @fechaR DATETIME
-IF EXISTS (SELECT 1 FROM AWANTA.HISTORICO_BAJAS WHERE baja_avion = @codigo AND (baja_motivo = 0 OR baja_motivo = 1 AND baja_reinicio > (select DATE_TODAY from AWANTA.CONFIG))) BEGIN RETURN -1 END
+DECLARE @bajaM DATETIME, @bajaU DATETIME, @fechaR DATETIME, @fechaHoy DATETIME
+SELECT @fechaHoy = DATE_TODAY FROM AWANTA.CONFIG
+IF EXISTS (SELECT 1 FROM AWANTA.HISTORICO_BAJAS WHERE baja_avion = @codigo AND (baja_motivo = 0 OR (baja_motivo = 1 AND baja_fecha < @fechaHoy AND baja_reinicio > @fechaHoy))) BEGIN RETURN -1 END
 RETURN 1 
 END  
 GO
 CREATE FUNCTION AWANTA.get_estado(@codigo NUMERIC(18)) RETURNS BIT
 AS
 BEGIN
-DECLARE @bajaM DATETIME, @bajaU DATETIME, @fechaR DATETIME
-IF EXISTS (SELECT 1 FROM AWANTA.HISTORICO_BAJAS WHERE baja_avion = @codigo AND (baja_motivo = 0 OR baja_motivo = 1 AND baja_reinicio > (select DATE_TODAY from AWANTA.CONFIG))) BEGIN RETURN 0 END
+DECLARE @bajaM DATETIME, @bajaU DATETIME, @fechaR DATETIME, @fechaHoy DATETIME
+SELECT @fechaHoy = DATE_TODAY FROM AWANTA.CONFIG
+IF EXISTS (SELECT 1 FROM AWANTA.HISTORICO_BAJAS WHERE baja_avion = @codigo AND (baja_motivo = 0 OR (baja_motivo = 1 AND baja_fecha < @fechaHoy AND baja_reinicio > @fechaHoy))) BEGIN RETURN 0 END
 RETURN 1 
 END  
 GO
@@ -1249,7 +1249,7 @@ SELECT * FROM AWANTA.AERONAVE ORDER BY aero_matricula
 END
 GO*/
 
-CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),@kilosDisponibles INT)
+CREATE PROCEDURE AWANTA.altaDeAeronave(@matricula NVARCHAR(255),@modelo NVARCHAR(255),@fabricante NVARCHAR(255),@servicio NVARCHAR(255),@kilosDisponibles NUMERIC(18,2))
 AS
 	BEGIN
 	DECLARE @numero NUMERIC(18)
@@ -1556,9 +1556,9 @@ END
 CLOSE compras
 DEALLOCATE compras
 
-INSERT INTO DEVOLUCIONXENCOMIENDA(devxp_devolucion, devxp_encomienda, devxe_motivo) SELECT dev_codigo, dev_compra, 'baja aeronave' FROM @encomiendas
+INSERT INTO DEVOLUCIONXENCOMIENDA(devxp_devolucion, devxp_encomienda, devxe_motivo) SELECT dev_codigo, encomienda, 'baja aeronave' FROM @encomiendas
 JOIN DEVOLUCION ON dev_compra = compra_e
-INSERT INTO DEVOLUCIONXPASAJE(devxp_devolucion, devxp_pasaje, devxp_motivo) SELECT dev_codigo, dev_compra, 'baja aeronave' FROM @pasajes
+INSERT INTO DEVOLUCIONXPASAJE(devxp_devolucion, devxp_pasaje, devxp_motivo) SELECT dev_codigo, pasaje, 'baja aeronave' FROM @pasajes
 JOIN DEVOLUCION ON dev_compra = compra_p
 END
 INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo, baja_reinicio) VALUES (@numero, @fechaBaja, 1, @fechaReinicio)
@@ -1590,9 +1590,9 @@ END
 CLOSE compras
 DEALLOCATE compras
 
-INSERT INTO DEVOLUCIONXENCOMIENDA(devxp_devolucion, devxp_encomienda, devxe_motivo) SELECT dev_codigo, dev_compra, 'baja aeronave' FROM @encomiendas_futuros
+INSERT INTO DEVOLUCIONXENCOMIENDA(devxp_devolucion, devxp_encomienda, devxe_motivo) SELECT dev_codigo, encomienda, 'baja aeronave' FROM @encomiendas_futuros
 JOIN DEVOLUCION ON dev_compra = compra_e
-INSERT INTO DEVOLUCIONXPASAJE(devxp_devolucion, devxp_pasaje, devxp_motivo) SELECT dev_codigo, dev_compra, 'baja aeronave' FROM @pasajes_futuros
+INSERT INTO DEVOLUCIONXPASAJE(devxp_devolucion, devxp_pasaje, devxp_motivo) SELECT dev_codigo, pasaje, 'baja aeronave' FROM @pasajes_futuros
 JOIN DEVOLUCION ON dev_compra = compra_p
 INSERT INTO AWANTA.HISTORICO_BAJAS(baja_avion, baja_fecha, baja_motivo) VALUES (@numero, @fechaBaja, 0)
 GO
@@ -1609,7 +1609,7 @@ END
 GO
 
 CREATE PROCEDURE AWANTA.modificarAeronave(@numero numeric(18), @matricula nvarchar(255), @modelo nvarchar(255), @fabricante nvarchar(255), @servicio nvarchar(255), 
-@cantidadKgsEncomiendas numeric, @estado bit) 
+@cantidadKgsEncomiendas numeric(18,2), @estado bit) 
 AS 
 BEGIN
 IF EXISTS(SELECT 1 FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula AND aero_numero <> @numero) BEGIN RETURN -1 END
@@ -1724,25 +1724,28 @@ JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.ge
 END 
 GO 
 
+CREATE PROCEDURE AWANTA.get_posibles_llegadas(@matricula NVARCHAR(255), @origen NVARCHAR(255), @destino NVARCHAR(255), @llegada DATETIME)
+AS
+SELECT via_codigo, aero_matricula, @origen, @destino, via_fecha_salida, via_fecha_llegada_estimada  FROM AWANTA.AERONAVE 
+JOIN AWANTA.VIAJE ON via_avion = aero_numero
+JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.getIdCiudad(@origen)
+ AND rut_destino = AWANTA.getIdCiudad(@destino) WHERE aero_matricula = @matricula 
+ AND (AWANTA.es_aprox_esa_fecha(@llegada, via_fecha_llegada_estimada) = 1) AND via_cancelado = 0 AND via_fecha_llegada IS NULL
+GO
+
 -- A NIVEL DE LA APLICACION, DIRECTAMENTE NO DEJAMOS QUE EL USUARIO INGRESE A LA DATA GRID UN VIAJE QUE YA FUE REGISTRADO COMO LLEGADA
 CREATE PROCEDURE AWANTA.aeronave_ya_registrada(@matricula NVARCHAR(255), @origen NVARCHAR(255), @destino NVARCHAR(255), @llegada DATETIME) AS 
 BEGIN
 IF (EXISTS(SELECT 1 FROM AWANTA.AERONAVE 
 JOIN AWANTA.VIAJE ON via_avion = aero_numero
 JOIN AWANTA.RUTA_AEREA ON via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.getIdCiudad(@origen) AND rut_destino = AWANTA.getIdCiudad(@destino)
-WHERE aero_matricula = @matricula AND (AWANTA.es_aprox_esa_fecha(@llegada, via_fecha_llegada_estimada) = 1) AND via_fecha_llegada IS NOT NULL))
+WHERE aero_matricula = @matricula AND via_fecha_llegada = @llegada))
 BEGIN RETURN 1 END RETURN -1 END 
 GO
 
-CREATE PROCEDURE AWANTA.registrar_llegada_viaje(@matricula NVARCHAR(255), @origen NVARCHAR(255), @destino NVARCHAR(255), @llegada DATETIME)
+CREATE PROCEDURE AWANTA.registrar_llegada_viaje(@codigo NUMERIC(18), @llegada DATETIME)
 AS
-BEGIN
-DECLARE @numero NUMERIC(18)
-SELECT @numero = aero_numero FROM AWANTA.AERONAVE WHERE aero_matricula = @matricula
-UPDATE AWANTA.VIAJE SET via_fecha_llegada = @llegada  WHERE via_codigo = (SELECT TOP 1 V.via_codigo FROM AWANTA.VIAJE V
-JOIN AWANTA.RUTA_AEREA ON V.via_ruta_aerea = rut_codigo AND rut_origen = AWANTA.getIdCiudad(@origen) AND rut_destino = AWANTA.getIdCiudad(@destino)
-AND via_avion = @numero AND (AWANTA.es_aprox_esa_fecha(@llegada, V.via_fecha_llegada_estimada) = 1) AND via_fecha_llegada IS NULL)
-END
+UPDATE AWANTA.VIAJE SET via_fecha_llegada = @llegada  WHERE via_codigo = @codigo
 GO
 
 /*------ALTA VIAJE------*/
@@ -1771,19 +1774,22 @@ GO
 
 CREATE PROCEDURE AWANTA.hay_aeronaves_compatibles(@origen NVARCHAR(255), @destino NVARCHAR(255),@fechaSalida DATETIME, @fechaLlegada DATETIME)
 AS
-DECLARE @servicios NVARCHAR(255) 
-IF EXISTS(
-SELECT 1 FROM AWANTA.RUTA_AEREA 
-JOIN AWANTA.SERVICIOXRUTA ON servxr_ruta = rut_codigo
+DECLARE @ruta NUMERIC(18)
+SELECT @ruta = rut_codigo FROM AWANTA.RUTA_AEREA 
 JOIN AWANTA.CIUDAD d ON rut_destino = d.ciu_id AND d.ciu_nombre = @destino
 JOIN AWANTA.CIUDAD o ON rut_origen = o.ciu_id AND o.ciu_nombre = @origen
-WHERE rut_habilitada = 1 AND servxr_servicio IN (SELECT aero_id_servicio FROM AWANTA.AERONAVE WHERE
-NOT EXISTS (SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = aero_numero AND
-((via_fecha_salida BETWEEN @fechaSalida AND @fechaLlegada) OR (via_fecha_llegada BETWEEN @fechaSalida AND @fechaLlegada))
-AND via_cancelado = 0)
+WHERE rut_habilitada = 1 
+
+if (EXISTS(SELECT 1 FROM AWANTA.AERONAVE 
+WHERE aero_id_servicio IN (SELECT servxr_servicio FROM AWANTA.SERVICIOXRUTA WHERE servxr_ruta = @ruta)
+AND NOT EXISTS (SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = aero_numero AND
+((via_fecha_salida BETWEEN @fechaSalida AND @fechaLlegada) OR (via_fecha_llegada_estimada BETWEEN @fechaSalida AND @fechaLlegada))
+AND via_cancelado = 0
+--AND via_fecha_llegada IS NULL
+)
 AND NOT EXISTS (SELECT 1 FROM AWANTA.HISTORICO_BAJAS WHERE baja_avion = aero_numero AND
-(baja_motivo = 0) OR (baja_motivo = 1 AND (baja_fecha BETWEEN @fechaSalida AND @fechaLlegada
-AND baja_reinicio >= @fechaLlegada))))) BEGIN RETURN 1 END RETURN -1
+((baja_motivo = 0) OR (baja_motivo = 1 AND (baja_fecha BETWEEN @fechaSalida AND @fechaLlegada
+AND baja_reinicio >= @fechaLlegada)))))) BEGIN RETURN 1 END RETURN -1
 GO
 
 
@@ -1794,12 +1800,12 @@ SELECT aero_matricula FROM AWANTA.AERONAVE
 WHERE aero_id_servicio IN (SELECT servxr_servicio FROM AWANTA.SERVICIOXRUTA WHERE servxr_ruta = @ruta)
 AND NOT EXISTS (SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = aero_numero AND
 ((via_fecha_salida BETWEEN @fechaSalida AND @fechaLlegada) OR (via_fecha_llegada_estimada BETWEEN @fechaSalida AND @fechaLlegada))
-AND via_cancelado = 0 
+AND via_cancelado = 0
 --AND via_fecha_llegada IS NULL
 )
 AND NOT EXISTS (SELECT 1 FROM AWANTA.HISTORICO_BAJAS WHERE baja_avion = aero_numero AND
-(baja_motivo = 0) OR (baja_motivo = 1 AND (baja_fecha BETWEEN @fechaSalida AND @fechaLlegada
-AND baja_reinicio >= @fechaLlegada)))
+((baja_motivo = 0) OR (baja_motivo = 1 AND (baja_fecha BETWEEN @fechaSalida AND @fechaLlegada
+AND baja_reinicio >= @fechaLlegada))))
 ORDER BY aero_matricula
 END
 GO
@@ -1927,7 +1933,7 @@ OR via_fecha_llegada_estimada BETWEEN @fechaBaja AND @fechaReinicio) AND via_fec
 RETURN -1
 END
 IF EXISTS(SELECT 1 FROM AWANTA.VIAJE WHERE via_avion = @numero AND (via_fecha_salida > @fechaBaja OR via_fecha_llegada_estimada > @fechaBaja) 
-AND via_cancelado = 0) BEGIN RETURN 1 END
+AND via_cancelado = 0 AND via_fecha_llegada IS NULL) BEGIN RETURN 1 END
 RETURN -1
 GO
 
@@ -1965,7 +1971,7 @@ WHERE via_codigo = @viaje)
 END
 GO
 
-CREATE FUNCTION AWANTA.get_precio_encomienda(@viaje NUMERIC(18), @kg DECIMAL(12,2)) RETURNS DECIMAL(12,2)
+CREATE FUNCTION AWANTA.get_precio_encomienda(@viaje NUMERIC(18), @kg NUMERIC(18,2)) RETURNS DECIMAL(12,2)
 AS
 BEGIN
 RETURN (SELECT @kg * (rut_precio_base_x_kg + rut_precio_base_x_kg * (SELECT serv_porcentaje_adicional FROM AWANTA.SERVICIO WHERE serv_id_servicio = aero_id_servicio)/100) FROM AWANTA.RUTA_AEREA 
@@ -2076,7 +2082,7 @@ BEGIN
 RETURN isnull((SELECT tarjeta_id FROM AWANTA.TARJETA
 JOIN AWANTA.TIPODEPAGO ON tarjeta_tipo = tdp_codigo
 WHERE tarjeta_cliente = @codigoCliente AND tarjeta_codigo_seguridad = @digito_verif AND tarjeta_nro = @numeroTarjeta
-AND tarjeta_fecha_vencimiento = @vencimiento AND tdp_descripcion = @tipoTarjeta), -1)
+AND MONTH(tarjeta_fecha_vencimiento) = MONTH(@vencimiento) AND YEAR(tarjeta_fecha_vencimiento) = YEAR(@vencimiento) AND tdp_descripcion = @tipoTarjeta), -1)
 END
 GO
 
@@ -2164,32 +2170,36 @@ GO
 
 /*------MILLAS VIAJERO------*/
 
-CREATE FUNCTION AWANTA.get_millas_pasajes(@tipo_dni char(5), @dni numeric(18)) returns int
-AS
-BEGIN
-RETURN isnull((SELECT SUM(pas_precio) FROM AWANTA.CLIENTE
-	JOIN AWANTA.PASAJE ON pas_pasajero = cli_codigo 
-	JOIN AWANTA.COMPRA ON pas_compra = compra_id 
-	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE 
-	WHERE devxp_pasaje = pas_codigo)
-	GROUP BY cli_codigo	),0)
-END 
-GO
-
 CREATE FUNCTION AWANTA.get_millas_encomiendas(@tipo_dni char(5), @dni numeric(18)) returns int
 AS
 BEGIN
-RETURN isnull((SELECT SUM(enc_precio) FROM AWANTA.CLIENTE
-	JOIN AWANTA.ENCOMIENDA ON enc_encomendador = cli_codigo 
-	JOIN AWANTA.COMPRA ON enc_compra = compra_id 
-	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni 
-	AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 
-	AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA
-	WHERE enc_codigo = devxp_encomienda)
-	GROUP BY cli_codigo	),0)
+RETURN isnull((SELECT SUM(enc_precio/10) FROM AWANTA.ENCOMIENDA JOIN
+AWANTA.COMPRA ON compra_id = enc_compra 
+JOIN VIAJE ON via_codigo = enc_viaje 
+JOIN RUTA_AEREA ON rut_codigo = via_ruta_aerea
+WHERE DATEDIFF(YEAR, ISNULL(via_fecha_llegada, '1901-01-01 00:00:00' ), (SELECT date_today FROM AWANTA.CONFIG)) < 1 
+AND enc_cancelado = 0
+--AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE devxp_encomienda = enc_codigo)
+ AND enc_encomendador = (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)),0)
+END 
+GO
 
+CREATE FUNCTION AWANTA.get_millas_pasajes(@tipo_dni char(5), @dni numeric(18)) returns int
+AS
+BEGIN
+DECLARE @date DATETIME
+SELECT @date = DATE_TODAY FROM AWANTA.CONFIG
+RETURN isnull((SELECT SUM(pas_precio/10) FROM AWANTA.PASAJE JOIN
+AWANTA.COMPRA ON compra_id = pas_compra 
+JOIN VIAJE ON via_codigo = pas_viaje 
+JOIN RUTA_AEREA ON rut_codigo = via_ruta_aerea
+WHERE DATEDIFF(YEAR, ISNULL(via_fecha_llegada, '1901-01-01 00:00:00' ), (SELECT date_today FROM AWANTA.CONFIG)) < 1 
+--AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo) 
+AND pas_cancelado = 0
+AND pas_pasajero = (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)),0)
 END
 GO
+
 CREATE FUNCTION AWANTA.get_millas_canjes(@tipo_dni char(5), @dni numeric(18)) returns int AS 
 BEGIN
 RETURN isnull((SELECT SUM(prod_millas * can_cantidad) FROM AWANTA.CLIENTE
@@ -2202,23 +2212,27 @@ GO
 CREATE FUNCTION AWANTA.get_millas(@tipo_dni char(5), @dni numeric(18)) RETURNS INT 
 AS
 BEGIN
+DECLARE @date DATETIME 
+SELECT @date = DATE_TODAY FROM AWANTA.CONFIG
+/*
 RETURN (SELECT isnull((SELECT SUM(enc_precio)/10 FROM AWANTA.CLIENTE
 	JOIN AWANTA.ENCOMIENDA ON enc_encomendador = cli_codigo 
 	JOIN AWANTA.COMPRA ON enc_compra = compra_id 
-	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1 
+	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, compra_fecha, @date) < 1 
 	--AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE enc_codigo = devxp_encomienda)
 	AND enc_cancelado = 0
 	GROUP BY cli_codigo	),0) - isnull((SELECT SUM(prod_millas * can_cantidad) FROM AWANTA.CLIENTE
 JOIN AWANTA.CANJE ON can_canjeador = cli_codigo 
 JOIN AWANTA.PRODUCTO ON prod_id = can_producto
-WHERE  cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, can_fecha, AWANTA.getDate()) < 1  
+WHERE  cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, can_fecha, @date) < 1  
 GROUP BY cli_codigo),0) + isnull((SELECT SUM(pas_precio)/10 FROM AWANTA.CLIENTE
 	JOIN AWANTA.PASAJE ON pas_pasajero = cli_codigo 
 	JOIN AWANTA.COMPRA ON pas_compra = compra_id 
-	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, compra_fecha, AWANTA.getDate()) < 1
+	WHERE cli_tipo_doc = @tipo_dni AND cli_nro_doc = @dni AND DATEDIFF(YEAR, compra_fecha, @date) < 1
 	-- AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo)
 	AND pas_cancelado = 0 
-	GROUP BY cli_codigo),0))
+	GROUP BY cli_codigo),0)) */
+RETURN(SELECT AWANTA.get_millas_encomiendas(@tipo_dni, @dni) + (SELECT AWANTA.get_millas_pasajes(@tipo_dni, @dni)) - (SELECT AWANTA.get_millas_canjes(@tipo_dni, @dni)))
 END
 GO
 
@@ -2243,7 +2257,9 @@ SELECT compra_fecha, AWANTA.obtenerNombreCiudad(rut_origen),AWANTA.obtenerNombre
 AWANTA.COMPRA ON compra_id = pas_compra 
 JOIN VIAJE ON via_codigo = pas_viaje 
 JOIN RUTA_AEREA ON rut_codigo = via_ruta_aerea
-WHERE DATEDIFF(YEAR, ISNULL(via_fecha_llegada, '1901-01-01 00:00:00' ), (SELECT date_today FROM AWANTA.CONFIG)) < 1 AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo) 
+WHERE DATEDIFF(YEAR, ISNULL(via_fecha_llegada, '1901-01-01 00:00:00' ), (SELECT date_today FROM AWANTA.CONFIG)) < 1 
+--AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo) 
+AND pas_cancelado = 0
 AND pas_pasajero = (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
 END
 GO
@@ -2255,7 +2271,9 @@ BEGIN
 AWANTA.COMPRA ON compra_id = enc_compra 
 JOIN VIAJE ON via_codigo = enc_viaje 
 JOIN RUTA_AEREA ON rut_codigo = via_ruta_aerea
-WHERE DATEDIFF(YEAR, ISNULL(via_fecha_llegada, '1901-01-01 00:00:00' ), (SELECT date_today FROM AWANTA.CONFIG)) < 1 AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE devxp_encomienda = enc_codigo)
+WHERE DATEDIFF(YEAR, ISNULL(via_fecha_llegada, '1901-01-01 00:00:00' ), (SELECT date_today FROM AWANTA.CONFIG)) < 1 
+AND enc_cancelado = 0
+--AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE devxp_encomienda = enc_codigo)
  AND enc_encomendador = (SELECT cli_codigo FROM AWANTA.CLIENTE WHERE cli_nro_doc = @dni AND cli_tipo_doc = @tipo_dni)
 END
 GO
@@ -2356,7 +2374,7 @@ CREATE PROCEDURE AWANTA.aeronaves_mas_fuera_de_servicio(@inicio datetime, @fin d
 BEGIN
 SELECT TOP 5 aero_numero AS 'Codigo de aeronave', aero_matricula AS Matricula, COUNT(baja_avion) AS Veces FROM AWANTA.AERONAVE
 JOIN HISTORICO_BAJAS ON aero_numero = baja_avion
-WHERE baja_motivo = 1 AND  @inicio < baja_fecha AND baja_fecha < @fin
+WHERE baja_motivo = 1 AND ((baja_fecha between @inicio and @fin) OR (baja_fecha < @inicio and baja_reinicio > @fin) OR (baja_fecha > @inicio AND baja_reinicio < @fin))
 GROUP BY aero_numero, aero_matricula
 ORDER BY COUNT(aero_matricula)
 END 
@@ -2372,14 +2390,16 @@ SELECT TOP 5 M.cli_codigo AS Codigo, M.cli_nro_doc AS Documento, M.cli_nombre AS
 	JOIN AWANTA.PASAJE ON pas_codigo = cli_codigo
 	JOIN AWANTA.VIAJE ON via_codigo = pas_viaje
 	WHERE @inicio < isnull(via_fecha_llegada,'1901-01-01 00:00:00') AND isnull(via_fecha_llegada,'1901-01-01 00:00:00') < @fin
-	AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo)
+	--AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXPASAJE WHERE devxp_pasaje = pas_codigo)
+	AND pas_cancelado = 0
 	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido) 
 	UNION ALL 
 (SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(enc_precio/10) as Millas FROM AWANTA.CLIENTE
 	JOIN AWANTA.ENCOMIENDA ON enc_encomendador = cli_codigo 
 	JOIN AWANTA.VIAJE ON enc_viaje = via_codigo
 	WHERE @inicio < isnull(via_fecha_llegada,'1901-01-01 00:00:00') AND isnull(via_fecha_llegada,'1901-01-01 00:00:00') < @fin 
-	AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE enc_codigo = devxp_encomienda)
+	--AND NOT EXISTS(SELECT 1 FROM AWANTA.DEVOLUCIONXENCOMIENDA WHERE enc_codigo = devxp_encomienda)
+	AND enc_cancelado = 0
 	GROUP BY cli_codigo, cli_nro_doc, cli_nombre, cli_apellido)
 	 UNION ALL
 (SELECT cli_codigo, cli_nro_doc, cli_nombre, cli_apellido, SUM(-prod_millas * can_cantidad) AS Millas FROM AWANTA.CLIENTE

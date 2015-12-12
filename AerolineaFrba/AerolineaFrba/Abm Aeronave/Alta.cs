@@ -43,6 +43,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Alta_Load(object sender, EventArgs e)
         {
+            kgsEncomiendas.ReadOnly = false;
             this.fabricante.AddAll(DAO.DAOAeronave.listarFabricantes());
         }
 

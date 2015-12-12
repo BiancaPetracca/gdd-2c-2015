@@ -189,6 +189,12 @@
     <Compile Include="Model\Ruta.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Model\Viaje.cs" />
+    <Compile Include="Registro Llegada Destino\PosiblesLlegadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada Destino\PosiblesLlegadas.Designer.cs">
+      <DependentUpon>PosiblesLlegadas.cs</DependentUpon>
+    </Compile>
     <Compile Include="SuperControls\ISuperControls.cs" />
     <Compile Include="SuperControls\SuperButton.cs">
       <SubType>Component</SubType>
@@ -416,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\RegistroUsuario.resx">
       <DependentUpon>RegistroUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada Destino\PosiblesLlegadas.resx">
+      <DependentUpon>PosiblesLlegadas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuperControls\SuperButton.resx">
       <DependentUpon>SuperButton.cs</DependentUpon>

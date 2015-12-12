@@ -34,8 +34,11 @@ namespace AerolineaFrba.Compra
         {
             if (! Pasaje.noRows("No hay ningún pasaje definido"))
             {
-                Decimal pasajes = Pasaje.Rows[0].Cells["col_pasajes"].Value == null? 0: Convert.ToDecimal(Pasaje.Rows[0].Cells["col_pasajes"].Value);
-                Decimal encomiendas = Pasaje.Rows[0].Cells["col_encomiendas"].Value == null ? 0 : Convert.ToDecimal(Pasaje.Rows[0].Cells["col_encomiendas"].Value);
+                
+                Decimal pasajes = Convert.ToDecimal(Pasaje.Rows[0].Cells["col_pasajes"].Value);
+                Decimal encomiendas = Convert.ToDecimal(Pasaje.Rows[0].Cells["col_encomiendas"].Value);
+
+                if (pasajes == 0 && encomiendas == 0) { MessageBox.Show("Seleccione pasajes o encomiendas"); return; }
                     Elegir_Pasajeros elegirPasajeros = new Elegir_Pasajeros(compra);
                     elegirPasajeros.setFlightData(viaje, pasajes, encomiendas);
 

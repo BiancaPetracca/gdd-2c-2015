@@ -44,6 +44,9 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.AeropuertoOrigen.AddAll(DAO.DAOCompra.listarCiudades());
             this.AeropuertoDestino.AddAll(DAO.DAOCompra.listarCiudades());
         }
+        public void agregarViaje(Model.Viaje viajeARegistrar) {
+            this.registros.Rows.Add(viajeARegistrar.codigo, viajeARegistrar.matricula, viajeARegistrar.ciudadOrigen, viajeARegistrar.ciudadDestino, fechaLlegada.value);
+  }
 
         private void Agregar_Click_1(object sender, EventArgs e)
         {// cuando agrego una aeronave tengo que validar que tenia que llegar a ese lugar en esa fecha aproximada
@@ -56,8 +59,12 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 return;
             }
             if (DAO.DAOGenerarViaje.coincideConElViaje(viaje) == 1){
+                /*
                 this.registros.Rows.Add(this.matricula.value, this.AeropuertoOrigen.value, this.AeropuertoDestino.value, this.fechaLlegada.value);
                 Extensions.cleanAll(this.aeronaveLlegada.Controls);
+                return;*/
+                this.openInNewWindow(new Registro_Llegada_Destino.PosiblesLlegadas(viaje, this));
+                
                 return;
             }
             MessageBox.Show("La aeronave no coincide con el viaje que ingresa, por favor verifique los datos.");
@@ -71,6 +78,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                
                 Model.Viaje viaje = new Model.Viaje((String)row.Cells["col_matricula"].Value,
                     (String)row.Cells["col_origen"].Value, (String)row.Cells["col_destino"].Value, Convert.ToDateTime(row.Cells["col_llegada"].Value));
+                viaje.codigo = Convert.ToDecimal(row.Cells["col_codigo"].Value);
 
                 DAO.DAOGenerarViaje.agregarRegistroLlegada(viaje);
                 
@@ -94,5 +102,25 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         }
 
 
+
+             internal bool tieneViaje(String codigoViaje)
+             {
+                 if (registros.RowCount == 0) { return false; }
+                 foreach (DataGridViewRow row in registros.Rows) {
+                     if (String.Equals(Convert.ToString(row.Cells["col_codigo"].Value), codigoViaje)) {
+
+                         return true;
+                     } 
+                 }
+                 return false;
+             }
+
+             private void borrar_Click(object sender, EventArgs e)
+             {
+                 if (registros.RowCount > 0)
+                 {
+                     registros.Rows.RemoveAt(registros.CurrentRow.Index);
+                 }
+             }
     }
 }

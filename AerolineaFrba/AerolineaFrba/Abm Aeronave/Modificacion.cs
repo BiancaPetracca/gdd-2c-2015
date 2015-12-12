@@ -82,6 +82,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private void Modificacion_Load(object sender, EventArgs e)
         
         {
+            kgsEncomiendas.ReadOnly = false;
             this.fabricante.AddAll(DAO.DAOAeronave.listarFabricantes());
             this.fabricante.SelectedItem = aeronave.fabricante;
             this.modelo.AddAll(DAO.DAOAeronave.listarModelos(this.fabricante.value));
@@ -97,7 +98,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 this.modelo.Enabled = false;
                 this.servicio.Enabled = false;
                 this.elegirButacas.Enabled = false;
-                this.kgsEncomiendas.ReadOnly = true;
+                this.kgsEncomiendas.Enabled = false;
              
             };
          

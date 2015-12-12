@@ -31,6 +31,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
             this.Cerrar = new System.Windows.Forms.Button();
             this.registros = new System.Windows.Forms.DataGridView();
+            this.col_codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_origen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +47,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.AeropuertoDestino = new AerolineaFrba.SuperControls.SuperComboBox();
             this.AeropuertoOrigen = new AerolineaFrba.SuperControls.SuperComboBox();
             this.guardar = new AerolineaFrba.SuperControls.SuperButton();
+            this.borrar = new AerolineaFrba.SuperControls.SuperButton();
             ((System.ComponentModel.ISupportInitialize)(this.registros)).BeginInit();
             this.aeronaveLlegada.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +68,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.registros.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.registros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.registros.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_codigo,
             this.col_matricula,
             this.col_origen,
             this.col_destino,
@@ -74,6 +77,12 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.registros.Name = "registros";
             this.registros.Size = new System.Drawing.Size(812, 192);
             this.registros.TabIndex = 11;
+            // 
+            // col_codigo
+            // 
+            this.col_codigo.HeaderText = "Codigo del viaje";
+            this.col_codigo.Name = "col_codigo";
+            this.col_codigo.ReadOnly = true;
             // 
             // col_matricula
             // 
@@ -181,7 +190,6 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.fechaLlegada.Name = "fechaLlegada";
             this.fechaLlegada.Size = new System.Drawing.Size(141, 20);
             this.fechaLlegada.TabIndex = 15;
-        
             // 
             // AeropuertoDestino
             // 
@@ -213,11 +221,22 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             this.guardar.UseVisualStyleBackColor = true;
             this.guardar.Click += new System.EventHandler(this.guardar_Click);
             // 
+            // borrar
+            // 
+            this.borrar.Location = new System.Drawing.Point(600, 357);
+            this.borrar.Name = "borrar";
+            this.borrar.Size = new System.Drawing.Size(75, 23);
+            this.borrar.TabIndex = 18;
+            this.borrar.Text = "Borrar";
+            this.borrar.UseVisualStyleBackColor = true;
+            this.borrar.Click += new System.EventHandler(this.borrar_Click);
+            // 
             // RegistroLlegadaAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 424);
+            this.Controls.Add(this.borrar);
             this.Controls.Add(this.aeronaveLlegada);
             this.Controls.Add(this.guardar);
             this.Controls.Add(this.registros);
@@ -237,10 +256,6 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         private System.Windows.Forms.Button Cerrar;
         private System.Windows.Forms.DataGridView registros;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_matricula;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_origen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_destino;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_llegada;
         private SuperControls.SuperButton guardar;
         private SuperControls.SuperComboBox matricula;
         private SuperControls.SuperComboBox AeropuertoOrigen;
@@ -252,6 +267,12 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         private SuperControls.SuperLabel superLabel3;
         private SuperControls.SuperLabel superLabel2;
         private SuperControls.SuperLabel superLabel1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_codigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_matricula;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_origen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_destino;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_llegada;
+        private SuperControls.SuperButton borrar;
 
     }
 }

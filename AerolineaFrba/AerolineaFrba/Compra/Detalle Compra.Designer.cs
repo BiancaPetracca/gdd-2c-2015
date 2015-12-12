@@ -45,6 +45,8 @@
             // 
             // compra
             // 
+            this.compra.AllowUserToAddRows = false;
+            this.compra.AllowUserToDeleteRows = false;
             this.compra.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.compra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.compra.Location = new System.Drawing.Point(26, 43);

@@ -20,7 +20,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            this.openInNewWindow(new modificar(null, 1, this.Fabricante.value, this));
+            if (Fabricante.isValid())
+            {
+                this.openInNewWindow(new modificar(null, 1, this.Fabricante.value, this));
+            }
         }
 
         private void Modificar_Click(object sender, EventArgs e)
